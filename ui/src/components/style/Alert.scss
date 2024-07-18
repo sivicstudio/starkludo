@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i,600,700");
+//Color-palette
+
+$red: #dc2418;
+$yellow: #999900;
+$green: #2fb809;
+$blue: #0063bf;
+$black: #000000;
+
+.title {
+  font-weight: normal;
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.section {
+  margin: 20px;
+  font: normal 16px/1.2 "Josefin Sans", sans-serif;
+  padding: 10px 0;
+  .alert {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+}
+
+.prize-1 {
+  color: gold;
+}
+
+.prize-2 {
+  color: silver;
+}
+
+.prize-3 {
+  color: #cd7f32;
+}
+
+// Alerts
+@mixin alert-variant(
+  $alert-vertical-padding,
+  $alert-horizontal-padding,
+  $background,
+  $border-color,
+  $text-color
+) {
+  background-color: $background;
+  border: 1px solid $border-color;
+  color: $text-color;
+  padding: $alert-vertical-padding $alert-horizontal-padding;
+  .alert-icon {
+    float: left;
+    margin-right: 15px;
+  }
+  .alert-info {
+    margin: 0 10px 0 0;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  .alert-container {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .close-icon {
+    float: right;
+    color: #000;
+    margin-top: 0;
+    margin-left: 0;
+    width: 21px;
+    height: 21px;
+    position: relative;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-indent: -999px;
+    overflow: hidden;
+    white-space: nowrap;
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 15px;
+      height: 2px;
+      left: 0;
+    }
+    &:before {
+      background-color: #fff;
+      transform: rotate(-45deg);
+    }
+    &:after {
+      background-color: #fff;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.alert {
+  @include alert-variant(15px, 20px, $blue, $blue, #fff);
+  &.alert-red {
+    @include alert-variant(null, null, $red, $red, null);
+  }
+  &.alert-green {
+    @include alert-variant(null, null, $green, $green, null);
+  }
+  &.alert-yellow {
+    @include alert-variant(null, null, $yellow, $yellow, null);
+  }
+  &.alert-blue {
+    @include alert-variant(null, null, $blue, $blue, null);
+  }
+  &.alert-win {
+    @include alert-variant(null, null, $black, $black, null);
+  }
+}
