@@ -14,7 +14,7 @@ The objective is to move all four of your game pieces around the board and reach
 ## Development
 ### Frontend: 
 1. ```
-   # Navigate into the UI DIRECLT
+   # Navigate into the UI directory
    cd ui
 
    # Install dependencies
