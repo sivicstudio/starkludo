@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { OptionsProps } from "./types";
 import "./App.css";
 import Control from "./components/display/Control";
+import { StarknetProvider } from "./starknet-provider";
 
 const App = () => {
   const [gameState, setGameState] = useState({});
@@ -59,29 +60,31 @@ const App = () => {
 
   return (
     <>
-      <GameContext.Provider
-        value={{
-          gameState: gameState,
-          setGameData: setGameData,
-          options: options,
-          setGameOptions: setGameOptions,
-        }}
-      >
-        <Row gutter={0}>
-          <Col xs={12} sm={12} md={6} lg={6} xl={8}>
-            <Ludo />
-          </Col>
-          <Col xs={12} sm={12} md={6} lg={6} xl={2}>
-            <Head />
-            <Menu />
-            <End />
-            <Alert />
-            <Dice />
-            <Control />
-          </Col>
-        </Row>
-      </GameContext.Provider>
-      <ToastContainer position="bottom-center" />
+      <StarknetProvider>
+        <GameContext.Provider
+          value={{
+            gameState: gameState,
+            setGameData: setGameData,
+            options: options,
+            setGameOptions: setGameOptions,
+          }}
+        >
+          <Row gutter={0}>
+            <Col xs={12} sm={12} md={6} lg={6} xl={8}>
+              <Ludo />
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={6} xl={2}>
+              <Head />
+              <Menu />
+              <End />
+              <Alert />
+              <Dice />
+              <Control />
+            </Col>
+          </Row>
+        </GameContext.Provider>
+        <ToastContainer position="bottom-center" />
+      </StarknetProvider>
     </>
   );
 };
