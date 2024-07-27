@@ -11,8 +11,9 @@ import "react-simple-flex-grid/lib/main.css";
 import End from "./components/display/End";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { OptionsProps } from "./types";
+import "./App.css";
+import Control from "./components/display/Control";
 
 const App = () => {
   const [gameState, setGameState] = useState({});
@@ -58,7 +59,6 @@ const App = () => {
 
   return (
     <>
-      {" "}
       <GameContext.Provider
         value={{
           gameState: gameState,
@@ -77,6 +77,7 @@ const App = () => {
             <End />
             <Alert />
             <Dice />
+            <Control />
           </Col>
         </Row>
       </GameContext.Provider>
