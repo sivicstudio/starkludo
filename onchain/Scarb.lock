@@ -2,5 +2,5 @@
 version = 1
 
 [[package]]
-name = "onchain"
+name = "starkludo"
 version = "0.1.0"
