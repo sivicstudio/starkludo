@@ -12,3 +12,6 @@ starknet = "2.6.3"
 
 [[target.starknet-contract]]
 sierra = true
+
+[scripts]
+test = "snforge test"

@@ -3,10 +3,10 @@ use starknet::ContractAddress;
 #[starknet::interface]
 pub trait INFTNameResolver<T> {
     // Get the name associated with an NFT
-    fn get_nft_name(self: @T, id: u256) -> felt252;
+    fn get_name_of_id(self: @T, id: u256) -> felt252;
 
     // Get the token ID associated with a particular name
-    fn get_id_name(self: @T, name: felt252) -> u256;
+    fn get_id_of_name(self: @T, name: felt252) -> u256;
 
     // Mint NFT and associate with name
     fn create_nft_name(ref self: T, name: felt252);
@@ -34,11 +34,11 @@ mod NFTNameResolver {
 
     #[abi(embed_v0)]
     impl NFTNameResolver of super::INFTNameResolver<ContractState> {
-        fn get_nft_name(self: @ContractState, id: u256) -> felt252 {
+        fn get_name_of_id(self: @ContractState, id: u256) -> felt252 {
             self.nft_to_name.read(id)
         }
 
-        fn get_id_name(self: @ContractState, name: felt252) -> u256 {
+        fn get_id_of_name(self: @ContractState, name: felt252) -> u256 {
             self.name_to_nft.read(name)
         }
 
@@ -48,7 +48,7 @@ mod NFTNameResolver {
 
             // Mint NFT
             let nft_contract = IERC721Dispatcher { contract_address: self.nft_address.read() };
-            let new_token_id = nft_contract.get_total_nft();
+            let new_token_id = nft_contract.get_total_nft() + 1;
             nft_contract.mint(caller_address);
 
             // Resolve NFT Id to name
