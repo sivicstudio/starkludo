@@ -1,6 +1,10 @@
 @keyframes spin {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dice-container {
@@ -10,7 +14,7 @@
 
 .spin-die {
   animation-name: spin;
-  animation-duration: .125s;
+  animation-duration: 0.125s;
   animation-iteration-count: 45;
 }
 
@@ -18,9 +22,8 @@
   width: 100px;
   height: 100px;
   background-color: #000;
-  border: 1px solid #50BFE6;
+  border: 4px solid white;
   border-radius: 10px;
-  box-shadow: 0px 2px 6px #50BFE6;
   display: inline-grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   grid-template-areas:
@@ -38,13 +41,12 @@
   }
 }
 
-
 .dot {
   width: 16px;
   height: 16px;
   padding: 5px;
   border-radius: 100%;
-  background-color: #50BFE6;
+  background-color: white;
   display: none;
 }
 
@@ -59,33 +61,51 @@
   display: block;
 }
 
-#tl { grid-area: tl; }
-#tc { grid-area: tc; }
-#tr { grid-area: tr; }
-#cl { grid-area: cl; }
-#cc { grid-area: cc; }
-#cr { grid-area: cr; }
-#bl { grid-area: bl; }
-#bc { grid-area: bc; }
-#br { grid-area: br; }
+#tl {
+  grid-area: tl;
+}
+#tc {
+  grid-area: tc;
+}
+#tr {
+  grid-area: tr;
+}
+#cl {
+  grid-area: cl;
+}
+#cc {
+  grid-area: cc;
+}
+#cr {
+  grid-area: cr;
+}
+#bl {
+  grid-area: bl;
+}
+#bc {
+  grid-area: bc;
+}
+#br {
+  grid-area: br;
+}
 
 .roll-btn {
   width: 70px;
   height: 70px;
   border-radius: 100%;
-  font-size: 30px;
+  font-size: 20px;
   padding: 10px;
-  box-shadow: 0 2px 6px #CCFF00;
   background-color: #000;
-  color: #CCFF00;
+  color: white;
   outline: none;
   border: none;
+  border: solid 2px white;
+  cursor: pointer;
 }
 
 .roll-btn:active {
   background-color: #000;
-  color: #FF9933;
-  box-shadow: 0 2px 6px #FF9933; 
-  border: 1px solid #FF9933;
+  color: #ff9933;
+  box-shadow: 0 2px 6px #ff9933;
+  border: 1px solid #ff9933;
 }
-

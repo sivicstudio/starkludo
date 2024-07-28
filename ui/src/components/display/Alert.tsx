@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { chance } from "../hooks/utils";
-import { FaDiceD20, FaAward } from "react-icons/fa";
+import { FaDiceD20, FaAward, FaPlay } from "react-icons/fa";
 import "../style/Alert.scss";
 
 const Alert = () => {
@@ -22,12 +22,11 @@ const Alert = () => {
             </div>
           ))}
           <div className={`alert alert-${chance[options.chance]}`}>
-            <div className="alert-container">
+            <div className={`alert-container alert-${chance[options.chance]}`}>
               <div className="alert-icon">
-                <FaDiceD20 />
+                <FaPlay />
               </div>
-              <b className="alert-info">Player Chance</b> Player{" "}
-              {chance[options.chance].toUpperCase()} make your move!
+              Now is your move player {chance[options.chance].toUpperCase()}!
             </div>
           </div>
         </div>

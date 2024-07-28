@@ -4,11 +4,11 @@ import { GameContext } from "./components/context/game-context";
 import Ludo from "./components/display/Ludo";
 import Dice from "./components/display/Dice";
 import Menu from "./components/display/Menu";
-import Head from "./components/display/Head";
+import Header from "./components/display/Header";
 import Alert from "./components/display/Alert";
 import { chance } from "./components/hooks/utils";
 import "react-simple-flex-grid/lib/main.css";
-import End from "./components/display/End";
+import RestartGame from "./components/display/RestartGame";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OptionsProps } from "./types";
@@ -74,9 +74,9 @@ const App = () => {
               <Ludo />
             </Col>
             <Col xs={12} sm={12} md={6} lg={6} xl={2}>
-              <Head />
+              <Header />
               <Menu />
-              <End />
+              <RestartGame />
               <Alert />
               <Dice />
               <Control />

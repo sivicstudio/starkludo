@@ -116,7 +116,7 @@ const Dice = () => {
             <Col xs={6}>
               <div>
                 <button className="roll-btn" onClick={roller}>
-                  <FaDice />
+                  Roll
                 </button>
               </div>
             </Col>

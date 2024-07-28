@@ -17,6 +17,7 @@ $black: #000000;
   margin: 20px;
   font: normal 16px/1.2 "Josefin Sans", sans-serif;
   padding: 10px 0;
+
   .alert {
     &:not(:first-child) {
       margin-top: 15px;
@@ -37,32 +38,34 @@ $black: #000000;
 }
 
 // Alerts
-@mixin alert-variant(
-  $alert-vertical-padding,
+@mixin alert-variant($alert-vertical-padding,
   $alert-horizontal-padding,
   $background,
   $border-color,
-  $text-color
-) {
-  background-color: $background;
+  $text-color) {
+  // background-color: $background;
   border: 1px solid $border-color;
-  color: $text-color;
+  color: $border-color;
   padding: $alert-vertical-padding $alert-horizontal-padding;
+
   .alert-icon {
     float: left;
     margin-right: 15px;
   }
+
   .alert-info {
     margin: 0 10px 0 0;
     text-transform: uppercase;
     font-weight: normal;
     font-size: 14px;
   }
+
   .alert-container {
     position: relative;
     max-width: 960px;
     margin: 0 auto;
   }
+
   .close-icon {
     float: right;
     color: #000;
@@ -78,6 +81,7 @@ $black: #000000;
     text-indent: -999px;
     overflow: hidden;
     white-space: nowrap;
+
     &:before,
     &:after {
       content: "";
@@ -87,10 +91,12 @@ $black: #000000;
       height: 2px;
       left: 0;
     }
+
     &:before {
       background-color: #fff;
       transform: rotate(-45deg);
     }
+
     &:after {
       background-color: #fff;
       transform: rotate(45deg);
@@ -100,18 +106,23 @@ $black: #000000;
 
 .alert {
   @include alert-variant(15px, 20px, $blue, $blue, #fff);
+
   &.alert-red {
     @include alert-variant(null, null, $red, $red, null);
   }
+
   &.alert-green {
     @include alert-variant(null, null, $green, $green, null);
   }
+
   &.alert-yellow {
     @include alert-variant(null, null, $yellow, $yellow, null);
   }
+
   &.alert-blue {
     @include alert-variant(null, null, $blue, $blue, null);
   }
+
   &.alert-win {
     @include alert-variant(null, null, $black, $black, null);
   }

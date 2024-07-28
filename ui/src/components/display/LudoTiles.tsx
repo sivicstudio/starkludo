@@ -20,9 +20,7 @@ const LudoTiles: React.FC = () => {
           <div />
           <div className="yellow" />
           <div className="yellow" />
-          <div>
-            <Star />
-          </div>
+          <div></div>
           <div className="yellow" />
           <div />
           <div />
@@ -61,28 +59,24 @@ const LudoTiles: React.FC = () => {
           <div className="green" />
           <div />
           <div />
-          <div>
-            <Star />
-          </div>
+          <div></div>
           <div />
           <div />
           <div />
         </div>
         <div className="row2-col2">
           <div className="contain-triangles">
-            <div className="triangle-right" />
-            <div className="triangle-up" />
-            <div className="triangle-left" />
-            <div className="triangle-down" />
+            <div className="white" />
+            <div className="white" />
+            <div className="white" />
+            <div className="white" />
           </div>
         </div>
         <div className="row2-col3 clearfix">
           <div />
           <div />
           <div />
-          <div>
-            <Star />
-          </div>
+          <div></div>
           <div />
           <div />
           <div className="blue" />
@@ -121,9 +115,7 @@ const LudoTiles: React.FC = () => {
           <div />
           <div />
           <div className="red" />
-          <div>
-            <Star />
-          </div>
+          <div></div>
           <div className="red" />
           <div className="red" />
           <div />
