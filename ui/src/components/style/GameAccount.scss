@@ -50,6 +50,7 @@
         text-align: center;
         justify-content: center;
         width: 100%;
+        padding: 0 20px;
     }
 
     .body-details {
@@ -61,23 +62,55 @@
         justify-content: space-between;
         gap: 15px;
 
-        .details {
+        .wallet-details {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            // justify-content: inherit;
             width: 100%;
             margin-bottom: 20px;
 
             .details-address {
                 width: 100%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
 
                 span:first-of-type {
-                    color: rgb(166, 165, 165)
+                    color: hsl(0, 1%, 65%)
                 }
             }
+        }
+
+        .game-profiles {
+            text-align: left;
+            width: 100%;
+
+            .profile-heading {
+                text-decoration: underline;
+            }
+
+            .add-profile {
+                background-color: white;
+                display: flex;
+                justify-content: space-between;
+                border-radius: 8px;
+
+                input {
+                    border: none;
+                    margin: 3px;
+                    outline: 0;
+                    height: 25px;
+                    padding: 0 5px;
+                    width: 60%;
+                }
+
+                .add-profile-btn {
+                    border-radius: 8px;
+                    padding: 5px 5px;
+                    background-color: green;
+                    color: white;
+                }
+            }
+
         }
 
         .disconnect-btn {
@@ -88,10 +121,8 @@
             cursor: pointer;
             font-size: 1.3rem;
             color: red;
-
         }
     }
-
 }
 
 .wallet {
@@ -117,3 +148,5 @@
     }
 
 }
+
+// 

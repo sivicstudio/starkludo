@@ -6,6 +6,7 @@ import {
   useConnect,
   useDisconnect,
   useNetwork,
+  useStarkProfile,
 } from "@starknet-react/core";
 import { useMemo } from "react";
 import "../style/GameAccount.scss";
@@ -37,6 +38,8 @@ const GameAccount = ({ toggleShowAccount }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
+  const { data: profile } = useStarkProfile({ address });
+  console.log("profile: ", profile);
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
@@ -60,20 +63,31 @@ const GameAccount = ({ toggleShowAccount }) => {
             <ConnectWallet />
           ) : (
             <div className="body-details">
-              <div className="details">
+              {/* Wallet details */}
+              <div className="wallet-details">
                 <div className="details-address">
                   <span>Address</span>
                   <span>{shortenedAddress}</span>
                 </div>
                 <div className="details-address">
                   <span>Starknet ID</span>
-                  <span>ibs.braavos.stark</span>
+                  <span>{profile?.name ? profile.name : "---"}</span>
                 </div>
                 <div className="details-address">
                   <span>Network</span>
                   <span>{chain.network.toUpperCase()}</span>
                 </div>
               </div>
+              {/* Game Profiles */}
+              <div className="game-profiles">
+                <div className="profile-heading">Game Profiles</div>
+                <div className="add-profile">
+                  {" "}
+                  <input placeholder="username" />
+                  <button className="add-profile-btn">Add new profile</button>
+                </div>
+              </div>
+              {/* Disconnect button */}
               <div onClick={() => disconnect()} className="disconnect-btn">
                 Disconnect
               </div>
