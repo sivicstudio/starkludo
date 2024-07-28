@@ -9,7 +9,7 @@ import {
   useStarkProfile,
 } from "@starknet-react/core";
 import { useMemo } from "react";
-import "../style/GameAccount.scss";
+import "../../style/GameAccount.scss";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -39,7 +39,6 @@ const GameAccount = ({ toggleShowAccount }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const { data: profile } = useStarkProfile({ address });
-  console.log("profile: ", profile);
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
@@ -47,7 +46,11 @@ const GameAccount = ({ toggleShowAccount }) => {
   }, [address]);
 
   return (
-    <Draggable grid={[15, 15]} handle=".handle">
+    <Draggable
+      grid={[15, 15]}
+      positionOffset={{ x: "0%", y: "0%" }}
+      handle=".handle"
+    >
       <div className="account">
         <div className="handle">
           <div onClick={() => toggleShowAccount()} className="close">
@@ -82,7 +85,6 @@ const GameAccount = ({ toggleShowAccount }) => {
               <div className="game-profiles">
                 <div className="profile-heading">Game Profiles</div>
                 <div className="add-profile">
-                  {" "}
                   <input placeholder="username" />
                   <button className="add-profile-btn">Add new profile</button>
                 </div>
