@@ -70,10 +70,10 @@ const App = () => {
           }}
         >
           <Row gutter={0}>
-            <Col xs={12} sm={12} md={6} lg={6} xl={8}>
+            <Col xs={12} sm={12} md={6} lg={6}>
               <Ludo />
             </Col>
-            <Col xs={12} sm={12} md={6} lg={6} xl={2}>
+            <Col xs={12} sm={12} md={6} lg={6}>
               <Header />
               <Menu />
               <RestartGame />
