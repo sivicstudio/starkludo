@@ -1,0 +1,16 @@
+.game-help {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 10px;
+
+    .game-help-heading {
+        text-decoration: underline;
+    }
+
+    .game-rules-rules {
+        text-align: left;
+        margin-top: 10px;
+    }
+}

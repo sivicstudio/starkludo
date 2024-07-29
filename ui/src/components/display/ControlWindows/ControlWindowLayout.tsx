@@ -29,17 +29,19 @@ const ControlWindowLayout = ({
             <FiXSquare size={"1.5rem"} fontWeight={800} />
           </div>
         </div>
-        {/* Heading */}
-        <div className="heading">
-          <div className="main" style={{ color: themeColor }}>
-            {title}
+        <div className="body">
+          {/* Heading */}
+          <div className="heading">
+            <div className="main" style={{ color: themeColor }}>
+              {title}
+            </div>
+            <div className="sub" style={{ color: themeColor }}>
+              {subtitle}
+            </div>
           </div>
-          <div className="sub" style={{ color: themeColor }}>
-            {subtitle}
-          </div>
+          {/* Body */}
+          <div className="body-section">{children}</div>
         </div>
-        {/* Body */}
-        <div className="body-section">{children}</div>
       </div>
     </Draggable>
   );
