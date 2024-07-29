@@ -22,6 +22,11 @@
         }
     }
 
+    .body {
+        overflow: scroll;
+        white-space: pre-wrap;
+    }
+
     .heading {
         width: 100%;
         display: flex;

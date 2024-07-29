@@ -8,6 +8,7 @@ pub trait IERC721<TContractState> {
     fn balance_of(self: @TContractState, account: ContractAddress) -> u256;
     fn owner_of(self: @TContractState, token_id: u256) -> ContractAddress;
     fn get_approved(self: @TContractState, token_id: u256) -> ContractAddress;
+    fn get_total_nft(self: @TContractState) -> u256;
     fn is_approved_for_all(
         self: @TContractState, owner: ContractAddress, operator: ContractAddress
     ) -> bool;
@@ -16,7 +17,7 @@ pub trait IERC721<TContractState> {
     fn transfer_from(
         ref self: TContractState, from: ContractAddress, to: ContractAddress, token_id: u256
     );
-    fn mint(ref self: TContractState, to: ContractAddress, token_id: u256);
+    fn mint(ref self: TContractState, to: ContractAddress);
 }
 
 #[starknet::contract]
@@ -40,6 +41,7 @@ mod ERC721 {
         token_approvals: LegacyMap::<u256, ContractAddress>,
         operator_approvals: LegacyMap::<(ContractAddress, ContractAddress), bool>,
         token_uri: LegacyMap<u256, felt252>,
+        counter: u256
     }
 
     #[event]
@@ -139,6 +141,13 @@ mod ERC721 {
         }
 
         ////////////////////////////////
+        // get total count of NFT minted
+        ////////////////////////////////
+        fn get_total_nft(self: @ContractState) -> u256 {
+            self.counter.read()
+        }
+
+        ////////////////////////////////
         // is_approved_for_all function returns approved operator for a token
         ////////////////////////////////
         fn is_approved_for_all(
@@ -187,8 +196,8 @@ mod ERC721 {
             self._transfer(from, to, token_id);
         }
 
-        fn mint(ref self: ContractState, to: ContractAddress, token_id: u256) {
-            self._mint(to, token_id);
+        fn mint(ref self: ContractState, to: ContractAddress) {
+            self._mint(to);
         }
     }
 
@@ -250,8 +259,13 @@ mod ERC721 {
         ////////////////////////////////
         // _mint function mints a new token to the to address
         ////////////////////////////////
-        fn _mint(ref self: ContractState, to: ContractAddress, token_id: u256) {
+        fn _mint(ref self: ContractState, to: ContractAddress) {
             assert(to.is_non_zero(), 'TO_IS_ZERO_ADDRESS');
+
+            // Generate token_id from an increment of total NFT count
+            // ID starts from 1
+            let prev_count = self.counter.read();
+            let token_id = prev_count + 1;
 
             // Ensures token_id is unique
             assert(!self.owner_of(token_id).is_non_zero(), 'ERC721: Token already minted');
@@ -262,6 +276,9 @@ mod ERC721 {
 
             // Update token_id owner
             self.owners.write(token_id, to);
+
+            // Update total NFT count
+            self.counter.write(token_id);
 
             // emit Transfer event
             self.emit(Transfer { from: Zero::zero(), to: to, token_id: token_id });
