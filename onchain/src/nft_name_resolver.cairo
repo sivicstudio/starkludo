@@ -46,6 +46,9 @@ mod NFTNameResolver {
             let caller_address = get_caller_address();
             /// TODO: Validate name length
 
+            // Ensure name is unique
+            assert(self.name_to_nft.read(name) == 0, 'name already claimed!');
+
             // Mint NFT
             let nft_contract = IERC721Dispatcher { contract_address: self.nft_address.read() };
             let new_token_id = nft_contract.get_total_nft() + 1;

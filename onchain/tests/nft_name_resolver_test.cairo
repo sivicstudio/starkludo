@@ -23,10 +23,9 @@ pub fn deploy_contracts() -> (ContractAddress, ContractAddress) {
 #[test]
 fn test_create_nft_name() {
     // Deploy contract
-    let (nft_contract_address, nft_name_resolver_contract_address) = deploy_contracts();
+    let (_, nft_name_resolver_contract_address) = deploy_contracts();
 
     // Get contract dispatcher
-    let nft_dispatcher = IERC721Dispatcher { contract_address: nft_contract_address };
     let nft_name_resolver_dispatcher = INFTNameResolverDispatcher {
         contract_address: nft_name_resolver_contract_address
     };
@@ -48,4 +47,28 @@ fn test_create_nft_name() {
 
     // Check
     assert_eq!(name_of_id_1, 'maxv'.into());
+}
+
+#[test]
+#[should_panic(expected: 'name already claimed!')]
+fn test_cannot_claim_existing_nft_name() {
+    // Deploy contract
+    let (_, nft_name_resolver_contract_address) = deploy_contracts();
+
+    // Get contract dispatcher
+    let nft_name_resolver_dispatcher = INFTNameResolverDispatcher {
+        contract_address: nft_name_resolver_contract_address
+    };
+
+    // Create nft name for first time
+    nft_name_resolver_dispatcher.create_nft_name('princeibs');
+
+    let id_of_name = nft_name_resolver_dispatcher.get_id_of_name('princeibs'.into());
+    let name_of_id = nft_name_resolver_dispatcher.get_name_of_id(id_of_name);
+
+    // Check
+    assert_eq!(name_of_id, 'princeibs'.into());
+
+    // Create nft name for second time with already claimed name
+    nft_name_resolver_dispatcher.create_nft_name('princeibs');
 }

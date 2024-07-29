@@ -12,6 +12,7 @@ starknet = "2.6.3"
 
 [[target.starknet-contract]]
 sierra = true
+casm = true
 
 [scripts]
 test = "snforge test"
