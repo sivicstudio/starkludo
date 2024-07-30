@@ -31,7 +31,15 @@ const Control = () => {
   return (
     <div className="control">
       {showAccount ? (
-        <GameAccount toggleShowAccount={toggleShowAccount} />
+        <ControlWindowLayout
+          toggle={toggleShowAccount}
+          themeColor="blue"
+          title="Account"
+          subtitle="Your portal to the StarkLudo world"
+          positionOffset={{ x: "0%", y: "0%" }}
+        >
+          <GameAccount toggleShowAccount={toggleShowAccount} />
+        </ControlWindowLayout>
       ) : null}
 
       {showLeaderboard ? (
