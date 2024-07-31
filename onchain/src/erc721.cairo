@@ -9,6 +9,7 @@ pub trait IERC721<TContractState> {
     fn owner_of(self: @TContractState, token_id: u256) -> ContractAddress;
     fn get_approved(self: @TContractState, token_id: u256) -> ContractAddress;
     fn get_total_nft(self: @TContractState) -> u256;
+    fn get_token_ids_of_address(self: @TContractState, address: ContractAddress) -> Array<u256>;
     fn is_approved_for_all(
         self: @TContractState, owner: ContractAddress, operator: ContractAddress
     ) -> bool;
@@ -25,6 +26,7 @@ mod ERC721 {
     ////////////////////////////////
     // library imports
     ////////////////////////////////
+    use core::array::ArrayTrait;
     use starknet::{ContractAddress, get_caller_address};
     use core::traits::TryInto;
     use core::num::traits::zero::Zero;
@@ -41,7 +43,11 @@ mod ERC721 {
         token_approvals: LegacyMap::<u256, ContractAddress>,
         operator_approvals: LegacyMap::<(ContractAddress, ContractAddress), bool>,
         token_uri: LegacyMap<u256, felt252>,
-        counter: u256
+        counter: u256,
+        // Track the token ids belonging to an address
+        // address -> (u256, u256); where address is the user address, first u256 is the index, second u256 is the value (token id)
+        token_ids_of_address: LegacyMap<(ContractAddress, u256), u256>,
+        token_count_of_address: LegacyMap<ContractAddress, u256>
     }
 
     #[event]
@@ -145,6 +151,23 @@ mod ERC721 {
         ////////////////////////////////
         fn get_total_nft(self: @ContractState) -> u256 {
             self.counter.read()
+        }
+
+        ////////////////////////////////
+        // get NFT Ids owned by an address
+        ////////////////////////////////
+        fn get_token_ids_of_address(self: @ContractState, address: ContractAddress) -> Array<u256> {
+            let mut token_ids: Array<u256> = ArrayTrait::new();
+            let number_of_ids = self.token_count_of_address.read(address);
+
+            let mut i: u256 = 0;
+            while i < number_of_ids {
+                let token_id = self.token_ids_of_address.read((address, i));
+                token_ids.append(token_id);
+                i += 1;
+            };
+
+            token_ids
         }
 
         ////////////////////////////////
@@ -265,7 +288,7 @@ mod ERC721 {
             // Generate token_id from an increment of total NFT count
             // ID starts from 1
             let prev_count = self.counter.read();
-            let token_id = prev_count + 1;
+            let token_id: u256 = prev_count + 1;
 
             // Ensures token_id is unique
             assert(!self.owner_of(token_id).is_non_zero(), 'ERC721: Token already minted');
@@ -279,6 +302,14 @@ mod ERC721 {
 
             // Update total NFT count
             self.counter.write(token_id);
+
+            // Update token ids of address
+            // A nested mapping is used to track the ids of tokens an address has
+            // Another variable is used to track the number of ids
+            let token_count_of_address = self.token_count_of_address.read(to);
+            self.token_ids_of_address.write((to, token_count_of_address), token_id);
+            // incremenet token count of address
+            self.token_count_of_address.write(to, token_count_of_address + 1);
 
             // emit Transfer event
             self.emit(Transfer { from: Zero::zero(), to: to, token_id: token_id });

@@ -1,127 +1,81 @@
-.account {
-    height: 500px;
-    width: 400px;
-    color: white;
-    background-color: black;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: solid 2px rgb(58, 103, 237);
+.body-section {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.body-details {
+    margin-top: 30px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
 
-    .handle {
-        width: 100%;
-        height: 40px;
-        background-color: rgb(58, 103, 237);
-        cursor: move;
-
-        .close {
-            cursor: pointer;
-            width: fit-content;
-            margin-left: 7px;
-            margin-top: 5px;
-        }
-    }
-
-    .heading {
-        width: 100%;
+    .wallet-details {
         display: flex;
         flex-direction: column;
-        color: white;
-        text-align: center;
-
-        .main {
-            color: white;
-            font-size: 30px;
-            font-family: "Rowdies", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        .sub {
-            font-weight: 200;
-            font-size: smaller;
-        }
-    }
-
-    .body-section {
-        display: flex;
-        text-align: center;
-        justify-content: center;
+        gap: 10px;
         width: 100%;
-        padding: 0 20px;
-    }
+        margin-bottom: 20px;
 
-    .body-details {
-        margin-top: 30px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-
-        .wallet-details {
+        .details-address {
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            margin-bottom: 20px;
+            justify-content: space-between;
 
-            .details-address {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-
-                span:first-of-type {
-                    color: hsl(0, 1%, 65%)
-                }
+            span:first-of-type {
+                color: hsl(0, 1%, 65%)
             }
         }
+    }
 
-        .game-profiles {
-            text-align: left;
-            width: 100%;
+    .game-profiles {
+        text-align: left;
+        width: 100%;
 
-            .profile-heading {
-                text-decoration: underline;
+        .profile-heading {
+            text-decoration: underline;
+        }
+
+        .add-profile {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 8px;
+            margin-top: 10px;
+
+            input {
+                border: none;
+                margin: 3px;
+                outline: 0;
+                height: 25px;
+                padding: 0 5px;
+                width: 60%;
             }
 
-            .add-profile {
-                background-color: white;
-                display: flex;
-                justify-content: space-between;
+            .add-profile-btn {
                 border-radius: 8px;
-
-                input {
-                    border: none;
-                    margin: 3px;
-                    outline: 0;
-                    height: 25px;
-                    padding: 0 5px;
-                    width: 60%;
-                }
-
-                .add-profile-btn {
-                    border-radius: 8px;
-                    padding: 5px 5px;
-                    background-color: green;
-                    color: white;
-                }
+                padding: 5px 5px;
+                background-color: blue;
+                color: white;
+                cursor: pointer;
             }
-
         }
 
-        .disconnect-btn {
-            border: solid 1px white;
-            width: 80%;
-            padding: 5px 15px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 1.3rem;
-            color: red;
-        }
+    }
+
+    .disconnect-btn {
+        border: solid 1px white;
+        width: 80%;
+        padding: 5px 15px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 1.3rem;
+        color: red;
     }
 }
 

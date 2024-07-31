@@ -15,6 +15,7 @@ import { OptionsProps } from "./types";
 import "./App.css";
 import Control from "./components/display/Control";
 import { StarknetProvider } from "./starknet-provider";
+import { FiAlertTriangle, FiZap } from "react-icons/fi";
 
 const App = () => {
   const [gameState, setGameState] = useState({});
@@ -69,6 +70,11 @@ const App = () => {
             setGameOptions: setGameOptions,
           }}
         >
+          <div className="game-behaviour-warning ">
+            <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+            StarkLudo is still in active development{" "}
+            <FiZap color="yellow" size={20} />
+          </div>
           <Row gutter={0}>
             <Col xs={12} sm={12} md={6} lg={6}>
               <Ludo />

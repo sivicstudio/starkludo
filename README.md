@@ -18,10 +18,10 @@ The objective is to move all four of your game pieces around the board and reach
    cd ui
 
    # Install dependencies
-   npm i
+   yarn
 
    # Start local server
-   npm run start
+   yarn run start
    ```
 ### Onchain: 
 

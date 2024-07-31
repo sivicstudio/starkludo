@@ -1,4 +1,10 @@
-.hello {
-  color: white;
-  font-size: 400px;
+.game-behaviour-warning {
+  color: rgb(203, 129, 141);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: solid 1px brown;
+  text-align: center;
+  font-size: 15px;
 }
