@@ -8,7 +8,10 @@ import {
 } from "@starknet-react/core";
 import { useMemo } from "react";
 import "../../style/GameAccount.scss";
-import { getGameProfilesFromAddress } from "../../../utils/helpers";
+import {
+  createGameProfile,
+  getGameProfilesFromAddress,
+} from "../../../utils/helpers";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -51,7 +54,15 @@ const GameAccount = () => {
   const addGameProfile = async () => {
     if (newProfileName === undefined || newProfileName?.length < 2) {
       alert("profile name must be greater than 2");
+      return;
     }
+
+    if (account === undefined) {
+      return;
+    }
+
+    await createGameProfile(newProfileName, account);
+    setNewProfileName("");
   };
 
   useEffect(() => {
@@ -101,7 +112,12 @@ const GameAccount = () => {
                 value={newProfileName}
                 onChange={(e) => setNewProfileName(e.target.value)}
               />
-              <button className="add-profile-btn">Add new profile</button>
+              <button
+                className="add-profile-btn"
+                onClick={() => addGameProfile()}
+              >
+                Add new profile
+              </button>
             </div>
           </div>
           {/* Disconnect button */}
