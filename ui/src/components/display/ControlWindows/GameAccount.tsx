@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useConnect,
@@ -8,6 +8,10 @@ import {
 } from "@starknet-react/core";
 import { useMemo } from "react";
 import "../../style/GameAccount.scss";
+import {
+  createGameProfile,
+  getGameProfilesFromAddress,
+} from "../../../utils/helpers";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -32,15 +36,41 @@ const ConnectWallet = () => {
   );
 };
 
-const GameAccount = ({ toggleShowAccount }) => {
-  const { address } = useAccount();
+const GameAccount = () => {
+  const { address, account } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const { data: profile } = useStarkProfile({ address });
+  const [gameProfiles, setGameProfiles] = useState<string[]>();
+  const [newProfileName, setNewProfileName] = useState<string | undefined>(
+    undefined
+  );
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
     return `${address.slice(0, 5)}...${address.slice(-4)}`;
+  }, [address]);
+
+  const addGameProfile = async () => {
+    if (newProfileName === undefined || newProfileName?.length < 2) {
+      alert("profile name must be greater than 2");
+      return;
+    }
+
+    if (account === undefined) {
+      return;
+    }
+
+    await createGameProfile(newProfileName, account);
+    setNewProfileName("");
+  };
+
+  useEffect(() => {
+    if (address) {
+      getGameProfilesFromAddress(address, setGameProfiles);
+    }
+
+    return () => {};
   }, [address]);
 
   return (
@@ -67,9 +97,27 @@ const GameAccount = ({ toggleShowAccount }) => {
           {/* Game Profiles */}
           <div className="game-profiles">
             <div className="profile-heading">Game Profiles</div>
+            <div className="game-profiles">
+              {gameProfiles && gameProfiles.length > 0 ? (
+                <div>
+                  {gameProfiles.map((gameProfile) => (
+                    <div>{gameProfile}</div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
             <div className="add-profile">
-              <input placeholder="username" />
-              <button className="add-profile-btn">Add new profile</button>
+              <input
+                placeholder="username"
+                value={newProfileName}
+                onChange={(e) => setNewProfileName(e.target.value)}
+              />
+              <button
+                className="add-profile-btn"
+                onClick={() => addGameProfile()}
+              >
+                Add new profile
+              </button>
             </div>
           </div>
           {/* Disconnect button */}
