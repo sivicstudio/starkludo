@@ -38,7 +38,7 @@ const Control = () => {
           subtitle="Your portal to the StarkLudo world"
           positionOffset={{ x: "0%", y: "0%" }}
         >
-          <GameAccount toggleShowAccount={toggleShowAccount} />
+          <GameAccount />
         </ControlWindowLayout>
       ) : null}
 
