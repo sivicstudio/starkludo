@@ -62,12 +62,15 @@ const GameAccount = () => {
       return;
     }
 
-    if (account === undefined) {
+    if (account === undefined || address === undefined) {
+      alert("account is undefined");
       return;
     }
 
     await createGameProfile(newProfileName, account);
     setNewProfileName("");
+
+    await getGameProfilesFromAddress(address, setGameProfiles);
   };
 
   useEffect(() => {
