@@ -10,12 +10,22 @@ export const ERC721_ADDRESS =
 export const NFT_NAME_RESOLVER_ADDRESS =
   "0x644a1ea01363a55d809f1009f014b15b9c0df8fe8ceba02c442165dfee6f012";
 
-export const getERC721Contract = async (): Promise<Contract> => {
+export const getERC721Contract = async (
+  account?: AccountInterface
+): Promise<Contract> => {
   const { abi: ERC721_ABI } = await RPC_PROVIDER.getClassAt(ERC721_ADDRESS);
+
   if (ERC721_ABI === undefined) {
     throw new Error("no ERC721 abi");
   }
+
   let contract = new Contract(ERC721_ABI, ERC721_ADDRESS, RPC_PROVIDER);
+
+  if (account) {
+    contract.connect(account);
+    return contract;
+  }
+
   return contract;
 };
 

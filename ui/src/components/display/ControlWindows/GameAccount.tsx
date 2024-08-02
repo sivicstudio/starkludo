@@ -51,6 +51,11 @@ const GameAccount = () => {
     return `${address.slice(0, 5)}...${address.slice(-4)}`;
   }, [address]);
 
+  const disconnectWallet = () => {
+    setGameProfiles(undefined);
+    disconnect();
+  };
+
   const addGameProfile = async () => {
     if (newProfileName === undefined || newProfileName?.length < 2) {
       alert("profile name must be greater than 2");
@@ -98,13 +103,23 @@ const GameAccount = () => {
           <div className="game-profiles">
             <div className="profile-heading">Game Profiles</div>
             <div className="game-profiles">
-              {gameProfiles && gameProfiles.length > 0 ? (
+              {gameProfiles !== undefined ? (
                 <div>
-                  {gameProfiles.map((gameProfile) => (
-                    <div>{gameProfile}</div>
-                  ))}
+                  {gameProfiles?.length > 0 ? (
+                    <div>
+                      {gameProfiles.map((gameProfile) => (
+                        <div>{gameProfile}</div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ color: "gray" }}>--no profile found--</div>
+                  )}
                 </div>
-              ) : null}
+              ) : (
+                <div style={{ color: "gray" }} className="loading-txt">
+                  Loading...
+                </div>
+              )}
             </div>
             <div className="add-profile">
               <input
@@ -121,7 +136,7 @@ const GameAccount = () => {
             </div>
           </div>
           {/* Disconnect button */}
-          <div onClick={() => disconnect()} className="disconnect-btn">
+          <div onClick={() => disconnectWallet()} className="disconnect-btn">
             Disconnect
           </div>
         </div>
