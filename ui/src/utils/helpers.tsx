@@ -6,6 +6,17 @@ import {
   RPC_PROVIDER,
 } from "./constants";
 
+export const convertHexToString = (hexValue: string) => {
+  let stripHex = hexValue[0].slice(2);
+
+  if (!stripHex) {
+    return "--Error--"
+  }
+
+  const stringValue = stripHex.toString().match(/.{1,2}/g)?.reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), '');
+  return stringValue
+}
+
 export const getGameProfilesFromAddress = async (
   address: string,
   setGameProfiles: any

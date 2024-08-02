@@ -9,6 +9,7 @@ import {
 import { useMemo } from "react";
 import "../../style/GameAccount.scss";
 import {
+  convertHexToString,
   createGameProfile,
   getGameProfilesFromAddress,
 } from "../../../utils/helpers";
@@ -111,7 +112,7 @@ const GameAccount = () => {
                   {gameProfiles?.length > 0 ? (
                     <div>
                       {gameProfiles.map((gameProfile) => (
-                        <div>{gameProfile}</div>
+                        <div>{convertHexToString(gameProfile)}</div>
                       ))}
                     </div>
                   ) : (
