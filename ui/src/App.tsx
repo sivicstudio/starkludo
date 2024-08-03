@@ -57,7 +57,7 @@ const App = () => {
         });
       }
     }
-  }, [options, setGameOptions, alert]);
+  }, [options, setGameOptions]);
 
   return (
     <>
