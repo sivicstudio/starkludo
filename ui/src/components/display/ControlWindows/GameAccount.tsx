@@ -79,7 +79,7 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return () => {};
+    return () => { };
   }, [address]);
 
   return (
@@ -113,7 +113,7 @@ const GameAccount = () => {
                     <div>
                       {gameProfiles.map((gameProfile) => (
                         <div>{convertHexToString(gameProfile)}</div>
-                      ))}
+                      ))}              
                     </div>
                   ) : (
                     <div style={{ color: "gray" }}>--no profile found--</div>
