@@ -6,16 +6,19 @@ import {
   RPC_PROVIDER,
 } from "./constants";
 
-export const convertHexToString = (hexValue: string) => {
+export const convertHexToText = (hexValue: string) => {
   let stripHex = hexValue[0].slice(2);
 
   if (!stripHex) {
-    return "--Error--"
+    return "--Error--";
   }
 
-  const stringValue = stripHex.toString().match(/.{1,2}/g)?.reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), '');
-  return stringValue
-}
+  const stringValue = stripHex
+    .toString()
+    .match(/.{1,2}/g)
+    ?.reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), "");
+  return stringValue;
+};
 
 export const getGameProfilesFromAddress = async (
   address: string,
@@ -30,15 +33,15 @@ export const getGameProfilesFromAddress = async (
     // Convert Ids to string
     ids = ids.map((id) => new BigNumber(id).toString());
 
-    // Loop through Ids and get the corresponding name associated with the Id
     let names: any[] = [];
-    for (let i = 0; i < ids.length; i++) {
-      let name = await getNftNameResolverContract().get_name_of_id(ids[i], {
+
+    // Loop through Ids and get the corresponding name associated with the Id
+    // Reverse the list
+    for (let i = ids.length; i > 0; i--) {
+      let name = await getNftNameResolverContract().get_name_of_id(ids[i - 1], {
         parseResponse: false,
       });
 
-      // Convert name to string
-      //   let bname = new BigNumber(name).toString();
       names.push(name);
     }
 

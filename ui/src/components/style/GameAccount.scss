@@ -28,7 +28,7 @@
             justify-content: space-between;
 
             span:first-of-type {
-                color: hsl(0, 1%, 65%)
+                color: hsl(0, 1%, 65%);
             }
         }
     }
@@ -66,6 +66,22 @@
             }
         }
 
+        .games-profiles-core-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-profile {
+            display: flex;
+            justify-content: space-between;
+            border-radius: 3px;
+            padding: 1px 0;
+        }
+
+        .list-profile:hover {
+            background-color: rgba(0, 0, 255, 0.202);
+            padding: 0 5px;
+        }
     }
 
     .disconnect-btn {
@@ -101,7 +117,6 @@
         border-radius: 7px;
         cursor: pointer;
     }
-
 }
 
-// 
+//
