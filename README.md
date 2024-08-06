@@ -1,7 +1,11 @@
 ﻿# StarkLudo
 Ludo game, on Starknet
 
-| x | y |
+<div align="center">
+  <img src="./assets/starkludo.jpeg" width="355px"/>
+</div>
+
+|  |  |
 | :---         | :---           |
 | Website   | https://starkludo.onrender.com/   |
 | Documentation     | https://hackmd.io/m9AjLcheSXClw9ttzHQmVw    |
@@ -12,8 +16,9 @@ StarkLudo is an online classic board game enjoyed by people of all ages. It’s 
 The objective is to move all four of your game pieces around the board and reach the finish line first and the gaming experience should be on chain fostering togetherness and entertainment while competing amongs friends and loved ones. With the on-chain interaction the players that wins every round of the game will be rewarded with a token.
 
 ## Development
+Steps to build and run StarkLudo locally
 ### Frontend: 
-1. ```
+ ```
    # Navigate into the UI directory
    cd ui
 
@@ -24,4 +29,17 @@ The objective is to move all four of your game pieces around the board and reach
    yarn run start
    ```
 ### Onchain: 
+```
+# Navigate to the onchain directory
+cd onchain
 
+# Build contracts
+scarb build
+
+# Run tests
+scarb test
+
+```
+
+## License
+This project is licensed under the MIT License. See [License](./LICENSE) for more information
