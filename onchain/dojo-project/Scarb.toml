@@ -38,7 +38,7 @@ seed = "starkludo"
 default = "starkludo"
 
 [tool.dojo.world.socials]
-x = "https://x.com/ludoonstarknet"
-discord = "https://discord.gg/FB2wR6uF"
-github = "https://github.com/dojoengine/dojo-starter"
-telegram = "https://t.me/dojoengine"
+x = ""
+discord = ""
+github = "https://github.com/sivicstudio/starkludo"
+telegram = ""
