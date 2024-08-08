@@ -1,6 +1,6 @@
 [package]
 cairo-version = "=2.7.0-rc.3"
-name = "dojo_starter"
+name = "starkludo"
 version = "0.1.0"
 
 [cairo]
@@ -17,7 +17,7 @@ dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.4" }
 [[target.dojo]]
 
 [tool.dojo]
-initializer_class_hash = "0xbeef"
+initializer_class_hash = "0xprinceibs"
 
 [tool.dojo.env]
 rpc_url = "http://localhost:5050/"
@@ -27,18 +27,18 @@ private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a
 # world_address = "0x3fc79ccfd72c1450d2ccb73c5c521a7ec68b6c6af0caf96a0f1c39ce58876c8"  # Uncomment and update this line with your world address.
 
 [tool.dojo.world]
-name = "Dojo starter"
-description = "The official Dojo Starter guide, the quickest and most streamlined way to get your Dojo Autonomous World up and running. This guide will assist you with the initial setup, from cloning the repository to deploying your world."
-cover_uri = "file://assets/cover.png"
-icon_uri = "file://assets/icon.png"
-website = "https://github.com/dojoengine/dojo-starter"
-seed = "dojo_starter"
+name = "StarkLudo"
+description = "Ludo game on Starknet"
+cover_uri = ""
+icon_uri = ""
+website = "https://github.com/sivicstudio/starkludo"
+seed = "starkludo"
 
 [tool.dojo.world.namespace]
-default = "dojo_starter"
+default = "starkludo"
 
 [tool.dojo.world.socials]
-x = "https://x.com/ohayo_dojo"
+x = "https://x.com/ludoonstarknet"
 discord = "https://discord.gg/FB2wR6uF"
 github = "https://github.com/dojoengine/dojo-starter"
 telegram = "https://t.me/dojoengine"
