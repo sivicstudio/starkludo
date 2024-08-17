@@ -60,3 +60,6 @@ scarb test
 ## License
 
 This project is licensed under the MIT License. See [License](./LICENSE) for more information
+
+## Contributing
+Join the contributors Telegram group: https://t.me/+hnjQooODZOA2M2Rk
