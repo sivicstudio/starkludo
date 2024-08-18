@@ -88,4 +88,4 @@ This project is licensed under the MIT License. See [License](./LICENSE) for mor
 
 ## Contributing
 
-Join the contributors Telegram group: https://t.me/+hnjQooODZOA2M2Rk
+For more info and guidance on contributing, join the contributors Telegram group: https://t.me/+hnjQooODZOA2M2Rk
