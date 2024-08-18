@@ -7,12 +7,12 @@ import {
   useStarkProfile,
 } from "@starknet-react/core";
 import { useMemo } from "react";
-import "../../style/GameAccount.scss";
+import "../../styles/GameAccount.scss";
 import {
   convertHexToText,
   createGameProfile,
   getGameProfilesFromAddress,
-} from "../../../utils/helpers";
+} from "../../utils/helpers";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const ConnectWallet = () => {

@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { OptionsProps } from "../../types";
+import { OptionsProps } from "../types";
 
 export const GameContext = createContext<{
   gameState: { [key: string]: string };

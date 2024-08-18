@@ -4,7 +4,7 @@ import LudoTiles from "./LudoTiles";
 import { GameContext } from "../context/game-context";
 import { useSize } from "../hooks/size-hook";
 import { markers } from "../hooks/utils";
-import "../style/Ludo.css";
+import "../styles/Ludo.css";
 
 const Ludo: React.FC = () => {
   const { size, tileMap } = useSize();

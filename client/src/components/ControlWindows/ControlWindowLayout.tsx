@@ -1,7 +1,7 @@
 import React from "react";
 import Draggable from "react-draggable";
 import { FiXSquare } from "react-icons/fi";
-import "../../style/ControlWindowLayout.scss";
+import "../../styles/ControlWindowLayout.scss";
 
 const ControlWindowLayout = ({
   children,

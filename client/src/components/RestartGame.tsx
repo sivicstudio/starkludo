@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
+import RestartGamePNG from "../assets/images/restart.png";
+import "../styles/RestartGame.scss";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
-import RestartGamePNG from "../../assets/images/restart.png";
-import "../style/RestartGame.scss";
 
 const RestartGame: React.FC = () => {
   const { options } = useContext(GameContext);

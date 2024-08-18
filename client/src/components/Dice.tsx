@@ -1,10 +1,8 @@
 import React, { useState, useContext } from "react";
-import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
 import { Row, Col } from "react-simple-flex-grid";
-import { FaDice } from "react-icons/fa";
-
-import "../style/Dice.css";
+import "../styles/Dice.css";
+import { GameContext } from "../context/game-context";
 
 const Dice = () => {
   const { moveValidator } = useGame();

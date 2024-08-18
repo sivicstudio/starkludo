@@ -19,7 +19,6 @@ async function init() {
     <React.StrictMode>
       <DojoProvider value={setupResult}>
         <App />
-        {/* <div>Hell world</div> */}
       </DojoProvider>
     </React.StrictMode>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-import "../style/Header.css";
-import DoubleDice from "../../assets/images/double-dice.png";
+import "../styles/Header.css";
+import DoubleDice from "../assets/images/double-dice.png";
 
 const Header: React.FC = () => {
   return (

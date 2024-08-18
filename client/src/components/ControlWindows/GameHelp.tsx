@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style/GameHelp.scss";
+import "../../styles/GameHelp.scss";
 
 const GameHelp = () => {
   return (

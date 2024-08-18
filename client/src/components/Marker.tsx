@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
 
-import "../style/Marker.scss";
+import "../styles/Marker.scss";
 
 const Marker = ({ pos, size, tileMap }) => {
   const { moveMarker } = useGame();
@@ -12,18 +12,18 @@ const Marker = ({ pos, size, tileMap }) => {
 
   useEffect(() => {
     const countInArray = (array: string[], val: string) => {
-      return array.filter(item => item === val).length;
-    }
+      return array.filter((item) => item === val).length;
+    };
 
-    const randomNumber = () => { 
-      const max = 0.05
-      const min = -0.05 
-      return Math.random() * (max - min) + min; 
-    } 
-    
+    const randomNumber = () => {
+      const max = 0.05;
+      const min = -0.05;
+      return Math.random() * (max - min) + min;
+    };
+
     if (Object.keys(gameState).length > 0) {
-      let c = countInArray(Object.values(gameState), gameState[pos])
-      c = c > 1 ? randomNumber()/2 : 0
+      let c = countInArray(Object.values(gameState), gameState[pos]);
+      c = c > 1 ? randomNumber() / 2 : 0;
       const t = tileMap[gameState[pos]];
       if (markerRef.current !== null) {
         markerRef.current.style.left = `${size * (t[0] + c)}px`;
@@ -32,7 +32,9 @@ const Marker = ({ pos, size, tileMap }) => {
     }
   }, [gameState, pos, size, tileMap]);
 
-  const move: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined = () => {
+  const move:
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | undefined = () => {
     moveMarker(pos, clickMap[pos.charAt(0)]);
   };
 

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
-import Dice2 from "../../assets/images/dice-2.png";
-import Dice3 from "../../assets/images/dice-3.png";
-import Dice4 from "../../assets/images/dice-4.png";
-import "../style/Menu.scss";
+import Dice2 from "../assets/images/dice-2.png";
+import Dice3 from "../assets/images/dice-3.png";
+import Dice4 from "../assets/images/dice-4.png";
+import "../styles/Menu.scss";
 
 const Menu = () => {
   const { options } = useContext(GameContext);

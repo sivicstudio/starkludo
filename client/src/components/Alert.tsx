@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { GameContext } from "../context/game-context";
 import { chance } from "../hooks/utils";
-import { FaDiceD20, FaAward, FaPlay } from "react-icons/fa";
-import "../style/Alert.scss";
+import { FaAward, FaPlay } from "react-icons/fa";
+import "../styles/Alert.scss";
+import { GameContext } from "../context/game-context";
 
 const Alert = () => {
   const { options } = useContext(GameContext);

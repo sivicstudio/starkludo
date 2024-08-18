@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaToolbox, FaUsers } from "react-icons/fa";
 import { FiHelpCircle, FiUser } from "react-icons/fi";
 import { IoIosPodium } from "react-icons/io";
-import "../style/Control.scss";
+import "../styles/Control.scss";
 import GameAccount from "./ControlWindows/GameAccount";
 import Leaderboard from "./ControlWindows/Leaderboard";
 import ControlWindowLayout from "./ControlWindows/ControlWindowLayout";
