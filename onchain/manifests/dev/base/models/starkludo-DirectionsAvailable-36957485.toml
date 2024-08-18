@@ -1,0 +1,16 @@
+kind = "DojoModel"
+class_hash = "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25"
+original_class_hash = "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25"
+abi = "manifests/dev/base/abis/models/starkludo-DirectionsAvailable-36957485.json"
+tag = "starkludo-DirectionsAvailable"
+manifest_name = "starkludo-DirectionsAvailable-36957485"
+
+[[members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "directions"
+type = "Array<Direction>"
+key = false

@@ -79,7 +79,8 @@ sozo migrate apply
 torii --world <WORLD ADDRESS> --allowed-origins "*"
 ```
 
-> To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to:  _**🎉 Successfully migrated World on block #3 at address 0xb4079627ebab1cd3cf9fd075dda1ad2454a7a448bf659591f259efa2519b18**_
+> To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to: <img width="662" alt="image" src="https://github.com/user-attachments/assets/3b84a16e-10f2-4531-83c1-252838f18226">
+
  
 
 ## License
