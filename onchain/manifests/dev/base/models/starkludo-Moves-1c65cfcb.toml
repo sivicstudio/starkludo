@@ -1,0 +1,26 @@
+kind = "DojoModel"
+class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
+original_class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
+abi = "manifests/dev/base/abis/models/starkludo-Moves-1c65cfcb.json"
+tag = "starkludo-Moves"
+manifest_name = "starkludo-Moves-1c65cfcb"
+
+[[members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "remaining"
+type = "u8"
+key = false
+
+[[members]]
+name = "last_direction"
+type = "Direction"
+key = false
+
+[[members]]
+name = "can_move"
+type = "bool"
+key = false

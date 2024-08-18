@@ -1,0 +1,16 @@
+kind = "DojoModel"
+class_hash = "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7"
+original_class_hash = "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7"
+abi = "manifests/dev/base/abis/models/starkludo-Moved-1933e376.json"
+tag = "starkludo-Moved"
+manifest_name = "starkludo-Moved-1933e376"
+
+[[members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "direction"
+type = "Direction"
+key = false

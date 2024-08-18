@@ -1,0 +1,121 @@
+[world]
+kind = "WorldContract"
+class_hash = "0x458d0ce5b14a4844092bdb62050f462d53362304a13febbac6d973691d61be2"
+original_class_hash = "0x458d0ce5b14a4844092bdb62050f462d53362304a13febbac6d973691d61be2"
+abi = "manifests/dev/deployment/abis/dojo-world.json"
+address = "0x6a4ee70a279cc9e2452325ce1229a07a85295dac30a94534307c396ea38ad08"
+transaction_hash = "0x33fdc4aafea3a73789b4dd9c7ebd1cae52b49c4cf7c2f308495a80afbe07573"
+block_number = 3
+seed = "starkludo"
+manifest_name = "dojo-world"
+
+[world.metadata]
+profile_name = "dev"
+rpc_url = "http://localhost:5050/"
+
+[base]
+kind = "Class"
+class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
+original_class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
+abi = "manifests/dev/deployment/abis/dojo-base.json"
+tag = "dojo-base"
+manifest_name = "dojo-base"
+
+[[contracts]]
+kind = "DojoContract"
+address = "0x13f0046b3ba4de23bcd0ea10be91ca7b19c2214e57d7b749342adc398805830"
+class_hash = "0x75cf5b7fefa7aab961ed1215d5ac2af7fdb64b1deba0348d44f10cbb796bf58"
+original_class_hash = "0x75cf5b7fefa7aab961ed1215d5ac2af7fdb64b1deba0348d44f10cbb796bf58"
+base_class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
+abi = "manifests/dev/deployment/abis/contracts/starkludo-actions-6e36eb0d.json"
+reads = []
+writes = [
+    "starkludo-Moves",
+    "starkludo-Position",
+    "starkludo-DirectionsAvailable",
+]
+init_calldata = []
+tag = "starkludo-actions"
+manifest_name = "starkludo-actions-6e36eb0d"
+
+[[models]]
+kind = "DojoModel"
+class_hash = "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25"
+original_class_hash = "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25"
+abi = "manifests/dev/deployment/abis/models/starkludo-DirectionsAvailable-36957485.json"
+tag = "starkludo-DirectionsAvailable"
+manifest_name = "starkludo-DirectionsAvailable-36957485"
+
+[[models.members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[models.members]]
+name = "directions"
+type = "Array<Direction>"
+key = false
+
+[[models]]
+kind = "DojoModel"
+class_hash = "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7"
+original_class_hash = "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7"
+abi = "manifests/dev/deployment/abis/models/starkludo-Moved-1933e376.json"
+tag = "starkludo-Moved"
+manifest_name = "starkludo-Moved-1933e376"
+
+[[models.members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[models.members]]
+name = "direction"
+type = "Direction"
+key = false
+
+[[models]]
+kind = "DojoModel"
+class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
+original_class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
+abi = "manifests/dev/deployment/abis/models/starkludo-Moves-1c65cfcb.json"
+tag = "starkludo-Moves"
+manifest_name = "starkludo-Moves-1c65cfcb"
+
+[[models.members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[models.members]]
+name = "remaining"
+type = "u8"
+key = false
+
+[[models.members]]
+name = "last_direction"
+type = "Direction"
+key = false
+
+[[models.members]]
+name = "can_move"
+type = "bool"
+key = false
+
+[[models]]
+kind = "DojoModel"
+class_hash = "0x26f6acac127b824d05c1e1e7162bc1c800fe179e2d9195aac67ed87bef87a2d"
+original_class_hash = "0x26f6acac127b824d05c1e1e7162bc1c800fe179e2d9195aac67ed87bef87a2d"
+abi = "manifests/dev/deployment/abis/models/starkludo-Position-3a0db170.json"
+tag = "starkludo-Position"
+manifest_name = "starkludo-Position-3a0db170"
+
+[[models.members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[models.members]]
+name = "vec"
+type = "Vec2"
+key = false
