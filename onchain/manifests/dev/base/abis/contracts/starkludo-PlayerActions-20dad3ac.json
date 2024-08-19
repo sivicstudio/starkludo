@@ -128,56 +128,41 @@
   },
   {
     "type": "impl",
-    "name": "ActionsImpl",
-    "interface_name": "starkludo::systems::actions::IActions"
+    "name": "PlayerActions",
+    "interface_name": "starkludo::systems::player_actions::IPlayerActions"
   },
   {
-    "type": "enum",
-    "name": "starkludo::models::models::Direction",
-    "variants": [
+    "type": "struct",
+    "name": "starkludo::models::player::Player",
+    "members": [
       {
-        "name": "None",
-        "type": "()"
+        "name": "username",
+        "type": "core::felt252"
       },
       {
-        "name": "Left",
-        "type": "()"
-      },
-      {
-        "name": "Right",
-        "type": "()"
-      },
-      {
-        "name": "Up",
-        "type": "()"
-      },
-      {
-        "name": "Down",
-        "type": "()"
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
     "type": "interface",
-    "name": "starkludo::systems::actions::IActions",
+    "name": "starkludo::systems::player_actions::IPlayerActions",
     "items": [
       {
         "type": "function",
-        "name": "spawn",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "type": "function",
-        "name": "move",
+        "name": "create",
         "inputs": [
           {
-            "name": "direction",
-            "type": "starkludo::models::models::Direction"
+            "name": "username",
+            "type": "core::felt252"
           }
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "type": "starkludo::models::player::Player"
+          }
+        ],
         "state_mutability": "external"
       }
     ]
@@ -185,11 +170,11 @@
   {
     "type": "impl",
     "name": "IDojoInitImpl",
-    "interface_name": "starkludo::systems::actions::actions::IDojoInit"
+    "interface_name": "starkludo::systems::player_actions::PlayerActions::IDojoInit"
   },
   {
     "type": "interface",
-    "name": "starkludo::systems::actions::actions::IDojoInit",
+    "name": "starkludo::systems::player_actions::PlayerActions::IDojoInit",
     "items": [
       {
         "type": "function",
@@ -249,7 +234,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::systems::actions::actions::Event",
+    "name": "starkludo::systems::player_actions::PlayerActions::Event",
     "kind": "enum",
     "variants": [
       {

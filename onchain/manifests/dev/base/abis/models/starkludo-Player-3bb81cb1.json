@@ -363,52 +363,26 @@
   },
   {
     "type": "impl",
-    "name": "movedImpl",
-    "interface_name": "starkludo::systems::actions::actions::Imoved"
-  },
-  {
-    "type": "enum",
-    "name": "starkludo::models::models::Direction",
-    "variants": [
-      {
-        "name": "None",
-        "type": "()"
-      },
-      {
-        "name": "Left",
-        "type": "()"
-      },
-      {
-        "name": "Right",
-        "type": "()"
-      },
-      {
-        "name": "Up",
-        "type": "()"
-      },
-      {
-        "name": "Down",
-        "type": "()"
-      }
-    ]
+    "name": "playerImpl",
+    "interface_name": "starkludo::models::player::Iplayer"
   },
   {
     "type": "struct",
-    "name": "starkludo::systems::actions::actions::Moved",
+    "name": "starkludo::models::player::Player",
     "members": [
       {
-        "name": "player",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "name": "username",
+        "type": "core::felt252"
       },
       {
-        "name": "direction",
-        "type": "starkludo::models::models::Direction"
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
       }
     ]
   },
   {
     "type": "interface",
-    "name": "starkludo::systems::actions::actions::Imoved",
+    "name": "starkludo::models::player::Iplayer",
     "items": [
       {
         "type": "function",
@@ -416,7 +390,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "starkludo::systems::actions::actions::Moved"
+            "type": "starkludo::models::player::Player"
           }
         ],
         "outputs": [],
@@ -426,7 +400,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::systems::actions::actions::moved::Event",
+    "name": "starkludo::models::player::player::Event",
     "kind": "enum",
     "variants": []
   }

@@ -70,7 +70,7 @@ const App = () => {
             setGameOptions: setGameOptions,
           }}
         >
-          <div className="game-behaviour-warning ">
+          <div className="game-behaviour-warning">
             <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
             StarkLudo is still in active development{" "}
             <FiZap color="yellow" size={20} />

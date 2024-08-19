@@ -364,11 +364,11 @@
   {
     "type": "impl",
     "name": "positionImpl",
-    "interface_name": "starkludo::models::Iposition"
+    "interface_name": "starkludo::models::models::Iposition"
   },
   {
     "type": "struct",
-    "name": "starkludo::models::Vec2",
+    "name": "starkludo::models::models::Vec2",
     "members": [
       {
         "name": "x",
@@ -382,7 +382,7 @@
   },
   {
     "type": "struct",
-    "name": "starkludo::models::Position",
+    "name": "starkludo::models::models::Position",
     "members": [
       {
         "name": "player",
@@ -390,13 +390,13 @@
       },
       {
         "name": "vec",
-        "type": "starkludo::models::Vec2"
+        "type": "starkludo::models::models::Vec2"
       }
     ]
   },
   {
     "type": "interface",
-    "name": "starkludo::models::Iposition",
+    "name": "starkludo::models::models::Iposition",
     "items": [
       {
         "type": "function",
@@ -404,7 +404,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "starkludo::models::Position"
+            "type": "starkludo::models::models::Position"
           }
         ],
         "outputs": [],
@@ -414,7 +414,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::models::position::Event",
+    "name": "starkludo::models::models::position::Event",
     "kind": "enum",
     "variants": []
   }

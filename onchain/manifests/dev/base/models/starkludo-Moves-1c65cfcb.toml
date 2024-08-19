@@ -1,6 +1,6 @@
 kind = "DojoModel"
-class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
-original_class_hash = "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a"
+class_hash = "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582"
+original_class_hash = "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582"
 abi = "manifests/dev/base/abis/models/starkludo-Moves-1c65cfcb.json"
 tag = "starkludo-Moves"
 manifest_name = "starkludo-Moves-1c65cfcb"

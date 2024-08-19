@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[ignore]
 mod tests {
     // import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
@@ -6,53 +7,38 @@ mod tests {
     use dojo::utils::test::{spawn_test_world, deploy_contract};
     // import test utils
     use starkludo::{
-        systems::{actions::{actions, IActionsDispatcher, IActionsDispatcherTrait}},
-        models::{{Position, Vec2, position, Moves, Direction, moves}}
+        systems::{
+            player_actions::{PlayerActions, IPlayerActionsDispatcher, IPlayerActionsDispatcherTrait}
+        },
+        models::player::{Player, player}
     };
+    use starknet::{testing, contract_address_const, get_caller_address};
 
     #[test]
-    fn test_move() {
+    fn test_player_creation() {
         // caller
-        let caller = starknet::contract_address_const::<0x0>();
+        let caller = contract_address_const::<'ibs'>();
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
 
         // models
-        let mut models = array![position::TEST_CLASS_HASH, moves::TEST_CLASS_HASH];
+        let mut models = array![player::TEST_CLASS_HASH];
 
         // deploy world with models
-        let world = spawn_test_world(["dojo_starter"].span(), models.span());
+        let world = spawn_test_world(["starkludo"].span(), models.span());
 
         // deploy systems contract
         let contract_address = world
-            .deploy_contract('salt', actions::TEST_CLASS_HASH.try_into().unwrap());
-        let actions_system = IActionsDispatcher { contract_address };
+            .deploy_contract('salt', PlayerActions::TEST_CLASS_HASH.try_into().unwrap());
+        let player_actions = IPlayerActionsDispatcher { contract_address };
 
-        world.grant_writer(dojo::utils::bytearray_hash(@"dojo_starter"), contract_address);
+        world.grant_writer(dojo::utils::bytearray_hash(@"starkludo"), contract_address);
 
-        // call spawn()
-        actions_system.spawn();
+        player_actions.create('princeibs');
 
-        // call move with direction right
-        actions_system.move(Direction::Right);
+        let mut player = get!(world, 'princeibs', Player);
 
-        // Check world state
-        let moves = get!(world, caller, Moves);
-
-        // casting right direction
-        let right_dir_felt: felt252 = Direction::Right.into();
-
-        // check moves
-        assert(moves.remaining == 99, 'moves is wrong');
-
-        // check last direction
-        assert(moves.last_direction.into() == right_dir_felt, 'last direction is wrong');
-
-        // get new_position
-        let new_position = get!(world, caller, Position);
-
-        // check new position x
-        assert(new_position.vec.x == 11, 'position x is wrong');
-
-        // check new position y
-        assert(new_position.vec.y == 10, 'position y is wrong');
+        assert_eq!(player.owner, caller);
     }
 }

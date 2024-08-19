@@ -363,52 +363,104 @@
   },
   {
     "type": "impl",
-    "name": "movedImpl",
-    "interface_name": "starkludo::systems::actions::actions::Imoved"
+    "name": "gameImpl",
+    "interface_name": "starkludo::models::game::Igame"
   },
   {
     "type": "enum",
-    "name": "starkludo::models::models::Direction",
+    "name": "starkludo::models::game::GameStatus",
     "variants": [
       {
-        "name": "None",
+        "name": "Ongoing",
         "type": "()"
       },
       {
-        "name": "Left",
+        "name": "Ended",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "enum",
+    "name": "starkludo::models::game::GameMode",
+    "variants": [
+      {
+        "name": "SinglePlayer",
         "type": "()"
       },
       {
-        "name": "Right",
-        "type": "()"
-      },
-      {
-        "name": "Up",
-        "type": "()"
-      },
-      {
-        "name": "Down",
+        "name": "MultiPlayer",
         "type": "()"
       }
     ]
   },
   {
     "type": "struct",
-    "name": "starkludo::systems::actions::actions::Moved",
+    "name": "core::integer::u256",
     "members": [
       {
-        "name": "player",
+        "name": "low",
+        "type": "core::integer::u128"
+      },
+      {
+        "name": "high",
+        "type": "core::integer::u128"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "starkludo::models::game::Game",
+    "members": [
+      {
+        "name": "id",
         "type": "core::starknet::contract_address::ContractAddress"
       },
       {
-        "name": "direction",
-        "type": "starkludo::models::models::Direction"
+        "name": "created_by",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "game_status",
+        "type": "starkludo::models::game::GameStatus"
+      },
+      {
+        "name": "game_mode",
+        "type": "starkludo::models::game::GameMode"
+      },
+      {
+        "name": "player_green",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_yellow",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_blue",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_red",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "next_player",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "total_number_of_rolls",
+        "type": "core::integer::u256"
       }
     ]
   },
   {
     "type": "interface",
-    "name": "starkludo::systems::actions::actions::Imoved",
+    "name": "starkludo::models::game::Igame",
     "items": [
       {
         "type": "function",
@@ -416,7 +468,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "starkludo::systems::actions::actions::Moved"
+            "type": "starkludo::models::game::Game"
           }
         ],
         "outputs": [],
@@ -426,7 +478,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::systems::actions::actions::moved::Event",
+    "name": "starkludo::models::game::game::Event",
     "kind": "enum",
     "variants": []
   }

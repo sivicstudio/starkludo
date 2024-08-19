@@ -12,7 +12,7 @@ _<div style="text-align: center">Ludo game, on Starknet</div>_
   </tr>
   <tr>
     <td>Website</td>
-    <td><a href="https://starkludo.onrender.com">https://starkludo.onrender.com</a></td>
+    <td><a href="https://testnet.starkludo.com/">https://testnet.starkludo.com/</a></td>
   </tr>
   <tr>
     <td>Documentation</td>

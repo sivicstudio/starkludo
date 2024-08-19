@@ -1,5 +1,5 @@
-use starkludo::models::Direction;
-use starkludo::models::Position;
+use starkludo::models::models::Direction;
+use starkludo::models::models::Position;
 
 // define the interface
 #[dojo::interface]
@@ -13,7 +13,7 @@ trait IActions {
 mod actions {
     use super::{IActions, next_position};
     use starknet::{ContractAddress, get_caller_address};
-    use starkludo::models::{Position, Vec2, Moves, Direction, DirectionsAvailable};
+    use starkludo::models::models::{Position, Vec2, Moves, Direction, DirectionsAvailable};
 
     #[derive(Copy, Drop, Serde)]
     #[dojo::model]

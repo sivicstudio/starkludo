@@ -1,0 +1,61 @@
+kind = "DojoModel"
+class_hash = "0x8585dfd9e002717929f2f21488a1ff763edbf1a14fb684f3b932039be27db"
+original_class_hash = "0x8585dfd9e002717929f2f21488a1ff763edbf1a14fb684f3b932039be27db"
+abi = "manifests/dev/base/abis/models/starkludo-Game-5286f583.json"
+tag = "starkludo-Game"
+manifest_name = "starkludo-Game-5286f583"
+
+[[members]]
+name = "id"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "created_by"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "game_status"
+type = "GameStatus"
+key = false
+
+[[members]]
+name = "game_mode"
+type = "GameMode"
+key = false
+
+[[members]]
+name = "player_green"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "player_yellow"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "player_blue"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "player_red"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "winner"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "next_player"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "total_number_of_rolls"
+type = "u256"
+key = false
