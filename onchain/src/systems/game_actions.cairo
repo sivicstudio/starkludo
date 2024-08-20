@@ -1,28 +1,41 @@
-use starkludo::models::{game::{Game, GameTrait}};
+use starkludo::models::{game::{Game, GameTrait, GameMode}};
+use starknet::{ContractAddress};
 
 #[dojo::interface]
-trait IPlayerActions {
-    fn create(ref world: IWorldDispatcher, username: felt252);
+trait IGameActions {
+    fn create(
+        ref world: IWorldDispatcher,
+        created_by: ContractAddress,
+        game_mode: GameMode,
+        player_green: ContractAddress,
+        player_yellow: ContractAddress,
+        player_blue: ContractAddress,
+        player_red: ContractAddress
+    );
 }
 
 #[dojo::contract]
-mod PlayerActions {
-    use super::{IPlayerActions, Player, PlayerTrait};
+mod GameActions {
+    use super::{IGameActions, Game, GameTrait, GameMode};
     use starknet::{ContractAddress, get_caller_address};
 
     #[abi(embed_v0)]
-    impl PlayerActionsImpl of IPlayerActions<ContractState> {
-        fn create(ref world: IWorldDispatcher, username: felt252) {
+    impl GameActionsImpl of IGameActions<ContractState> {
+        fn create(
+            ref world: IWorldDispatcher,
+            created_by: ContractAddress,
+            game_mode: GameMode,
+            player_green: ContractAddress,
+            player_yellow: ContractAddress,
+            player_blue: ContractAddress,
+            player_red: ContractAddress
+        ) {
             let caller = get_caller_address();
+            let new_game: Game = GameTrait::new(
+                caller, game_mode, player_green, player_yellow, player_blue, player_red
+            );
 
-            let new_player: Player = PlayerTrait::spawn(username, caller);
-
-            // Ensure player username is unique
-            let mut existing_player = get!(world, username, (Player));
-
-            assert(existing_player.owner == 0.try_into().unwrap(), 'username already taken');
-
-            set!(world, (new_player));
+            set!(world, (new_game));
         }
     }
 }

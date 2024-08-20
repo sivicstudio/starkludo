@@ -15,7 +15,7 @@ mod PlayerActions {
         fn create(ref world: IWorldDispatcher, username: felt252) {
             let caller = get_caller_address();
 
-            let new_player: Player = PlayerTrait::spawn(username, caller);
+            let new_player: Player = PlayerTrait::new(username, caller);
 
             // Ensure player username is unique
             let mut existing_player = get!(world, username, (Player));

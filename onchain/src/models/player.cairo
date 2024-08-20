@@ -11,11 +11,11 @@ pub struct Player {
 }
 
 pub trait PlayerTrait {
-    fn spawn(username: felt252, owner: ContractAddress) -> Player;
+    fn new(username: felt252, owner: ContractAddress) -> Player;
 }
 
 impl PlayerImpl of PlayerTrait {
-    fn spawn(username: felt252, owner: ContractAddress) -> Player {
+    fn new(username: felt252, owner: ContractAddress) -> Player {
         Player { username, owner, total_games_played: 0, total_games_won: 0 }
     }
 }

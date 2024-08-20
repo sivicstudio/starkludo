@@ -11,5 +11,6 @@ mod models {
 }
 
 mod tests {
-    mod test_world;
+    mod test_game;
+    mod test_player;
 }

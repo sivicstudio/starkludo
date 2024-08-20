@@ -1,13 +1,13 @@
 kind = "DojoModel"
-class_hash = "0x8585dfd9e002717929f2f21488a1ff763edbf1a14fb684f3b932039be27db"
-original_class_hash = "0x8585dfd9e002717929f2f21488a1ff763edbf1a14fb684f3b932039be27db"
+class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
+original_class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
 abi = "manifests/dev/base/abis/models/starkludo-Game-5286f583.json"
 tag = "starkludo-Game"
 manifest_name = "starkludo-Game-5286f583"
 
 [[members]]
 name = "id"
-type = "ContractAddress"
+type = "u64"
 key = true
 
 [[members]]
@@ -56,6 +56,11 @@ type = "ContractAddress"
 key = false
 
 [[members]]
-name = "total_number_of_rolls"
+name = "rolls_count"
+type = "u256"
+key = false
+
+[[members]]
+name = "rolls_times"
 type = "u256"
 key = false

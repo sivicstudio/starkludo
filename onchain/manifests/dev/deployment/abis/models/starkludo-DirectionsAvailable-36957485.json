@@ -364,11 +364,11 @@
   {
     "type": "impl",
     "name": "directions_availableImpl",
-    "interface_name": "starkludo::models::Idirections_available"
+    "interface_name": "starkludo::models::models::Idirections_available"
   },
   {
     "type": "enum",
-    "name": "starkludo::models::Direction",
+    "name": "starkludo::models::models::Direction",
     "variants": [
       {
         "name": "None",
@@ -394,7 +394,7 @@
   },
   {
     "type": "struct",
-    "name": "starkludo::models::DirectionsAvailable",
+    "name": "starkludo::models::models::DirectionsAvailable",
     "members": [
       {
         "name": "player",
@@ -402,13 +402,13 @@
       },
       {
         "name": "directions",
-        "type": "core::array::Array::<starkludo::models::Direction>"
+        "type": "core::array::Array::<starkludo::models::models::Direction>"
       }
     ]
   },
   {
     "type": "interface",
-    "name": "starkludo::models::Idirections_available",
+    "name": "starkludo::models::models::Idirections_available",
     "items": [
       {
         "type": "function",
@@ -416,7 +416,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "starkludo::models::DirectionsAvailable"
+            "type": "starkludo::models::models::DirectionsAvailable"
           }
         ],
         "outputs": [],
@@ -426,7 +426,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::models::directions_available::Event",
+    "name": "starkludo::models::models::directions_available::Event",
     "kind": "enum",
     "variants": []
   }

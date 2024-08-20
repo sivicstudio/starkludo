@@ -364,11 +364,11 @@
   {
     "type": "impl",
     "name": "movesImpl",
-    "interface_name": "starkludo::models::Imoves"
+    "interface_name": "starkludo::models::models::Imoves"
   },
   {
     "type": "enum",
-    "name": "starkludo::models::Direction",
+    "name": "starkludo::models::models::Direction",
     "variants": [
       {
         "name": "None",
@@ -408,7 +408,7 @@
   },
   {
     "type": "struct",
-    "name": "starkludo::models::Moves",
+    "name": "starkludo::models::models::Moves",
     "members": [
       {
         "name": "player",
@@ -420,7 +420,7 @@
       },
       {
         "name": "last_direction",
-        "type": "starkludo::models::Direction"
+        "type": "starkludo::models::models::Direction"
       },
       {
         "name": "can_move",
@@ -430,7 +430,7 @@
   },
   {
     "type": "interface",
-    "name": "starkludo::models::Imoves",
+    "name": "starkludo::models::models::Imoves",
     "items": [
       {
         "type": "function",
@@ -438,7 +438,7 @@
         "inputs": [
           {
             "name": "model",
-            "type": "starkludo::models::Moves"
+            "type": "starkludo::models::models::Moves"
           }
         ],
         "outputs": [],
@@ -448,7 +448,7 @@
   },
   {
     "type": "event",
-    "name": "starkludo::models::moves::Event",
+    "name": "starkludo::models::models::moves::Event",
     "kind": "enum",
     "variants": []
   }

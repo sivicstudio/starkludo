@@ -1250,9 +1250,525 @@
   "contracts": [
     {
       "kind": "DojoContract",
+      "address": "0x908082dbf62c9aa5ff12310a1f2cfb767358e177a547e157014fc23ca1ff17",
+      "class_hash": "0x2ed005c44b479da8f9be1d3e652cc916b18ed93038b5538a8b13b45abd22df8",
+      "original_class_hash": "0x2ed005c44b479da8f9be1d3e652cc916b18ed93038b5538a8b13b45abd22df8",
+      "base_class_hash": "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2",
+      "abi": [
+        {
+          "type": "impl",
+          "name": "ContractImpl",
+          "interface_name": "dojo::contract::contract::IContract"
+        },
+        {
+          "type": "struct",
+          "name": "core::byte_array::ByteArray",
+          "members": [
+            {
+              "name": "data",
+              "type": "core::array::Array::<core::bytes_31::bytes31>"
+            },
+            {
+              "name": "pending_word",
+              "type": "core::felt252"
+            },
+            {
+              "name": "pending_word_len",
+              "type": "core::integer::u32"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::contract::contract::IContract",
+          "items": [
+            {
+              "type": "function",
+              "name": "contract_name",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "tag",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "name_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "selector",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "WorldProviderImpl",
+          "interface_name": "dojo::world::world_contract::IWorldProvider"
+        },
+        {
+          "type": "struct",
+          "name": "dojo::world::world_contract::IWorldDispatcher",
+          "members": [
+            {
+              "name": "contract_address",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::world::world_contract::IWorldProvider",
+          "items": [
+            {
+              "type": "function",
+              "name": "world",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::world::world_contract::IWorldDispatcher"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "GameActionsImpl",
+          "interface_name": "starkludo::systems::game_actions::IGameActions"
+        },
+        {
+          "type": "enum",
+          "name": "starkludo::models::game::GameMode",
+          "variants": [
+            {
+              "name": "SinglePlayer",
+              "type": "()"
+            },
+            {
+              "name": "MultiPlayer",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::systems::game_actions::IGameActions",
+          "items": [
+            {
+              "type": "function",
+              "name": "create",
+              "inputs": [
+                {
+                  "name": "created_by",
+                  "type": "core::starknet::contract_address::ContractAddress"
+                },
+                {
+                  "name": "game_mode",
+                  "type": "starkludo::models::game::GameMode"
+                },
+                {
+                  "name": "player_green",
+                  "type": "core::starknet::contract_address::ContractAddress"
+                },
+                {
+                  "name": "player_yellow",
+                  "type": "core::starknet::contract_address::ContractAddress"
+                },
+                {
+                  "name": "player_blue",
+                  "type": "core::starknet::contract_address::ContractAddress"
+                },
+                {
+                  "name": "player_red",
+                  "type": "core::starknet::contract_address::ContractAddress"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "IDojoInitImpl",
+          "interface_name": "starkludo::systems::game_actions::GameActions::IDojoInit"
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::systems::game_actions::GameActions::IDojoInit",
+          "items": [
+            {
+              "type": "function",
+              "name": "dojo_init",
+              "inputs": [],
+              "outputs": [],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "UpgradableImpl",
+          "interface_name": "dojo::contract::upgradeable::IUpgradeable"
+        },
+        {
+          "type": "interface",
+          "name": "dojo::contract::upgradeable::IUpgradeable",
+          "items": [
+            {
+              "type": "function",
+              "name": "upgrade",
+              "inputs": [
+                {
+                  "name": "new_class_hash",
+                  "type": "core::starknet::class_hash::ClassHash"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "dojo::contract::upgradeable::upgradeable::Upgraded",
+          "kind": "struct",
+          "members": [
+            {
+              "name": "class_hash",
+              "type": "core::starknet::class_hash::ClassHash",
+              "kind": "data"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "dojo::contract::upgradeable::upgradeable::Event",
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "Upgraded",
+              "type": "dojo::contract::upgradeable::upgradeable::Upgraded",
+              "kind": "nested"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "starkludo::systems::game_actions::GameActions::Event",
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "UpgradeableEvent",
+              "type": "dojo::contract::upgradeable::upgradeable::Event",
+              "kind": "nested"
+            }
+          ]
+        }
+      ],
+      "reads": [],
+      "writes": [],
+      "init_calldata": [],
+      "tag": "starkludo-GameActions",
+      "manifest_name": "starkludo-GameActions-72b46dc4"
+    },
+    {
+      "kind": "DojoContract",
+      "address": "0x13bd241aa6a8e86a97874a07f8250eb3e8d08212598dda1b1a6a5b733be14b9",
+      "class_hash": "0x438814aa090e52932a81cd60adb0bc4d28e3610d325f8a8a79880a11c0bebd6",
+      "original_class_hash": "0x438814aa090e52932a81cd60adb0bc4d28e3610d325f8a8a79880a11c0bebd6",
+      "base_class_hash": "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2",
+      "abi": [
+        {
+          "type": "impl",
+          "name": "ContractImpl",
+          "interface_name": "dojo::contract::contract::IContract"
+        },
+        {
+          "type": "struct",
+          "name": "core::byte_array::ByteArray",
+          "members": [
+            {
+              "name": "data",
+              "type": "core::array::Array::<core::bytes_31::bytes31>"
+            },
+            {
+              "name": "pending_word",
+              "type": "core::felt252"
+            },
+            {
+              "name": "pending_word_len",
+              "type": "core::integer::u32"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::contract::contract::IContract",
+          "items": [
+            {
+              "type": "function",
+              "name": "contract_name",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "tag",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "name_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "selector",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "WorldProviderImpl",
+          "interface_name": "dojo::world::world_contract::IWorldProvider"
+        },
+        {
+          "type": "struct",
+          "name": "dojo::world::world_contract::IWorldDispatcher",
+          "members": [
+            {
+              "name": "contract_address",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::world::world_contract::IWorldProvider",
+          "items": [
+            {
+              "type": "function",
+              "name": "world",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::world::world_contract::IWorldDispatcher"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "PlayerActionsImpl",
+          "interface_name": "starkludo::systems::player_actions::IPlayerActions"
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::systems::player_actions::IPlayerActions",
+          "items": [
+            {
+              "type": "function",
+              "name": "create",
+              "inputs": [
+                {
+                  "name": "username",
+                  "type": "core::felt252"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "IDojoInitImpl",
+          "interface_name": "starkludo::systems::player_actions::PlayerActions::IDojoInit"
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::systems::player_actions::PlayerActions::IDojoInit",
+          "items": [
+            {
+              "type": "function",
+              "name": "dojo_init",
+              "inputs": [],
+              "outputs": [],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "UpgradableImpl",
+          "interface_name": "dojo::contract::upgradeable::IUpgradeable"
+        },
+        {
+          "type": "interface",
+          "name": "dojo::contract::upgradeable::IUpgradeable",
+          "items": [
+            {
+              "type": "function",
+              "name": "upgrade",
+              "inputs": [
+                {
+                  "name": "new_class_hash",
+                  "type": "core::starknet::class_hash::ClassHash"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "dojo::contract::upgradeable::upgradeable::Upgraded",
+          "kind": "struct",
+          "members": [
+            {
+              "name": "class_hash",
+              "type": "core::starknet::class_hash::ClassHash",
+              "kind": "data"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "dojo::contract::upgradeable::upgradeable::Event",
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "Upgraded",
+              "type": "dojo::contract::upgradeable::upgradeable::Upgraded",
+              "kind": "nested"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "starkludo::systems::player_actions::PlayerActions::Event",
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "UpgradeableEvent",
+              "type": "dojo::contract::upgradeable::upgradeable::Event",
+              "kind": "nested"
+            }
+          ]
+        }
+      ],
+      "reads": [],
+      "writes": [],
+      "init_calldata": [],
+      "tag": "starkludo-PlayerActions",
+      "manifest_name": "starkludo-PlayerActions-20dad3ac"
+    },
+    {
+      "kind": "DojoContract",
       "address": "0x13f0046b3ba4de23bcd0ea10be91ca7b19c2214e57d7b749342adc398805830",
-      "class_hash": "0x75cf5b7fefa7aab961ed1215d5ac2af7fdb64b1deba0348d44f10cbb796bf58",
-      "original_class_hash": "0x75cf5b7fefa7aab961ed1215d5ac2af7fdb64b1deba0348d44f10cbb796bf58",
+      "class_hash": "0x1051562de62212122f575573026755bd6b6710a99808072c8d9a0c54248f75b",
+      "original_class_hash": "0x1051562de62212122f575573026755bd6b6710a99808072c8d9a0c54248f75b",
       "base_class_hash": "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2",
       "abi": [
         {
@@ -1389,7 +1905,7 @@
         },
         {
           "type": "enum",
-          "name": "starkludo::models::Direction",
+          "name": "starkludo::models::models::Direction",
           "variants": [
             {
               "name": "None",
@@ -1430,7 +1946,7 @@
               "inputs": [
                 {
                   "name": "direction",
-                  "type": "starkludo::models::Direction"
+                  "type": "starkludo::models::models::Direction"
                 }
               ],
               "outputs": [],
@@ -1542,8 +2058,8 @@
           "key": false
         }
       ],
-      "class_hash": "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25",
-      "original_class_hash": "0x5d26dd3d95901b7e78cb11e3750e6d455ca8435bfa40bf850229f277a76cb25",
+      "class_hash": "0x32c940853714eb78aa4c5de42d1c8b4d06efef4f54d9e20b755b494e96c897d",
+      "original_class_hash": "0x32c940853714eb78aa4c5de42d1c8b4d06efef4f54d9e20b755b494e96c897d",
       "abi": [
         {
           "type": "impl",
@@ -1910,11 +2426,11 @@
         {
           "type": "impl",
           "name": "directions_availableImpl",
-          "interface_name": "starkludo::models::Idirections_available"
+          "interface_name": "starkludo::models::models::Idirections_available"
         },
         {
           "type": "enum",
-          "name": "starkludo::models::Direction",
+          "name": "starkludo::models::models::Direction",
           "variants": [
             {
               "name": "None",
@@ -1940,7 +2456,7 @@
         },
         {
           "type": "struct",
-          "name": "starkludo::models::DirectionsAvailable",
+          "name": "starkludo::models::models::DirectionsAvailable",
           "members": [
             {
               "name": "player",
@@ -1948,13 +2464,13 @@
             },
             {
               "name": "directions",
-              "type": "core::array::Array::<starkludo::models::Direction>"
+              "type": "core::array::Array::<starkludo::models::models::Direction>"
             }
           ]
         },
         {
           "type": "interface",
-          "name": "starkludo::models::Idirections_available",
+          "name": "starkludo::models::models::Idirections_available",
           "items": [
             {
               "type": "function",
@@ -1962,7 +2478,7 @@
               "inputs": [
                 {
                   "name": "model",
-                  "type": "starkludo::models::DirectionsAvailable"
+                  "type": "starkludo::models::models::DirectionsAvailable"
                 }
               ],
               "outputs": [],
@@ -1972,13 +2488,571 @@
         },
         {
           "type": "event",
-          "name": "starkludo::models::directions_available::Event",
+          "name": "starkludo::models::models::directions_available::Event",
           "kind": "enum",
           "variants": []
         }
       ],
       "tag": "starkludo-DirectionsAvailable",
       "manifest_name": "starkludo-DirectionsAvailable-36957485"
+    },
+    {
+      "kind": "DojoModel",
+      "members": [
+        {
+          "name": "id",
+          "type": "u64",
+          "key": true
+        },
+        {
+          "name": "created_by",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "game_status",
+          "type": "GameStatus",
+          "key": false
+        },
+        {
+          "name": "game_mode",
+          "type": "GameMode",
+          "key": false
+        },
+        {
+          "name": "player_green",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "player_yellow",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "player_blue",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "player_red",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "winner",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "next_player",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "rolls_count",
+          "type": "u256",
+          "key": false
+        },
+        {
+          "name": "rolls_times",
+          "type": "u256",
+          "key": false
+        }
+      ],
+      "class_hash": "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e",
+      "original_class_hash": "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e",
+      "abi": [
+        {
+          "type": "impl",
+          "name": "DojoModelImpl",
+          "interface_name": "dojo::model::model::IModel"
+        },
+        {
+          "type": "struct",
+          "name": "core::byte_array::ByteArray",
+          "members": [
+            {
+              "name": "data",
+              "type": "core::array::Array::<core::bytes_31::bytes31>"
+            },
+            {
+              "name": "pending_word",
+              "type": "core::felt252"
+            },
+            {
+              "name": "pending_word_len",
+              "type": "core::integer::u32"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "core::option::Option::<core::integer::u32>",
+          "variants": [
+            {
+              "name": "Some",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "None",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<core::integer::u8>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<core::integer::u8>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::layout::FieldLayout",
+          "members": [
+            {
+              "name": "selector",
+              "type": "core::felt252"
+            },
+            {
+              "name": "layout",
+              "type": "dojo::model::layout::Layout"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::layout::FieldLayout>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::layout::FieldLayout>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::layout::Layout>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::layout::Layout>"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "dojo::model::layout::Layout",
+          "variants": [
+            {
+              "name": "Fixed",
+              "type": "core::array::Span::<core::integer::u8>"
+            },
+            {
+              "name": "Struct",
+              "type": "core::array::Span::<dojo::model::layout::FieldLayout>"
+            },
+            {
+              "name": "Tuple",
+              "type": "core::array::Span::<dojo::model::layout::Layout>"
+            },
+            {
+              "name": "Array",
+              "type": "core::array::Span::<dojo::model::layout::Layout>"
+            },
+            {
+              "name": "ByteArray",
+              "type": "()"
+            },
+            {
+              "name": "Enum",
+              "type": "core::array::Span::<dojo::model::layout::FieldLayout>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<core::felt252>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<core::felt252>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Member",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "ty",
+              "type": "dojo::model::introspect::Ty"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::introspect::Member>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::introspect::Member>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Struct",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "children",
+              "type": "core::array::Span::<dojo::model::introspect::Member>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<(core::felt252, dojo::model::introspect::Ty)>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<(core::felt252, dojo::model::introspect::Ty)>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Enum",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "children",
+              "type": "core::array::Span::<(core::felt252, dojo::model::introspect::Ty)>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::introspect::Ty>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::introspect::Ty>"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "dojo::model::introspect::Ty",
+          "variants": [
+            {
+              "name": "Primitive",
+              "type": "core::felt252"
+            },
+            {
+              "name": "Struct",
+              "type": "dojo::model::introspect::Struct"
+            },
+            {
+              "name": "Enum",
+              "type": "dojo::model::introspect::Enum"
+            },
+            {
+              "name": "Tuple",
+              "type": "core::array::Span::<dojo::model::introspect::Ty>"
+            },
+            {
+              "name": "Array",
+              "type": "core::array::Span::<dojo::model::introspect::Ty>"
+            },
+            {
+              "name": "ByteArray",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::model::model::IModel",
+          "items": [
+            {
+              "type": "function",
+              "name": "name",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "tag",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "version",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::integer::u8"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "selector",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "name_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "unpacked_size",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::option::Option::<core::integer::u32>"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "packed_size",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::option::Option::<core::integer::u32>"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "layout",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::model::layout::Layout"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "schema",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::model::introspect::Ty"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "gameImpl",
+          "interface_name": "starkludo::models::game::Igame"
+        },
+        {
+          "type": "enum",
+          "name": "starkludo::models::game::GameStatus",
+          "variants": [
+            {
+              "name": "Ongoing",
+              "type": "()"
+            },
+            {
+              "name": "Ended",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "starkludo::models::game::GameMode",
+          "variants": [
+            {
+              "name": "SinglePlayer",
+              "type": "()"
+            },
+            {
+              "name": "MultiPlayer",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::integer::u256",
+          "members": [
+            {
+              "name": "low",
+              "type": "core::integer::u128"
+            },
+            {
+              "name": "high",
+              "type": "core::integer::u128"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "starkludo::models::game::Game",
+          "members": [
+            {
+              "name": "id",
+              "type": "core::integer::u64"
+            },
+            {
+              "name": "created_by",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "game_status",
+              "type": "starkludo::models::game::GameStatus"
+            },
+            {
+              "name": "game_mode",
+              "type": "starkludo::models::game::GameMode"
+            },
+            {
+              "name": "player_green",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "player_yellow",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "player_blue",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "player_red",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "winner",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "next_player",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "rolls_count",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "rolls_times",
+              "type": "core::integer::u256"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::models::game::Igame",
+          "items": [
+            {
+              "type": "function",
+              "name": "ensure_abi",
+              "inputs": [
+                {
+                  "name": "model",
+                  "type": "starkludo::models::game::Game"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "starkludo::models::game::game::Event",
+          "kind": "enum",
+          "variants": []
+        }
+      ],
+      "tag": "starkludo-Game",
+      "manifest_name": "starkludo-Game-5286f583"
     },
     {
       "kind": "DojoModel",
@@ -1994,8 +3068,8 @@
           "key": false
         }
       ],
-      "class_hash": "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7",
-      "original_class_hash": "0x33ce7bf0e623579f097a752f5bde02cd7a732899113029923c45e060449ced7",
+      "class_hash": "0x89ac84c2d5ef822377403b45d969e65372ed2db306d238baa6aac0b429edb1",
+      "original_class_hash": "0x89ac84c2d5ef822377403b45d969e65372ed2db306d238baa6aac0b429edb1",
       "abi": [
         {
           "type": "impl",
@@ -2366,7 +3440,7 @@
         },
         {
           "type": "enum",
-          "name": "starkludo::models::Direction",
+          "name": "starkludo::models::models::Direction",
           "variants": [
             {
               "name": "None",
@@ -2400,7 +3474,7 @@
             },
             {
               "name": "direction",
-              "type": "starkludo::models::Direction"
+              "type": "starkludo::models::models::Direction"
             }
           ]
         },
@@ -2456,8 +3530,8 @@
           "key": false
         }
       ],
-      "class_hash": "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a",
-      "original_class_hash": "0x35323915cc7d59c187a2cadbf3806b05f993f3fdf29b45756d02b6b7267400a",
+      "class_hash": "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582",
+      "original_class_hash": "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582",
       "abi": [
         {
           "type": "impl",
@@ -2824,11 +3898,11 @@
         {
           "type": "impl",
           "name": "movesImpl",
-          "interface_name": "starkludo::models::Imoves"
+          "interface_name": "starkludo::models::models::Imoves"
         },
         {
           "type": "enum",
-          "name": "starkludo::models::Direction",
+          "name": "starkludo::models::models::Direction",
           "variants": [
             {
               "name": "None",
@@ -2868,7 +3942,7 @@
         },
         {
           "type": "struct",
-          "name": "starkludo::models::Moves",
+          "name": "starkludo::models::models::Moves",
           "members": [
             {
               "name": "player",
@@ -2880,7 +3954,7 @@
             },
             {
               "name": "last_direction",
-              "type": "starkludo::models::Direction"
+              "type": "starkludo::models::models::Direction"
             },
             {
               "name": "can_move",
@@ -2890,7 +3964,7 @@
         },
         {
           "type": "interface",
-          "name": "starkludo::models::Imoves",
+          "name": "starkludo::models::models::Imoves",
           "items": [
             {
               "type": "function",
@@ -2898,7 +3972,7 @@
               "inputs": [
                 {
                   "name": "model",
-                  "type": "starkludo::models::Moves"
+                  "type": "starkludo::models::models::Moves"
                 }
               ],
               "outputs": [],
@@ -2908,13 +3982,471 @@
         },
         {
           "type": "event",
-          "name": "starkludo::models::moves::Event",
+          "name": "starkludo::models::models::moves::Event",
           "kind": "enum",
           "variants": []
         }
       ],
       "tag": "starkludo-Moves",
       "manifest_name": "starkludo-Moves-1c65cfcb"
+    },
+    {
+      "kind": "DojoModel",
+      "members": [
+        {
+          "name": "username",
+          "type": "felt252",
+          "key": true
+        },
+        {
+          "name": "owner",
+          "type": "ContractAddress",
+          "key": false
+        },
+        {
+          "name": "total_games_played",
+          "type": "u256",
+          "key": false
+        },
+        {
+          "name": "total_games_won",
+          "type": "u256",
+          "key": false
+        }
+      ],
+      "class_hash": "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2",
+      "original_class_hash": "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2",
+      "abi": [
+        {
+          "type": "impl",
+          "name": "DojoModelImpl",
+          "interface_name": "dojo::model::model::IModel"
+        },
+        {
+          "type": "struct",
+          "name": "core::byte_array::ByteArray",
+          "members": [
+            {
+              "name": "data",
+              "type": "core::array::Array::<core::bytes_31::bytes31>"
+            },
+            {
+              "name": "pending_word",
+              "type": "core::felt252"
+            },
+            {
+              "name": "pending_word_len",
+              "type": "core::integer::u32"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "core::option::Option::<core::integer::u32>",
+          "variants": [
+            {
+              "name": "Some",
+              "type": "core::integer::u32"
+            },
+            {
+              "name": "None",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<core::integer::u8>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<core::integer::u8>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::layout::FieldLayout",
+          "members": [
+            {
+              "name": "selector",
+              "type": "core::felt252"
+            },
+            {
+              "name": "layout",
+              "type": "dojo::model::layout::Layout"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::layout::FieldLayout>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::layout::FieldLayout>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::layout::Layout>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::layout::Layout>"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "dojo::model::layout::Layout",
+          "variants": [
+            {
+              "name": "Fixed",
+              "type": "core::array::Span::<core::integer::u8>"
+            },
+            {
+              "name": "Struct",
+              "type": "core::array::Span::<dojo::model::layout::FieldLayout>"
+            },
+            {
+              "name": "Tuple",
+              "type": "core::array::Span::<dojo::model::layout::Layout>"
+            },
+            {
+              "name": "Array",
+              "type": "core::array::Span::<dojo::model::layout::Layout>"
+            },
+            {
+              "name": "ByteArray",
+              "type": "()"
+            },
+            {
+              "name": "Enum",
+              "type": "core::array::Span::<dojo::model::layout::FieldLayout>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<core::felt252>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<core::felt252>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Member",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "ty",
+              "type": "dojo::model::introspect::Ty"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::introspect::Member>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::introspect::Member>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Struct",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "children",
+              "type": "core::array::Span::<dojo::model::introspect::Member>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<(core::felt252, dojo::model::introspect::Ty)>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<(core::felt252, dojo::model::introspect::Ty)>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "dojo::model::introspect::Enum",
+          "members": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "attrs",
+              "type": "core::array::Span::<core::felt252>"
+            },
+            {
+              "name": "children",
+              "type": "core::array::Span::<(core::felt252, dojo::model::introspect::Ty)>"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "core::array::Span::<dojo::model::introspect::Ty>",
+          "members": [
+            {
+              "name": "snapshot",
+              "type": "@core::array::Array::<dojo::model::introspect::Ty>"
+            }
+          ]
+        },
+        {
+          "type": "enum",
+          "name": "dojo::model::introspect::Ty",
+          "variants": [
+            {
+              "name": "Primitive",
+              "type": "core::felt252"
+            },
+            {
+              "name": "Struct",
+              "type": "dojo::model::introspect::Struct"
+            },
+            {
+              "name": "Enum",
+              "type": "dojo::model::introspect::Enum"
+            },
+            {
+              "name": "Tuple",
+              "type": "core::array::Span::<dojo::model::introspect::Ty>"
+            },
+            {
+              "name": "Array",
+              "type": "core::array::Span::<dojo::model::introspect::Ty>"
+            },
+            {
+              "name": "ByteArray",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "dojo::model::model::IModel",
+          "items": [
+            {
+              "type": "function",
+              "name": "name",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "tag",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::byte_array::ByteArray"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "version",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::integer::u8"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "selector",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "name_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "namespace_hash",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::felt252"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "unpacked_size",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::option::Option::<core::integer::u32>"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "packed_size",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::option::Option::<core::integer::u32>"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "layout",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::model::layout::Layout"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "schema",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "dojo::model::introspect::Ty"
+                }
+              ],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "impl",
+          "name": "playerImpl",
+          "interface_name": "starkludo::models::player::Iplayer"
+        },
+        {
+          "type": "struct",
+          "name": "core::integer::u256",
+          "members": [
+            {
+              "name": "low",
+              "type": "core::integer::u128"
+            },
+            {
+              "name": "high",
+              "type": "core::integer::u128"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "starkludo::models::player::Player",
+          "members": [
+            {
+              "name": "username",
+              "type": "core::felt252"
+            },
+            {
+              "name": "owner",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "total_games_played",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "total_games_won",
+              "type": "core::integer::u256"
+            }
+          ]
+        },
+        {
+          "type": "interface",
+          "name": "starkludo::models::player::Iplayer",
+          "items": [
+            {
+              "type": "function",
+              "name": "ensure_abi",
+              "inputs": [
+                {
+                  "name": "model",
+                  "type": "starkludo::models::player::Player"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "view"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "name": "starkludo::models::player::player::Event",
+          "kind": "enum",
+          "variants": []
+        }
+      ],
+      "tag": "starkludo-Player",
+      "manifest_name": "starkludo-Player-3bb81cb1"
     },
     {
       "kind": "DojoModel",
@@ -2930,8 +4462,8 @@
           "key": false
         }
       ],
-      "class_hash": "0x26f6acac127b824d05c1e1e7162bc1c800fe179e2d9195aac67ed87bef87a2d",
-      "original_class_hash": "0x26f6acac127b824d05c1e1e7162bc1c800fe179e2d9195aac67ed87bef87a2d",
+      "class_hash": "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c",
+      "original_class_hash": "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c",
       "abi": [
         {
           "type": "impl",
@@ -3298,11 +4830,11 @@
         {
           "type": "impl",
           "name": "positionImpl",
-          "interface_name": "starkludo::models::Iposition"
+          "interface_name": "starkludo::models::models::Iposition"
         },
         {
           "type": "struct",
-          "name": "starkludo::models::Vec2",
+          "name": "starkludo::models::models::Vec2",
           "members": [
             {
               "name": "x",
@@ -3316,7 +4848,7 @@
         },
         {
           "type": "struct",
-          "name": "starkludo::models::Position",
+          "name": "starkludo::models::models::Position",
           "members": [
             {
               "name": "player",
@@ -3324,13 +4856,13 @@
             },
             {
               "name": "vec",
-              "type": "starkludo::models::Vec2"
+              "type": "starkludo::models::models::Vec2"
             }
           ]
         },
         {
           "type": "interface",
-          "name": "starkludo::models::Iposition",
+          "name": "starkludo::models::models::Iposition",
           "items": [
             {
               "type": "function",
@@ -3338,7 +4870,7 @@
               "inputs": [
                 {
                   "name": "model",
-                  "type": "starkludo::models::Position"
+                  "type": "starkludo::models::models::Position"
                 }
               ],
               "outputs": [],
@@ -3348,7 +4880,7 @@
         },
         {
           "type": "event",
-          "name": "starkludo::models::position::Event",
+          "name": "starkludo::models::models::position::Event",
           "kind": "enum",
           "variants": []
         }
