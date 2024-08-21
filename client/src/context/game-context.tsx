@@ -17,8 +17,6 @@ export const GameContext = createContext<{
     thrown: false,
     winners: [],
     gameCondition: [],
-    isChain: false,
-    blockLoading: false,
   },
   setGameOptions: (newOption) => {},
 });

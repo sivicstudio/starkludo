@@ -12,7 +12,7 @@ const Menu = () => {
 
   return (
     <React.Fragment>
-      {!options.isGame && !options.blockLoading && (
+      {!options.isGame && (
         <div className="game-menu">
           <div className="play-now">Play now!</div>
           <div className="select-players">

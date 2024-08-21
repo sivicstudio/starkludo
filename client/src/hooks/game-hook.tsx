@@ -30,7 +30,6 @@ export const useGame = () => {
         isGame: true,
         playersLength: playersLength,
         gameCondition: new Array(16).fill(0),
-        blockLoading: false,
       });
     },
     [setGameData, options, setGameOptions, alert]
@@ -61,7 +60,7 @@ export const useGame = () => {
   );
 
   const moveValidator = useCallback(
-    (diceThrow) => {
+    (diceThrow: number) => {
       setGameOptions({ throw: diceThrow });
       let color = options.chance;
       const sp = Object.values(startState);

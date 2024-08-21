@@ -43,7 +43,8 @@
 
 .row1-col2 > div:hover,
 .row3-col2 > div:hover {
-  box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -68,7 +69,8 @@
 
 .row2-col1 > div:hover,
 .row2-col3 > div:hover {
-  box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -106,7 +108,9 @@
   float: left;
   margin: 7.5%;
   /* box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25), -2px 10px 10px rgba(0, 0, 0, 0.22); */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-radius: 50%;
 }
@@ -115,7 +119,8 @@
 .row1-col3-child > div:hover,
 .row3-col1-child > div:hover,
 .row3-col3-child > div:hover {
-  box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
 }
 
@@ -136,27 +141,27 @@
 }
 
 .green {
-  background-color: #84c21f;
+  background-color: #659e0a;
 }
 
 .red {
-  background-color: #dc2418;
+  background-color: #99140b;
 }
 
 .blue {
-  background-color: #0092dc;
+  background-color: #0a6b9b;
 }
 
 .yellow {
-  background-color: #f6c700;
+  background-color: #aa8c0a;
 }
 
 .white {
   background-color: #fff;
 }
 
-.amber {
-  background-color: #c2a009;
+.black {
+  background-color: #000000;
 }
 
 .contain-triangles {
@@ -210,12 +215,16 @@
 }
 
 .card {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card:hover {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 @media only screen and (max-width: 600px) {

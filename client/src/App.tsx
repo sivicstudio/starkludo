@@ -31,11 +31,9 @@ const App = () => {
     thrown: false,
     winners: [],
     gameCondition: [],
-    isChain: false,
-    blockLoading: false,
   });
 
-  const setGameOptions = useCallback((newOption) => {
+  const setGameOptions = useCallback((newOption: Partial<OptionsProps>) => {
     setOptions((option) => {
       return {
         ...option,

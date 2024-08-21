@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
+import { TileNode } from "../hooks/size-hook";
 
 import "../styles/Marker.scss";
 
@@ -49,7 +50,6 @@ const Marker = ({ pos, size, tileMap }) => {
       }
     >
       <div className="pin" />
-      <div className="shadow" />
     </div>
   );
 };

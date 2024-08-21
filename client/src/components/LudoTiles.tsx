@@ -4,8 +4,8 @@ const LudoTiles: React.FC = () => {
   return (
     <React.Fragment>
       <div className="container-row1 clearfix">
-        <div className="row1-col1 amber">
-          <div className="row1-col1-child clearfix green">
+        <div className="row1-col1">
+          <div className="row1-col1-child clearfix ">
             <div className="green" />
             <div className="green" />
             <div className="green" />
@@ -32,8 +32,8 @@ const LudoTiles: React.FC = () => {
           <div className="yellow" />
           <div />
         </div>
-        <div className="row1-col3 yellow">
-          <div className="row1-col3-child clearfix white">
+        <div className="row1-col3">
+          <div className="row1-col3-child clearfix">
             <div className="yellow" />
             <div className="yellow" />
             <div className="yellow" />
@@ -94,8 +94,8 @@ const LudoTiles: React.FC = () => {
       </div>
 
       <div className="container-row3 clearfix">
-        <div className="row3-col1 red">
-          <div className="row3-col1-child clearfix white">
+        <div className="row3-col1">
+          <div className="row3-col1-child clearfix">
             <div className="red" />
             <div className="red" />
             <div className="red" />
@@ -122,8 +122,8 @@ const LudoTiles: React.FC = () => {
           <div />
           <div />
         </div>
-        <div className="row3-col3 blue">
-          <div className="row3-col3-child clearfix white">
+        <div className="row3-col3">
+          <div className="row3-col3-child clearfix">
             <div className="blue" />
             <div className="blue" />
             <div className="blue" />

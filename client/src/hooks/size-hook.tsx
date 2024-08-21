@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-interface TileNode {
+export interface TileNode {
   1: number[];
   2: number[];
   3: number[];
