@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Header.css";
+import "../styles/Header.scss";
 import DoubleDice from "../assets/images/double-dice.png";
 
 const Header: React.FC = () => {

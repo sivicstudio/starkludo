@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useGame } from "../hooks/game-hook";
 import { Row, Col } from "react-simple-flex-grid";
-import "../styles/Dice.css";
+import "../styles/Dice.scss";
 import { GameContext } from "../context/game-context";
 
 const Dice = () => {
