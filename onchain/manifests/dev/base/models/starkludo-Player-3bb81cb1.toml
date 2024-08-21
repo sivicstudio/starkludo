@@ -1,0 +1,26 @@
+kind = "DojoModel"
+class_hash = "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2"
+original_class_hash = "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2"
+abi = "manifests/dev/base/abis/models/starkludo-Player-3bb81cb1.json"
+tag = "starkludo-Player"
+manifest_name = "starkludo-Player-3bb81cb1"
+
+[[members]]
+name = "username"
+type = "felt252"
+key = true
+
+[[members]]
+name = "owner"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "total_games_played"
+type = "u256"
+key = false
+
+[[members]]
+name = "total_games_won"
+type = "u256"
+key = false

@@ -1,0 +1,123 @@
+.marker-r {
+  position: absolute;
+  --marker-radius: 1em;
+  --marker-diameter: calc(var(--marker-radius) * 2);
+  --marker-color: #5a1506;
+
+  .pin {
+    position: relative;
+    z-index: 1;
+    width: var(--marker-diameter);
+    height: var(--marker-diameter);
+    background: var(--marker-color);
+    border-radius: 50% 50% 0 50%;
+    border: 2px var(--marker-color) solid;
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    @keyframes blinking {
+      50% {
+        border-color: rgba(255, 255, 255, 0.569);
+      }
+    }
+
+    transform: rotate(45deg);
+  }
+}
+
+.marker-g {
+  position: absolute;
+  --marker-radius: 1em;
+  --marker-diameter: calc(var(--marker-radius) * 2);
+  --marker-color: rgb(10, 80, 10);
+
+  .pin {
+    position: relative;
+    z-index: 1;
+    width: var(--marker-diameter);
+    height: var(--marker-diameter);
+    background: var(--marker-color);
+    border-radius: 50% 50% 0 50%;
+    border: 2px var(--marker-color) solid;
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    @keyframes blinking {
+      50% {
+        border-color: rgba(255, 255, 255, 0.569);
+      }
+    }
+
+    transform: rotate(45deg);
+  }
+}
+
+.marker-y {
+  position: absolute;
+  --marker-radius: 1em;
+  --marker-diameter: calc(var(--marker-radius) * 2);
+  --marker-color: rgb(173, 173, 9);
+
+  .pin {
+    position: relative;
+    z-index: 1;
+    width: var(--marker-diameter);
+    height: var(--marker-diameter);
+    background: var(--marker-color);
+    border-radius: 50% 50% 0 50%;
+    border: 2px var(--marker-color) solid;
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    @keyframes blinking {
+      50% {
+        border-color: rgba(255, 255, 255, 0.569);
+      }
+    }
+
+    transform: rotate(45deg);
+  }
+
+}
+
+.marker-b {
+  position: absolute;
+  --marker-radius: 1em;
+  --marker-diameter: calc(var(--marker-radius) * 2);
+  --marker-color: rgb(9, 9, 118);
+
+  .pin {
+    position: relative;
+    z-index: 1;
+    width: var(--marker-diameter);
+    height: var(--marker-diameter);
+    background: var(--marker-color);
+    border-radius: 50% 50% 0 50%;
+    border: 2px var(--marker-color) solid;
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    @keyframes blinking {
+      50% {
+        border-color: rgba(255, 255, 255, 0.569);
+      }
+    }
+
+    transform: rotate(45deg);
+  }
+
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}

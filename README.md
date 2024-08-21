@@ -12,7 +12,7 @@ _<div style="text-align: center">Ludo game, on Starknet</div>_
   </tr>
   <tr>
     <td>Website</td>
-    <td><a href="https://starkludo.onrender.com">https://starkludo.onrender.com</a></td>
+    <td><a href="https://testnet.starkludo.com/">https://testnet.starkludo.com/</a></td>
   </tr>
   <tr>
     <td>Documentation</td>
@@ -27,39 +27,66 @@ StarkLudo is an online classic board game enjoyed by people of all ages. It’s 
 The objective is to move all four of your game pieces around the board and reach the finish line first and the gaming experience should be on chain fostering togetherness and entertainment while competing amongs friends and loved ones. With the on-chain interaction the players that wins every round of the game will be rewarded with a token.
 
 ## Development
-
 Steps to build and run StarkLudo locally
 
-### Frontend
+### Install tools
+1. [Install pnpm](https://pnpm.io/installation#using-npm)
+```bash
+npm install -g pnpm
+```
 
- ```
-   # Navigate into the UI directory
-   cd ui
+2. [Install Dojo](https://book.dojoengine.org/getting-started#install-dojo-using-dojoup)
+```bash
+# Install dojoup
+curl -L https://install.dojoengine.org | bash
 
-   # Install dependencies
-   yarn
+# Install Dojo release
+dojoup --version v1.0.0-alpha.6
+```
 
-   # Start local server
-   yarn run start
-   ```
+### Build and run StarkLudo
+#### Client
+```bash
+# Navigate to the client directory
+cd client
+
+# Install dependencies
+pnpm i
+
+# Run 
+pnpm dev
+``` 
 
 ### Onchain
+Requires 2 terminals to run
+> In both terminals, ensure you are in the `onchain` directory. You can navigate into the `onchain` directory by running this command from the root directory: `cd onchain`
 
+- Terminal 1
+```bash
+# Start Katana
+katana --disable-fee  --allowed-origins "*"
 ```
-# Navigate to the onchain directory
-cd onchain
 
+- Terminal 2
+```bash
 # Build contracts
-scarb build
+sozo build
 
-# Run tests
-scarb test
+# Deploy contracts to Katana
+sozo migrate apply
 
+# Run Torii with World address generated from previous command
+torii --world <WORLD ADDRESS> --allowed-origins "*"
 ```
+
+> To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to: <img width="662" alt="image" src="https://github.com/user-attachments/assets/3b84a16e-10f2-4531-83c1-252838f18226">
+
+ 
 
 ## License
 
 This project is licensed under the MIT License. See [License](./LICENSE) for more information
 
 ## Contributing
-Join the contributors Telegram group: https://t.me/+hnjQooODZOA2M2Rk
+
+For more info and guidance on contributing, join the contributors Telegram group: https://t.me/+hnjQooODZOA2M2Rk

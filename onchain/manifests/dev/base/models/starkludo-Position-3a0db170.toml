@@ -1,0 +1,16 @@
+kind = "DojoModel"
+class_hash = "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c"
+original_class_hash = "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c"
+abi = "manifests/dev/base/abis/models/starkludo-Position-3a0db170.json"
+tag = "starkludo-Position"
+manifest_name = "starkludo-Position-3a0db170"
+
+[[members]]
+name = "player"
+type = "ContractAddress"
+key = true
+
+[[members]]
+name = "vec"
+type = "Vec2"
+key = false
