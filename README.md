@@ -22,9 +22,11 @@ _<div style="text-align: center">Ludo game, on Starknet</div>_
 
 ## What is StarkLudo?
 
-StarkLudo is an online classic board game enjoyed by people of all ages. It’s a game of chance and strategy, where players race their game pieces around the board to be the first to reach the finish line.
+StarkLudo is a classic board game enjoyed by people of all ages. It’s a game of chance and strategy, where players race their game pieces around the board to be the first to reach the finish spot.
 
-The objective is to move all four of your game pieces around the board and reach the finish line first and the gaming experience should be on chain fostering togetherness and entertainment while competing amongs friends and loved ones. With the on-chain interaction the players that wins every round of the game will be rewarded with a token.
+At the start of the game, all players are assigned 4 pieces each. The goal is to move all four pieces to the finish spot through a specific route on the board. Each piece is moved one at a time. Each player takes turn rolling a die, and the output of rolling the die determines how many steps forward a piece can move. The first player that moves all their 4 pieces to the finish spot is declared the winner.
+
+The game can be played by either 2, 3 or four people. In each game, there can only be one loser. For example, if the game is played by 4 people, the first 3 players to reach the finish spot are the winners. The player that reaches first gets the first position, the player that reaches second gets the second position, and the third gets the third position.
 
 ## Development
 Steps to build and run StarkLudo locally
