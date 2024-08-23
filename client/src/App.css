@@ -8,3 +8,29 @@
   text-align: center;
   font-size: 15px;
 }
+
+/* Desktop view */
+@media (min-width: 768px) {
+  .game-behaviour-warning {
+    display: none;
+  }
+
+  .ludo-container {
+    order: 1;
+  }
+
+  .header-container {
+    order: 2;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 767px) {
+  .ludo-container {
+    order: 2;
+  }
+
+  .header-container {
+    order: 1;
+  }
+}
