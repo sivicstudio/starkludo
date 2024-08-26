@@ -1,0 +1,53 @@
+.footer {
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid brown;
+  border-bottom: 1px solid brown;
+  background-color: inherit; 
+  padding: 10px; 
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgb(203, 129, 141);
+  box-sizing: border-box; 
+  height: auto; 
+  font-size: 1em; 
+
+  .footer__content {
+    display: flex;
+    align-items: center;
+    z-index: 2; 
+  }
+
+  .footer__logo {
+    width: 35px;
+    height: auto;
+    vertical-align: middle; 
+    margin-left: 4px; 
+    margin-right: 4px; 
+  }
+
+  .dice {
+    position: absolute;
+    width: 24px; 
+    height: 24px;
+    opacity: 0.7; 
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .dice-1 {
+    top: 15px;
+    left: 30px;
+    transform: rotate(15deg);
+  }
+  .dice-2 {
+    top: 30px;
+    right: 40px;
+    transform: rotate(-10deg);
+  }
+}
