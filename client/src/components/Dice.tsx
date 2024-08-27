@@ -94,7 +94,7 @@ const Dice = () => {
 
   return (
     <React.Fragment>
-      {options.isGame && (
+      {options.gameIsOngoing && (
         <Row gutter={0} className="dice-container">
           <Col xs={options.thrown ? 12 : 6}>
             <div id="dice-body" className={`${diceClass}`}>

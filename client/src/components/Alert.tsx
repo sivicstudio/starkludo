@@ -9,7 +9,7 @@ const Alert = () => {
 
   return (
     <React.Fragment>
-      {options.isGame && (
+      {options.gameIsOngoing && (
         <div className="section alert-section">
           {options.winners.map((w, i) => (
             <div key={i} className="alert alert-win">

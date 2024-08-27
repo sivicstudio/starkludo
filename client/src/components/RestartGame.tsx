@@ -10,7 +10,7 @@ const RestartGame: React.FC = () => {
 
   return (
     <React.Fragment>
-      {options.isGame && (
+      {options.gameIsOngoing && (
         <div className="restart-game">
           <div className="restart-icon" onClick={restartGame}>
             <img src={RestartGamePNG} width="60px" />

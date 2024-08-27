@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   const [options, setOptions] = useState<OptionsProps>({
-    isGame: false,
+    gameIsOngoing: false,
     playersLength: 0,
     throw: 0,
     chance: 0,
@@ -43,7 +43,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (options.isGame) {
+    if (options.gameIsOngoing) {
       if (options.winners.length === options.playersLength - 1) {
         toast(
           `The game has ended. Player ${
@@ -51,7 +51,7 @@ const App = () => {
           } is the winner`
         );
         setGameOptions({
-          isGame: false,
+          gameIsOngoing: false,
         });
       }
     }

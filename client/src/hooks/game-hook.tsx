@@ -27,7 +27,7 @@ export const useGame = () => {
         });
       setGameData(newGame);
       setGameOptions({
-        isGame: true,
+        gameIsOngoing: true,
         playersLength: playersLength,
         gameCondition: new Array(16).fill(0),
       });
@@ -178,7 +178,7 @@ export const useGame = () => {
 
   const endGame = useCallback(() => {
     setGameOptions({
-      isGame: false,
+      gameIsOngoing: false,
       playersLength: 0,
       throw: 0,
       chance: 0,

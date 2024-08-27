@@ -10,7 +10,7 @@ export const GameContext = createContext<{
   gameState: {},
   setGameData: (game) => {},
   options: {
-    isGame: false,
+    gameIsOngoing: false,
     playersLength: 0,
     throw: 0,
     chance: 0,
