@@ -45,13 +45,13 @@ export const useGame = () => {
       if (win) {
         winners.push(chance);
         setGameOptions({
-          thrown: isThrown,
+          hasThrownDice: isThrown,
           chance: newChance,
           winners: winners,
         });
       } else {
         setGameOptions({
-          thrown: isThrown,
+          hasThrownDice: isThrown,
           chance: newChance,
         });
       }
@@ -85,7 +85,7 @@ export const useGame = () => {
         }
         setGameOptions({
           chance: newChance,
-          thrown: false,
+          hasThrownDice: false,
         });
       }
     },
@@ -182,7 +182,7 @@ export const useGame = () => {
       playersLength: 0,
       diceFace: 0,
       chance: 0,
-      thrown: false,
+      hasThrownDice: false,
       winners: [],
       gameCondition: null,
     });

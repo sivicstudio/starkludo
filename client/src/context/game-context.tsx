@@ -14,7 +14,7 @@ export const GameContext = createContext<{
     playersLength: 0,
     diceFace: 0,
     chance: 0,
-    thrown: false,
+    hasThrownDice: false,
     winners: [],
     gameCondition: [],
   },

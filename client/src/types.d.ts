@@ -3,7 +3,7 @@ export type OptionsProps = {
   playersLength: number; // Number of players in current game
   diceFace: number; // Current number on dice face
   chance: number; // Next player to take action. 0 => red, 1 blue...
-  thrown: boolean; // true if dice has been thrown and waiting for action from player, false otherwise
+  hasThrownDice: boolean; // true if dice has been thrown and waiting for action from player, false otherwise
   winners: number[];
   gameCondition: number[];
 };

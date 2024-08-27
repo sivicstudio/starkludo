@@ -86,8 +86,8 @@ const Dice = () => {
   };
 
   const roller = async () => {
-    if (!options.thrown) {
-      setGameOptions({ thrown: true });
+    if (!options.hasThrownDice) {
+      setGameOptions({ hasThrownDice: true });
       await rollDie(randomRollAmount());
     }
   };
@@ -96,7 +96,7 @@ const Dice = () => {
     <React.Fragment>
       {options.gameIsOngoing && (
         <Row gutter={0} className="dice-container">
-          <Col xs={options.thrown ? 12 : 6}>
+          <Col xs={options.hasThrownDice ? 12 : 6}>
             <div id="dice-body" className={`${diceClass}`}>
               <div id="tl" className="dot" />
               <div id="tc" className="dot" />
@@ -110,7 +110,7 @@ const Dice = () => {
             </div>
           </Col>
 
-          {!options.thrown && (
+          {!options.hasThrownDice && (
             <Col xs={6}>
               <div>
                 <button className="roll-btn" onClick={roller}>
