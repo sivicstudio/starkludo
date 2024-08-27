@@ -26,7 +26,7 @@ const App = () => {
   const [options, setOptions] = useState<OptionsProps>({
     gameIsOngoing: false,
     playersLength: 0,
-    throw: 0,
+    diceFace: 0,
     chance: 0,
     thrown: false,
     winners: [],

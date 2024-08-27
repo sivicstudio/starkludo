@@ -61,7 +61,7 @@ export const useGame = () => {
 
   const moveValidator = useCallback(
     (diceThrow: number) => {
-      setGameOptions({ throw: diceThrow });
+      setGameOptions({ diceFace: diceThrow });
       let color = options.chance;
       const sp = Object.values(startState);
       const colorState = Object.values(gameState).slice(
@@ -119,7 +119,7 @@ export const useGame = () => {
 
   const moveMarker = useCallback(
     async (pos, color) => {
-      let diceThrow = options.throw;
+      let diceThrow = options.diceFace;
       let j = markers.indexOf(pos);
 
       // Fetch Current Game Condition
@@ -180,7 +180,7 @@ export const useGame = () => {
     setGameOptions({
       gameIsOngoing: false,
       playersLength: 0,
-      throw: 0,
+      diceFace: 0,
       chance: 0,
       thrown: false,
       winners: [],
