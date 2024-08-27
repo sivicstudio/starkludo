@@ -46,13 +46,13 @@ export const useGame = () => {
         winners.push(chance);
         setGameOptions({
           hasThrownDice: isThrown,
-          chance: newChance,
+          playerChance: newChance,
           winners: winners,
         });
       } else {
         setGameOptions({
           hasThrownDice: isThrown,
-          chance: newChance,
+          playerChance: newChance,
         });
       }
     },
@@ -62,7 +62,7 @@ export const useGame = () => {
   const moveValidator = useCallback(
     (diceThrow: number) => {
       setGameOptions({ diceFace: diceThrow });
-      let color = options.chance;
+      let color = options.playerChance;
       const sp = Object.values(startState);
       const colorState = Object.values(gameState).slice(
         color * 4,
@@ -79,12 +79,12 @@ export const useGame = () => {
       });
       const count = check.filter((v) => v === 0).length;
       if (count === 4) {
-        let newChance = (options.chance + 1) % options.playersLength;
+        let newChance = (options.playerChance + 1) % options.playersLength;
         while (options.winners.includes(newChance)) {
           newChance = (newChance + 1) % options.playersLength;
         }
         setGameOptions({
-          chance: newChance,
+          playerChance: newChance,
           hasThrownDice: false,
         });
       }
@@ -167,7 +167,7 @@ export const useGame = () => {
       incrementChance(
         isChance,
         isThrown,
-        options.chance,
+        options.playerChance,
         options.playersLength,
         options.winners,
         f === 4 ? true : false
@@ -181,7 +181,7 @@ export const useGame = () => {
       gameIsOngoing: false,
       playersLength: 0,
       diceFace: 0,
-      chance: 0,
+      playerChance: 0,
       hasThrownDice: false,
       winners: [],
       gameCondition: null,

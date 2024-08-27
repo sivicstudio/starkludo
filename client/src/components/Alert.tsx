@@ -21,12 +21,15 @@ const Alert = () => {
               </div>
             </div>
           ))}
-          <div className={`alert alert-${chance[options.chance]}`}>
-            <div className={`alert-container alert-${chance[options.chance]}`}>
+          <div className={`alert alert-${chance[options.playerChance]}`}>
+            <div
+              className={`alert-container alert-${chance[options.playerChance]}`}
+            >
               <div className="alert-icon">
                 <FaPlay />
               </div>
-              Now is your move player {chance[options.chance].toUpperCase()}!
+              Now is your move player{" "}
+              {chance[options.playerChance].toUpperCase()}!
             </div>
           </div>
         </div>

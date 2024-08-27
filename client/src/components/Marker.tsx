@@ -44,7 +44,8 @@ const Marker = ({ pos, size, tileMap }) => {
       className={`marker-${pos.charAt(0)}`}
       ref={markerRef}
       onClick={
-        options.hasThrownDice && clickMap[pos.charAt(0)] === options.chance
+        options.hasThrownDice &&
+        clickMap[pos.charAt(0)] === options.playerChance
           ? move
           : undefined
       }
