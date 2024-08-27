@@ -24,10 +24,12 @@ pub struct Game {
     pub player_yellow: ContractAddress,
     pub player_blue: ContractAddress,
     pub player_red: ContractAddress,
-    pub winner: ContractAddress,
+    pub winner_1: ContractAddress,
+    pub winner_2: ContractAddress,
+    pub winner_3: ContractAddress,
     pub next_player: ContractAddress,
-    pub rolls_count: u256,
-    pub rolls_times: u256,
+    pub rolls_count: u256, //  Sum of all the numbers rolled by the dice
+    pub rolls_times: u256, // Total number of times the dice has been rolled
     // pub player_rolls_count: LegacyMapping<ContractAddress, u256>,
 }
 
@@ -73,8 +75,10 @@ impl GameImpl of GameTrait {
                 GameMode::SinglePlayer => zero_address,
                 GameMode::MultiPlayer => player_red
             },
-            winner: zero_address,
             next_player: zero_address,
+            winner_1: zero_address,
+            winner_2: zero_address,
+            winner_3: zero_address,
             rolls_times: 0,
             rolls_count: 0
         }
