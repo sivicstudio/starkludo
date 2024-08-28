@@ -8,6 +8,7 @@ mod models {
     mod game;
     mod player;
     mod models;
+    mod constants;
 }
 
 mod tests {
