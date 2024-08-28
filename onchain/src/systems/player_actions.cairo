@@ -1,8 +1,10 @@
+use starknet::{ContractAddress};
 use starkludo::models::{player::{Player, PlayerTrait}};
 
 #[dojo::interface]
 trait IPlayerActions {
     fn create(ref world: IWorldDispatcher, username: felt252);
+    fn get_address_from_username(ref world: IWorldDispatcher, username: felt252) -> ContractAddress;
 }
 
 #[dojo::contract]
@@ -23,6 +25,17 @@ mod PlayerActions {
             assert(existing_player.owner == 0.try_into().unwrap(), 'username already taken');
 
             set!(world, (new_player));
+        }
+
+        fn get_address_from_username(
+            ref world: IWorldDispatcher, username: felt252
+        ) -> ContractAddress {
+            let mut player: Player = get!(world, username, (Player));
+
+            // Validate username
+            assert(player.owner != 0.try_into().unwrap(), 'player with username not found');
+
+            player.owner
         }
     }
 }
