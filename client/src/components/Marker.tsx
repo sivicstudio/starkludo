@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
-import { TileNode } from "../hooks/size-hook";
+import { MarkerProps } from "../types";
 
 import "../styles/Marker.scss";
 
-const Marker = ({ pos, size, tileMap }) => {
+const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
   const { moveMarker } = useGame();
-  const clickMap = { r: 0, g: 1, y: 2, b: 3 };
+  const clickMap: Record<string, number> = { r: 0, g: 1, y: 2, b: 3 };
   const markerRef = useRef<HTMLDivElement>(null);
   const { gameState, options } = useContext(GameContext);
 

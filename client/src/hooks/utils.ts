@@ -108,8 +108,8 @@ export const animateCustomEase = (
     p = property,
     fromV = currentValue,
     toV = toValue,
-    lastStart: any = null,
-    animate = function (timestamp: any) {
+    lastStart: number = null,
+    animate = function (timestamp: number) {
       debug++;
       // check if this is a new animation
       if (!lastStart) {
