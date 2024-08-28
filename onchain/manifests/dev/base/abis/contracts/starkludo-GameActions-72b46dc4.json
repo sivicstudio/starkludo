@@ -176,6 +176,10 @@
           {
             "name": "player_red",
             "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "number_of_players",
+            "type": "core::integer::u8"
           }
         ],
         "outputs": [],

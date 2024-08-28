@@ -409,6 +409,20 @@
     ]
   },
   {
+    "type": "enum",
+    "name": "core::bool",
+    "variants": [
+      {
+        "name": "False",
+        "type": "()"
+      },
+      {
+        "name": "True",
+        "type": "()"
+      }
+    ]
+  },
+  {
     "type": "struct",
     "name": "starkludo::models::game::Game",
     "members": [
@@ -445,12 +459,24 @@
         "type": "core::starknet::contract_address::ContractAddress"
       },
       {
-        "name": "winner",
+        "name": "winner_1",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner_2",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner_3",
         "type": "core::starknet::contract_address::ContractAddress"
       },
       {
         "name": "next_player",
         "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "number_of_players",
+        "type": "core::integer::u8"
       },
       {
         "name": "rolls_count",
@@ -459,6 +485,82 @@
       {
         "name": "rolls_times",
         "type": "core::integer::u256"
+      },
+      {
+        "name": "dice_face",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "player_chance",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "has_thrown_dice",
+        "type": "core::bool"
+      },
+      {
+        "name": "b0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y3",
+        "type": "core::felt252"
       }
     ]
   },

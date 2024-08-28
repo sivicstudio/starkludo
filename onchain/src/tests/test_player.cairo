@@ -1,5 +1,4 @@
 #[cfg(test)]
-#[ignore]
 mod tests {
     // import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};

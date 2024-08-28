@@ -1,6 +1,6 @@
 kind = "DojoModel"
-class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
-original_class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
+class_hash = "0x347e79730e6db3638fc34285df5189b9dfd9658f3f8324d1b0ce829739ab18d"
+original_class_hash = "0x347e79730e6db3638fc34285df5189b9dfd9658f3f8324d1b0ce829739ab18d"
 abi = "manifests/dev/base/abis/models/starkludo-Game-5286f583.json"
 tag = "starkludo-Game"
 manifest_name = "starkludo-Game-5286f583"
@@ -46,13 +46,28 @@ type = "ContractAddress"
 key = false
 
 [[members]]
-name = "winner"
+name = "winner_1"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "winner_2"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "winner_3"
 type = "ContractAddress"
 key = false
 
 [[members]]
 name = "next_player"
 type = "ContractAddress"
+key = false
+
+[[members]]
+name = "number_of_players"
+type = "u8"
 key = false
 
 [[members]]
@@ -63,4 +78,99 @@ key = false
 [[members]]
 name = "rolls_times"
 type = "u256"
+key = false
+
+[[members]]
+name = "dice_face"
+type = "u8"
+key = false
+
+[[members]]
+name = "player_chance"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "has_thrown_dice"
+type = "bool"
+key = false
+
+[[members]]
+name = "b0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y3"
+type = "felt252"
 key = false

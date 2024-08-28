@@ -10,7 +10,8 @@ trait IGameActions {
         player_green: ContractAddress,
         player_yellow: ContractAddress,
         player_blue: ContractAddress,
-        player_red: ContractAddress
+        player_red: ContractAddress,
+        number_of_players: u8
     );
 }
 
@@ -28,11 +29,12 @@ mod GameActions {
             player_green: ContractAddress,
             player_yellow: ContractAddress,
             player_blue: ContractAddress,
-            player_red: ContractAddress
+            player_red: ContractAddress,
+            number_of_players: u8
         ) {
             let caller = get_caller_address();
             let new_game: Game = GameTrait::new(
-                caller, game_mode, player_green, player_yellow, player_blue, player_red
+                caller, game_mode, player_green, player_yellow, player_blue, player_red, number_of_players
             );
 
             set!(world, (new_game));
