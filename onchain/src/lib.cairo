@@ -1,5 +1,4 @@
 mod systems {
-    mod actions;
     mod game_actions;
     mod player_actions;
 }
@@ -7,7 +6,6 @@ mod systems {
 mod models {
     mod game;
     mod player;
-    mod models;
     mod constants;
 }
 

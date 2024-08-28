@@ -61,29 +61,31 @@ pub struct Game {
 
 pub trait GameTrait {
     fn new(
+        id: u64,
         created_by: ContractAddress,
         game_mode: GameMode,
-        player_green: ContractAddress,
-        player_yellow: ContractAddress,
-        player_blue: ContractAddress,
         player_red: ContractAddress,
+        player_blue: ContractAddress,
+        player_yellow: ContractAddress,
+        player_green: ContractAddress,
         number_of_players: u8
     ) -> Game;
 }
 
 impl GameImpl of GameTrait {
     fn new(
+        id: u64,
         created_by: ContractAddress,
         game_mode: GameMode,
-        player_green: ContractAddress,
-        player_yellow: ContractAddress,
-        player_blue: ContractAddress,
         player_red: ContractAddress,
+        player_blue: ContractAddress,
+        player_yellow: ContractAddress,
+        player_green: ContractAddress,
         number_of_players: u8
     ) -> Game {
         let zero_address = contract_address_const::<0x0>();
         Game {
-            id: get_block_timestamp(),
+            id,
             created_by,
             game_status: GameStatus::Ongoing,
             game_mode,

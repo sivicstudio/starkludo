@@ -1,5 +1,5 @@
 use starkludo::models::{game::{Game, GameTrait, GameMode}};
-use starknet::{ContractAddress};
+use starknet::{ContractAddress, get_block_timestamp};
 
 #[dojo::interface]
 trait IGameActions {
@@ -12,13 +12,13 @@ trait IGameActions {
         player_blue: ContractAddress,
         player_red: ContractAddress,
         number_of_players: u8
-    );
+    ) -> Game;
 }
 
 #[dojo::contract]
 mod GameActions {
     use super::{IGameActions, Game, GameTrait, GameMode};
-    use starknet::{ContractAddress, get_caller_address};
+    use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
 
     #[abi(embed_v0)]
     impl GameActionsImpl of IGameActions<ContractState> {
@@ -31,13 +31,22 @@ mod GameActions {
             player_blue: ContractAddress,
             player_red: ContractAddress,
             number_of_players: u8
-        ) {
+        ) -> Game {
+            let id = get_block_timestamp();
             let caller = get_caller_address();
             let new_game: Game = GameTrait::new(
-                caller, game_mode, player_green, player_yellow, player_blue, player_red, number_of_players
+                id,
+                caller,
+                game_mode,
+                player_red,
+                player_blue,
+                player_yellow,
+                player_green,
+                number_of_players
             );
-
             set!(world, (new_game));
+            let game_0: Game = get!(world, id, Game);
+            game_0
         }
     }
 }

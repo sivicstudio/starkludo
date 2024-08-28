@@ -146,6 +146,190 @@
     ]
   },
   {
+    "type": "enum",
+    "name": "starkludo::models::game::GameStatus",
+    "variants": [
+      {
+        "name": "Ongoing",
+        "type": "()"
+      },
+      {
+        "name": "Ended",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "core::integer::u256",
+    "members": [
+      {
+        "name": "low",
+        "type": "core::integer::u128"
+      },
+      {
+        "name": "high",
+        "type": "core::integer::u128"
+      }
+    ]
+  },
+  {
+    "type": "enum",
+    "name": "core::bool",
+    "variants": [
+      {
+        "name": "False",
+        "type": "()"
+      },
+      {
+        "name": "True",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "struct",
+    "name": "starkludo::models::game::Game",
+    "members": [
+      {
+        "name": "id",
+        "type": "core::integer::u64"
+      },
+      {
+        "name": "created_by",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "game_status",
+        "type": "starkludo::models::game::GameStatus"
+      },
+      {
+        "name": "game_mode",
+        "type": "starkludo::models::game::GameMode"
+      },
+      {
+        "name": "player_green",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_yellow",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_blue",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "player_red",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner_1",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner_2",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "winner_3",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "next_player",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "number_of_players",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "rolls_count",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "rolls_times",
+        "type": "core::integer::u256"
+      },
+      {
+        "name": "dice_face",
+        "type": "core::integer::u8"
+      },
+      {
+        "name": "player_chance",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "has_thrown_dice",
+        "type": "core::bool"
+      },
+      {
+        "name": "b0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "b3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "g3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "r3",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y0",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y1",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y2",
+        "type": "core::felt252"
+      },
+      {
+        "name": "y3",
+        "type": "core::felt252"
+      }
+    ]
+  },
+  {
     "type": "interface",
     "name": "starkludo::systems::game_actions::IGameActions",
     "items": [
@@ -182,7 +366,11 @@
             "type": "core::integer::u8"
           }
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "type": "starkludo::models::game::Game"
+          }
+        ],
         "state_mutability": "external"
       }
     ]
