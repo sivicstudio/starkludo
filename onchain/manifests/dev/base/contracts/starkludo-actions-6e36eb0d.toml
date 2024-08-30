@@ -7,4 +7,8 @@ reads = []
 writes = []
 init_calldata = []
 tag = "starkludo-actions"
+systems = [
+    "spawn",
+    "move",
+]
 manifest_name = "starkludo-actions-6e36eb0d"

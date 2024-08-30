@@ -16,8 +16,14 @@ import "./App.css";
 import Control from "./components/Control";
 import { StarknetProvider } from "./starknet-provider";
 import { FiAlertTriangle, FiZap } from "react-icons/fi";
+import { BoardContext, BoardType } from "./context/board-context";
 
 const App = () => {
+  const [board, setBoard] = useState<BoardType>('classic');
+
+  const toggleBoard = (newBoard: BoardType) => {
+    setBoard(newBoard);
+  };
   const [gameState, setGameState] = useState({});
   const setGameData = useCallback((game: any) => {
     setGameState(game);
@@ -68,6 +74,7 @@ const App = () => {
             setGameOptions: setGameOptions,
           }}
         >
+          <BoardContext.Provider value={{ board, toggleBoard }}>
           <div className="game-behaviour-warning">
             <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
             StarkLudo is still in active development{" "}
@@ -86,6 +93,7 @@ const App = () => {
               <Control />
             </Col>
           </Row>
+          </BoardContext.Provider>
         </GameContext.Provider>
         <ToastContainer position="bottom-center" />
       </StarknetProvider>
