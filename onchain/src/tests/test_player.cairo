@@ -89,6 +89,6 @@ mod tests {
         assert_eq!(games_played, 10, "Incorrect games played");
         assert_eq!(games_won, 5, "Incorrect games won");
         assert_eq!(total_points, 5, "Incorrect total points");
-       // assert_eq!(leaderboard_position, 0, "Incorrect leaderboard position");
+        assert_eq!(leaderboard_position, 0, "Incorrect leaderboard position");
     }
 }
