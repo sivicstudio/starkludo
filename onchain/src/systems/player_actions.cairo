@@ -5,6 +5,8 @@ use starkludo::models::{player::{Player, PlayerTrait}};
 trait IPlayerActions {
     fn create(ref world: IWorldDispatcher, username: felt252);
     fn get_address_from_username(ref world: IWorldDispatcher, username: felt252) -> ContractAddress;
+    fn get_player_stats(ref world: IWorldDispatcher, username: felt252) -> (u256, u256, u256, u256);
+
 }
 
 #[dojo::contract]
@@ -37,5 +39,26 @@ mod PlayerActions {
 
             player.owner
         }
+    }
+
+    fn get_player_stats(
+        ref world: IWorldDispatcher, username: felt252
+    ) -> (u256, u256, u256, u256) {
+        let player: Player = get!(world, username, (Player));
+        assert(player.owner != 0.try_into().unwrap(), 'player with username not found');
+
+        // Calculate total point
+        let total_points = player.total_games_won;
+
+        // TODO: Implement logic to calculate position on leaderboard
+
+        let leaderboard_position: u256 = 0;
+
+        (
+            player.total_games_played,
+            player.total_games_won,
+            total_points,
+            leaderboard_position
+        )
     }
 }
