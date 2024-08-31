@@ -76,17 +76,16 @@ mod tests {
 
         let (player_actions, world, _) = create_and_setup_player(username);
 
-        // Test modification the player's stats
+        // Test modification of the player's stats
         let mut player = get!(world, username, Player);
         player.total_games_played = 10;
         player.total_games_won = 5;
         set!(world, (player));
 
-        // Get player stats
+        // Get the player's stats
         let (games_played, games_won, total_points, leaderboard_position) = 
             player_actions.get_player_stats(username);
 
-        // Assert the returned values
         assert_eq!(games_played, 10, "Incorrect games played");
         assert_eq!(games_won, 5, "Incorrect games won");
         assert_eq!(total_points, 5, "Incorrect total points");
