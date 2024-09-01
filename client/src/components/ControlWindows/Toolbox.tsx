@@ -5,7 +5,13 @@ import { BoardContext, BoardType } from "../../context/board-context";
 const Toolbox = () => {
   const { board, toggleBoard } = useContext(BoardContext);
 
-  const boardOptions: BoardType[] = ['classic', 'texture'];
+  const boardOptions = [
+    {name: 'Classic', option: 'classic'}, 
+    {name: 'Wooden', option: 'wooden-board'},
+    {name: 'Fire', option: 'fire-board'}
+  ];
+
+
 
   return (
   <div>
@@ -15,18 +21,18 @@ const Toolbox = () => {
       </h2>
       <div>
         <div className="radio-buttons-switch-board">
-        {boardOptions.map((option) => (
-          <div key={option} >
+        {boardOptions.map((item) => (
+          <div key={item.option} >
             <label className="button-item">
               <input
                 type="radio"
-                value={option}
-                checked={board === option}
+                value={item.option}
+                checked={board === item.option}
                 onChange={() => {
-                  toggleBoard(option)
+                  toggleBoard(item.option)
                 }}
               />
-              <span >{option}</span>
+              <span >{item.name}</span>
             </label>
           </div>
         ))}

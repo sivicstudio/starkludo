@@ -16,6 +16,20 @@
   /* border: 5px solid #fff; */
 }
 
+.wooden-board {
+  background-image: url('../assets/images/Grunge wood texture.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fire-board {
+  background-image: url('../assets/images/Watercolor Tile Texture.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .container-row1,
 .container-row3 {
   width: 100%;

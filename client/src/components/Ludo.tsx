@@ -5,14 +5,17 @@ import { GameContext } from "../context/game-context";
 import { useSize } from "../hooks/size-hook";
 import { markers } from "../hooks/utils";
 import "../styles/Ludo.scss";
+import { BoardContext } from "../context/board-context";
 
 const Ludo: React.FC = () => {
   const { size, tileMap } = useSize();
   const boardRef = useRef<HTMLDivElement>(null);
   const { options } = useContext(GameContext);
+  const { board } = useContext(BoardContext);
+   
 
   return (
-    <div className="container card" ref={boardRef}>
+    <div className={`container ${board} card`} ref={boardRef}>
       {options.isGame &&
         markers
           .slice(0, options.playersLength * 4)
