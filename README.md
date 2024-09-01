@@ -88,8 +88,6 @@ torii --world <WORLD ADDRESS> --allowed-origins "*"
 > To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to: <img width="662" alt="image" src="https://github.com/user-attachments/assets/3b84a16e-10f2-4531-83c1-252838f18226">
 
  
-## Design Link
-[Figma Link here](https://www.figma.com/design/l6aQvXp1MaCscTACRI696b/StarkLudo?node-id=5-4&t=aSpDtYHeLOjnCUv0-0)
 ## License
 
 This project is licensed under the MIT License. See [License](./LICENSE) for more information
