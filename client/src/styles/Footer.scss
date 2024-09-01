@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 15px;
   color: rgb(203, 129, 141);
   box-sizing: border-box;
   height: auto;
@@ -24,15 +24,16 @@
   }
 
   .footer__logo {
-    width: 35px;
+  
+    width: 45px;
     height: auto;
     vertical-align: middle;
-    margin-left: 4px;
-    margin-right: 4px;
+    margin-left: 9px;
+    margin-right: 9px;
   }
 
   .footer__logo__starknet {
-    width: 72px;
+    width: 80px;
   }
   .dice {
     position: absolute;

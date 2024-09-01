@@ -41,9 +41,13 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__content">
         <p>
-          Powered by Starknet{" "}
-          <img src={starknet} alt="Starknet logo" className="footer__logo footer__logo__starknet" />{" "}
-          and Dojo Engine{" "}
+          Powered by
+          <img
+            src={starknet}
+            alt="Starknet logo"
+            className="footer__logo footer__logo__starknet"
+          />
+          and
           <img
             src={dojoengine}
             alt="Dojo Engine logo"
