@@ -1,5 +1,4 @@
 #[cfg(test)]
-#[ignore]
 mod tests {
     // import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
@@ -12,16 +11,11 @@ mod tests {
         },
         models::player::{Player, player}
     };
-    use starknet::{testing, contract_address_const, get_caller_address};
+    use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
 
-    #[test]
-    fn test_player_creation() {
-        // caller
-        let caller = contract_address_const::<'ibs'>();
-
-        testing::set_account_contract_address(caller);
-        testing::set_contract_address(caller);
-
+    fn create_and_setup_player(
+        username: felt252
+    ) -> (IPlayerActionsDispatcher, IWorldDispatcher, ContractAddress) {
         // models
         let mut models = array![player::TEST_CLASS_HASH];
 
@@ -35,10 +29,39 @@ mod tests {
 
         world.grant_writer(dojo::utils::bytearray_hash(@"starkludo"), contract_address);
 
-        player_actions.create('princeibs');
+        player_actions.create(username);
 
-        let mut player = get!(world, 'princeibs', Player);
+        (player_actions, world, contract_address)
+    }
 
+    #[test]
+    fn test_player_creation() {
+        // caller
+        let caller = contract_address_const::<'princeibs_address'>();
+        let username = 'princeibs';
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        let (_, world, _) = create_and_setup_player(username);
+
+        let mut player = get!(world, username, Player);
         assert_eq!(player.owner, caller);
+    }
+
+    #[test]
+    fn test_get_address_from_username() {
+        // caller
+        let caller = contract_address_const::<'princeibs_address'>();
+        let username = 'princeibs';
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        let (player_actions, world, _) = create_and_setup_player(username);
+
+        let princeibs_address = player_actions.get_address_from_username(username);
+
+        assert_eq!(princeibs_address, caller);
     }
 }
