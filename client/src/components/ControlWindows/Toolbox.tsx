@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import '../../styles/Toolbox.scss';
-import { BoardContext, BoardType } from "../../context/board-context";
+import { BoardContext } from "../../context/board-context";
 
 const Toolbox = () => {
   const { board, toggleBoard } = useContext(BoardContext);
@@ -10,8 +10,6 @@ const Toolbox = () => {
     {name: 'Wooden', option: 'wooden-board'},
     {name: 'Fire', option: 'fire-board'}
   ];
-
-
 
   return (
   <div>
