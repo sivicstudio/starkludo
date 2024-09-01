@@ -1,47 +1,50 @@
 .footer {
-  position: absolute; 
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   border-top: 1px solid brown;
   border-bottom: 1px solid brown;
-  background-color: inherit; 
-  padding: 10px; 
+  background-color: inherit;
+  padding: 18px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   color: rgb(203, 129, 141);
-  box-sizing: border-box; 
-  height: auto; 
-  font-size: 1em; 
+  box-sizing: border-box;
+  height: auto;
+  font-size: 1em;
 
   .footer__content {
     display: flex;
     align-items: center;
-    z-index: 2; 
+    z-index: 2;
   }
 
   .footer__logo {
     width: 35px;
     height: auto;
-    vertical-align: middle; 
-    margin-left: 4px; 
-    margin-right: 4px; 
+    vertical-align: middle;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 
+  .footer__logo__starknet {
+    width: 72px;
+  }
   .dice {
     position: absolute;
-    width: 24px; 
+    width: 24px;
     height: 24px;
-    opacity: 0.7; 
+    opacity: 0.6;
     z-index: 1;
     pointer-events: none;
   }
 
   .dice-1 {
-    top: 15px;
+    top: 30px;
     left: 30px;
     transform: rotate(15deg);
   }
