@@ -96,11 +96,13 @@ cd onchain
 # Run tests
 sozo test
 ```
-If you want to run a specific test by the test name, use the command:
+If you want to run a specific test by the test name, use this command:
 ```bash
 sozo test -f test_contract_deployment
 ```
 > `test_contract_deployment` above is the name of the specific function being tested
+
+> **_For more information about testing, check [Dojo book](https://book.dojoengine.org/framework/testing)_**
  
 
 ## License
