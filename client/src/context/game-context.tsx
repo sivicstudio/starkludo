@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { OptionsProps } from "../types";
 
 export const GameContext = createContext<{
-  gameState: { [key: string]: string };
+  gameState: { [key: string]: string | any };
   setGameData: (game: { [key: string]: string }) => void;
   options: OptionsProps;
   setGameOptions: (newOption: {}) => void;

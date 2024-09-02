@@ -7,3 +7,22 @@ export type OptionsProps = {
   winners: number[];
   gameCondition: number[];
 };
+
+
+type WinnerList = number[];
+
+export type GameOptions = {
+  isChance: boolean;
+  isThrown: boolean;
+  chance: number;
+  playersLength: number;
+  winners: WinnerList;
+  win: boolean;
+};
+
+//Marker Component
+export type MarkerProps = {
+  pos: string;
+  size: number;
+  tileMap: Record<number, number[]>;
+}

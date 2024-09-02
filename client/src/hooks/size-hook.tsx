@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export interface TileNode {
+  [key: string]: number[];
   1: number[];
   2: number[];
   3: number[];
