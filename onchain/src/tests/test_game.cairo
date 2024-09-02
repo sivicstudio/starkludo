@@ -69,4 +69,34 @@ mod tests {
     }
     // TODO: Test number of players
 // TODO: Test game mode
+#[test]
+    fn test_restart_game() {
+        let caller = contract_address_const::<'Collins'>();
+
+        let player_red = contract_address_const::<'player_red'>();
+        let player_blue = contract_address_const::<'player_blue'>();
+        let player_yellow = contract_address_const::<'player_yellow'>();
+        let player_green = contract_address_const::<'player_green'>();
+        let number_of_players = 4;
+        let game_mode: GameMode = GameMode::MultiPlayer;
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        //creating a new game
+        let (game, game_actions, _, _) = create_and_setup_game(
+            game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
+        );
+
+        //restarting the game
+        game_actions.restart(game);
+        
+        assert_eq!(game.next_player, zero_address);
+        assert_eq!(game.rolls_times, 0);
+        assert_eq!(game.rolls_count, 0);
+        assert_eq!(game.number_of_players, 0);
+        assert_eq!(game.dice_face, 0);
+        assert_eq!(game.player_chance, zero_address);
+        assert_eq!(game.has_thrown_dice, false);    
+    }
 }
