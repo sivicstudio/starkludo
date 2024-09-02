@@ -32,8 +32,8 @@ The game can be played by either 2, 3 or four people. In each game, there can on
 Steps to build and run StarkLudo locally
 
 ### Prerequisites
-**Ensure you have the prerequisites installed before proceeding.
-Check [here](https://book.dojoengine.org/getting-started#prerequisites) for guide on how to install the prerequisites.**
+**_Ensure you have the prerequisites installed before proceeding.
+Check [here](https://book.dojoengine.org/getting-started#prerequisites) for guide on how to install the prerequisites._**
 
 ### Install tools
 1. [Install pnpm](https://pnpm.io/installation#using-npm)
