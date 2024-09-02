@@ -5,7 +5,9 @@ import Ludo from "./components/Ludo";
 import Dice from "./components/Dice";
 import Menu from "./components/Menu";
 import Header from "./components/Header";
+
 import Alert from "./components/Alert";
+import Footer from "./components/Footer";
 import { chance } from "./hooks/utils";
 import "react-simple-flex-grid/lib/main.css";
 import RestartGame from "./components/RestartGame";
@@ -93,6 +95,7 @@ const App = () => {
               <Control />
             </Col>
           </Row>
+          <Footer/>
           </BoardContext.Provider>
         </GameContext.Provider>
         <ToastContainer position="bottom-center" />

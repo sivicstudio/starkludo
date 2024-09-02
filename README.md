@@ -32,8 +32,8 @@ The game can be played by either 2, 3 or four people. In each game, there can on
 Steps to build and run StarkLudo locally
 
 ### Prerequisites
-**Ensure you have the prerequisites installed before proceeding.
-Check [here](https://book.dojoengine.org/getting-started#prerequisites) for guide on how to install the prerequisites.**
+**_Ensure you have the prerequisites installed before proceeding.
+Check [here](https://book.dojoengine.org/getting-started#prerequisites) for guide on how to install the prerequisites._**
 
 ### Install tools
 1. [Install pnpm](https://pnpm.io/installation#using-npm)
@@ -87,6 +87,22 @@ torii --world <WORLD ADDRESS> --allowed-origins "*"
 
 > To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to: <img width="662" alt="image" src="https://github.com/user-attachments/assets/3b84a16e-10f2-4531-83c1-252838f18226">
 
+### Run contract tests
+Use the following command to run the tests for StarkLudo contracts
+```bash
+# Navigate to the contracts directory
+cd onchain
+
+# Run tests
+sozo test
+```
+If you want to run a specific test by the test name, use this command:
+```bash
+sozo test -f test_contract_deployment
+```
+> `test_contract_deployment` above is the name of the specific function being tested
+
+> **_For more information about testing, check [Dojo book](https://book.dojoengine.org/framework/testing)_**
  
 
 ## License
