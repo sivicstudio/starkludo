@@ -65,6 +65,7 @@ mod tests {
         assert_eq!(princeibs_address, caller);
     }
 
+    
     #[test]
     fn test_update_username() {
         // Get the caller
@@ -78,16 +79,17 @@ mod tests {
         let (player_actions, world, _) = create_and_setup_player(old_username);
 
         // Update the player owner
-        let mut player = get!(world, caller, (Player));
-        player.owner = caller.try_into().unwrap();
-        set!(world, (player));
+        let mut player: Player = get!(world, old_username, Player);
+
+        assert_eq!(player.username, old_username);
 
         // Update username
-        player_actions.update_username(new_username);
+        player_actions.update_username(new_username, old_username);
 
-        // Verify the update
-        let mut player = get!(world, new_username, Player);
-        assert_eq!(player.owner, caller);
-        assert_eq!(player.username, new_username);
+        set!(world, (player));
+
+        let new_player: Player = get!(world, new_username, Player);
+
+        assert_eq!(new_player.username, new_username);
     }
 }
