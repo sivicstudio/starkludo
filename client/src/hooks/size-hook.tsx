@@ -98,37 +98,37 @@ export interface TileNode {
 
 export const useSize = () => {
   const [size, setSize] = useState<number>(() => {
-    if (window.innerWidth > 600) {
+    // if (window.innerWidth > 600) {
       return 500;
-    } else if (window.innerWidth > 460) {
-      return 400;
-    } else {
-      return 300;
-    }
+    // } else if (window.innerWidth > 460) {
+    //   return 400;
+    // } else {
+    //   return 300;
+    // }
   });
 
   const [tileMap, setTileMap] = useState<TileNode>(() => {
-    if (window.innerWidth > 600) {
+    // if (window.innerWidth > 600) {
       return TM500;
-    } else if (window.innerWidth > 460) {
-      return TM400;
-    } else {
-      return TM300;
-    }
+    // } else if (window.innerWidth > 460) {
+    //   return TM400;
+    // } else {
+    //   return TM300;
+    // }
   });
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 600) {
+      // if (window.innerWidth > 600) {
         setSize(500);
         setTileMap(TM500);
-      } else if (window.innerWidth > 460) {
-        setSize(400);
-        setTileMap(TM400);
-      } else if (window.innerWidth <= 460) {
-        setSize(300);
-        setTileMap(TM300);
-      }
+      // } else if (window.innerWidth > 460) {
+      //   setSize(400);
+      //   setTileMap(TM400);
+      // } else if (window.innerWidth <= 460) {
+      //   setSize(300);
+      //   setTileMap(TM300);
+      // }
     }
 
     window.addEventListener("resize", handleResize);

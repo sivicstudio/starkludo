@@ -17,8 +17,8 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
     };
 
     const randomNumber = () => {
-      const max = 0.05;
-      const min = -0.05;
+      const max = 0.03;
+      const min = -0.03;
       return Math.random() * (max - min) + min;
     };
 
@@ -27,8 +27,8 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
       c = c > 1 ? randomNumber() / 2 : 0;
       const t = tileMap[gameState[pos]];
       if (markerRef.current !== null) {
-        markerRef.current.style.left = `${size * (t[0] + c)}px`;
-        markerRef.current.style.top = `${size * (t[1] + c)}px`;
+        markerRef.current.style.left = `${100 * (t[0] + c)}%`;
+        markerRef.current.style.top = `${1 + (100 * (t[1] + c))}%`;
       }
     }
   }, [gameState, pos, size, tileMap]);

@@ -7,9 +7,10 @@
 .container {
   background: #000000;
   position: relative;
-  width: 500px;
-  height: 500px;
-  margin: auto;
+  width: 95%;
+  aspect-ratio: 1;
+  margin-left: 16px;
+  margin-right: 16px;
   margin-top: 80px;
   margin-bottom: 30px;
   cursor: pointer;
