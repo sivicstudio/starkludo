@@ -104,7 +104,6 @@ sozo test -f test_contract_deployment
 
 > **_For more information about testing, check [Dojo book](https://book.dojoengine.org/framework/testing)_**
  
-
 ## License
 
 This project is licensed under the MIT License. See [License](./LICENSE) for more information
