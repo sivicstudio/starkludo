@@ -87,6 +87,20 @@ torii --world <WORLD ADDRESS> --allowed-origins "*"
 
 > To locate the world address, scan through the output generated from running `sozo migrate apply`, locate the line similar to: <img width="662" alt="image" src="https://github.com/user-attachments/assets/3b84a16e-10f2-4531-83c1-252838f18226">
 
+### Run contract tests
+Use the following command to run the tests for StarkLudo contracts
+```bash
+# Navigate to the contracts directory
+cd onchain
+
+# Run tests
+sozo test
+```
+If you want to run a specific test by the test name, use the command:
+```bash
+sozo test -f test_contract_deployment
+```
+> `test_contract_deployment` above is the name of the specific function being tested
  
 
 ## License
