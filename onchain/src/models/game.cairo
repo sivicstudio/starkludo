@@ -246,7 +246,7 @@ impl GameImpl of GameTrait {
             },
         }
     }
-    fn restart(ref self: Game){
+    fn restart(ref self: Game) {
         let zero_address = contract_address_const::<0x0>();
         self.next_player = zero_address;
         self.rolls_times = 0;
