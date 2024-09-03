@@ -1,3 +1,4 @@
+use core::num::traits::Zero;
 use starknet::{ContractAddress, get_block_timestamp, contract_address_const};
 use super::constants::TileNode;
 
@@ -27,19 +28,19 @@ pub struct Game {
     pub created_by: ContractAddress,
     pub game_status: GameStatus,
     pub game_mode: GameMode,
-    pub player_green: ContractAddress,
-    pub player_yellow: ContractAddress,
-    pub player_blue: ContractAddress,
-    pub player_red: ContractAddress,
-    pub winner_1: ContractAddress,
-    pub winner_2: ContractAddress,
-    pub winner_3: ContractAddress,
-    pub next_player: ContractAddress,
+    pub player_green: felt252,
+    pub player_yellow: felt252,
+    pub player_blue: felt252,
+    pub player_red: felt252,
+    pub winner_1: felt252,
+    pub winner_2: felt252,
+    pub winner_3: felt252,
+    pub next_player: felt252,
     pub number_of_players: u8,
     pub rolls_count: u256, //  Sum of all the numbers rolled by the dice
     pub rolls_times: u256, // Total number of times the dice has been rolled
     pub dice_face: u8,
-    pub player_chance: ContractAddress,
+    pub player_chance: felt252,
     pub has_thrown_dice: bool,
     pub b0: felt252,
     pub b1: felt252,
@@ -64,13 +65,14 @@ pub trait GameTrait {
         id: u64,
         created_by: ContractAddress,
         game_mode: GameMode,
-        player_red: ContractAddress,
-        player_blue: ContractAddress,
-        player_yellow: ContractAddress,
-        player_green: ContractAddress,
+        player_red: felt252,
+        player_blue: felt252,
+        player_yellow: felt252,
+        player_green: felt252,
         number_of_players: u8
     ) -> Game;
     fn restart(ref self: Game);
+    fn terminate_game(ref self: Game);
 }
 
 impl GameImpl of GameTrait {
@@ -78,10 +80,10 @@ impl GameImpl of GameTrait {
         id: u64,
         created_by: ContractAddress,
         game_mode: GameMode,
-        player_red: ContractAddress,
-        player_blue: ContractAddress,
-        player_yellow: ContractAddress,
-        player_green: ContractAddress,
+        player_red: felt252,
+        player_blue: felt252,
+        player_yellow: felt252,
+        player_green: felt252,
         number_of_players: u8
     ) -> Game {
         let zero_address = contract_address_const::<0x0>();
@@ -91,30 +93,30 @@ impl GameImpl of GameTrait {
             game_status: GameStatus::Ongoing,
             game_mode,
             player_green: match game_mode {
-                GameMode::SinglePlayer => zero_address,
+                GameMode::SinglePlayer => zero_address.into(),
                 GameMode::MultiPlayer => player_green
             },
             player_yellow: match game_mode {
-                GameMode::SinglePlayer => zero_address,
+                GameMode::SinglePlayer => zero_address.into(),
                 GameMode::MultiPlayer => player_yellow
             },
             player_blue: match game_mode {
-                GameMode::SinglePlayer => zero_address,
+                GameMode::SinglePlayer => zero_address.into(),
                 GameMode::MultiPlayer => player_blue
             },
             player_red: match game_mode {
-                GameMode::SinglePlayer => zero_address,
+                GameMode::SinglePlayer => zero_address.into(),
                 GameMode::MultiPlayer => player_red
             },
-            next_player: zero_address,
-            winner_1: zero_address,
-            winner_2: zero_address,
-            winner_3: zero_address,
+            next_player: zero_address.into(),
+            winner_1: zero_address.into(),
+            winner_2: zero_address.into(),
+            winner_3: zero_address.into(),
             rolls_times: 0,
             rolls_count: 0,
             number_of_players,
             dice_face: 0,
-            player_chance: zero_address,
+            player_chance: zero_address.into(),
             has_thrown_dice: false,
             b0: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
@@ -246,14 +248,19 @@ impl GameImpl of GameTrait {
             },
         }
     }
+
     fn restart(ref self: Game) {
         let zero_address = contract_address_const::<0x0>();
-        self.next_player = zero_address;
+        self.next_player = zero_address.into();
         self.rolls_times = 0;
         self.rolls_count = 0;
         self.number_of_players = 0;
         self.dice_face = 0;
-        self.player_chance = zero_address;
+        self.player_chance = zero_address.into();
         self.has_thrown_dice = false;
+    }
+
+    fn terminate_game(ref self: Game) {
+        self.game_status = GameStatus::Ended;
     }
 }
