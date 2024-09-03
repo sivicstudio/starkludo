@@ -15,6 +15,7 @@ trait IGameActions {
         player_red: ContractAddress,
         number_of_players: u8
     ) -> Game;
+    fn restart(ref world: IWorldDispatcher, game_id: u64);
 }
 
 #[dojo::contract]
@@ -51,6 +52,11 @@ mod GameActions {
             set!(world, (new_game));
             let game_0: Game = get!(world, id, Game);
             game_0
+        }
+        fn restart(ref world: IWorldDispatcher, game_id: u64) {
+            let mut game: Game = get!(world, game_id, (Game));
+            game.restart();
+            set!(world, (game));
         }
     }
 }
