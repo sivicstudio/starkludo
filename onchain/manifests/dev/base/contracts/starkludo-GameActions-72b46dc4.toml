@@ -7,4 +7,5 @@ reads = []
 writes = []
 init_calldata = []
 tag = "starkludo-GameActions"
+systems = []
 manifest_name = "starkludo-GameActions-72b46dc4"
