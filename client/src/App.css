@@ -1,3 +1,4 @@
+/* Existing .game-behaviour-warning styles */
 .game-behaviour-warning {
   color: rgb(203, 129, 141);
   display: flex;
@@ -7,4 +8,47 @@
   border: solid 1px brown;
   text-align: center;
   font-size: 15px;
+}
+
+.game-behaviour-warning {
+  color: rgb(203, 129, 141);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: solid 1px brown;
+  text-align: center;
+  font-size: 15px;
+}
+
+.layout-container {
+  width: 100%;
+}
+
+.mobile-header {
+  display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .mobile-header {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .desktop-header {
+    display: none;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .mobile-header {
+    display: none;
+  }
+
+  .desktop-header {
+    display: block;
+  }
 }
