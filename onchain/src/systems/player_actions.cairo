@@ -5,7 +5,11 @@ use starkludo::models::{player::{Player, PlayerTrait}};
 trait IPlayerActions {
     fn create(ref world: IWorldDispatcher, username: felt252);
     fn get_address_from_username(ref world: IWorldDispatcher, username: felt252) -> ContractAddress;
+
     fn get_player_stats(ref world: IWorldDispatcher, username: felt252) -> (u256, u256, u256, u256);
+
+    fn update_username(ref world: IWorldDispatcher, new_username: felt252, old_username: felt252);
+
 }
 
 #[dojo::contract]
@@ -39,6 +43,7 @@ mod PlayerActions {
             player.owner
         }
 
+
         fn get_player_stats(
             ref world: IWorldDispatcher, username: felt252
         ) -> (u256, u256, u256, u256) {
@@ -52,6 +57,24 @@ mod PlayerActions {
             let leaderboard_position: u256 = 0;
 
             (player.total_games_played, player.total_games_won, total_points, leaderboard_position)
+
+        fn update_username(
+            ref world: IWorldDispatcher, new_username: felt252, old_username: felt252
+        ) {
+            let caller = get_caller_address();
+            let mut player: Player = get!(world, old_username, (Player));
+
+            // Only allow the player to update their own username
+            assert(player.owner == caller, 'only user can udpate username');
+
+            // Check if the new username is already taken
+            let mut existing_player = get!(world, new_username, (Player));
+            assert(existing_player.owner == 0.try_into().unwrap(), 'username already exist');
+
+            // Update the player's username
+            player.username = new_username;
+            set!(world, (player));
+
         }
     }
 }

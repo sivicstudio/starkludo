@@ -1,5 +1,6 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../context/game-context";
+import { GameOptions, WinnerList } from "../types";
 import {
   capColors,
   posReducer,
@@ -11,6 +12,7 @@ import {
   coloredBlocks,
 } from "./utils";
 import { toast } from "react-toastify";
+import { num } from "starknet";
 
 export const useGame = () => {
   const { gameState, setGameData, options, setGameOptions } =
@@ -37,7 +39,9 @@ export const useGame = () => {
   );
 
   const incrementChance = useCallback(
-    (isChance, isThrown, chance, playersLength, winners, win) => {
+    (
+      { isChance, isThrown, chance, winners, playersLength, win }: GameOptions
+    ) => {
       let newChance: number;
       newChance = isChance ? chance : (chance + 1) % playersLength;
       while (options.winners.includes(newChance)) {
@@ -119,7 +123,7 @@ export const useGame = () => {
   };
 
   const moveMarker = useCallback(
-    async (pos, color) => {
+    async (pos: string , color: number) => {
       let diceThrow = options.throw;
       let j = markers.indexOf(pos);
 
@@ -165,14 +169,14 @@ export const useGame = () => {
       colorState.map((c) => c === `${capColors[color]}6` && f++);
 
       setGameData(newGameState);
-      incrementChance(
-        isChance,
-        isThrown,
-        options.chance,
-        options.playersLength,
-        options.winners,
-        f === 4 ? true : false
-      );
+      incrementChance({
+        isChance: isChance,
+        isThrown: isThrown,
+        chance: options.chance,
+        winners: options.winners,
+        playersLength: options.playersLength,
+        win: f === 4,
+      });
     },
     [setGameData, options, setGameOptions, incrementChance]
   );

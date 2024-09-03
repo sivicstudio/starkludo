@@ -58,23 +58,20 @@ mod tests {
         testing::set_account_contract_address(caller);
         testing::set_contract_address(caller);
 
-        let (player_actions, world, _) = create_and_setup_player(username);
+        let (player_actions, _world, _) = create_and_setup_player(username);
 
         let princeibs_address = player_actions.get_address_from_username(username);
 
         assert_eq!(princeibs_address, caller);
     }
 
+
     #[test]
     fn test_get_player_stats() {
         // caller
         let caller = contract_address_const::<'fishon_address'>();
         let username = 'fishon';
-
-        testing::set_account_contract_address(caller);
-        testing::set_contract_address(caller);
-
-        let (player_actions, world, _) = create_and_setup_player(username);
+         let (player_actions, world, _) = create_and_setup_player(username);
 
         // Test modification of the player's stats
         let mut player = get!(world, username, Player);
@@ -90,5 +87,33 @@ mod tests {
         assert_eq!(games_won, 5, "Incorrect games won");
         assert_eq!(total_points, 5, "Incorrect total points");
         assert_eq!(leaderboard_position, 0, "Incorrect leaderboard position");
+     }
+
+    
+    #[test]
+    fn test_update_username() {
+        // Get the caller
+        let caller = contract_address_const::<'nuelo_address'>();
+        let old_username = 'neulo';
+        let new_username = 'new_nuelo';
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        let (player_actions, world, _) = create_and_setup_player(old_username);
+
+        // Update the player owner
+        let mut player: Player = get!(world, old_username, Player);
+
+        assert_eq!(player.username, old_username);
+
+        // Update username
+        player_actions.update_username(new_username, old_username);
+
+        set!(world, (player));
+
+        let new_player: Player = get!(world, new_username, Player);
+
+        assert_eq!(new_player.username, new_username);
     }
 }
