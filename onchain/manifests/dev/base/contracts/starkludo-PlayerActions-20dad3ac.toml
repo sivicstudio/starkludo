@@ -1,10 +1,11 @@
 kind = "DojoContract"
-class_hash = "0x5c2a1a2f31ca58b48d85c29ba354bda8650caaf15790a7c423da955bf6f219d"
-original_class_hash = "0x5c2a1a2f31ca58b48d85c29ba354bda8650caaf15790a7c423da955bf6f219d"
+class_hash = "0x254fc6a3429af67eca8dc4be456eabbc07fbd83bd64aa57858ca9dbbc6a2ff9"
+original_class_hash = "0x254fc6a3429af67eca8dc4be456eabbc07fbd83bd64aa57858ca9dbbc6a2ff9"
 base_class_hash = "0x0"
 abi = "manifests/dev/base/abis/contracts/starkludo-PlayerActions-20dad3ac.json"
 reads = []
 writes = []
 init_calldata = []
 tag = "starkludo-PlayerActions"
+systems = ["create"]
 manifest_name = "starkludo-PlayerActions-20dad3ac"

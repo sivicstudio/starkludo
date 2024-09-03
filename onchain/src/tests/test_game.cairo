@@ -1,12 +1,12 @@
 #[cfg(test)]
 mod tests {
-    // import world dispatcher
+    // Import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
-    // import test utils
+    // Import test utils
     use dojo::utils::test::{spawn_test_world, deploy_contract};
-    // import test utils
+    // Import test utils
     use starkludo::{
-        systems::{game_actions::{GameActions, IGameActionsDispatcher, IGameActionsDispatcherTrait}},
+        systems::{game_actions::{GameActions, IGameActionsDispatcher, DiceTrait, IGameActionsDispatcherTrait, DiceImpl}},
         models::game::{Game, game, GameMode},
     };
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
@@ -67,8 +67,10 @@ mod tests {
         assert_eq!(game.player_yellow, player_yellow);
         assert_eq!(game.player_green, player_green);
     }
+
     // TODO: Test number of players
     // TODO: Test game mode
+
     #[test]
     fn test_restart_game() {
         let caller = contract_address_const::<'Collins'>();
@@ -102,3 +104,29 @@ mod tests {
         assert_eq!(game.has_thrown_dice, false);
     }
 }
+
+
+    // Constants for Dice Tests
+    const DICE_FACE_COUNT: u8 = 6;
+    const DICE_SEED: felt252 = 'SEED';
+
+    #[test]
+    fn test_dice_new_roll() {
+        let mut dice = DiceTrait::new(DICE_FACE_COUNT, DICE_SEED);
+        assert(dice.roll() == 1, 'Wrong dice value');
+        assert(dice.roll() == 6, 'Wrong dice value');
+        assert(dice.roll() == 3, 'Wrong dice value');
+        assert(dice.roll() == 1, 'Wrong dice value');
+        assert(dice.roll() == 4, 'Wrong dice value');
+        assert(dice.roll() == 3, 'Wrong dice value');
+    }
+
+    #[test]
+    fn test_dice_new_roll_overflow() {
+        let mut dice = DiceTrait::new(DICE_FACE_COUNT, DICE_SEED);
+        dice.nonce = 0x800000000000011000000000000000000000000000000000000000000000000;
+        dice.roll();
+        assert(dice.nonce == 0, 'Wrong dice nonce');
+    }
+}
+
