@@ -14,6 +14,8 @@ trait IPlayerActions {
 
     // Update player username
     fn update_username(ref world: IWorldDispatcher, new_username: felt252, old_username: felt252);
+
+    fn update_total_games_played(ref world: IWorldDispatcher, username: felt252);
 }
 
 #[dojo::contract]
