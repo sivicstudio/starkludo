@@ -84,15 +84,15 @@ const App = () => {
           </div>
           <Row gutter={0}>
             <Col xs={12} sm={12} md={6} lg={6}>
-              <Ludo />
-            </Col>
-            <Col xs={12} sm={12} md={6} lg={6}>
               <Header />
               <Menu />
               <RestartGame />
               <Alert />
               <Dice />
               <Control />
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={6}>
+              <Ludo />
             </Col>
           </Row>
           <Footer/>
