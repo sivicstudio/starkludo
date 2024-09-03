@@ -70,6 +70,7 @@ pub trait GameTrait {
         player_green: ContractAddress,
         number_of_players: u8
     ) -> Game;
+    fn restart(ref self: Game);
 }
 
 impl GameImpl of GameTrait {
@@ -244,5 +245,15 @@ impl GameImpl of GameTrait {
                 _ => panic!("invalid number of players")
             },
         }
+    }
+    fn restart(ref self: Game) {
+        let zero_address = contract_address_const::<0x0>();
+        self.next_player = zero_address;
+        self.rolls_times = 0;
+        self.rolls_count = 0;
+        self.number_of_players = 0;
+        self.dice_face = 0;
+        self.player_chance = zero_address;
+        self.has_thrown_dice = false;
     }
 }
