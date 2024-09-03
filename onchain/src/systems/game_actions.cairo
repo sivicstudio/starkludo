@@ -34,9 +34,12 @@ mod GameActions {
             player_red: ContractAddress,
             number_of_players: u8
         ) -> Game {
+            // Get the current block timestamp
             let id = get_block_timestamp();
+            // Get the account address of the caller
             let caller = get_caller_address();
 
+            // Create a new game
             let new_game: Game = GameTrait::new(
                 id,
                 caller,
@@ -48,8 +51,11 @@ mod GameActions {
                 number_of_players
             );
 
+            // Update the world state with the newly created game
             set!(world, (new_game));
+            // Get the newly created game from the world
             let game_0: Game = get!(world, id, Game);
+            // Return the newly created game
             game_0
         }
     }
