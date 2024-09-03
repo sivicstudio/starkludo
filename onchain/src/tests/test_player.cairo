@@ -65,6 +65,30 @@ mod tests {
         assert_eq!(princeibs_address, caller);
     }
 
+
+    #[test]
+    fn test_get_player_stats() {
+        // caller
+        let caller = contract_address_const::<'fishon_address'>();
+        let username = 'fishon';
+         let (player_actions, world, _) = create_and_setup_player(username);
+
+        // Test modification of the player's stats
+        let mut player = get!(world, username, Player);
+        player.total_games_played = 10;
+        player.total_games_won = 5;
+        set!(world, (player));
+
+        // Get the player's stats
+        let (games_played, games_won, total_points, leaderboard_position) = 
+            player_actions.get_player_stats(username);
+
+        assert_eq!(games_played, 10, "Incorrect games played");
+        assert_eq!(games_won, 5, "Incorrect games won");
+        assert_eq!(total_points, 5, "Incorrect total points");
+        assert_eq!(leaderboard_position, 0, "Incorrect leaderboard position");
+     }
+
     
     #[test]
     fn test_update_username() {
