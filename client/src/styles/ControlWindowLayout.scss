@@ -8,6 +8,8 @@
     right: 0;
     display: flex;
     flex-direction: column;
+    resize: both; 
+    overflow: auto;
 
     .handle {
         width: 100%;

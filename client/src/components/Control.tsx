@@ -29,7 +29,7 @@ const Control = () => {
     showHelp ? setShowHelp(false) : setShowHelp(true);
 
   return (
-    <div className="control resize">
+    <div className="control">
       {showAccount ? (
         <ControlWindowLayout
           toggle={toggleShowAccount}
