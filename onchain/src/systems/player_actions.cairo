@@ -9,7 +9,6 @@ trait IPlayerActions {
     fn get_player_stats(ref world: IWorldDispatcher, username: felt252) -> (u256, u256, u256, u256);
 
     fn update_username(ref world: IWorldDispatcher, new_username: felt252, old_username: felt252);
-
 }
 
 #[dojo::contract]
@@ -57,6 +56,7 @@ mod PlayerActions {
             let leaderboard_position: u256 = 0;
 
             (player.total_games_played, player.total_games_won, total_points, leaderboard_position)
+        }
 
         fn update_username(
             ref world: IWorldDispatcher, new_username: felt252, old_username: felt252
@@ -74,7 +74,6 @@ mod PlayerActions {
             // Update the player's username
             player.username = new_username;
             set!(world, (player));
-
         }
     }
 }
