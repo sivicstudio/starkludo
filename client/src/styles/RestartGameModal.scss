@@ -1,0 +1,42 @@
+// src/styles/ConfirmationDialog.scss
+.restartCon {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+  }
+  
+  .innerRestart {
+	background: #edeee9;
+	padding: 20px;
+	border-radius: 8px;
+	text-align: center;
+  }
+  
+  .chooseAns {
+	margin-top: 20px;
+  }
+  
+  .chooseAns button {
+	margin: 0 10px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  .chooseAns button:first-of-type {
+	background: #007bff;
+	color: #fff;
+  }
+  
+  .chooseAns button:last-of-type {
+	background: #ccc;
+  }
+  

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
-import { TileNode } from "../hooks/size-hook";
+import { MarkerProps } from "../types";
 
 import "../styles/Marker.scss";
 
-const Marker = ({ pos, size, tileMap }) => {
+const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
   const { moveMarker } = useGame();
-  const clickMap = { r: 0, g: 1, y: 2, b: 3 };
+  const clickMap: Record<string, number> = { r: 0, g: 1, y: 2, b: 3 };
   const markerRef = useRef<HTMLDivElement>(null);
   const { gameState, options } = useContext(GameContext);
 
@@ -17,8 +17,8 @@ const Marker = ({ pos, size, tileMap }) => {
     };
 
     const randomNumber = () => {
-      const max = 0.05;
-      const min = -0.05;
+      const max = 0.03;
+      const min = -0.03;
       return Math.random() * (max - min) + min;
     };
 
@@ -27,8 +27,8 @@ const Marker = ({ pos, size, tileMap }) => {
       c = c > 1 ? randomNumber() / 2 : 0;
       const t = tileMap[gameState[pos]];
       if (markerRef.current !== null) {
-        markerRef.current.style.left = `${size * (t[0] + c)}px`;
-        markerRef.current.style.top = `${size * (t[1] + c)}px`;
+        markerRef.current.style.left = `${100 * (t[0] + c)}%`;
+        markerRef.current.style.top = `${1 + (100 * (t[1] + c))}%`;
       }
     }
   }, [gameState, pos, size, tileMap]);

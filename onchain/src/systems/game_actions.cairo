@@ -1,5 +1,7 @@
 use starkludo::models::{game::{Game, GameTrait, GameMode}};
 use starknet::{ContractAddress, get_block_timestamp};
+use core::poseidon::PoseidonTrait;
+use core::hash::HashStateTrait;
 
 #[dojo::interface]
 trait IGameActions {
@@ -34,6 +36,7 @@ mod GameActions {
         ) -> Game {
             let id = get_block_timestamp();
             let caller = get_caller_address();
+
             let new_game: Game = GameTrait::new(
                 id,
                 caller,
@@ -44,9 +47,43 @@ mod GameActions {
                 player_green,
                 number_of_players
             );
+
             set!(world, (new_game));
             let game_0: Game = get!(world, id, Game);
             game_0
         }
+    }
+}
+
+
+#[derive(Drop)]
+pub struct Dice {
+    pub face_count: u8,
+    pub seed: felt252,
+    pub nonce: felt252,
+}
+
+pub trait DiceTrait {
+
+    fn new(face_count: u8, seed: felt252) -> Dice;
+
+    fn roll(ref self: Dice) -> u8;
+}
+
+pub impl DiceImpl of DiceTrait {
+    #[inline(always)]
+    fn new(face_count: u8, seed: felt252) -> Dice {
+        Dice { face_count, seed, nonce: 0 }
+    }
+
+    #[inline(always)]
+    fn roll(ref self: Dice) -> u8 {
+        let mut state = PoseidonTrait::new();
+        state = state.update(self.seed);
+        state = state.update(self.nonce);
+        self.nonce += 1;
+
+        let random: u256 = state.finalize().into();
+        (random % self.face_count.into() + 1).try_into().unwrap()
     }
 }
