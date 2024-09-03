@@ -1,12 +1,16 @@
 use starknet::{ContractAddress, get_block_timestamp, contract_address_const};
 use super::constants::TileNode;
 
+// Represents the status of the game
+// Can either be Ongoing or Ended
 #[derive(Serde, Copy, Drop, Introspect, PartialEq)]
 pub enum GameStatus {
     Ongoing,
     Ended,
 }
 
+// Represents the game mode
+// Can either be SinglePlayer or Multiplayer
 #[derive(Serde, Copy, Drop, Introspect, PartialEq)]
 pub enum GameMode {
     SinglePlayer, // Play with computer
@@ -19,47 +23,50 @@ pub enum PiecePosition {
     MultiPlayer, // Play online with friends
 }
 
+// Game model
+// Keeps track of the state of the game
 #[derive(Drop, Serde)]
 #[dojo::model]
 pub struct Game {
     #[key]
-    pub id: u64,
-    pub created_by: ContractAddress,
-    pub game_status: GameStatus,
-    pub game_mode: GameMode,
-    pub player_green: ContractAddress,
-    pub player_yellow: ContractAddress,
-    pub player_blue: ContractAddress,
-    pub player_red: ContractAddress,
-    pub winner_1: ContractAddress,
-    pub winner_2: ContractAddress,
-    pub winner_3: ContractAddress,
-    pub next_player: ContractAddress,
-    pub number_of_players: u8,
+    pub id: u64, // Unique id of the game
+    pub created_by: ContractAddress, // Address of the game creator
+    pub game_status: GameStatus, // Status of the game
+    pub game_mode: GameMode, // Mode of the game
+    pub player_green: ContractAddress, // Player contract address
+    pub player_yellow: ContractAddress, // Player contract address
+    pub player_blue: ContractAddress, // Player contract address
+    pub player_red: ContractAddress, // Player contract address
+    pub winner_1: ContractAddress, // First winner position 
+    pub winner_2: ContractAddress, // Second winner position
+    pub winner_3: ContractAddress, // Third winner position
+    pub next_player: ContractAddress, // Address of the player to make the next move
+    pub number_of_players: u8, // Number of players in the game
     pub rolls_count: u256, //  Sum of all the numbers rolled by the dice
     pub rolls_times: u256, // Total number of times the dice has been rolled
-    pub dice_face: u8,
-    pub player_chance: ContractAddress,
-    pub has_thrown_dice: bool,
-    pub b0: felt252,
-    pub b1: felt252,
-    pub b2: felt252,
-    pub b3: felt252,
-    pub g0: felt252,
-    pub g1: felt252,
-    pub g2: felt252,
-    pub g3: felt252,
-    pub r0: felt252,
-    pub r1: felt252,
-    pub r2: felt252,
-    pub r3: felt252,
-    pub y0: felt252,
-    pub y1: felt252,
-    pub y2: felt252,
-    pub y3: felt252,
+    pub dice_face: u8, // Last value of dice thrown
+    pub player_chance: ContractAddress, // Next player to make move
+    pub has_thrown_dice: bool, // Whether the dice has been thrown or not
+    pub b0: felt252, // blue piece position on board
+    pub b1: felt252, // blue piece position on board
+    pub b2: felt252, // blue piece position on board
+    pub b3: felt252, // blue piece position on board
+    pub g0: felt252, // green piece position on board
+    pub g1: felt252, // green piece position on board
+    pub g2: felt252, // green piece position on board
+    pub g3: felt252, // green piece position on board
+    pub r0: felt252, // red piece position on board
+    pub r1: felt252, // red piece position on board
+    pub r2: felt252, // red piece position on board
+    pub r3: felt252, // red piece position on board
+    pub y0: felt252, // yellow piece position on board
+    pub y1: felt252, // yellow piece position on board
+    pub y2: felt252, // yellow piece position on board
+    pub y3: felt252, // yellow piece position on board
 }
 
 pub trait GameTrait {
+    // Create and return a new game
     fn new(
         id: u64,
         created_by: ContractAddress,
