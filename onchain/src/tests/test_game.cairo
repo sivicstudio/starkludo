@@ -6,7 +6,12 @@ mod tests {
     use dojo::utils::test::{spawn_test_world, deploy_contract};
     // Import test utils
     use starkludo::{
-        systems::{game_actions::{GameActions, IGameActionsDispatcher, DiceTrait, IGameActionsDispatcherTrait, DiceImpl}},
+        systems::{
+            game_actions::{
+                GameActions, IGameActionsDispatcher, DiceTrait, IGameActionsDispatcherTrait,
+                DiceImpl
+            }
+        },
         models::game::{Game, game, GameMode},
     };
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
@@ -103,10 +108,7 @@ mod tests {
         assert_eq!(game.player_chance, zero_address);
         assert_eq!(game.has_thrown_dice, false);
     }
-}
-
-
-    // Constants for Dice Tests
+    // // Constants for Dice Tests
     const DICE_FACE_COUNT: u8 = 6;
     const DICE_SEED: felt252 = 'SEED';
 
