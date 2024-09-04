@@ -3,11 +3,16 @@ use starkludo::models::{player::{Player, PlayerTrait}};
 
 #[dojo::interface]
 trait IPlayerActions {
+    // Create a new player
     fn create(ref world: IWorldDispatcher, username: felt252);
+
+    // Get player address from username
     fn get_address_from_username(ref world: IWorldDispatcher, username: felt252) -> ContractAddress;
 
+    // Get player stats
     fn get_player_stats(ref world: IWorldDispatcher, username: felt252) -> (u256, u256, u256, u256);
 
+    // Update player username
     fn update_username(ref world: IWorldDispatcher, new_username: felt252, old_username: felt252);
 }
 

@@ -14,6 +14,7 @@ mod tests {
         },
         models::game::{Game, game, GameMode},
     };
+    // Import Starknet utils
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
 
     fn create_and_setup_game(
@@ -24,12 +25,18 @@ mod tests {
         player_yellow: ContractAddress,
         player_green: ContractAddress,
     ) -> (Game, IGameActionsDispatcher, IWorldDispatcher, ContractAddress,) {
+        // Get caller address
         let caller = get_caller_address();
+        // Get game models
         let mut models = array![game::TEST_CLASS_HASH];
+        // Spawn a new world from game model
         let world = spawn_test_world(["starkludo"].span(), models.span());
+        // Deploy world and get contract address
         let contract_address = world
             .deploy_contract('salt', GameActions::TEST_CLASS_HASH.try_into().unwrap());
+        // Game actions 
         let game_actions = IGameActionsDispatcher { contract_address };
+        // Grant writer access to game actions
         world.grant_writer(dojo::utils::bytearray_hash(@"starkludo"), contract_address);
 
         // Create a new game
