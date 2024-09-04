@@ -54,8 +54,7 @@ const App = () => {
     if (options.isGame) {
       if (options.winners.length === options.playersLength - 1) {
         toast(
-          `The game has ended. Player ${
-            chance[options.winners[0]]
+          `The game has ended. Player ${chance[options.winners[0]]
           } is the winner`
         );
         setGameOptions({
@@ -68,34 +67,39 @@ const App = () => {
   return (
     <>
       <StarknetProvider>
-        <GameContext.Provider
-          value={{
-            gameState: gameState,
-            setGameData: setGameData,
-            options: options,
-            setGameOptions: setGameOptions,
-          }}
-        >
+        <GameContext.Provider value={{
+          gameState: gameState,
+          setGameData: setGameData,
+          options: options,
+          setGameOptions: setGameOptions,
+        }}>
           <BoardContext.Provider value={{ board, toggleBoard }}>
-          <div className="game-behaviour-warning">
-            <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
-            StarkLudo is still in active development{" "}
-            <FiZap color="yellow" size={20} />
-          </div>
-          <Row gutter={0}>
-            <Col xs={12} sm={12} md={6} lg={6}>
-              <Ludo />
-            </Col>
-            <Col xs={12} sm={12} md={6} lg={6}>
-              <Header />
-              <Menu />
-              <RestartGame />
-              <Alert />
-              <Dice />
-              <Control />
-            </Col>
-          </Row>
-          <Footer/>
+            <div className="game-behaviour-warning">
+              <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+              StarkLudo is still in active development{" "}
+              <FiZap color="yellow" size={20} />
+            </div>
+            <div className="layout-container">
+              <div className="mobile-header">
+                <Header />
+              </div>
+              <Row gutter={0}>
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <Ludo />
+                </Col>
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <div className="desktop-header">
+                    <Header />
+                  </div>
+                  <Menu />
+                  <RestartGame />
+                  <Alert />
+                  <Dice />
+                  <Control />
+                </Col>
+              </Row>
+              <Footer />
+            </div>
           </BoardContext.Provider>
         </GameContext.Provider>
         <ToastContainer position="bottom-center" />
