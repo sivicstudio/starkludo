@@ -78,7 +78,7 @@ mod tests {
         let (player_actions, world, _) = create_and_setup_player(username);
 
         // Test modification of the player's stats
-        let mut player = get!(world, username, Player);
+        let mut player: Player = get!(world, username, Player);
         player.total_games_played = 10;
         player.total_games_won = 5;
         set!(world, (player));

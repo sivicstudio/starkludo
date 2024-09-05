@@ -12,7 +12,7 @@ mod tests {
                 DiceImpl
             }
         },
-        models::game::{Game, game, GameMode},
+        models::game::{Game, game, GameMode, GameStatus},
     };
     // Import Starknet utils
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
@@ -34,7 +34,7 @@ mod tests {
         // Deploy world and get contract address
         let contract_address = world
             .deploy_contract('salt', GameActions::TEST_CLASS_HASH.try_into().unwrap());
-        // Game actions 
+        // Game actions
         let game_actions = IGameActionsDispatcher { contract_address };
         // Grant writer access to game actions
         world.grant_writer(dojo::utils::bytearray_hash(@"starkludo"), contract_address);
@@ -136,6 +136,38 @@ mod tests {
         dice.nonce = 0x800000000000011000000000000000000000000000000000000000000000000;
         dice.roll();
         assert(dice.nonce == 0, 'Wrong dice nonce');
+    }
+
+    #[test]
+    fn test_terminate_game() {
+        let caller = contract_address_const::<'ibs'>();
+
+        let player_red = 'player_red';
+        let player_blue = 'player_blue';
+        let player_yellow = 'player_yellow';
+        let player_green = 'player_green';
+        let number_of_players = 4;
+        let game_mode: GameMode = GameMode::MultiPlayer;
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        let (game, _, _, _) = create_and_setup_game(
+            game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
+        );
+
+        assert_eq!(game.created_by, caller);
+        // assert_eq!(game.game_mode, game_mode);
+        assert_eq!(game.player_red, player_red.into());
+        assert_eq!(game.player_blue, player_blue.into());
+        assert_eq!(game.player_yellow, player_yellow.into());
+        assert_eq!(game.player_green, player_green.into());
+
+        let game_id: u64 = game.id;
+
+        game.terminate_game(game_id);
+
+        assert_eq!(game.game_status, GameStatus::Ended);
     }
 }
 
