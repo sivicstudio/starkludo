@@ -3,7 +3,7 @@
 _<div style="text-align: center">Ludo game, on Starknet</div>_
 
 <div style="text-align: center ">
-  <img src="./assets/starkludo.jpeg" width="355px"/>
+  <img width="996" alt="image" src="https://github.com/user-attachments/assets/97b4fefc-fdf3-4078-bbe5-a2937464d4ad">
 </div>
 
 <div style="width: 100%; display: flex; align-items: center; justify-content: center">
