@@ -9,7 +9,7 @@ pub struct Player {
     pub username: felt252, // Unique username of player
     pub owner: ContractAddress, // Account owner of player. An account can own multiple players
     pub total_games_played: u256, // Count of total games played by this player
-    pub total_games_won: u256 // Count of total games won by this player
+    pub total_games_won: u256, // Count of total games won by this player
 }
 
 pub trait PlayerTrait {
