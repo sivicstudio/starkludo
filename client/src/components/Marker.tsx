@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
 import { MarkerProps } from "../types";
+import markerSound from "../assets/audio/seed_click_sound.wav";
 
 import "../styles/Marker.scss";
 
@@ -28,7 +29,7 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
       const t = tileMap[gameState[pos]];
       if (markerRef.current !== null) {
         markerRef.current.style.left = `${100 * (t[0] + c)}%`;
-        markerRef.current.style.top = `${1 + (100 * (t[1] + c))}%`;
+        markerRef.current.style.top = `${1 + 100 * (t[1] + c)}%`;
       }
     }
   }, [gameState, pos, size, tileMap]);
@@ -36,6 +37,8 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
   const move:
     | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined = () => {
+    const sound = new Audio(markerSound);
+    sound.play();
     moveMarker(pos, clickMap[pos.charAt(0)]);
   };
 
