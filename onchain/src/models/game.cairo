@@ -4,7 +4,7 @@ use super::constants::TileNode;
 
 // Represents the status of the game
 // Can either be Ongoing or Ended
-#[derive(Serde, Copy, Drop, Introspect, PartialEq)]
+#[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
 pub enum GameStatus {
     Ongoing,
     Ended,
