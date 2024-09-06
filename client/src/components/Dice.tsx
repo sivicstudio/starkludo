@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useRef } from "react";
 import { useGame } from "../hooks/game-hook";
 import { Row, Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
 import { GameContext } from "../context/game-context";
+import diceSound from "../assets/audio/shaking-dice-25620.mp3";
 
 const Dice = () => {
   const { moveValidator } = useGame();
   const [diceClass, setDiceClass] = useState("");
   const { options, setGameOptions } = useContext(GameContext);
+  const audioRef = useRef(new Audio(diceSound));
 
   // cc = center-center; tl = top-left; br = bottom-right; etc.
   const combinations: { [key: number]: string[] }[] = [
@@ -18,6 +20,17 @@ const Dice = () => {
     { 5: ["tl", "tr", "cc", "bl", "br"] },
     { 6: ["tl", "tr", "cl", "cr", "bl", "br"] },
   ];
+
+  // Function to play the dice rolling sound
+  const playDiceSound = () => {
+    audioRef.current.play();
+  };
+
+  // Function to stop the dice rolling sound
+  const stopDiceSound = () => {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0; // Reset the audio to the start
+  };
 
   const eraseDots = async (number: number) => {
     // iterate over combinations array to remove numbers
@@ -66,6 +79,8 @@ const Dice = () => {
         // The result on die
         let x = await randomRollResult();
         makeDots(x);
+        stopDiceSound();
+        moveValidator(x); // Validate move after rolling
         // remove CSS animation spin effect
         setDiceClass((d) => d.replace("spin-die", ""));
       } else {
@@ -82,6 +97,7 @@ const Dice = () => {
         }
       }
     };
+    playDiceSound();
     const rolling = setInterval(rollState, 125);
   };
 
