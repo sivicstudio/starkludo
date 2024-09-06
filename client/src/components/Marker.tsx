@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
 import { MarkerProps } from "../types";
-import markerSound from "../assets/audio/seed_click_sound.wav";
+import markerSound from "../assets/seed_click_sound.wav";
 
 import "../styles/Marker.scss";
 
