@@ -33,7 +33,7 @@ export const getGameProfilesFromAddress = async (
     // Convert Ids to string
     ids = ids.map((id) => new BigNumber(id).toString());
 
-    let names: any[] = [];
+    let names: string[] = [];
 
     // Loop through Ids and get the corresponding name associated with the Id
     // Reverse the list
