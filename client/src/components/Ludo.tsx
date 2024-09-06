@@ -15,8 +15,8 @@ const Ludo: React.FC = () => {
    
 
   return (
-    <div className={`container ${board} card`} ref={boardRef}>
-      {options.isGame &&
+    <div className="container ${board} card" ref={boardRef}>
+      {options.gameIsOngoing &&
         markers
           .slice(0, options.playersLength * 4)
           .map((m) => <Marker key={m} pos={m} size={size} tileMap={tileMap} />)}

@@ -47,7 +47,8 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
       className={`marker-${pos.charAt(0)}`}
       ref={markerRef}
       onClick={
-        options.thrown && clickMap[pos.charAt(0)] === options.chance
+        options.hasThrownDice &&
+        clickMap[pos.charAt(0)] === options.playerChance
           ? move
           : undefined
       }
