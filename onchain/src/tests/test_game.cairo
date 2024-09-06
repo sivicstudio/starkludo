@@ -152,7 +152,7 @@ mod tests {
         testing::set_account_contract_address(caller);
         testing::set_contract_address(caller);
 
-        let (game, _, _, _) = create_and_setup_game(
+        let (game, game_actions, _, _) = create_and_setup_game(
             game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
         );
 
@@ -165,7 +165,7 @@ mod tests {
 
         let game_id: u64 = game.id;
 
-        game.terminate_game(game_id);
+        game_actions.terminate_game(game_id);
 
         assert_eq!(game.game_status, GameStatus::Ended);
     }
