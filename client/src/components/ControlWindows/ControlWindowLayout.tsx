@@ -16,7 +16,7 @@ const ControlWindowLayout = ({
   themeColor: string;
   title: string;
   subtitle?: string;
-  positionOffset: any;
+  positionOffset: { x: string; y: string };
 }) => {
   return (
     <Draggable grid={[15, 15]} positionOffset={positionOffset} handle=".handle">

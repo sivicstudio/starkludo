@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { OptionsProps } from "../types";
 
 export const GameContext = createContext<{
-  gameState: { [key: string]: string };
+  gameState: { [key: string]: string | any };
   setGameData: (game: { [key: string]: string }) => void;
   options: OptionsProps;
   setGameOptions: (newOption: {}) => void;
@@ -10,11 +10,11 @@ export const GameContext = createContext<{
   gameState: {},
   setGameData: (game) => {},
   options: {
-    isGame: false,
+    gameIsOngoing: false,
     playersLength: 0,
-    throw: 0,
-    chance: 0,
-    thrown: false,
+    diceFace: 0,
+    playerChance: 0,
+    hasThrownDice: false,
     winners: [],
     gameCondition: [],
   },
