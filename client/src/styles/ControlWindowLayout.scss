@@ -8,9 +8,8 @@
     right: 0;
     display: flex;
     flex-direction: column;
-    resize: both; 
+    resize: both;
     overflow: auto;
-    z-index: 20;
 
     .handle {
         width: 100%;
@@ -55,4 +54,3 @@
         width: 100%;
     }
 }
-
