@@ -39,9 +39,14 @@ export const useGame = () => {
   );
 
   const incrementChance = useCallback(
-    (
-      { isChance, isThrown, chance, winners, playersLength, win }: GameOptions
-    ) => {
+    ({
+      isChance,
+      isThrown,
+      chance,
+      winners,
+      playersLength,
+      win,
+    }: GameOptions) => {
       let newChance: number;
       newChance = isChance ? chance : (chance + 1) % playersLength;
       while (options.winners.includes(newChance)) {
@@ -171,14 +176,14 @@ export const useGame = () => {
 
       setGameData(newGameState);
 
-      incrementChance(
+      incrementChance({
         isChance: isChance,
         isThrown: isThrown,
-        options: options.playerChance,
+        chance: options.playerChance,
         playersLength: options.playersLength,
         winners: options.winners,
-        win: f === 4
-      );
+        win: f === 4,
+      });
     },
     [setGameData, options, setGameOptions, incrementChance]
   );
