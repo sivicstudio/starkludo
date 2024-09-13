@@ -180,8 +180,8 @@ export const useGame = () => {
         isChance: isChance,
         isThrown: isThrown,
         chance: options.playerChance,
-        winners: options.winners,
         playersLength: options.playersLength,
+        winners: options.winners,
         win: f === 4,
       });
     },
