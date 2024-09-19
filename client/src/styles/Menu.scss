@@ -1,34 +1,82 @@
-.game-menu {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 8rem;
-
-  .play-now {
-    color: green;
-    text-decoration: underline;
-  }
-
-  .select-players {
+.game-menu-container {
+  padding: 1px;
+  background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+  border-radius: 16px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  margin-top: 6rem;
+  overflow: hidden;
+  .game-menu {
+    padding: 38px 24px;
+    border-radius: 16px;
+    background-color: #0e0121;
+    color: #f5f5f5;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
-
-
-
-    .select-player {
+    .play-now {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .select-players {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      color: white;
-      cursor: pointer;
-
-      .select-info {
-        font-size: .8rem;
+      flex-direction: column;
+      gap: 1rem;
+      .select-player {
+        display: flex;
+        flex-direction: row-reverse;
+        border-radius: 12px;
+        border: none;
+        width: 352px;
+        padding: 18px 12px;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #230056;
+        color: #f5f5f5;
+        font-size: 24px;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        &:hover,
+        &.selected {
+          background-color: #f5f5f5;
+          color: #230056;
+        }
+        // .select-info {
+        // }
       }
+    }
+  }
+}
+
+.start {
+  display: flex;
+  justify-content: center;
+  .start-button {
+    border: 1px #2dccfd solid;
+    background: linear-gradient(
+      180deg,
+      #2dccfd 0%,
+      rgba(27, 0, 67, 0.8) 100%,
+      #2dccfd 100%
+    );
+    padding: 10px;
+    margin-top: 28px;
+    border-radius: 12px;
+    width: 200px;
+    color: #f5f5f5;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(45, 204, 253, 0.2);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 6px 12px rgba(45, 204, 253, 0.4);
     }
   }
 }

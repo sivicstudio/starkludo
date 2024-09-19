@@ -12,7 +12,6 @@ const Ludo: React.FC = () => {
   const boardRef = useRef<HTMLDivElement>(null);
   const { options } = useContext(GameContext);
   const { board } = useContext(BoardContext);
-   
 
   return (
     <div className="container ${board} card" ref={boardRef}>

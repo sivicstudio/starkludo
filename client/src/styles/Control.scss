@@ -1,13 +1,12 @@
 .control {
   margin-top: 100px;
-  width: fit-content;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-
   .control-buttons {
     display: flex;
+    justify-content: center;
     gap: 30px;
-    width: fit-content;
     align-items: center;
   }
 }

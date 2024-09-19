@@ -32,6 +32,11 @@ code {
   padding-top: 10%;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
 @media only screen and (min-width: 600px) {
   .star {
     padding-top: 20%;

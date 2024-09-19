@@ -23,10 +23,32 @@
 
 .layout-container {
   width: 100%;
+  background-color: #0e0121;
 }
 
 .mobile-header {
   display: none;
+}
+
+.sidebar {
+  height: fit-content;
+  padding: 49px 34px;
+  overflow: hidden;
+}
+
+.sidebar > div {
+  padding: 1px;
+  background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+  overflow: hidden;
+  border-radius: 16px;
+  height: 100%;
+}
+
+.sidebar > div > div {
+  background-color: #0e0121;
+  padding: 52px 14px;
+  border-radius: 16px;
+  position: relative;
 }
 
 /* Mobile styles */
