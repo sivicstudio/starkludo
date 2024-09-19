@@ -70,40 +70,8 @@ const Control = ({
     WINDOW_CONFIGS.map((config) => ({ ...config, show: false, zIndex: 0 }))
   );
 
-  //   const toggleWindow = (id: string) => {
-  //     setWindows((prevWindows) => {
-  //       const maxZIndex = Math.max(...prevWindows.map((w) => w.zIndex));
-  //       return prevWindows.map((window) =>
-  //         window.id === id
-  //           ? {
-  //               ...window,
-  //               show: !window.show,
-  //               zIndex: window.show ? window.zIndex : maxZIndex + 1,
-  //             }
-  //           : window
-  //       );
-  //     });
-  //   };
-
   return (
     <div className="control">
-      {/* {windows.map(
-        (window) =>
-          window.show && (
-            <ControlWindowLayout
-              key={window.id}
-              index={window.zIndex}
-              toggle={() => toggleWindow(window.id)}
-              themeColor={window.themeColor}
-              title={window.title}
-              subtitle={window.subtitle}
-              positionOffset={window.positionOffset}
-            >
-              <window.component />
-            </ControlWindowLayout>
-          )
-      )} */}
-
       {/* Control buttons */}
       <div className="control-buttons">
         {WINDOW_CONFIGS.map((window) => (
