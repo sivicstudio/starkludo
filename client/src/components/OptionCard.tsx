@@ -17,7 +17,7 @@ export default function OptionCard({
     >
       <div className="option">
         <img src={boardImg} alt="board" />
-        <div className="option-label">{option.item}</div>
+        <div className="option-label">{option.name}</div>
       </div>
     </button>
   );
