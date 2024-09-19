@@ -1,17 +1,14 @@
 import { useState } from "react";
-import userIcon from "../assets/images/userIcon.svg";
-import usersIcon from "../assets/images/usersIcon.svg";
-import podiumIcon from "../assets/images/podiumIcon.svg";
-import toolBoxIcon from "../assets/images/toolboxIcon.svg";
-import helpCircleIcon from "../assets/images/helpCircleIcon.svg";
+import UserIcon from "../svg/UserIcon";
+import UsersIcon from "../svg/UsersIcon";
+import PodiumIcon from "../svg/PodiumIcon";
+import ToolboxIcon from "../svg/ToolboxIcon";
 
-import { FaToolbox, FaUsers } from "react-icons/fa";
-import { FiHelpCircle, FiUser } from "react-icons/fi";
-import { IoIosPodium } from "react-icons/io";
+import HelpIcon from "../svg/HelpIcon";
+
 import "../styles/Control.scss";
 import GameAccount from "./ControlWindows/GameAccount";
 import Leaderboard from "./ControlWindows/Leaderboard";
-import ControlWindowLayout from "./ControlWindows/ControlWindowLayout";
 import Multiplayer from "./ControlWindows/Multiplayer";
 import Toolbox from "./ControlWindows/Toolbox";
 import GameHelp from "./ControlWindows/GameHelp";
@@ -19,7 +16,7 @@ import GameHelp from "./ControlWindows/GameHelp";
 const WINDOW_CONFIGS = [
   {
     id: "account",
-    icon: FiUser,
+    icon: <UserIcon />,
     themeColor: "blue",
     title: "Account",
     subtitle: "Your portal to the StarkLudo world",
@@ -28,7 +25,7 @@ const WINDOW_CONFIGS = [
   },
   {
     id: "leaderboard",
-    icon: IoIosPodium,
+    icon: <PodiumIcon />,
     themeColor: "yellow",
     title: "Leaderboard",
     subtitle: "Ranking of all players",
@@ -37,7 +34,7 @@ const WINDOW_CONFIGS = [
   },
   {
     id: "multiplayer",
-    icon: FaUsers,
+    icon: <UsersIcon />,
     themeColor: "green",
     title: "Multiplayer",
     subtitle: "Play StarkLudo with other players in real time",
@@ -46,7 +43,7 @@ const WINDOW_CONFIGS = [
   },
   {
     id: "toolbox",
-    icon: FaToolbox,
+    icon: <ToolboxIcon />,
     themeColor: "brown",
     title: "Toolbox",
     subtitle: "Customise the looks and feel of your game",
@@ -55,7 +52,7 @@ const WINDOW_CONFIGS = [
   },
   {
     id: "help",
-    icon: FiHelpCircle,
+    icon: <HelpIcon />,
     themeColor: "gray",
     title: "Help",
     subtitle: "Get guides, tips, and tricks needed for a successful game",
@@ -73,20 +70,20 @@ const Control = ({
     WINDOW_CONFIGS.map((config) => ({ ...config, show: false, zIndex: 0 }))
   );
 
-  const toggleWindow = (id: string) => {
-    setWindows((prevWindows) => {
-      const maxZIndex = Math.max(...prevWindows.map((w) => w.zIndex));
-      return prevWindows.map((window) =>
-        window.id === id
-          ? {
-              ...window,
-              show: !window.show,
-              zIndex: window.show ? window.zIndex : maxZIndex + 1,
-            }
-          : window
-      );
-    });
-  };
+  //   const toggleWindow = (id: string) => {
+  //     setWindows((prevWindows) => {
+  //       const maxZIndex = Math.max(...prevWindows.map((w) => w.zIndex));
+  //       return prevWindows.map((window) =>
+  //         window.id === id
+  //           ? {
+  //               ...window,
+  //               show: !window.show,
+  //               zIndex: window.show ? window.zIndex : maxZIndex + 1,
+  //             }
+  //           : window
+  //       );
+  //     });
+  //   };
 
   return (
     <div className="control">
@@ -108,53 +105,25 @@ const Control = ({
       )} */}
 
       {/* Control buttons */}
-      {/* <div className="control-buttons">
-        {windows.map((window) => (
-          <div
-            key={window.id}
-            className="control-button"
-            onClick={() => toggleWindow(window.id)}
-          >
-            <window.icon
-              color="white"
-              style={{ cursor: "pointer" }}
-              size={"2em"}
-            />
+      <div className="control-buttons">
+        {WINDOW_CONFIGS.map((window) => (
+          <div>
+            <div
+              key={window.id}
+              className="control-button"
+              onClick={() => toggleActiveWindow(window.id)}
+            >
+              <div className="control-button-outer-ring">
+                <div className="control-button-inner-ring">
+                  <div className="control-button-inner-inner-ring">
+                    <div>{window.icon}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h3 className="control-button-label">{window.title}</h3>
           </div>
         ))}
-      </div> */}
-
-      <div className="control-buttons">
-        <div
-          className="control-button"
-          onClick={() => toggleActiveWindow("account")}
-        >
-          <img src={userIcon} style={{ cursor: "pointer" }} />
-        </div>
-        <div
-          className="control-button"
-          onClick={() => toggleActiveWindow("leaderboard")}
-        >
-          <img src={podiumIcon} style={{ cursor: "pointer" }} />
-        </div>
-        <div
-          className="control-button"
-          onClick={() => toggleActiveWindow("multiplayer")}
-        >
-          <img src={usersIcon} alt="" style={{ cursor: "pointer" }} />
-        </div>
-        <div
-          className="control-button"
-          onClick={() => toggleActiveWindow("toolbox")}
-        >
-          <img src={toolBoxIcon} alt="" style={{ cursor: "pointer" }} />
-        </div>
-        <div
-          className="control-button"
-          onClick={() => toggleActiveWindow("help")}
-        >
-          <img src={helpCircleIcon} alt="" style={{ cursor: "pointer" }} />
-        </div>
       </div>
     </div>
   );
