@@ -30,7 +30,7 @@
     "react-toastify": "^10.0.5",
     "sass": "^1.77.8",
     "starknet-tokenbound-sdk": "^0.2.0",
-    "tokenbound-connector": "^0.2.21",
+    "tokenbound-connectkit": "^1.0.3",
     "ethers": "^5.7.2",
     "mobx": "^6.9.0",
     "proxy-deep": "^3.1.1",
