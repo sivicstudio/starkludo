@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import dojoengine from "../assets/images/dojoengine.png";
 import starknet from "../assets/images/starknet.png";
-import dice1 from "../assets/images/dice-2.png";
-import dice2 from "../assets/images/dice-3.png";
+import dice1 from "../assets/images/dice-2.svg";
+import dice2 from "../assets/images/dice-3.svg";
 import "../styles/Footer.scss";
 
 const Footer = () => {

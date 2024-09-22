@@ -9,23 +9,20 @@
   position: relative;
   width: 95%;
   aspect-ratio: 1;
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 80px;
-  margin-bottom: 30px;
+  margin: 49px 34px;
   cursor: pointer;
   /* border: 5px solid #fff; */
 }
 
 .wooden-board {
-  background-image: url('../assets/images/Grunge wood texture.svg');
+  background-image: url("../assets/images/Grunge wood texture.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .fire-board {
-  background-image: url('../assets/images/Watercolor Tile Texture.svg');
+  background-image: url("../assets/images/Watercolor Tile Texture.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

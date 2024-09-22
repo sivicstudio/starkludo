@@ -19,9 +19,24 @@ import Control from "./components/Control";
 import { StarknetProvider } from "./starknet-provider";
 import { FiAlertTriangle, FiZap } from "react-icons/fi";
 import { BoardContext, BoardType } from "./context/board-context";
+import ControlWindowLayout from "./components/ControlWindows/ControlWindowLayout";
+import GameHelp from "./components/ControlWindows/GameHelp";
+import Toolbox from "./components/ControlWindows/Toolbox";
+import Multiplayer from "./components/ControlWindows/Multiplayer";
+import Leaderboard from "./components/ControlWindows/Leaderboard";
+import GameAccount from "./components/ControlWindows/GameAccount";
 
 const App = () => {
-  const [board, setBoard] = useState<BoardType>('classic');
+  const [activeWindow, setActiveWindow] = useState("");
+  const [board, setBoard] = useState<BoardType>("classic");
+
+  function toggleActiveWindow(window: string) {
+    if (window === activeWindow) {
+      setActiveWindow("");
+      return;
+    }
+    setActiveWindow(window);
+  }
 
   const toggleBoard = (newBoard: BoardType) => {
     setBoard(newBoard);
@@ -54,7 +69,8 @@ const App = () => {
     if (options.gameIsOngoing) {
       if (options.winners.length === options.playersLength - 1) {
         toast(
-          `The game has ended. Player ${chance[options.winners[0]]
+          `The game has ended. Player ${
+            chance[options.winners[0]]
           } is the winner`
         );
         setGameOptions({
@@ -67,12 +83,14 @@ const App = () => {
   return (
     <>
       <StarknetProvider>
-        <GameContext.Provider value={{
-          gameState: gameState,
-          setGameData: setGameData,
-          options: options,
-          setGameOptions: setGameOptions,
-        }}>
+        <GameContext.Provider
+          value={{
+            gameState: gameState,
+            setGameData: setGameData,
+            options: options,
+            setGameOptions: setGameOptions,
+          }}
+        >
           <BoardContext.Provider value={{ board, toggleBoard }}>
             <div className="game-behaviour-warning">
               <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
@@ -84,18 +102,73 @@ const App = () => {
                 <Header />
               </div>
               <Row gutter={0}>
-                <Col xs={12} sm={12} md={6} lg={6}>
+                <Col xs={12} sm={12} md={7} lg={7}>
                   <Ludo />
                 </Col>
-                <Col xs={12} sm={12} md={6} lg={6}>
-                  <div className="desktop-header">
-                    <Header />
+                <Col xs={12} sm={12} md={5} lg={5}>
+                  <div className="sidebar">
+                    <div>
+                      <div>
+                        <div className="desktop-header">
+                          <Header />
+                        </div>
+                        <Menu />
+                        <RestartGame />
+                        <Alert />
+                        <Dice />
+                        {activeWindow === "account" ? (
+                          <ControlWindowLayout
+                            toggle={() => setActiveWindow("")}
+                            title="PROFILE"
+                            subtitle="Your Profile Information"
+                          >
+                            <GameAccount />
+                          </ControlWindowLayout>
+                        ) : null}
+
+                        {activeWindow === "leaderboard" ? (
+                          <ControlWindowLayout
+                            toggle={() => setActiveWindow("")}
+                            title="LEADERBOARD"
+                            subtitle="Global Player Rankings"
+                          >
+                            <Leaderboard />
+                          </ControlWindowLayout>
+                        ) : null}
+
+                        {activeWindow === "multiplayer" ? (
+                          <ControlWindowLayout
+                            toggle={() => setActiveWindow("")}
+                            title="MULTIPLAYER"
+                            subtitle="Choose An Account To Play With"
+                          >
+                            <Multiplayer />
+                          </ControlWindowLayout>
+                        ) : null}
+
+                        {activeWindow === "toolbox" ? (
+                          <ControlWindowLayout
+                            toggle={() => setActiveWindow("")}
+                            title="TOOLBOX"
+                            subtitle="Get All Your Items And Settings Done"
+                          >
+                            <Toolbox />
+                          </ControlWindowLayout>
+                        ) : null}
+
+                        {activeWindow === "help" ? (
+                          <ControlWindowLayout
+                            toggle={() => setActiveWindow("")}
+                            title="HELP"
+                            subtitle="Get Guides, Tips, And Tricks Needed For A Successful Game"
+                          >
+                            <GameHelp />
+                          </ControlWindowLayout>
+                        ) : null}
+                        <Control toggleActiveWindow={toggleActiveWindow} />
+                      </div>
+                    </div>
                   </div>
-                  <Menu />
-                  <RestartGame />
-                  <Alert />
-                  <Dice />
-                  <Control />
                 </Col>
               </Row>
               <Footer />

@@ -100,65 +100,71 @@ const GameAccount = () => {
         {!address ? (
           <ConnectWallet />
         ) : (
-          <div className="body-details">
-            {/* Wallet details */}
-            <div className="wallet-details">
-              <div className="details-address">
-                <span>Address</span>
-                <span>{shortenedAddress}</span>
+          <div>
+            <div className="avatar">
+              <div className="avatar-outer-ring">
+                <div className="avatar-inner-ring">
+                  <div className="avatar-inner-inner-ring">
+                    <div>
+                      <img src="" alt="" />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="details-address">
-                <span>Starknet ID</span>
-                <span>{profile?.name ? profile.name : "---"}</span>
-              </div>
-              <div className="details-address">
-                <span>Network</span>
-                <span>{chain.network.toUpperCase()}</span>
-              </div>
+              <h3>{profile?.name ? profile.name : "---"}</h3>
+              <h4>{shortenedAddress}</h4>
             </div>
-            {/* Game Profiles */}
-            <div className="game-profiles">
-              <div className="profile-heading">Game Profiles</div>
-              <div className="game-profiles-outer-list">
-                {gameProfiles !== undefined ? (
-                  <div className="game-profiles-inner-list">
-                    {gameProfiles?.length > 0 ? (
-                      <div className="games-profiles-core-list">
-                        {gameProfiles.map((gameProfile) => (
-                          <div className="list-profile">
-                            <span>{convertHexToText(gameProfile)}</span>
 
-                            <FaArrowAltCircleRight cursor={"pointer"} />
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div style={{ color: "gray" }}>--no profile found--</div>
-                    )}
-                  </div>
-                ) : (
-                  <div style={{ color: "gray" }} className="loading-txt">
-                    Loading...
-                  </div>
-                )}
+            <div className="streak">
+              <div className="streak-num">
+                <h3>Current win streak</h3>
+                <h5>5</h5>
               </div>
-              <div className="add-profile">
-                <input
-                  placeholder="username"
-                  value={newProfileName}
-                  onChange={(e) => setNewProfileName(e.target.value)}
-                />
-                <button
-                  className="add-profile-btn"
-                  onClick={() => addGameProfile()}
-                >
-                  Add new profile
-                </button>
+              <div
+                onClick={() => disconnectWallet()}
+                className="disconnect-btn"
+              >
+                <button>Disconnect</button>
+              </div>
+              <div className="border"></div>
+            </div>
+            <div className="player-stats">
+              <div className="player-stat">
+                <div>Total Earnings</div>
+                <div>25025</div>
+              </div>
+              <div className="player-stat">
+                <div>Games Won</div>
+                <div>1500 of 1520</div>
+              </div>
+              <div className="player-stat">
+                <div>2 player Wins</div>
+                <div>1256</div>
+              </div>
+              <div className="player-stat">
+                <div>3 player Wins</div>
+                <div>1256</div>
+              </div>
+              <div className="player-stat">
+                <div>4 player Wins</div>
+                <div>1256</div>
+              </div>
+              <div className="player-stat">
+                <div>4 player Wins</div>
+                <div>1256</div>
+              </div>
+              <div className="player-stat">
+                <div>Win Percentage</div>
+                <div>89%</div>
+              </div>
+              <div className="player-stat">
+                <div>Archivements</div>
+                <div>361</div>
               </div>
             </div>
-            {/* Disconnect button */}
-            <div onClick={() => disconnectWallet()} className="disconnect-btn">
-              Disconnect
+            <div className="player-actions">
+              <button>DELETE</button>
+              <button>SELL</button>
             </div>
           </div>
         )}

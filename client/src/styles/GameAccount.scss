@@ -1,122 +1,131 @@
-.body-section {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0 20px;
+.avatar {
+  color: #f5f5f5;
+  margin-bottom: 20px;
+  .avatar-outer-ring {
+    padding: 2px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+    margin: 0 auto;
+    margin-bottom: 3px;
+    .avatar-inner-ring {
+      background: #0e0121;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 8px;
+      .avatar-inner-inner-ring {
+        padding: 2px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+        width: 100%;
+        height: 100%;
+        & > div {
+          background-color: #0e0121;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  h3 {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 10px;
+  }
 }
 
-.body-details {
-    margin-top: 30px;
-    width: 100%;
+.streak {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  .streak-num {
+    padding: 12px 12px;
+    border-radius: 12px;
+    background-color: #230056;
     display: flex;
-    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-
-    .wallet-details {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        margin-bottom: 20px;
-
-        .details-address {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-
-            span:first-of-type {
-                color: hsl(0, 1%, 65%);
-            }
-        }
+    h5 {
+      padding-left: 8px;
+      border-left: 1px rgba(45, 204, 253, 0.48) solid;
+      font-size: 12px;
+      height: fit-content;
+      font-weight: bold;
     }
-
-    .game-profiles {
-        text-align: left;
-        width: 100%;
-
-        .profile-heading {
-            text-decoration: underline;
-        }
-
-        .add-profile {
-            background-color: white;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 8px;
-            margin-top: 10px;
-
-            input {
-                border: none;
-                margin: 3px;
-                outline: 0;
-                height: 25px;
-                padding: 0 5px;
-                width: 60%;
-            }
-
-            .add-profile-btn {
-                border-radius: 8px;
-                padding: 5px 5px;
-                background-color: blue;
-                color: white;
-                cursor: pointer;
-            }
-        }
-
-        .games-profiles-core-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .list-profile {
-            display: flex;
-            justify-content: space-between;
-            border-radius: 3px;
-            padding: 1px 0;
-        }
-
-        .list-profile:hover {
-            background-color: rgba(0, 0, 255, 0.202);
-            padding: 0 5px;
-        }
+  }
+  .wallet-btn {
+    background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+    padding: 1px;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 12px;
+    button {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #230056 0%, #121212 100%);
+      color: #f5f5f5;
+      border-radius: 12px;
+      border: none;
+      outline: none;
     }
-
-    .disconnect-btn {
-        border: solid 1px white;
-        width: 80%;
-        padding: 5px 15px;
-        border-radius: 7px;
-        cursor: pointer;
-        font-size: 1.3rem;
-        color: red;
-        margin-bottom: 40px;
-    }
+  }
+  .border {
+    background: linear-gradient(90deg, #2dccfd 0%, #ff01ff 100%);
+    height: 1px;
+    width: 100%;
+    margin-top: 12px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }
 
-.wallet {
-    margin-top: 30px;
-
-    span {
-        text-decoration: underline;
+.player-stats {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .player-stat {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    text-align: left;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 24px;
+    & div:first-child {
+      padding: 12px 16px;
+      background-color: #1b0043;
     }
-
-    .wallet-list {
-        display: flex;
-        justify-content: center;
-        margin-top: 7px;
-        gap: 5px;
+    & div:last-child {
+      padding: 12px 16px;
+      background-color: #230056;
     }
-
-    .wallet-name-btn {
-        border: solid 1px white;
-        width: fit-content;
-        padding: 5px 15px;
-        border-radius: 7px;
-        cursor: pointer;
-    }
+  }
 }
 
-//
+.player-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px #ff01ff solid;
+  margin-bottom: 36px;
+  button {
+    background: #230056;
+    border-radius: 12px;
+    color: #f5f5f5;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+  }
+  & button:last-child {
+    border: 1px solid #2dccfd;
+  }
+}
