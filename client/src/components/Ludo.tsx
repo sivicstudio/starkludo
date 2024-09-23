@@ -14,7 +14,7 @@ const Ludo: React.FC = () => {
   const { board } = useContext(BoardContext);
 
   return (
-    <div className="container ${board} card" ref={boardRef}>
+    <div className={`container ${board} card`} ref={boardRef}>
       {options.gameIsOngoing &&
         markers
           .slice(0, options.playersLength * 4)
