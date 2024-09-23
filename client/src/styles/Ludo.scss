@@ -7,10 +7,11 @@
 .container {
   background: #000000;
   position: relative;
-  width: 95%;
+  width: 800px;
   aspect-ratio: 1;
   margin: 49px 34px;
   cursor: pointer;
+  height: 800px;
   /* border: 5px solid #fff; */
 }
 
@@ -53,8 +54,8 @@
   width: 20%;
 }
 
-.row1-col2 > div:hover,
-.row3-col2 > div:hover {
+.row1-col2>div:hover,
+.row3-col2>div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
@@ -79,8 +80,8 @@
   height: 100%;
 }
 
-.row2-col1 > div:hover,
-.row2-col3 > div:hover {
+.row2-col1>div:hover,
+.row2-col3>div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
@@ -111,10 +112,10 @@
   border-radius: 50%;
 }
 
-.row1-col1-child > div,
-.row1-col3-child > div,
-.row3-col1-child > div,
-.row3-col3-child > div {
+.row1-col1-child>div,
+.row1-col3-child>div,
+.row3-col1-child>div,
+.row3-col3-child>div {
   width: 35%;
   height: 35%;
   float: left;
@@ -127,25 +128,25 @@
   border-radius: 50%;
 }
 
-.row1-col1-child > div:hover,
-.row1-col3-child > div:hover,
-.row3-col1-child > div:hover,
-.row3-col3-child > div:hover {
+.row1-col1-child>div:hover,
+.row1-col3-child>div:hover,
+.row3-col1-child>div:hover,
+.row3-col3-child>div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.row1-col2 > div,
-.row3-col2 > div {
+.row1-col2>div,
+.row3-col2>div {
   width: 33.333%;
   height: 16.667%;
   float: left;
   border: 1px solid #fff;
 }
 
-.row2-col1 > div,
-.row2-col3 > div {
+.row2-col1>div,
+.row2-col3>div {
   width: 16.667%;
   height: 33.333%;
   float: left;
@@ -245,6 +246,7 @@
     height: 400px;
     margin-top: 50px;
   }
+
   .triangle-right {
     width: 0;
     height: 0;
@@ -255,6 +257,7 @@
     left: 0;
     top: 4.2px;
   }
+
   .triangle-up {
     width: 0;
     height: 0;
@@ -265,6 +268,7 @@
     bottom: 0;
     left: 4.2px;
   }
+
   .triangle-left {
     width: 0;
     height: 0;
@@ -275,6 +279,7 @@
     right: 0;
     top: 4.2px;
   }
+
   .triangle-down {
     width: 0;
     height: 0;
@@ -293,6 +298,7 @@
     height: 350px;
     margin-top: 60px;
   }
+
   .triangle-right {
     width: 0;
     height: 0;
@@ -303,6 +309,7 @@
     left: 0;
     top: 4.2px;
   }
+
   .triangle-up {
     width: 0;
     height: 0;
@@ -313,6 +320,7 @@
     bottom: 0;
     left: 4.2px;
   }
+
   .triangle-left {
     width: 0;
     height: 0;
@@ -323,6 +331,7 @@
     right: 0;
     top: 4.2px;
   }
+
   .triangle-down {
     width: 0;
     height: 0;
