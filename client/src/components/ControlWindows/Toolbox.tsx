@@ -1,43 +1,43 @@
-import React, { useContext } from "react";
-import '../../styles/Toolbox.scss';
+import { useContext } from "react";
+import "../../styles/Toolbox.scss";
 import { BoardContext } from "../../context/board-context";
+import OptionCard from "../OptionCard";
 
 const Toolbox = () => {
   const { board, toggleBoard } = useContext(BoardContext);
 
   const boardOptions = [
-    {name: 'Classic', option: 'classic'}, 
-    {name: 'Wooden', option: 'wooden-board'},
-    {name: 'Fire', option: 'fire-board'}
+    { name: "Classic", option: "classic" },
+    { name: "Wooden", option: "wooden-board" },
+    { name: "Fire", option: "fire-board" },
   ];
 
   return (
-  <div>
-    <div>
-      <h2 className="title">
-        Choose board
-      </h2>
-      <div>
-        <div className="radio-buttons-switch-board">
+    <div className="toolbox">
+      <div className="categories">
+        <button className="category">BOARD</button>
+        <button className="category">DICE</button>
+        <button className="category">AVATAR</button>
+        <button className="category">COLOR</button>
+      </div>
+      <div className="active-category">
+        <h3>Active Dice</h3>
+        <h5>Basic</h5>
+      </div>
+      <div className="options">
         {boardOptions.map((item) => (
-          <div key={item.option} >
-            <label className="button-item">
-              <input
-                type="radio"
-                value={item.option}
-                checked={board === item.option}
-                onChange={() => {
-                  toggleBoard(item.option)
-                }}
-              />
-              <span >{item.name}</span>
-            </label>
-          </div>
+          <OptionCard
+            key={item.option}
+            option={item}
+            active={board === item.option}
+            onSelect={() => {
+              toggleBoard(item.option);
+            }}
+          />
         ))}
-        </div>
       </div>
     </div>
-  </div>)
+  );
 };
 
 export default Toolbox;

@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="starkludo">
-        StarkLudo <img src={DoubleDice} width="80px" />
+        StarkLudo <img src={DoubleDice} width="49px" />
       </div>
       <div className="sub-header">The Ludo game on Starknet</div>
     </div>

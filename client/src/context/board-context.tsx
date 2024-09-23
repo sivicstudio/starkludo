@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-export type BoardType = '' | 'wooden-board' | 'fire-board' |string;
+export type BoardType = "" | "wooden-board" | "fire-board" | string;
 
 interface BoardContextType {
   board: BoardType;
@@ -8,8 +8,6 @@ interface BoardContextType {
 }
 
 export const BoardContext = createContext<BoardContextType>({
-  board: '',
+  board: "",
   toggleBoard: () => {},
 });
-
-
