@@ -444,35 +444,35 @@
       },
       {
         "name": "player_green",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_yellow",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_blue",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_red",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_1",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_2",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_3",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "next_player",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "number_of_players",

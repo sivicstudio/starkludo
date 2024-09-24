@@ -1,6 +1,0 @@
-tag = "starkludo-actions"
-writes = [
-    "starkludo-Moves",
-    "starkludo-Position",
-    "starkludo-DirectionsAvailable",
-]

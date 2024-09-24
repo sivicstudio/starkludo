@@ -209,35 +209,35 @@
       },
       {
         "name": "player_green",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_yellow",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_blue",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "player_red",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_1",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_2",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "winner_3",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "next_player",
-        "type": "core::starknet::contract_address::ContractAddress"
+        "type": "core::felt252"
       },
       {
         "name": "number_of_players",
@@ -347,19 +347,19 @@
           },
           {
             "name": "player_green",
-            "type": "core::starknet::contract_address::ContractAddress"
+            "type": "core::felt252"
           },
           {
             "name": "player_yellow",
-            "type": "core::starknet::contract_address::ContractAddress"
+            "type": "core::felt252"
           },
           {
             "name": "player_blue",
-            "type": "core::starknet::contract_address::ContractAddress"
+            "type": "core::felt252"
           },
           {
             "name": "player_red",
-            "type": "core::starknet::contract_address::ContractAddress"
+            "type": "core::felt252"
           },
           {
             "name": "number_of_players",
@@ -371,6 +371,30 @@
             "type": "starkludo::models::game::Game"
           }
         ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "restart",
+        "inputs": [
+          {
+            "name": "game_id",
+            "type": "core::integer::u64"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "terminate_game",
+        "inputs": [
+          {
+            "name": "game_id",
+            "type": "core::integer::u64"
+          }
+        ],
+        "outputs": [],
         "state_mutability": "external"
       }
     ]

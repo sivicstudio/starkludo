@@ -1,10 +1,10 @@
 [world]
 kind = "WorldContract"
-class_hash = "0x458d0ce5b14a4844092bdb62050f462d53362304a13febbac6d973691d61be2"
-original_class_hash = "0x458d0ce5b14a4844092bdb62050f462d53362304a13febbac6d973691d61be2"
+class_hash = "0x6f4515274ee23404789c3351a77107d0ec07508530119822046600ca6948d6e"
+original_class_hash = "0x6f4515274ee23404789c3351a77107d0ec07508530119822046600ca6948d6e"
 abi = "manifests/dev/deployment/abis/dojo-world.json"
-address = "0x6a4ee70a279cc9e2452325ce1229a07a85295dac30a94534307c396ea38ad08"
-transaction_hash = "0x33fdc4aafea3a73789b4dd9c7ebd1cae52b49c4cf7c2f308495a80afbe07573"
+address = "0x256aa98b2bc80895629019a277231250e83219f28c98aa8bb81d077a276146c"
+transaction_hash = "0x3abfd5f1ffc2b608e33188776807d76f23c40f3c535ec330c908ec5744fef80"
 block_number = 3
 seed = "starkludo"
 manifest_name = "dojo-world"
@@ -23,71 +23,45 @@ manifest_name = "dojo-base"
 
 [[contracts]]
 kind = "DojoContract"
-address = "0x908082dbf62c9aa5ff12310a1f2cfb767358e177a547e157014fc23ca1ff17"
-class_hash = "0x2ed005c44b479da8f9be1d3e652cc916b18ed93038b5538a8b13b45abd22df8"
-original_class_hash = "0x2ed005c44b479da8f9be1d3e652cc916b18ed93038b5538a8b13b45abd22df8"
+address = "0x755ab4a1ab291fa86148a886654868cff7aa3b9cb05668b4fc2bae4b2fce35d"
+class_hash = "0x5cd57a1faec53ae7b0f89465e4c2a1b639fe1ac30fbb46007bd5a3ff4c9fb6b"
+original_class_hash = "0x5cd57a1faec53ae7b0f89465e4c2a1b639fe1ac30fbb46007bd5a3ff4c9fb6b"
 base_class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
 abi = "manifests/dev/deployment/abis/contracts/starkludo-GameActions-72b46dc4.json"
 reads = []
 writes = []
 init_calldata = []
 tag = "starkludo-GameActions"
+systems = [
+    "restart",
+    "terminate_game",
+]
 manifest_name = "starkludo-GameActions-72b46dc4"
 
 [[contracts]]
 kind = "DojoContract"
-address = "0x13bd241aa6a8e86a97874a07f8250eb3e8d08212598dda1b1a6a5b733be14b9"
-class_hash = "0x438814aa090e52932a81cd60adb0bc4d28e3610d325f8a8a79880a11c0bebd6"
-original_class_hash = "0x438814aa090e52932a81cd60adb0bc4d28e3610d325f8a8a79880a11c0bebd6"
+address = "0x22157de44f59dc4f2facb7f597dda9ea1834656e79a173ff9e0d6056837054d"
+class_hash = "0x4b3c29628dab01e08eba58707af15743108c4e7d2e169555375efc8f1ee6e2c"
+original_class_hash = "0x4b3c29628dab01e08eba58707af15743108c4e7d2e169555375efc8f1ee6e2c"
 base_class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
 abi = "manifests/dev/deployment/abis/contracts/starkludo-PlayerActions-20dad3ac.json"
 reads = []
 writes = []
 init_calldata = []
 tag = "starkludo-PlayerActions"
+systems = [
+    "create",
+    "update_username",
+]
 manifest_name = "starkludo-PlayerActions-20dad3ac"
 
-[[contracts]]
-kind = "DojoContract"
-address = "0x13f0046b3ba4de23bcd0ea10be91ca7b19c2214e57d7b749342adc398805830"
-class_hash = "0x1051562de62212122f575573026755bd6b6710a99808072c8d9a0c54248f75b"
-original_class_hash = "0x1051562de62212122f575573026755bd6b6710a99808072c8d9a0c54248f75b"
-base_class_hash = "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2"
-abi = "manifests/dev/deployment/abis/contracts/starkludo-actions-6e36eb0d.json"
-reads = []
-writes = [
-    "starkludo-Moves",
-    "starkludo-Position",
-    "starkludo-DirectionsAvailable",
-]
-init_calldata = []
-tag = "starkludo-actions"
-manifest_name = "starkludo-actions-6e36eb0d"
-
 [[models]]
 kind = "DojoModel"
-class_hash = "0x32c940853714eb78aa4c5de42d1c8b4d06efef4f54d9e20b755b494e96c897d"
-original_class_hash = "0x32c940853714eb78aa4c5de42d1c8b4d06efef4f54d9e20b755b494e96c897d"
-abi = "manifests/dev/deployment/abis/models/starkludo-DirectionsAvailable-36957485.json"
-tag = "starkludo-DirectionsAvailable"
-manifest_name = "starkludo-DirectionsAvailable-36957485"
-
-[[models.members]]
-name = "player"
-type = "ContractAddress"
-key = true
-
-[[models.members]]
-name = "directions"
-type = "Array<Direction>"
-key = false
-
-[[models]]
-kind = "DojoModel"
-class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
-original_class_hash = "0x758c4c78b0a5bc26701ca0d5c8d5e3783eb6a3ea2e6eea30044c1fd7fbe0b3e"
+class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
+original_class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
 abi = "manifests/dev/deployment/abis/models/starkludo-Game-5286f583.json"
 tag = "starkludo-Game"
+qualified_path = "starkludo::models::game::game"
 manifest_name = "starkludo-Game-5286f583"
 
 [[models.members]]
@@ -112,32 +86,47 @@ key = false
 
 [[models.members]]
 name = "player_green"
-type = "ContractAddress"
+type = "felt252"
 key = false
 
 [[models.members]]
 name = "player_yellow"
-type = "ContractAddress"
+type = "felt252"
 key = false
 
 [[models.members]]
 name = "player_blue"
-type = "ContractAddress"
+type = "felt252"
 key = false
 
 [[models.members]]
 name = "player_red"
-type = "ContractAddress"
+type = "felt252"
 key = false
 
 [[models.members]]
-name = "winner"
-type = "ContractAddress"
+name = "winner_1"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "winner_2"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "winner_3"
+type = "felt252"
 key = false
 
 [[models.members]]
 name = "next_player"
-type = "ContractAddress"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "number_of_players"
+type = "u8"
 key = false
 
 [[models.members]]
@@ -150,50 +139,99 @@ name = "rolls_times"
 type = "u256"
 key = false
 
-[[models]]
-kind = "DojoModel"
-class_hash = "0x89ac84c2d5ef822377403b45d969e65372ed2db306d238baa6aac0b429edb1"
-original_class_hash = "0x89ac84c2d5ef822377403b45d969e65372ed2db306d238baa6aac0b429edb1"
-abi = "manifests/dev/deployment/abis/models/starkludo-Moved-1933e376.json"
-tag = "starkludo-Moved"
-manifest_name = "starkludo-Moved-1933e376"
-
 [[models.members]]
-name = "player"
-type = "ContractAddress"
-key = true
-
-[[models.members]]
-name = "direction"
-type = "Direction"
-key = false
-
-[[models]]
-kind = "DojoModel"
-class_hash = "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582"
-original_class_hash = "0x293be90c6dd0682f909cc924db9ad07035f79150793473b0929bdc92cf6a582"
-abi = "manifests/dev/deployment/abis/models/starkludo-Moves-1c65cfcb.json"
-tag = "starkludo-Moves"
-manifest_name = "starkludo-Moves-1c65cfcb"
-
-[[models.members]]
-name = "player"
-type = "ContractAddress"
-key = true
-
-[[models.members]]
-name = "remaining"
+name = "dice_face"
 type = "u8"
 key = false
 
 [[models.members]]
-name = "last_direction"
-type = "Direction"
+name = "player_chance"
+type = "ContractAddress"
 key = false
 
 [[models.members]]
-name = "can_move"
+name = "has_thrown_dice"
 type = "bool"
+key = false
+
+[[models.members]]
+name = "b0"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "b1"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "b2"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "b3"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "g0"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "g1"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "g2"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "g3"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "r0"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "r1"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "r2"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "r3"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "y0"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "y1"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "y2"
+type = "felt252"
+key = false
+
+[[models.members]]
+name = "y3"
+type = "felt252"
 key = false
 
 [[models]]
@@ -202,6 +240,7 @@ class_hash = "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2"
 original_class_hash = "0x552147f9afe3a1587cf334876dd5e9b5b52200aabf22a0d7cd036625580b6c2"
 abi = "manifests/dev/deployment/abis/models/starkludo-Player-3bb81cb1.json"
 tag = "starkludo-Player"
+qualified_path = "starkludo::models::player::player"
 manifest_name = "starkludo-Player-3bb81cb1"
 
 [[models.members]]
@@ -222,22 +261,4 @@ key = false
 [[models.members]]
 name = "total_games_won"
 type = "u256"
-key = false
-
-[[models]]
-kind = "DojoModel"
-class_hash = "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c"
-original_class_hash = "0x34aff393cad83f2f682e561819a94e79e1fe1609a794d7521f1d1390c32795c"
-abi = "manifests/dev/deployment/abis/models/starkludo-Position-3a0db170.json"
-tag = "starkludo-Position"
-manifest_name = "starkludo-Position-3a0db170"
-
-[[models.members]]
-name = "player"
-type = "ContractAddress"
-key = true
-
-[[models.members]]
-name = "vec"
-type = "Vec2"
 key = false

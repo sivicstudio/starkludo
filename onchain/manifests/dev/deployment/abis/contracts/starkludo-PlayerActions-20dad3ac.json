@@ -132,6 +132,20 @@
     "interface_name": "starkludo::systems::player_actions::IPlayerActions"
   },
   {
+    "type": "struct",
+    "name": "core::integer::u256",
+    "members": [
+      {
+        "name": "low",
+        "type": "core::integer::u128"
+      },
+      {
+        "name": "high",
+        "type": "core::integer::u128"
+      }
+    ]
+  },
+  {
     "type": "interface",
     "name": "starkludo::systems::player_actions::IPlayerActions",
     "items": [
@@ -141,6 +155,54 @@
         "inputs": [
           {
             "name": "username",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "get_address_from_username",
+        "inputs": [
+          {
+            "name": "username",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "get_player_stats",
+        "inputs": [
+          {
+            "name": "username",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "(core::integer::u256, core::integer::u256, core::integer::u256, core::integer::u256)"
+          }
+        ],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "update_username",
+        "inputs": [
+          {
+            "name": "new_username",
+            "type": "core::felt252"
+          },
+          {
+            "name": "old_username",
             "type": "core::felt252"
           }
         ],
