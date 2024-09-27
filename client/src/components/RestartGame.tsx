@@ -32,7 +32,7 @@ const RestartGame: React.FC = () => {
           </div>
         </div>
       )}
-	  {restart && <RestartModal message="Are you sure you want to restart the gane?" onConfirm={handleConfirm} onCancel={handleCancle} />}
+	  {restart && <RestartModal message="Are you sure you want to start over?" extraMessage=" If you click yes , there is no going back." onConfirm={handleConfirm} onCancel={handleCancle} />}
     </React.Fragment>
   );
 };
