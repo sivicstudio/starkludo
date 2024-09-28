@@ -99,7 +99,7 @@ export const animateCustomEase = (
   element: HTMLSpanElement,
   property: any,
   currentValue: number,
-  toValue: number
+  toValue: number,
 ) => {
   let d = duration,
     ea = easing,
@@ -134,7 +134,7 @@ const Utils: {
     fromMin: number,
     fromMax: number,
     toMin: number,
-    toMax: number
+    toMax: number,
   ) => number;
 } = {
   modulate: (val, fromMin, fromMax, toMin, toMax) => {
@@ -147,7 +147,7 @@ export const flicker = (
   durationLow: number,
   durationHigh: number,
   valLow: number,
-  valHigh: number
+  valHigh: number,
 ) => {
   // get normalized progress value from 0 - 1
   let n = Utils.modulate(progress, durationLow, durationHigh, valLow, valHigh);
@@ -156,7 +156,7 @@ export const flicker = (
     return n;
   }
   let result: number = Math.abs(
-    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4))
+    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4)),
   );
   return result > 0 ? result : result * -1;
 };

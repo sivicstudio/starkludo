@@ -8,7 +8,6 @@ export type OptionsProps = {
   gameCondition: number[];
 };
 
-
 type WinnerList = number[];
 
 export type GameOptions = {
@@ -25,4 +24,4 @@ export type MarkerProps = {
   pos: string;
   size: number;
   tileMap: Record<number, number[]>;
-}
+};
