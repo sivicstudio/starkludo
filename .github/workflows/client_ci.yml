@@ -14,11 +14,10 @@ jobs:
           node-version: 18.x
       # install dependencies using clean install to avoid package lock updates
       - run: npm install -g pnpm
-      - run: cd client
-      - run: pnpm install --no-lockfile  
+      - run: cd client && pnpm install --no-lockfile  
       # - run: pnpm ci
       # build the project if necessary
-      - run: pnpm run build 
+      - run: cd client && pnpm run build 
       # prettier and lint
-      - run: pnpm run lint
-      - run: pnpm run format
+      - run: cd client && pnpm run lint
+      - run: cd client && pnpm run format
