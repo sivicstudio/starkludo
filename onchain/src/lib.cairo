@@ -6,8 +6,9 @@ mod systems {
 mod models {
     mod game;
     mod player;
-    mod constants;
 }
+
+mod constants;
 
 mod tests {
     mod test_game;

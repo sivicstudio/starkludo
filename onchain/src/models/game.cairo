@@ -1,12 +1,12 @@
 use core::num::traits::Zero;
 use starknet::{ContractAddress, get_block_timestamp, contract_address_const};
-use super::constants::TileNode;
 
 // Represents the status of the game
 // Can either be Ongoing or Ended
 #[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
 pub enum GameStatus {
     Ongoing,
+    Waiting,
     Ended,
 }
 
