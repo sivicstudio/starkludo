@@ -1,14 +1,5 @@
-name: CI
-
-on:
-  push:
-    branches: 
-      - main
-      - dev
-  pull_request:
-    branches:
-      - main
-      - dev
+name: Test Dojo contracts
+on: [push, pull_request]
 
 jobs:
   sozo-test:
