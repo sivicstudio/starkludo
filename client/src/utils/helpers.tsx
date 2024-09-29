@@ -4,7 +4,7 @@ import {
   getERC721Contract,
   getNftNameResolverContract,
   RPC_PROVIDER,
-} from "./constants";
+} from "./constants/constants";
 
 export const convertHexToText = (hexValue: string) => {
   let stripHex = hexValue[0].slice(2);
@@ -26,9 +26,8 @@ export const getGameProfilesFromAddress = async (
 ) => {
   try {
     // Get all NFT Ids belonging to address
-    let ids: any[] = await getERC721Contract().get_token_ids_of_address(
-      address
-    );
+    let ids: any[] =
+      await getERC721Contract().get_token_ids_of_address(address);
 
     // Convert Ids to string
     ids = ids.map((id) => new BigNumber(id).toString());
@@ -56,9 +55,8 @@ export const createGameProfile = async (
   account: AccountInterface
 ) => {
   try {
-    let addProfileTxn = await getNftNameResolverContract(
-      account
-    ).create_nft_name(profileName);
+    let addProfileTxn =
+      await getNftNameResolverContract(account).create_nft_name(profileName);
 
     await RPC_PROVIDER.waitForTransaction(addProfileTxn.transaction_hash);
   } catch (error) {

@@ -1,6 +1,6 @@
 import { AccountInterface, Contract, RpcProvider } from "starknet";
-import ERC721_ABI from "./abi/erc721.json";
-import NFT_NAME_RESOLVER_ABI from "./abi/nft_name_resolver.json";
+import ERC721_ABI from "../abi/erc721.json";
+import NFT_NAME_RESOLVER_ABI from "../abi/nft_name_resolver.json";
 
 export const RPC_PROVIDER = new RpcProvider({
   nodeUrl: "https://free-rpc.nethermind.io/sepolia-juno/",
@@ -30,7 +30,7 @@ export const getERC721Contract = (account?: AccountInterface): Contract => {
 };
 
 export const getNftNameResolverContract = (
-  account?: AccountInterface,
+  account?: AccountInterface
 ): Contract => {
   // const { abi: NFT_NAME_RESOLVER_ABI } = await RPC_PROVIDER.getClassAt(
   //   NFT_NAME_RESOLVER_ADDRESS
@@ -42,7 +42,7 @@ export const getNftNameResolverContract = (
   let contract = new Contract(
     NFT_NAME_RESOLVER_ABI,
     NFT_NAME_RESOLVER_ADDRESS,
-    RPC_PROVIDER,
+    RPC_PROVIDER
   );
 
   if (account) {

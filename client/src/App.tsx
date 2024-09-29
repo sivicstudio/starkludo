@@ -29,23 +29,7 @@ import GameAccount from "./components/ControlWindows/GameAccount";
 const App = () => {
   const [activeWindow, setActiveWindow] = useState("");
   const [board, setBoard] = useState<BoardType>("classic");
-
-  function toggleActiveWindow(window: string) {
-    if (window === activeWindow) {
-      setActiveWindow("");
-      return;
-    }
-    setActiveWindow(window);
-  }
-
-  const toggleBoard = (newBoard: BoardType) => {
-    setBoard(newBoard);
-  };
   const [gameState, setGameState] = useState({});
-  const setGameData = useCallback((game: any) => {
-    setGameState(game);
-  }, []);
-
   const [options, setOptions] = useState<OptionsProps>({
     gameIsOngoing: false,
     playersLength: 0,
@@ -55,6 +39,22 @@ const App = () => {
     winners: [],
     gameCondition: [],
   });
+
+  const toggleActiveWindow = (window: string) => {
+    if (window === activeWindow) {
+      setActiveWindow("");
+      return;
+    }
+    setActiveWindow(window);
+  };
+
+  const toggleBoard = (newBoard: BoardType) => {
+    setBoard(newBoard);
+  };
+
+  const setGameData = useCallback((game: any) => {
+    setGameState(game);
+  }, []);
 
   const setGameOptions = useCallback((newOption: Partial<OptionsProps>) => {
     setOptions((option) => {
