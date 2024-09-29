@@ -4,15 +4,7 @@ version = 1
 [[package]]
 name = "dojo"
 version = "1.0.0-alpha.4"
-source = "git+https://github.com/dojoengine/dojo?tag=v1.0.0-alpha.11#fbff45b249e2b931f5007edf2d526beef7dc553f"
-dependencies = [
- "dojo_plugin",
-]
-
-[[package]]
-name = "dojo_plugin"
-version = "1.0.0-alpha.4"
-source = "git+https://github.com/dojoengine/dojo?rev=f15def33#f15def330c0d099e79351d11c197f63e8cc1ff36"
+source = "git+https://github.com/dojoengine/dojo?tag=v1.0.0-alpha.13#9f95a68a957d45190a1e1c42877a4b828ab7a96d"
 
 [[package]]
 name = "starkludo"
