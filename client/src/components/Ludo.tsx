@@ -6,6 +6,7 @@ import { useSize } from "../hooks/size-hook";
 import { markers } from "../hooks/utils";
 import "../styles/Ludo.scss";
 import { BoardContext } from "../context/board-context";
+import CaretRight from "./CaretRight";
 
 const Ludo: React.FC = () => {
   const { size, tileMap } = useSize();
@@ -20,6 +21,16 @@ const Ludo: React.FC = () => {
           .slice(0, options.playersLength * 4)
           .map((m) => <Marker key={m} pos={m} size={size} tileMap={tileMap} />)}
       <LudoTiles />
+      {!options.playersLength && (
+        <div className="overlay">
+          <div className="overlay-child">
+            <p className="text-white">
+              Choose the number of players first to begin
+            </p>
+            <CaretRight />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
