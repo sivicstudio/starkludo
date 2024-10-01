@@ -1256,8 +1256,8 @@
     {
       "kind": "DojoContract",
       "address": "0x7b7ccc529c6d4cd2c857247c9c42ffa098aeb9a3c4718771825e054f98039e3",
-      "class_hash": "0x5cd57a1faec53ae7b0f89465e4c2a1b639fe1ac30fbb46007bd5a3ff4c9fb6b",
-      "original_class_hash": "0x5cd57a1faec53ae7b0f89465e4c2a1b639fe1ac30fbb46007bd5a3ff4c9fb6b",
+      "class_hash": "0x4cecefc87acb36b188cec659cfde8d7cbfafaf8684297f7d66cadd573cbfec5",
+      "original_class_hash": "0x4cecefc87acb36b188cec659cfde8d7cbfafaf8684297f7d66cadd573cbfec5",
       "base_class_hash": "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2",
       "abi": [
         {
@@ -1412,6 +1412,10 @@
           "variants": [
             {
               "name": "Ongoing",
+              "type": "()"
+            },
+            {
+              "name": "Waiting",
               "type": "()"
             },
             {
@@ -1751,8 +1755,8 @@
     {
       "kind": "DojoContract",
       "address": "0x182a153535285af4bf98b00141f6ffe37edd898947e450b6a2c5d54c3b6e178",
-      "class_hash": "0x4b3c29628dab01e08eba58707af15743108c4e7d2e169555375efc8f1ee6e2c",
-      "original_class_hash": "0x4b3c29628dab01e08eba58707af15743108c4e7d2e169555375efc8f1ee6e2c",
+      "class_hash": "0x23f585a946c3224f0993e7001e132dfc559a7683e520ef4c5beee9a5bc8dd65",
+      "original_class_hash": "0x23f585a946c3224f0993e7001e132dfc559a7683e520ef4c5beee9a5bc8dd65",
       "base_class_hash": "0x2427dd10a58850ac9a5ca6ce04b7771b05330fd18f2e481831ad903b969e6b2",
       "abi": [
         {
@@ -2231,8 +2235,8 @@
           "key": false
         }
       ],
-      "class_hash": "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446",
-      "original_class_hash": "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446",
+      "class_hash": "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939",
+      "original_class_hash": "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939",
       "abi": [
         {
           "type": "impl",
@@ -2607,6 +2611,10 @@
           "variants": [
             {
               "name": "Ongoing",
+              "type": "()"
+            },
+            {
+              "name": "Waiting",
               "type": "()"
             },
             {
