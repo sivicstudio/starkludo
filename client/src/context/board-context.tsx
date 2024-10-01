@@ -1,3 +1,4 @@
+/*eslint no-empty-function: "error"*/
 import { createContext } from "react";
 
 export type BoardType = "" | "wooden-board" | "fire-board" | string;
@@ -9,5 +10,5 @@ interface BoardContextType {
 
 export const BoardContext = createContext<BoardContextType>({
   board: "",
-  toggleBoard: () => {},
+  toggleBoard: function() {},
 });
