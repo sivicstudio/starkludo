@@ -11,5 +11,6 @@ module.exports = {
     rules: {
         "react-refresh/only-export-components": "warn",
         "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-empty-function": false
     },
 };
