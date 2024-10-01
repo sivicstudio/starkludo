@@ -1,3 +1,5 @@
+/*eslint prefer-const: "error"*/
+
 import { useCallback, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { GameOptions, WinnerList } from "../types";

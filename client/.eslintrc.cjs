@@ -13,5 +13,7 @@ module.exports = {
         "@typescript-eslint/no-inferrable-types": "off",
         "no-mixed-spaces-and-tabs": 0, 
         "prefer-const": "error"
+        /*eslint prefer-const: "error"*/
+
     },
 };
