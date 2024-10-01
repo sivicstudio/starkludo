@@ -12,5 +12,6 @@ module.exports = {
         "react-refresh/only-export-components": "warn",
         "@typescript-eslint/no-inferrable-types": "off",
         "no-mixed-spaces-and-tabs": 0, 
+        "prefer-const": "error"
     },
 };
