@@ -17,6 +17,7 @@ trait IGameActions {
     ) -> Game;
     fn restart(ref world: IWorldDispatcher, game_id: u64);
     fn terminate_game(ref world: IWorldDispatcher, game_id: u64);
+    fn join_game(ref world: IWorldDispatcher, game_id: u64, player_color: felt252) -> Game;
 }
 
 #[dojo::contract]
@@ -119,6 +120,56 @@ mod GameActions {
 
             game.terminate_game();
             set!(world, (game));
+        }
+
+        fn join_game(ref world: IWorldDispatcher, game_id: u64, player_color: felt252) -> Game {
+            // Get the current game state
+            let mut game: Game = get!(world, game_id, (Game));
+            
+            // Check if the game is in a pending state
+            assert(game.game_status == GameStatus::Waiting, 'Game is not waiting for players');
+            
+            // Get the caller's address
+            let caller = get_caller_address();
+            
+            // Add the player to the game based on the color
+            match player_color {
+                'green' => {
+                    assert(game.player_green.is_zero(), 'Green player already joined');
+                    game.player_green = caller.into();
+                },
+                'yellow' => {
+                    assert(game.player_yellow.is_zero(), 'Yellow player already joined');
+                    game.player_yellow = caller.into();
+                },
+                'blue' => {
+                    assert(game.player_blue.is_zero(), 'Blue player already joined');
+                    game.player_blue = caller.into();
+                },
+                'red' => {
+                    assert(game.player_red.is_zero(), 'Red player already joined');
+                    game.player_red = caller.into();
+                },
+                _ => {
+                    panic!('Invalid player color');
+                }
+            }
+            
+            // Check if all players have joined
+            let players_joined = (!game.player_green.is_zero()).into() + 
+                                 (!game.player_yellow.is_zero()).into() + 
+                                 (!game.player_blue.is_zero()).into() + 
+                                 (!game.player_red.is_zero()).into();
+            
+            if players_joined == game.number_of_players.into() {
+                game.game_status = GameStatus::Ongoing;
+            }
+            
+            // Update the game state
+            set!(world, (game));
+            
+            // Return the updated game
+            game
         }
     }
 }
