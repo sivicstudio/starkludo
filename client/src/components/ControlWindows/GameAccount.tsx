@@ -1,4 +1,4 @@
-/*eslint no-empty-function: "error"*/
+/*eslint no-empty-function: ["error", { "allow": ["arrowFunctions"] }]*/
 import React, { useEffect, useState } from "react";
 import {
   useAccount,
@@ -86,7 +86,7 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return function()  {};
+    return () =>  {};
   }, [address]);
 
   const enum pagesName {
