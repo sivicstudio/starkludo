@@ -32,6 +32,11 @@ jobs:
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
         run: npx commitlint --last --verbose
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Validate PR commits with commitlint
         if: github.eventxname == 'pull_request'
