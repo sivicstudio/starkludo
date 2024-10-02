@@ -7,7 +7,7 @@ import {
 } from "./constants/constants";
 
 export const convertHexToText = (hexValue: string) => {
-  let stripHex = hexValue[0].slice(2);
+  const stripHex = hexValue[0].slice(2);
 
   if (!stripHex) {
     return "--Error--";
@@ -32,12 +32,12 @@ export const getGameProfilesFromAddress = async (
     // Convert Ids to string
     ids = ids.map((id) => new BigNumber(id).toString());
 
-    let names: string[] = [];
+    const names: string[] = [];
 
     // Loop through Ids and get the corresponding name associated with the Id
     // Reverse the list
     for (let i = ids.length; i > 0; i--) {
-      let name = await getNftNameResolverContract().get_name_of_id(ids[i - 1], {
+      const name = await getNftNameResolverContract().get_name_of_id(ids[i - 1], {
         parseResponse: false,
       });
 
@@ -55,7 +55,7 @@ export const createGameProfile = async (
   account: AccountInterface
 ) => {
   try {
-    let addProfileTxn =
+    const addProfileTxn =
       await getNftNameResolverContract(account).create_nft_name(profileName);
 
     await RPC_PROVIDER.waitForTransaction(addProfileTxn.transaction_hash);

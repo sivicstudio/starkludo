@@ -5,10 +5,10 @@ export const GameContext = createContext<{
   gameState: { [key: string]: string | any };
   setGameData: (game: { [key: string]: string }) => void;
   options: OptionsProps;
-  setGameOptions: (newOption: {}) => void;
+  setGameOptions: (newOption: object) => void;
 }>({
   gameState: {},
-  setGameData: (game) => {},
+  setGameData: (game) => undefined,
   options: {
     gameIsOngoing: false,
     playersLength: 0,
@@ -18,5 +18,5 @@ export const GameContext = createContext<{
     winners: [],
     gameCondition: [],
   },
-  setGameOptions: (newOption) => {},
+  setGameOptions: (newOption) => undefined,
 });

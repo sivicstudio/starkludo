@@ -89,7 +89,7 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return () => {};
+    return () => undefined;
   }, [address]);
 
   const enum pagesName {
@@ -97,7 +97,7 @@ const GameAccount = () => {
     PROFILE_PAGE = "PROFILE_PAGE",
   }
 
-  let mainPage = {
+  const mainPage = {
     name: pagesName.MAIN_PAGE,
     content: (
       <div>
@@ -216,16 +216,16 @@ const GameAccount = () => {
     ),
   };
 
-  let profilePage = {
+  const profilePage = {
     name: pagesName.PROFILE_PAGE,
     content: <div>Profile</div>,
   };
 
-  let pages = [mainPage, profilePage];
+  const pages = [mainPage, profilePage];
 
   const resolvePageToReturn = () => {
     // Get last page name
-    let lastPage =
+    const lastPage =
       pagesStack[pagesStack.length - 1 > 0 ? pagesStack.length - 1 : 0];
 
     let pageToReturn;
