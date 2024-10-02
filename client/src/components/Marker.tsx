@@ -59,3 +59,4 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
 };
 
 export default Marker;
+
