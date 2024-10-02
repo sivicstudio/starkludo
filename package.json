@@ -3,6 +3,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@types/node": "^22.7.4",
 		"husky": "^9.1.6"
 	},
 	"type": "module",
