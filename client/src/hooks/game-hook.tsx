@@ -247,51 +247,50 @@ export const useGame = () => {
     [setGameData, options, setGameOptions, incrementChance]
   );
 
-  // const endGame = useCallback(() => {
-  //   setGameOptions({
-  //     gameIsOngoing: false,
-  //     playersLength: 0,
-  //     diceFace: 0,
-  //     playerChance: 0,
-  //     hasThrownDice: false,
-  //     winners: [],
-  //     gameCondition: [],
-  //   });
-  //   setGameData({});
-  // }, [setGameData, setGameOptions]);
-
-
-
-  interface EndGameDependencies {
-    setGameOptions: (options: Partial<OptionsProps>) => void;
-    setGameData: (data: Record<string, string | number | boolean | any[]>) => void;
-  }
-  
-  interface EndGameFunction {
-    (): void;
-  }
-  
-  const createEndGame = ({
-    setGameOptions,
-    setGameData
-  }: EndGameDependencies): EndGameFunction => {
-    return useCallback(() => {
-      setGameOptions({
-        gameIsOngoing: false,
-        playersLength: 0,
-        diceFace: 0,
-        playerChance: 0,
-        hasThrownDice: false,
-        winners: [],
-        gameCondition: [],  
-      });
-      setGameData({});
-    }, [setGameOptions, setGameData]);
-  };
-  
-  const endGame = createEndGame({ setGameOptions, setGameData });
+  const endGame = useCallback(() => {
+    setGameOptions({
+      gameIsOngoing: false,
+      playersLength: 0,
+      diceFace: 0,
+      playerChance: 0,
+      hasThrownDice: false,
+      winners: [],
+      gameCondition: [],
+    });
+    setGameData({});
+  }, [setGameData, setGameOptions]);
 
   return { startGame, moveValidator, moveMarker, endGame };
 
+
+  // interface EndGameDependencies {
+  //   setGameOptions: (options: Partial<OptionsProps>) => void;
+  //   setGameData: (data: Record<string, string | number | boolean | any[]>) => void;
+  // }
+  
+  // interface EndGameFunction {
+  //   (): void;
+  // }
+  
+  // const createEndGame = ({
+  //   setGameOptions,
+  //   setGameData
+  // }: EndGameDependencies): EndGameFunction => {
+  //   return useCallback(() => {
+  //     setGameOptions({
+  //       gameIsOngoing: false,
+  //       playersLength: 0,
+  //       diceFace: 0,
+  //       playerChance: 0,
+  //       hasThrownDice: false,
+  //       winners: [],
+  //       gameCondition: [],  // Changed from null to an empty array
+  //     });
+  //     setGameData({});
+  //   }, [setGameOptions, setGameData]);
+  // };
+  
+  // // Usage in your component or hook
+  // const endGame = createEndGame({ setGameOptions, setGameData });
 };
 
