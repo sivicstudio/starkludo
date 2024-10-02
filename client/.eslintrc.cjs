@@ -17,4 +17,5 @@ module.exports = {
         "@typescript-eslint/ban-types": "off"
 
     },
+    files: ['src/**/*.{ts,tsx}'],
 };
