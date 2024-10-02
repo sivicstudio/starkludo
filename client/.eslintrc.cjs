@@ -14,7 +14,8 @@ module.exports = {
         "no-mixed-spaces-and-tabs": 0, 
         'prefer-const': 'warn',
         '@typescript-eslint/no-empty-function': 'off',
-        "@typescript-eslint/ban-types": "off"
-
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-explicit-any": "warn"
     },
 };
