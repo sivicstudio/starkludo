@@ -375,6 +375,10 @@
         "type": "()"
       },
       {
+        "name": "Waiting",
+        "type": "()"
+      },
+      {
         "name": "Ended",
         "type": "()"
       }

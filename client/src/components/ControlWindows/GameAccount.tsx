@@ -14,6 +14,7 @@ import {
   getGameProfilesFromAddress,
 } from "../../utils/helpers";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDojo } from "../../dojo/useDojo";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -63,6 +64,8 @@ const GameAccount = () => {
     disconnect();
   };
 
+  const { system } = useDojo();
+
   const addGameProfile = async () => {
     if (newProfileName === undefined || newProfileName?.length < 2) {
       alert("profile name must be greater than 2");
@@ -74,8 +77,9 @@ const GameAccount = () => {
       return;
     }
 
-    await createGameProfile(newProfileName, account);
-    setNewProfileName("");
+    // await createGameProfile(newProfileName, account);
+    await system.createUsername(account, newProfileName);
+    await setNewProfileName("");
 
     await getGameProfilesFromAddress(address, setGameProfiles);
   };
@@ -165,6 +169,46 @@ const GameAccount = () => {
             <div className="player-actions">
               <button>DELETE</button>
               <button>SELL</button>
+            </div>
+
+            <div className="game-profiles">
+              <div className="profile-heading">Game Profiles</div>
+              <div className="game-profiles-outer-list">
+                {gameProfiles !== undefined ? (
+                  <div className="game-profiles-inner-list">
+                    {gameProfiles?.length > 0 ? (
+                      <div className="games-profiles-core-list">
+                        {gameProfiles.map((gameProfile) => (
+                          <div className="list-profile">
+                            <span>{convertHexToText(gameProfile)}</span>
+
+                            <FaArrowAltCircleRight cursor={"pointer"} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ color: "gray" }}>--no profile found--</div>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ color: "gray" }} className="loading-txt">
+                    Loading...
+                  </div>
+                )}
+              </div>
+              <div className="add-profile">
+                <input
+                  placeholder="username"
+                  value={newProfileName}
+                  onChange={(e) => setNewProfileName(e.target.value)}
+                />
+                <button
+                  className="add-profile-btn"
+                  onClick={() => addGameProfile()}
+                >
+                  Add new profile
+                </button>
+              </div>
             </div>
           </div>
         )}
