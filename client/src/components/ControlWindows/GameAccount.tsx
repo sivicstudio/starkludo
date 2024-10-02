@@ -1,4 +1,3 @@
-/*eslint no-empty-function: ["error", { "allow": ["arrowFunctions"] }]*/
 import React, { useEffect, useState } from "react";
 import {
   useAccount,
@@ -39,20 +38,20 @@ const ConnectWallet = () => {
   );
 };
 
-const ProfilePage = () => {
-  return <div style={{ color: "white" }}>Profile page</div>;
-};
+// const ProfilePage = () => {
+//   return <div style={{ color: "white" }}>Profile page</div>;
+// };
 
 const GameAccount = () => {
   const { address, account } = useAccount();
-  const { chain } = useNetwork();
+  // const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const { data: profile } = useStarkProfile({ address });
   const [gameProfiles, setGameProfiles] = useState<string[]>();
   const [newProfileName, setNewProfileName] = useState<string | undefined>(
     undefined
   );
-  const [pagesStack, setPagesStack] = useState<string[]>(["MAIN_PAGE"]);
+  const [pagesStack] = useState<string[]>(["MAIN_PAGE"]);
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
