@@ -22,11 +22,11 @@ export const convertHexToText = (hexValue: string) => {
 
 export const getGameProfilesFromAddress = async (
   address: string,
-  setGameProfiles: any
+  setGameProfiles: (args: string[]) => void
 ) => {
   try {
     // Get all NFT Ids belonging to address
-    let ids: any[] =
+    let ids: string[] =
       await getERC721Contract().get_token_ids_of_address(address);
 
     // Convert Ids to string

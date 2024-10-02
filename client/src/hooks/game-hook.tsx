@@ -1,18 +1,16 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../context/game-context";
-import { GameOptions, WinnerList } from "../types";
+import { GameOptions } from "../types";
 import {
-  capColors,
-  posReducer,
   BoardToPos,
   PosToBoard,
+  capColors,
+  coloredBlocks,
   markers,
+  posReducer,
   safePos,
   startState,
-  coloredBlocks,
 } from "./utils";
-import { toast } from "react-toastify";
-import { num } from "starknet";
 
 export const useGame = () => {
   const { gameState, setGameData, options, setGameOptions } =
@@ -35,7 +33,7 @@ export const useGame = () => {
         gameCondition: new Array(16).fill(0),
       });
     },
-    [setGameData, options, setGameOptions, alert]
+    [setGameData, setGameOptions]
   );
 
   const incrementChance = useCallback(

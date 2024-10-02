@@ -1,5 +1,5 @@
 import { getEvents } from "@dojoengine/utils";
-import { Account, AccountInterface } from "starknet";
+import { AccountInterface } from "starknet";
 import { ClientComponents } from "./createClientComponents";
 
 import type { IWorld } from "./typescript/contracts.gen";
@@ -8,8 +8,10 @@ export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
 export function createSystemCalls(
   { client }: { client: IWorld },
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   contractComponents: ClientComponents
 ) {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   const createUsername = async (account: AccountInterface, username: any) => {
     try {
       const { transaction_hash } = await client.PlayerActions.create({

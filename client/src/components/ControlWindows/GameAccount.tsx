@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useConnect,
@@ -6,15 +5,14 @@ import {
   useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDojo } from "../../dojo/useDojo";
 import "../../styles/GameAccount.scss";
 import {
   convertHexToText,
-  createGameProfile,
-  getGameProfilesFromAddress,
+  getGameProfilesFromAddress
 } from "../../utils/helpers";
-import { FaArrowAltCircleRight } from "react-icons/fa";
-import { useDojo } from "../../dojo/useDojo";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -39,6 +37,7 @@ const ConnectWallet = () => {
   );
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const ProfilePage = () => {
   return <div style={{ color: "white" }}>Profile page</div>;
 };

@@ -95,8 +95,10 @@ export const safePos: number[] = [
 
 export const animateCustomEase = (
   duration: number,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   easing: any,
   element: HTMLSpanElement,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   property: any,
   currentValue: number,
   toValue: number
@@ -108,7 +110,7 @@ export const animateCustomEase = (
     p = property,
     fromV = currentValue,
     toV = toValue;
-  let lastStart: number | any = null;
+  let lastStart: number | null = null;
   const animate = function (timestamp: number) {
     // check if this is a new animation
     if (!lastStart) {
