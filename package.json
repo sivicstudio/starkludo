@@ -1,8 +1,7 @@
 {
 	"scripts": {
-		"prepare": "husky",
-		"lint": "eslint .",
-    "clean": "npm cache clean --force"
+		"prepare": "husky"
+	
 	},
 	"dependencies": {
 		"@types/node": "^22.7.4",
@@ -12,6 +11,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^19.5.0",
 		"@commitlint/config-conventional": "^19.5.0",
-		"eslint": "^9.11.1"
+		"eslint": "^9.11.1",
+		"eslint-define-config": "^2.1.0"
 	}
 }
