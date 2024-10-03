@@ -5,11 +5,11 @@ export default function OptionCard({
   active,
   onSelect,
   option,
-}: {
-  active?: boolean;
-  onSelect?: () => void;
-  option?: any;
-}) {
+  }: {
+    active?: boolean;
+    onSelect?: () => void;
+    option?: any;
+  }) {
   return (
     <button
       className={`option-container ${active ? "active" : ""}`}

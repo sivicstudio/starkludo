@@ -101,8 +101,8 @@ export const animateCustomEase = (
   currentValue: number,
   toValue: number,
 ) => {
-  let d = duration
-  let  ea = easing
+  const d = duration
+  const  ea = easing
   let  e = element,
     // eslint-disable-next-line
     p = property,

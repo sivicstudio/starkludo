@@ -20,7 +20,7 @@ export const useGame = () => {
 
   const startGame = useCallback(
     async (playersLength: number) => {
-      let newGame: { [key: string]: string } = {};
+      const newGame: { [key: string]: string } = {};
       Object.entries(startState)
         .slice(0, playersLength * 4)
         .map((entry) => {
@@ -137,12 +137,12 @@ export const useGame = () => {
       const gameCondition = options.gameCondition;
 
       let currentGame: number[] = new Array(16).fill(0);
-      let isChance: boolean = false;
-      let isThrown: boolean = false;
+      let isChance = false;
+      let isThrown = false;
 
       currentGame = BoardToPos(gameCondition);
       let val = currentGame[j];
-      let { newVal, ischance, isthrown } = moveDeducer(val, diceThrow);
+      const { newVal, ischance, isthrown } = moveDeducer(val, diceThrow);
       isChance = ischance;
       isThrown = isthrown;
       currentGame[j] = newVal;

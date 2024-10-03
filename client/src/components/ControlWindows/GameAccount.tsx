@@ -85,7 +85,9 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return function ()  {};
+    return function ()  {
+          // do nothing.
+    };
   }, [address]);
 
   const enum pagesName {
