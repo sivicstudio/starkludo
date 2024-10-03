@@ -53,7 +53,7 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
-    let rollAmount = Math.floor(Math.random() * 30 + 15);
+    const rollAmount = Math.floor(Math.random() * 30 + 15);
     return rollAmount;
   };
 
@@ -77,7 +77,7 @@ const Dice = () => {
       if (counter >= numberOfRolls) {
         clearInterval(rolling);
         // The result on die
-        let x = await randomRollResult();
+        const x = await randomRollResult();
         makeDots(x);
         stopDiceSound();
         moveValidator(x); // Validate move after rolling
