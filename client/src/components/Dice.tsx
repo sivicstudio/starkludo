@@ -59,7 +59,7 @@ const Dice = () => {
 
   // The end result is simply a random number picked between 1 and 6
   const randomRollResult = async () => {
-    let rollResult: number = 6;
+    let rollResult = 6;
 
     rollResult = Math.floor(Math.random() * 6 + 1);
 
