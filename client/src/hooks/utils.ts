@@ -103,17 +103,17 @@ export const animateCustomEase = (
 ) => {
   const d = duration
   const  ea = easing
-  let  e = element,
+  const  e = element,
     // eslint-disable-next-line
     p = property,
     fromV = currentValue,
-    toV = toValue,
-    lastStart: number | any = null,
-    animate = function (timestamp: number) {
+    toV = toValue
+    const lastStart: number | any = null
+    let animate = function (timestamp: number) {
       debug++;
       // check if this is a new animation
       if (!lastStart) {
-        lastStart = timestamp;
+        let lastStart = timestamp;
       }
       // check still in animation range
       if (timestamp - lastStart <= d) {
