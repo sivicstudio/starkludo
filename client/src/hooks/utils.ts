@@ -108,12 +108,12 @@ export const animateCustomEase = (
     p = property,
     fromV = currentValue,
     toV = toValue
-    const lastStart: number | any = null
+    let lastStart: number | any = null
     let animate = function (timestamp: number) {
       debug++;
       // check if this is a new animation
       if (!lastStart) {
-        let lastStart = timestamp;
+        const lastStart = timestamp;
       }
       // check still in animation range
       if (timestamp - lastStart <= d) {
