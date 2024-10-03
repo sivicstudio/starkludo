@@ -3,7 +3,7 @@ import {
   useAccount,
   useConnect,
   useDisconnect,
-  useNetwork,
+  // useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
 import { useMemo } from "react";

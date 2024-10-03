@@ -9,7 +9,7 @@ import {
 } from "@dojoengine/recs";
 import { uuid } from "@latticexyz/utils";
 import { ClientComponents } from "./createClientComponents";
-import { Direction, updatePositionWithDirection } from "../utils";
+import { Direction,  } from "../utils";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
 import type { IWorld } from "./generated/generated";
 
@@ -71,7 +71,7 @@ export function createSystemCalls(
   };
 
   const move = async (account: AccountInterface, direction: Direction) => {
-    const entityId = getEntityIdFromKeys([BigInt(account.address)]) as Entity;
+    // const entityId = getEntityIdFromKeys([BigInt(account.address)]) as Entity;
 
     // Update the state before the transaction
     // const positionId = uuid();

@@ -66,9 +66,9 @@ const Control = ({
 }: {
   toggleActiveWindow: (window: string) => void;
 }) => {
-  const [windows, setWindows] = useState(
-    WINDOW_CONFIGS.map((config) => ({ ...config, show: false, zIndex: 0 }))
-  );
+  // const [windows, setWindows] = useState(
+  //   WINDOW_CONFIGS.map((config) => ({ ...config, show: false, zIndex: 0 }))
+  // );
 
   return (
     <div className="control">

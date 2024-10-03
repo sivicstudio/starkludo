@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../context/game-context";
-import { GameOptions, WinnerList } from "../types";
+import { GameOptions,  } from "../types";
 import {
   capColors,
   posReducer,
@@ -11,8 +11,8 @@ import {
   startState,
   coloredBlocks,
 } from "./utils";
-import { toast } from "react-toastify";
-import { num } from "starknet";
+// import { toast } from "react-toastify";
+// import { num } from "starknet";
 
 export const useGame = () => {
   const { gameState, setGameData, options, setGameOptions } =
