@@ -4,7 +4,7 @@ _Detailed description of proposed changes_
 
 ## Related Issue(s)
 
-_Closes #<!-- issue number-->_
+Closes #<!-- issue number-->
 ## Checklist:
 
 - [ ] Read the [contributing docs](../CONTRIBUTING.md) (if this is your first contribution)
