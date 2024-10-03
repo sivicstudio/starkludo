@@ -19,6 +19,7 @@ import Control from "./components/Control";
 import { StarknetProvider } from "./starknet-provider";
 import { FiAlertTriangle, FiZap } from "react-icons/fi";
 import { BoardContext, BoardType } from "./context/board-context";
+import { DiceContext, DiceType } from "./context/dice-context";
 import ControlWindowLayout from "./components/ControlWindows/ControlWindowLayout";
 import GameHelp from "./components/ControlWindows/GameHelp";
 import Toolbox from "./components/ControlWindows/Toolbox";
@@ -29,7 +30,9 @@ import GameAccount from "./components/ControlWindows/GameAccount";
 const App = () => {
   const [activeWindow, setActiveWindow] = useState("");
   const [board, setBoard] = useState<BoardType>("classic");
+  const [dice, setDice] = useState<DiceType>("basic");
   const [gameState, setGameState] = useState({});
+  const [activeCategory, setActiveCategory] = useState("BOARD");
   const [options, setOptions] = useState<OptionsProps>({
     gameIsOngoing: false,
     playersLength: 0,
@@ -50,6 +53,14 @@ const App = () => {
 
   const toggleBoard = (newBoard: BoardType) => {
     setBoard(newBoard);
+  };
+
+  const changeDice = (newDice: DiceType) => {
+    setDice(newDice);
+  };
+
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
   };
 
   const setGameData = useCallback((game: any) => {
@@ -92,8 +103,9 @@ const App = () => {
           }}
         >
           <BoardContext.Provider value={{ board, toggleBoard }}>
-            <div className="game-behaviour-warning">
-              <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+            <DiceContext.Provider value={{ dice, changeDice }}>
+              <div className="game-behaviour-warning">
+                <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
               StarkLudo is still in active development{" "}
               <FiZap color="yellow" size={20} />
             </div>
@@ -152,7 +164,10 @@ const App = () => {
                             title="TOOLBOX"
                             subtitle="Get All Your Items And Settings Done"
                           >
-                            <Toolbox />
+                            <Toolbox 
+                            activeCategory={activeCategory} 
+                            onCategoryClick={handleCategoryClick}
+                            />
                           </ControlWindowLayout>
                         ) : null}
 
@@ -173,6 +188,7 @@ const App = () => {
               </Row>
               <Footer />
             </div>
+            </DiceContext.Provider>
           </BoardContext.Provider>
         </GameContext.Provider>
         <ToastContainer position="bottom-center" />
