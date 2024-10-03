@@ -42,9 +42,9 @@ export const LayoutDefinition = {
 
 // Type definition for `core::byte_array::ByteArray` struct
 export interface ByteArray {
-  data: string[];
-  pending_word: bigint;
-  pending_word_len: number;
+  data: String[];
+  pending_word: BigInt;
+  pending_word_len: Number;
 }
 export const ByteArrayDefinition = {
   data: RecsType.StringArray,
@@ -54,7 +54,7 @@ export const ByteArrayDefinition = {
 
 // Type definition for `dojo::model::layout::FieldLayout` struct
 export interface FieldLayout {
-  selector: bigint;
+  selector: BigInt;
   layout: Layout;
 }
 export const FieldLayoutDefinition = {
@@ -69,40 +69,40 @@ export const U256Definition = {
 
 // Type definition for `starkludo::models::game::Game` struct
 export interface Game {
-  id: number;
-  created_by: bigint;
+  id: Number;
+  created_by: BigInt;
   game_status: GameStatus;
   game_mode: GameMode;
-  player_green: bigint;
-  player_yellow: bigint;
-  player_blue: bigint;
-  player_red: bigint;
-  winner_1: bigint;
-  winner_2: bigint;
-  winner_3: bigint;
-  next_player: bigint;
-  number_of_players: number;
+  player_green: BigInt;
+  player_yellow: BigInt;
+  player_blue: BigInt;
+  player_red: BigInt;
+  winner_1: BigInt;
+  winner_2: BigInt;
+  winner_3: BigInt;
+  next_player: BigInt;
+  number_of_players: Number;
   rolls_count: U256;
   rolls_times: U256;
-  dice_face: number;
-  player_chance: bigint;
-  has_thrown_dice: boolean;
-  b0: bigint;
-  b1: bigint;
-  b2: bigint;
-  b3: bigint;
-  g0: bigint;
-  g1: bigint;
-  g2: bigint;
-  g3: bigint;
-  r0: bigint;
-  r1: bigint;
-  r2: bigint;
-  r3: bigint;
-  y0: bigint;
-  y1: bigint;
-  y2: bigint;
-  y3: bigint;
+  dice_face: Number;
+  player_chance: BigInt;
+  has_thrown_dice: Boolean;
+  b0: BigInt;
+  b1: BigInt;
+  b2: BigInt;
+  b3: BigInt;
+  g0: BigInt;
+  g1: BigInt;
+  g2: BigInt;
+  g3: BigInt;
+  r0: BigInt;
+  r1: BigInt;
+  r2: BigInt;
+  r3: BigInt;
+  y0: BigInt;
+  y1: BigInt;
+  y2: BigInt;
+  y3: BigInt;
 }
 export const GameDefinition = {
   id: RecsType.Number,
@@ -143,14 +143,14 @@ export const GameDefinition = {
 
 // Type definition for `core::integer::u256` struct
 export interface U256 {
-  low: bigint;
-  high: bigint;
+  low: BigInt;
+  high: BigInt;
 }
 
 // Type definition for `starkludo::models::player::Player` struct
 export interface Player {
-  username: bigint;
-  owner: bigint;
+  username: BigInt;
+  owner: BigInt;
   total_games_played: U256;
   total_games_won: U256;
 }
