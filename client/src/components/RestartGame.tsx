@@ -35,7 +35,8 @@ const RestartGame: React.FC = () => {
 
       {restart && (
         <RestartModal
-          message="Are you sure you want to restart the gane?"
+          message="Are you sure you want to restart the game?"
+          extraMessage="If you click yes, there’s no going back"
           onConfirm={handleConfirm}
           onCancel={handleCancle}
         />
