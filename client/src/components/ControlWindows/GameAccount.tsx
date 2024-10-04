@@ -2,6 +2,7 @@ import {
   useAccount,
   useConnect,
   useDisconnect,
+  useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
 import { useEffect, useMemo, useState } from "react";
@@ -36,7 +37,6 @@ const ConnectWallet = () => {
   );
 };
 
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const ProfilePage = () => {
   return <div style={{ color: "white" }}>Profile page</div>;
@@ -44,14 +44,14 @@ const ProfilePage = () => {
 
 const GameAccount = () => {
   const { address, account } = useAccount();
-  // const { chain } = useNetwork();
+  const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const { data: profile } = useStarkProfile({ address });
-  const [, setGameProfiles] = useState<string[]>();
+  const [gameProfiles, setGameProfiles] = useState<string[]>();
   const [newProfileName, setNewProfileName] = useState<string | undefined>(
     undefined
   );
-  const [pagesStack, ] = useState<string[]>(["MAIN_PAGE"]);
+  const [pagesStack, setPagesStack] = useState<string[]>(["MAIN_PAGE"]);
 
   const shortenedAddress = useMemo(() => {
     if (!address) return "";
@@ -63,7 +63,6 @@ const GameAccount = () => {
     disconnect();
   };
 
-
   const { system } = useDojo();
 
   const addGameProfile = async () => {
@@ -72,23 +71,22 @@ const GameAccount = () => {
       return;
     }
 
-  //   if (account === undefined || address === undefined) {
-  //     alert("account is undefined");
-  //     return;
-  //   }
+    if (account === undefined || address === undefined) {
+      alert("account is undefined");
+      return;
+    }
 
     // await createGameProfile(newProfileName, account);
     await system.createUsername(account, newProfileName);
     await setNewProfileName("");
 
-  //   await getGameProfilesFromAddress(address, setGameProfiles);
-  // };
+    await getGameProfilesFromAddress(address, setGameProfiles);
+  };
 
   useEffect(() => {
     if (address) {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
-
 
     return () => undefined;
   }, [address]);
