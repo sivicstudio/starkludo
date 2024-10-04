@@ -39,7 +39,7 @@ export async function setupWorld(provider: DojoProvider) {
               props.number_of_players,
             ],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing create:", error);
@@ -57,7 +57,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "restart",
             calldata: [props.game_id],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing restart:", error);
@@ -78,7 +78,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "terminate_game",
             calldata: [props.game_id],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing terminate_game:", error);
@@ -96,7 +96,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "world",
             calldata: [],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing world:", error);
@@ -129,7 +129,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "create",
             calldata: [props.username],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing create:", error);
@@ -150,7 +150,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "get_address_from_username",
             calldata: [props.username],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing get_address_from_username:", error);
@@ -171,7 +171,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "get_player_stats",
             calldata: [props.username],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing get_player_stats:", error);
@@ -193,7 +193,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "update_username",
             calldata: [props.new_username, props.old_username],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing update_username:", error);
@@ -211,7 +211,7 @@ export async function setupWorld(provider: DojoProvider) {
             entrypoint: "world",
             calldata: [],
           },
-          "starkludo"
+          "starkludo",
         );
       } catch (error) {
         console.error("Error executing world:", error);

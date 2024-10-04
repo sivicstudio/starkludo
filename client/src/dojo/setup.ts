@@ -35,7 +35,7 @@ export async function setup({ ...config }: DojoConfig) {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     contractComponents as any,
     undefined,
-    []
+    [],
   );
 
   // setup world
@@ -48,7 +48,7 @@ export async function setup({ ...config }: DojoConfig) {
         nodeUrl: config.rpcUrl,
       },
       config.masterAddress,
-      config.masterPrivateKey
+      config.masterPrivateKey,
     ),
     accountClassHash: config.accountClassHash,
     rpcProvider: dojoProvider.provider,
