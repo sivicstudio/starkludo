@@ -47,7 +47,7 @@ npm install -g pnpm
 curl -L https://install.dojoengine.org | bash
 
 # Install Dojo release
-dojoup --version v1.0.0-alpha.11
+dojoup --version v1.0.0-alpha.13
 ```
 
 ### Build and run StarkLudo

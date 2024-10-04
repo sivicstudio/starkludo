@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [package]
 cairo-version = "=2.7.0"
 name = "starkludo"
@@ -15,3 +16,22 @@ move = "./scripts/move.sh"
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.11" }
 
 [[target.dojo]]
+=======
+[package]
+cairo-version = "=2.7.0"
+name = "starkludo"
+version = "0.1.0"
+
+[cairo]
+sierra-replace-ids = true
+
+[scripts]
+migrate = "sozo build && sozo migrate apply"
+spawn = "./scripts/spawn.sh"
+move = "./scripts/move.sh"
+
+[dependencies]
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.0-alpha.13" }
+
+[[target.dojo]]
+>>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0

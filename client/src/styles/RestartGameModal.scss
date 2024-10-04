@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/styles/ConfirmationDialog.scss
 .restartCon {
 	position: fixed;
@@ -39,4 +40,90 @@
   .chooseAns button:last-of-type {
 	background: #ccc;
   }
+=======
+// src/styles/ConfirmationDialog.scss
+.restartCon {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+
+  }
+  .innerRestartCon{
+	background:  linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+	border-radius: 8px;
+	padding: 1px;
+  }
+  .innerRestart {
+    background-color: #0e0121;
+	color: white;
+	padding: 20px;
+	border-style: solid;
+	border-width: 0.2px;
+	border-radius: 8px;
+	border-color: transparent;
+	text-align: center;
+	width: 33rem;
+	height: 23rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+  }
+
+  .restartMessage{
+	text-align: center;
+	margin-top: 20%;
+	font-size: 1.4rem;
+	font-weight: 100;
+  }
+  .chooseAns {
+	margin-top: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+  }
+  
+  .chooseAns button {
+	display: block;
+	padding: 10px 20px;
+	border: 1px solid #007bff;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%;
+	font-weight: bold;
+	color: #fff;
+	height: 50px;
+	span{
+		font-size: 24px;
+		display: inline-block;
+		transition: all .3s ease-in-out;
+		transform: scale(1); 
+	}
+	span:hover{
+		transform: scale(1.8);
+	}
+  }
+
+  
+  .chooseAns button:first-of-type {
+	background: transparent;
+	margin-right: 1rem;
+	text-shadow: 0 0 3px #fff;
+  }
+  
+  .chooseAns button:last-of-type {
+	background: linear-gradient(
+		-180deg,
+		#2dccfd 0%,
+		#1b0043 100%
+	  );
+	  box-shadow: 0 0 10px rgba(255, 255,255, 0.3);
+  }
+>>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0
   

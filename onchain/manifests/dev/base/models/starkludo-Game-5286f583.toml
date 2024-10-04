@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 kind = "DojoModel"
 class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
 original_class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
@@ -175,3 +176,182 @@ key = false
 name = "y3"
 type = "felt252"
 key = false
+=======
+kind = "DojoModel"
+class_hash = "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939"
+original_class_hash = "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939"
+abi = "manifests/dev/base/abis/models/starkludo-Game-5286f583.json"
+tag = "starkludo-Game"
+qualified_path = "starkludo::models::game::game"
+manifest_name = "starkludo-Game-5286f583"
+
+[[members]]
+name = "id"
+type = "u64"
+key = true
+
+[[members]]
+name = "created_by"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "game_status"
+type = "GameStatus"
+key = false
+
+[[members]]
+name = "game_mode"
+type = "GameMode"
+key = false
+
+[[members]]
+name = "player_green"
+type = "felt252"
+key = false
+
+[[members]]
+name = "player_yellow"
+type = "felt252"
+key = false
+
+[[members]]
+name = "player_blue"
+type = "felt252"
+key = false
+
+[[members]]
+name = "player_red"
+type = "felt252"
+key = false
+
+[[members]]
+name = "winner_1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "winner_2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "winner_3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "next_player"
+type = "felt252"
+key = false
+
+[[members]]
+name = "number_of_players"
+type = "u8"
+key = false
+
+[[members]]
+name = "rolls_count"
+type = "u256"
+key = false
+
+[[members]]
+name = "rolls_times"
+type = "u256"
+key = false
+
+[[members]]
+name = "dice_face"
+type = "u8"
+key = false
+
+[[members]]
+name = "player_chance"
+type = "ContractAddress"
+key = false
+
+[[members]]
+name = "has_thrown_dice"
+type = "bool"
+key = false
+
+[[members]]
+name = "b0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "b3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "g3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "r3"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y0"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y1"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y2"
+type = "felt252"
+key = false
+
+[[members]]
+name = "y3"
+type = "felt252"
+key = false
+>>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0
