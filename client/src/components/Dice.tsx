@@ -1,54 +1,20 @@
-import React, { useState, useContext,useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useGame } from "../hooks/game-hook";
-import { Row, Col } from "react-simple-flex-grid";
+import { Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
+import ThreeDice from 'react-dice-roll';
 import { GameContext } from "../context/game-context";
 import diceSound from "../assets/audio/shaking-dice-25620.mp3";
 
 const Dice = () => {
   const { moveValidator } = useGame();
-  const [diceClass, setDiceClass] = useState("");
   const { options, setGameOptions } = useContext(GameContext);
-  const audioRef = useRef(new Audio(diceSound));
+  const diceRef = useRef<any>(null);
 
-  // cc = center-center; tl = top-left; br = bottom-right; etc.
-  const combinations: { [key: number]: string[] }[] = [
-    { 1: ["cc"] },
-    { 2: ["tl", "br"] },
-    { 3: ["tl", "cc", "br"] },
-    { 4: ["tl", "tr", "bl", "br"] },
-    { 5: ["tl", "tr", "cc", "bl", "br"] },
-    { 6: ["tl", "tr", "cl", "cr", "bl", "br"] },
-  ];
-
-  // Function to play the dice rolling sound
-  const playDiceSound = () => {
-    audioRef.current.play();
-  };
-
-  // Function to stop the dice rolling sound
-  const stopDiceSound = () => {
-    audioRef.current.pause();
-    audioRef.current.currentTime = 0; // Reset the audio to the start
-  };
-
-  const eraseDots = async (number: number) => {
-    // iterate over combinations array to remove numbers
-    combinations[number - 1][number].forEach((set) => {
-      // add class 'show'
-      document.getElementById(`${set}`)?.classList.remove("show");
-    });
-  };
-
-  const makeDots = async (number: number) => {
-    // Spin animation
-    // dicebody.classList.add("spin-die");
-    setDiceClass((d) => (d === "spin-die" ? d : d + "spin-die"));
-    // iterate over combinations array to show numbers
-    combinations[number - 1][number].forEach((set) => {
-      // add class 'show'
-      document.getElementById(`${set}`)?.classList.add("show");
-    });
+  const deterministicRoll = (value: number) => {
+    if (diceRef.current) {
+      diceRef.current.rollDice(value); // Call the rollDice method with a fixed value
+    }
   };
 
   // The is the argument for the rollDie function
@@ -59,10 +25,10 @@ const Dice = () => {
 
   // The end result is simply a random number picked between 1 and 6
   const randomRollResult = async () => {
+
     let rollResult: number = 6;
 
     rollResult = Math.floor(Math.random() * 6 + 1);
-
     moveValidator(rollResult);
     return rollResult;
   };
@@ -78,15 +44,12 @@ const Dice = () => {
         clearInterval(rolling);
         // The result on die
         let x = await randomRollResult();
-        makeDots(x);
-        stopDiceSound();
+        console.log(x, "Fix");
+        deterministicRoll(x);
         moveValidator(x); // Validate move after rolling
-        // remove CSS animation spin effect
-        setDiceClass((d) => d.replace("spin-die", ""));
       } else {
         // rolls the die by quickly displaying then hiding them
-        makeDots(number);
-        setTimeout(eraseDots, 80, number);
+        deterministicRoll(number)
         // incrementer values for setInterval
         counter += 1;
         // which dots to show on die for 1 to 6
@@ -97,7 +60,6 @@ const Dice = () => {
         }
       }
     };
-    playDiceSound();
     const rolling = setInterval(rollState, 125);
   };
 
@@ -111,31 +73,23 @@ const Dice = () => {
   return (
     <React.Fragment>
       {options.gameIsOngoing && (
-        <Row gutter={0} className="dice-container">
+        <div className="dice-container">
           <Col xs={options.hasThrownDice ? 12 : 6}>
-            <div id="dice-body" className={`${diceClass}`}>
-              <div id="tl" className="dot" />
-              <div id="tc" className="dot" />
-              <div id="tr" className="dot" />
-              <div id="cl" className="dot" />
-              <div id="cc" className="dot show" />
-              <div id="cr" className="dot" />
-              <div id="bl" className="dot" />
-              <div id="bc" className="dot" />
-              <div id="br" className="dot" />
-            </div>
+            <ThreeDice disabled={!options.hasThrownDice} ref={diceRef} sound={diceSound} rollingTime={1000} size={100} />
           </Col>
-
-          {!options.hasThrownDice && (
             <Col xs={6}>
-              <div>
-                <button className="roll-btn" onClick={roller}>
-                  Roll
+              <div style={{
+              visibility: !(!options.hasThrownDice) ? "hidden":"visible"
+              }}>
+              <div onClick={roller} className="button-container">
+                <a className="start-over">Start Over</a>
+                <button className="roll-button">
+                  <span className="roll-text">ROLL</span>
                 </button>
               </div>
+              </div>
             </Col>
-          )}
-        </Row>
+        </div>
       )}
     </React.Fragment>
   );

@@ -93,7 +93,7 @@ const App = () => {
         >
           <BoardContext.Provider value={{ board, toggleBoard }}>
             <div className="game-behaviour-warning">
-              <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+              <FiAlertTriangle size={20} />
               StarkLudo is still in active development{" "}
               <FiZap color="yellow" size={20} />
             </div>
@@ -113,8 +113,8 @@ const App = () => {
                           <Header />
                         </div>
                         <Menu />
-                        <RestartGame />
                         <Alert />
+                        {/* <RestartGame /> */}
                         <Dice />
                         {activeWindow === "account" ? (
                           <ControlWindowLayout
