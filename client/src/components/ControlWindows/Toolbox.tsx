@@ -87,7 +87,7 @@ const Toolbox = ({ activeCategory, onCategoryClick }: ToolboxProps) => {
             option={item}
             active={board === item.option}
             onSelect={() => {
-              changeDice(item.option);
+              changeDice(item.option, item.img);
             }}
           />
         ))}
