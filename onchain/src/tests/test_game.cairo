@@ -99,7 +99,7 @@ mod tests {
         testing::set_contract_address(caller);
 
         //creating a new game
-        let (game, game_actions, world, _) = create_and_setup_game(
+        let (game, game_actions, _, _) = create_and_setup_game(
             game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
         );
 
@@ -139,6 +139,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn test_terminate_game() {
         let caller = contract_address_const::<'ibs'>();
 

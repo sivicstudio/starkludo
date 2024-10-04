@@ -1,6 +1,5 @@
 use starknet::ContractAddress;
 
-
 // Player model
 #[derive(Drop, Copy, Serde)]
 #[dojo::model]

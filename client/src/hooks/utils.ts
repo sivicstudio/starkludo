@@ -1,7 +1,7 @@
 export const capColors: string[] = ["R", "G", "Y", "B"];
 
 export const posReducer = (data: number[], playersLength: number) => {
-  let game: { [key: string]: string } = {};
+  const game: { [key: string]: string } = {};
   data.map((d, i) => {
     if (i < playersLength * 4) {
       if (d === 0) {
@@ -21,7 +21,7 @@ const startPoints: number[] = [0, 13, 26, 39];
 
 export const BoardToPos = (arr: number[]) => {
   const newArr: number[] = arr?.map((val, i) => {
-    let color: number = Math.floor(i / 4);
+    const color: number = Math.floor(i / 4);
     if (val > 52) {
       return 51 + (val % 1000);
     } else if (val === 0) {
@@ -37,13 +37,13 @@ export const BoardToPos = (arr: number[]) => {
 
 export const PosToBoard = (arr: number[]) => {
   const newArr: number[] = arr?.map((val, i) => {
-    let color: number = Math.floor(i / 4);
+    const color: number = Math.floor(i / 4);
     if (val > 51) {
       return (color + 1) * 1000 + (val % 50) - 1;
     } else if (val === 0) {
       return 0;
     } else {
-      let a = (startPoints[color] + val) % 52;
+      const a = (startPoints[color] + val) % 52;
       return a === 0 ? 52 : a;
     }
   });
@@ -95,36 +95,35 @@ export const safePos: number[] = [
 
 export const animateCustomEase = (
   duration: number,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   easing: any,
   element: HTMLSpanElement,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   property: any,
   currentValue: number,
   toValue: number
 ) => {
-  let d = duration,
+  const d = duration,
     ea = easing,
     e = element,
     // eslint-disable-next-line
     p = property,
     fromV = currentValue,
-    toV = toValue,
-    lastStart: number | any = null,
-    animate = function (timestamp: number) {
-      debug++;
-      // check if this is a new animation
-      if (!lastStart) {
-        lastStart = timestamp;
-      }
-      // check still in animation range
-      if (timestamp - lastStart <= d) {
-        // do animation
-        e.style[property] = ea(timestamp - lastStart, 0, d, fromV, toV);
-        // call next frame
-        window.requestAnimationFrame(animate);
-      }
-    },
-    // eslint-disable-next-line
-    debug = 0;
+    toV = toValue;
+  let lastStart: number | null = null;
+  const animate = function (timestamp: number) {
+    // check if this is a new animation
+    if (!lastStart) {
+      lastStart = timestamp;
+    }
+    // check still in animation range
+    if (timestamp - lastStart <= d) {
+      // do animation
+      e.style[property] = ea(timestamp - lastStart, 0, d, fromV, toV);
+      // call next frame
+      window.requestAnimationFrame(animate);
+    }
+  };
   return animate;
 };
 
@@ -150,12 +149,18 @@ export const flicker = (
   valHigh: number
 ) => {
   // get normalized progress value from 0 - 1
-  let n = Utils.modulate(progress, durationLow, durationHigh, valLow, valHigh);
-  let upperCap = (Math.random() * 7) / 10;
+  const n = Utils.modulate(
+    progress,
+    durationLow,
+    durationHigh,
+    valLow,
+    valHigh
+  );
+  const upperCap = (Math.random() * 7) / 10;
   if (Boolean(n) === !!n || n > upperCap) {
     return n;
   }
-  let result: number = Math.abs(
+  const result: number = Math.abs(
     n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4))
   );
   return result > 0 ? result : result * -1;

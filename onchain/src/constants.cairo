@@ -1,3 +1,5 @@
+use starknet::{ContractAddress, contract_address_const};
+
 #[derive(Serde, Copy, Drop, Introspect, PartialEq)]
 pub enum TileNode {
     R1,
@@ -41,3 +43,8 @@ pub enum TileNode {
     B03,
     B04,
 }
+
+fn zero_address() -> ContractAddress {
+    contract_address_const::<0x0>()
+}
+

@@ -50,6 +50,19 @@ mod tests {
     }
 
     #[test]
+    #[should_panic(expected: ('Cannot create from zero address', 'ENTRYPOINT_FAILED',))]
+    fn test_cannot_create_player_from_zero_address() {
+        // caller
+        let zero_address: ContractAddress = contract_address_const::<0x0>();
+        let username = 'princeibs';
+
+        testing::set_account_contract_address(zero_address);
+        testing::set_contract_address(zero_address);
+
+        let (_, _, _) = create_and_setup_player(username);
+    }
+
+    #[test]
     fn test_get_address_from_username() {
         // caller
         let caller = contract_address_const::<'princeibs_address'>();

@@ -19,12 +19,15 @@ trait IPlayerActions {
 #[dojo::contract]
 mod PlayerActions {
     use super::{IPlayerActions, Player, PlayerTrait};
-    use starknet::{ContractAddress, get_caller_address};
+    use starknet::{ContractAddress, get_caller_address, contract_address_const};
 
     #[abi(embed_v0)]
     impl PlayerActionsImpl of IPlayerActions<ContractState> {
         fn create(ref world: IWorldDispatcher, username: felt252) {
-            let caller = get_caller_address();
+            let caller: ContractAddress = get_caller_address();
+            let zero_address: ContractAddress = contract_address_const::<0x0>();
+
+            assert(caller != zero_address, 'Cannot create from zero address');
 
             let new_player: Player = PlayerTrait::new(username, caller);
 

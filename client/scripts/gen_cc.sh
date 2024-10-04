@@ -1,0 +1,1 @@
+npx @dojoengine/core ../onchain/manifests/dev/deployment/manifest.json ./_dojo http://localhost:5050 0x4e4a8cb96198772361acc30c71d81768bccc6c29501f211b0f0ca7045b194a4

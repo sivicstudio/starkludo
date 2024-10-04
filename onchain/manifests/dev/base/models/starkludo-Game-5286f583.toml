@@ -1,6 +1,6 @@
 kind = "DojoModel"
-class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
-original_class_hash = "0x142b55dcf7d81397c7c9a4e8d97235f7a441b8ecfbafcaf59d096a87ac7d446"
+class_hash = "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939"
+original_class_hash = "0x6f661d514e79ee250cef7baa203a0b994f3f9e2dd4cf4fa4ba991f43d11d939"
 abi = "manifests/dev/base/abis/models/starkludo-Game-5286f583.json"
 tag = "starkludo-Game"
 qualified_path = "starkludo::models::game::game"

@@ -1,0 +1,23 @@
+name: Client CI Pipeline
+on: [push, pull_request]
+jobs:
+    node:
+      runs-on: ubuntu-latest
+  
+      steps:
+      - uses: actions/checkout@v2
+      # installing Node
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          # this will use the latest Node 18 version
+          node-version: 18.x
+      # install dependencies using clean install to avoid package lock updates
+      - run: npm install -g pnpm
+      - run: cd client && pnpm install --no-lockfile  
+      # - run: pnpm ci
+      # build the project if necessary
+      - run: cd client && pnpm run build 
+      # prettier and lint
+      - run: cd client && pnpm run lint
+      - run: cd client && pnpm run format

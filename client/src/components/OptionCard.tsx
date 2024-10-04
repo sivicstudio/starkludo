@@ -8,7 +8,7 @@ export default function OptionCard({
 }: {
   active?: boolean;
   onSelect?: () => void;
-  option?: any;
+  option?: { name: string };
 }) {
   return (
     <button
@@ -17,7 +17,7 @@ export default function OptionCard({
     >
       <div className="option">
         <img src={boardImg} alt="board" />
-        <div className="option-label">{option.name}</div>
+        <div className="option-label">{option?.name}</div>
       </div>
     </button>
   );
