@@ -63,7 +63,7 @@ const App = () => {
     setActiveCategory(category);
   };
 
-  const setGameData = useCallback((game: any) => {
+  const setGameData = useCallback((game: object) => {
     setGameState(game);
   }, []);
 

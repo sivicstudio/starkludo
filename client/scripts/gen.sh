@@ -1,0 +1,1 @@
+DOJO_MANIFEST_PATH=../onchain/scarb.toml sozo build --typescript --bindings-output=./src/dojo

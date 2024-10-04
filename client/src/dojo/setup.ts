@@ -1,17 +1,18 @@
 import { DojoConfig, DojoProvider } from "@dojoengine/core";
-import * as torii from "@dojoengine/torii-client";
-import { createClientComponents } from "../createClientComponents";
-import { createSystemCalls } from "../createSystemCalls";
-import { defineContractComponents } from "./contractComponents";
-import { world } from "./world";
-import { setupWorld } from "./generated";
-import { Account, ArraySignatureType } from "starknet";
 import { BurnerManager } from "@dojoengine/create-burner";
+import { getSyncEvents } from "@dojoengine/state";
+import * as torii from "@dojoengine/torii-client";
+import { Account, ArraySignatureType } from "starknet";
+
+import { createClientComponents } from "./createClientComponents";
+import { createSystemCalls } from "./createSystemCalls";
+import { setupWorld } from "./typescript/contracts.gen";
+import { defineContractComponents } from "./typescript/models.gen";
+import { world } from "./world";
 
 export type SetupResult = Awaited<ReturnType<typeof setup>>;
 
 export async function setup({ ...config }: DojoConfig) {
-  console.log(torii.poseidonHash(["1"]));
   // torii client
   const toriiClient = await torii.createClient({
     rpcUrl: config.rpcUrl,
@@ -29,6 +30,14 @@ export async function setup({ ...config }: DojoConfig) {
   // create dojo provider
   const dojoProvider = new DojoProvider(config.manifest, config.rpcUrl);
 
+  const eventSync = getSyncEvents(
+    toriiClient,
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    contractComponents as any,
+    undefined,
+    []
+  );
+
   // setup world
   const client = await setupWorld(dojoProvider);
 
@@ -39,7 +48,7 @@ export async function setup({ ...config }: DojoConfig) {
         nodeUrl: config.rpcUrl,
       },
       config.masterAddress,
-      config.masterPrivateKey,
+      config.masterPrivateKey
     ),
     accountClassHash: config.accountClassHash,
     rpcProvider: dojoProvider.provider,
@@ -59,7 +68,7 @@ export async function setup({ ...config }: DojoConfig) {
     client,
     clientComponents,
     contractComponents,
-    systemCalls: createSystemCalls({ client }, clientComponents, world),
+    systemCalls: createSystemCalls({ client }, clientComponents),
     publish: (typedData: string, signature: ArraySignatureType) => {
       toriiClient.publishMessage(typedData, signature);
     },
@@ -67,5 +76,6 @@ export async function setup({ ...config }: DojoConfig) {
     dojoProvider,
     burnerManager,
     toriiClient,
+    eventSync,
   };
 }
