@@ -20,7 +20,7 @@ export const useGame = () => {
 
   const startGame = useCallback(
     async (playersLength: number) => {
-      let newGame: { [key: string]: string } = {};
+      const newGame: { [key: string]: string } = {};
       Object.entries(startState)
         .slice(0, playersLength * 4)
         .map((entry) => {
@@ -72,7 +72,7 @@ export const useGame = () => {
   const moveValidator = useCallback(
     (diceThrow: number) => {
       setGameOptions({ diceFace: diceThrow });
-      let color = options.playerChance;
+      const color = options.playerChance;
       const sp = Object.values(startState);
       const colorState = Object.values(gameState).slice(
         color * 4,
@@ -82,7 +82,7 @@ export const useGame = () => {
         if (sp.includes(c) && diceThrow !== 6) {
           return 0;
         } else if (coloredBlocks.includes(c)) {
-          let x = parseInt(c.charAt(1));
+          const x = parseInt(c.charAt(1));
           if (x === 6 || x + diceThrow > 6) return 0;
         }
         return 1;
@@ -113,7 +113,7 @@ export const useGame = () => {
       ischance = true;
       isthrown = true;
     } else {
-      let testVal = val + diceThrow;
+      const testVal = val + diceThrow;
       if (testVal > 57) {
         newVal = val;
         ischance = true;
@@ -129,20 +129,20 @@ export const useGame = () => {
 
   const moveMarker = useCallback(
     async (pos: string, color: number) => {
-      let diceThrow = options.diceFace;
+      const diceThrow = options.diceFace;
 
-      let j = markers.indexOf(pos);
+      const j = markers.indexOf(pos);
 
       // Fetch Current Game Condition
-      let gameCondition = options.gameCondition;
+      const gameCondition = options.gameCondition;
 
       let currentGame: number[] = new Array(16).fill(0);
-      let isChance: boolean = false;
-      let isThrown: boolean = false;
+      let isChance = false;
+      let isThrown = false;
 
       currentGame = BoardToPos(gameCondition);
       let val = currentGame[j];
-      let { newVal, ischance, isthrown } = moveDeducer(val, diceThrow);
+      const { newVal, ischance, isthrown } = moveDeducer(val, diceThrow);
       isChance = ischance;
       isThrown = isthrown;
       currentGame[j] = newVal;
@@ -165,7 +165,7 @@ export const useGame = () => {
 
       // -- XX --
       setGameOptions({ gameCondition: currentGame });
-      let newGameState = posReducer(currentGame, options.playersLength);
+      const newGameState = posReducer(currentGame, options.playersLength);
       const colorState = Object.values(newGameState).slice(
         color * 4,
         color * 4 + 4

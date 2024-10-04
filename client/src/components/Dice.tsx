@@ -19,14 +19,14 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
-    let rollAmount = Math.floor(Math.random() * 30 + 15);
+    const rollAmount = Math.floor(Math.random() * 30 + 15);
     return rollAmount;
   };
 
   // The end result is simply a random number picked between 1 and 6
   const randomRollResult = async () => {
 
-    let rollResult: number = 6;
+    let rollResult = 6;
 
     rollResult = Math.floor(Math.random() * 6 + 1);
     moveValidator(rollResult);
@@ -43,7 +43,7 @@ const Dice = () => {
       if (counter >= numberOfRolls) {
         clearInterval(rolling);
         // The result on die
-        let x = await randomRollResult();
+        const x = await randomRollResult();
         console.log(x, "Fix");
         deterministicRoll(x);
         moveValidator(x); // Validate move after rolling
@@ -79,7 +79,7 @@ const Dice = () => {
           </Col>
             <Col xs={6}>
               <div style={{
-              visibility: !(!options.hasThrownDice) ? "hidden":"visible"
+              visibility: options.hasThrownDice ? "hidden":"visible"
               }}>
               <div onClick={roller} className="button-container">
                 <a className="start-over">Start Over</a>
