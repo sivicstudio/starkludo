@@ -19,7 +19,7 @@ export const getERC721Contract = (account?: AccountInterface): Contract => {
   //   throw new Error("no ERC721 abi");
   // }
 
-  let contract = new Contract(ERC721_ABI, ERC721_ADDRESS, RPC_PROVIDER);
+  const contract = new Contract(ERC721_ABI, ERC721_ADDRESS, RPC_PROVIDER);
 
   if (account) {
     contract.connect(account);
@@ -39,7 +39,7 @@ export const getNftNameResolverContract = (
   // if (NFT_NAME_RESOLVER_ABI === undefined) {
   //   throw new Error("no NFT_NAME_RESOLVER abi");
   // }
-  let contract = new Contract(
+  const contract = new Contract(
     NFT_NAME_RESOLVER_ABI,
     NFT_NAME_RESOLVER_ADDRESS,
     RPC_PROVIDER
