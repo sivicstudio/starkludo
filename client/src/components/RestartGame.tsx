@@ -32,6 +32,7 @@ const RestartGame: React.FC = () => {
           </div>
         </div>
       )}
+
       {restart && (
         <RestartModal
           message="Are you sure you want to restart the gane?"
