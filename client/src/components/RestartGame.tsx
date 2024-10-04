@@ -11,16 +11,16 @@ const RestartGame: React.FC = () => {
   const [restart, setRestart] = useState(false);
 
   function handleRestartGame() {
-	setRestart(true);
+    setRestart(true);
   }
 
   function handleConfirm() {
-	restartGame();
-	setRestart(false);
+    restartGame();
+    setRestart(false);
   }
 
   function handleCancle() {
-	setRestart(false);
+    setRestart(false);
   }
 
   return (
@@ -32,7 +32,14 @@ const RestartGame: React.FC = () => {
           </div>
         </div>
       )}
-	{restart && <RestartModal message="Are you sure you want to restart the gane?" onConfirm={handleConfirm} onCancel={handleCancle} />}
+
+      {restart && (
+        <RestartModal
+          message="Are you sure you want to restart the gane?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancle}
+        />
+      )}
     </React.Fragment>
   );
 };

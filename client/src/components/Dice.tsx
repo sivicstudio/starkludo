@@ -1,4 +1,4 @@
-import React, { useState, useContext,useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useGame } from "../hooks/game-hook";
 import { Row, Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
@@ -53,8 +53,8 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
-    const rollAmount = Math.floor(Math.random() * 30 + 15);
-    return rollAmount;
+
+    return Math.floor(Math.random() * 30 + 15);
   };
 
   // The end result is simply a random number picked between 1 and 6

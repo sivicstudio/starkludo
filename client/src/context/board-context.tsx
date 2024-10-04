@@ -9,7 +9,5 @@ interface BoardContextType {
 
 export const BoardContext = createContext<BoardContextType>({
   board: "",
-  toggleBoard: () => {
-        // do nothing.
-  },
+  toggleBoard: () => undefined,
 });

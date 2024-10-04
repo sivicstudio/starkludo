@@ -5,11 +5,12 @@ export default function OptionCard({
   active,
   onSelect,
   option,
-  }: {
-    active?: boolean;
-    onSelect?: () => void;
-    option?: any;
-  }) {
+
+}: {
+  active?: boolean;
+  onSelect?: () => void;
+  option?: { name: string };
+}) {
   return (
     <button
       className={`option-container ${active ? "active" : ""}`}
@@ -17,7 +18,7 @@ export default function OptionCard({
     >
       <div className="option">
         <img src={boardImg} alt="board" />
-        <div className="option-label">{option.name}</div>
+        <div className="option-label">{option?.name}</div>
       </div>
     </button>
   );

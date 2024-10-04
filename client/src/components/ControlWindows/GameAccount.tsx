@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useConnect,
   useDisconnect,
   useStarkProfile,
 } from "@starknet-react/core";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDojo } from "../../dojo/useDojo";
 import "../../styles/GameAccount.scss";
 import {
-  // convertHexToText,
-  createGameProfile,
-  getGameProfilesFromAddress,
+  convertHexToText,
+  getGameProfilesFromAddress
 } from "../../utils/helpers";
-// import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -37,9 +36,11 @@ const ConnectWallet = () => {
   );
 };
 
-// const ProfilePage = () => {
-//   return <div style={{ color: "white" }}>Profile page</div>;
-// };
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const ProfilePage = () => {
+  return <div style={{ color: "white" }}>Profile page</div>;
+};
 
 const GameAccount = () => {
   const { address, account } = useAccount();
@@ -62,20 +63,23 @@ const GameAccount = () => {
     disconnect();
   };
 
-  // useNetwork
-  // const addGameProfile = async () => {
-  //   if (newProfileName === undefined || newProfileName?.length < 2) {
-  //     alert("profile name must be greater than 2");
-  //     return;
-  //   }
+
+  const { system } = useDojo();
+
+  const addGameProfile = async () => {
+    if (newProfileName === undefined || newProfileName?.length < 2) {
+      alert("profile name must be greater than 2");
+      return;
+    }
 
   //   if (account === undefined || address === undefined) {
   //     alert("account is undefined");
   //     return;
   //   }
 
-  //   await createGameProfile(newProfileName, account);
-  //   setNewProfileName("");
+    // await createGameProfile(newProfileName, account);
+    await system.createUsername(account, newProfileName);
+    await setNewProfileName("");
 
   //   await getGameProfilesFromAddress(address, setGameProfiles);
   // };
@@ -85,9 +89,8 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return function ()  {
-          // do nothing.
-    };
+
+    return () => undefined;
   }, [address]);
 
   const enum pagesName {
@@ -167,6 +170,46 @@ const GameAccount = () => {
             <div className="player-actions">
               <button>DELETE</button>
               <button>SELL</button>
+            </div>
+
+            <div className="game-profiles">
+              <div className="profile-heading">Game Profiles</div>
+              <div className="game-profiles-outer-list">
+                {gameProfiles !== undefined ? (
+                  <div className="game-profiles-inner-list">
+                    {gameProfiles?.length > 0 ? (
+                      <div className="games-profiles-core-list">
+                        {gameProfiles.map((gameProfile) => (
+                          <div className="list-profile">
+                            <span>{convertHexToText(gameProfile)}</span>
+
+                            <FaArrowAltCircleRight cursor={"pointer"} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ color: "gray" }}>--no profile found--</div>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ color: "gray" }} className="loading-txt">
+                    Loading...
+                  </div>
+                )}
+              </div>
+              <div className="add-profile">
+                <input
+                  placeholder="username"
+                  value={newProfileName}
+                  onChange={(e) => setNewProfileName(e.target.value)}
+                />
+                <button
+                  className="add-profile-btn"
+                  onClick={() => addGameProfile()}
+                >
+                  Add new profile
+                </button>
+              </div>
             </div>
           </div>
         )}

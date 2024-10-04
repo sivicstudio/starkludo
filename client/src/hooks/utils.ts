@@ -95,36 +95,35 @@ export const safePos: number[] = [
 
 export const animateCustomEase = (
   duration: number,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   easing: any,
   element: HTMLSpanElement,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   property: any,
   currentValue: number,
-  toValue: number,
+  toValue: number
 ) => {
-  const d = duration
-  const  ea = easing
-  const  e = element,
+  const d = duration,
+    ea = easing,
+    e = element,
     // eslint-disable-next-line
     p = property,
     fromV = currentValue,
-    toV = toValue
-    let lastStart: number | any = null
-    let animate = function (timestamp: number) {
-      debug++;
-      // check if this is a new animation
-      if (!lastStart) {
-        const lastStart = timestamp;
-      }
-      // check still in animation range
-      if (timestamp - lastStart <= d) {
-        // do animation
-        e.style[property] = ea(timestamp - lastStart, 0, d, fromV, toV);
-        // call next frame
-        window.requestAnimationFrame(animate);
-      }
-    },
-    // eslint-disable-next-line
-    debug = 0;
+    toV = toValue;
+  let lastStart: number | null = null;
+  const animate = function (timestamp: number) {
+    // check if this is a new animation
+    if (!lastStart) {
+      lastStart = timestamp;
+    }
+    // check still in animation range
+    if (timestamp - lastStart <= d) {
+      // do animation
+      e.style[property] = ea(timestamp - lastStart, 0, d, fromV, toV);
+      // call next frame
+      window.requestAnimationFrame(animate);
+    }
+  };
   return animate;
 };
 
@@ -134,7 +133,7 @@ const Utils: {
     fromMin: number,
     fromMax: number,
     toMin: number,
-    toMax: number,
+    toMax: number
   ) => number;
 } = {
   modulate: (val, fromMin, fromMax, toMin, toMax) => {
@@ -147,16 +146,22 @@ export const flicker = (
   durationLow: number,
   durationHigh: number,
   valLow: number,
-  valHigh: number,
+  valHigh: number
 ) => {
   // get normalized progress value from 0 - 1
-  const n = Utils.modulate(progress, durationLow, durationHigh, valLow, valHigh);
+  const n = Utils.modulate(
+    progress,
+    durationLow,
+    durationHigh,
+    valLow,
+    valHigh
+  );
   const upperCap = (Math.random() * 7) / 10;
   if (Boolean(n) === !!n || n > upperCap) {
     return n;
   }
   const result: number = Math.abs(
-    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4)),
+    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4))
   );
   return result > 0 ? result : result * -1;
 };
