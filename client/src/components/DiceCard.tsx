@@ -1,6 +1,8 @@
-// import "../styles/OptionCard.scss";
 import "../styles/OptionCard.scss";
 
+interface Option {
+  name: string;
+}
 export default function DiceCard({
   img,
   active,
@@ -10,7 +12,7 @@ export default function DiceCard({
   img?: string;
   active?: boolean;
   onSelect?: () => void;
-  option?: any;
+  option?: Option;
 }) {
   return (
     <button
@@ -18,7 +20,7 @@ export default function DiceCard({
       onClick={onSelect}
     >
       <div className="option">
-        <div className="name-label">{option.name}</div>
+        <div className="name-label">{option?.name}</div>
         <img src={img} alt="board" />
         <div className="option-label">5/6</div>
       </div>

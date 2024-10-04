@@ -17,5 +17,7 @@ interface DiceContextType {
 
 export const DiceContext = createContext<DiceContextType>({
   dice: "",
-  changeDice: () => {},
+  changeDice: () => {
+    throw new Error("changeDice function must be overridden");
+  },
 });
