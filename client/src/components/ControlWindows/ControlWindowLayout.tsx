@@ -1,5 +1,4 @@
 import React from "react";
-// import Draggable from "react-draggable";
 import { FiXSquare } from "react-icons/fi";
 import "../../styles/ControlWindowLayout.scss";
 

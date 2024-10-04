@@ -3,7 +3,6 @@ import {
   useAccount,
   useConnect,
   useDisconnect,
-  // useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
 import { useMemo } from "react";
@@ -63,22 +62,23 @@ const GameAccount = () => {
     disconnect();
   };
 
-  const addGameProfile = async () => {
-    if (newProfileName === undefined || newProfileName?.length < 2) {
-      alert("profile name must be greater than 2");
-      return;
-    }
+  // useNetwork
+  // const addGameProfile = async () => {
+  //   if (newProfileName === undefined || newProfileName?.length < 2) {
+  //     alert("profile name must be greater than 2");
+  //     return;
+  //   }
 
-    if (account === undefined || address === undefined) {
-      alert("account is undefined");
-      return;
-    }
+  //   if (account === undefined || address === undefined) {
+  //     alert("account is undefined");
+  //     return;
+  //   }
 
-    await createGameProfile(newProfileName, account);
-    setNewProfileName("");
+  //   await createGameProfile(newProfileName, account);
+  //   setNewProfileName("");
 
-    await getGameProfilesFromAddress(address, setGameProfiles);
-  };
+  //   await getGameProfilesFromAddress(address, setGameProfiles);
+  // };
 
   useEffect(() => {
     if (address) {
