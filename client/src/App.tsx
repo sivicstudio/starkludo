@@ -52,7 +52,7 @@ const App = () => {
     setBoard(newBoard);
   };
 
-  const setGameData = useCallback((game: any) => {
+  const setGameData = useCallback((game: object) => {
     setGameState(game);
   }, []);
 
