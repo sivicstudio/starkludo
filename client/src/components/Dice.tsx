@@ -1,15 +1,32 @@
-import React, { useContext, useRef } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useContext, useRef, useState } from "react";
 import { useGame } from "../hooks/game-hook";
 import { Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
 import ThreeDice from 'react-dice-roll';
 import { GameContext } from "../context/game-context";
+import RestartModal from "./RestartModal";
 import diceSound from "../assets/audio/shaking-dice-25620.mp3";
 
 const Dice = () => {
-  const { moveValidator } = useGame();
+  const { options } = useContext(GameContext);
+  const [restart, setRestart] = useState(false);
+  const { moveValidator, endGame: restartGame } = useGame();
   const { options, setGameOptions } = useContext(GameContext);
   const diceRef = useRef<any>(null);
+
+  function handleRestartGame() {
+    setRestart(true);
+  }
+
+  function handleConfirm() {
+    restartGame();
+    setRestart(false);
+  }
+
+  function handleCancle() {
+    setRestart(false);
+  }
 
   const deterministicRoll = (value: number) => {
     if (diceRef.current) {
@@ -82,7 +99,7 @@ const Dice = () => {
               visibility: options.hasThrownDice ? "hidden":"visible"
               }}>
               <div onClick={roller} className="button-container">
-                <a className="start-over">Start Over</a>
+                {options.gameIsOngoing && (<a className="start-over" onClick={handleRestartGame}>Start Over</a>)}
                 <button className="roll-button">
                   <span className="roll-text">ROLL</span>
                 </button>
@@ -90,6 +107,14 @@ const Dice = () => {
               </div>
             </Col>
         </div>
+      )}
+      {restart && (
+        <RestartModal
+          message="Are you sure you want to restart the game?"
+          extraMessage="If you click yes, there’s no going back"
+          onConfirm={handleConfirm}
+          onCancel={handleCancle}
+        />
       )}
     </React.Fragment>
   );

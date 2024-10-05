@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { chance } from "../hooks/utils";
-import { FaAward, FaPlay } from "react-icons/fa";
+import { FaAward } from "react-icons/fa";
 import "../styles/Alert.scss";
 import { GameContext } from "../context/game-context";
 
