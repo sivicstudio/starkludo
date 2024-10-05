@@ -26,6 +26,7 @@ trait IPlayerActions {
 
 #[dojo::contract]
 mod PlayerActions {
+    use super::Errors;
     use super::{IPlayerActions, Player, PlayerTrait};
     use starknet::{ContractAddress, get_caller_address, contract_address_const};
 
