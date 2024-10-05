@@ -170,5 +170,41 @@ mod tests {
 
         assert_eq!(game.game_status, GameStatus::Ended);
     }
+
+    #[test]
+    fn test_invite_player() {
+        let caller = contract_address_const::<'game_creator'>();  // The game creator
+        let player_red = 'player_red';
+        let player_blue = 'player_blue';
+        let player_yellow = 'player_yellow';
+        let player_green = 'player_green';
+        let number_of_players = 4;
+        let game_mode: GameMode = GameMode::MultiPlayer;
+
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        // Creating and setup a new game
+        let (mut game, game_actions, _, _) = create_and_setup_game(
+            game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
+        );
+
+        let game_id: u64 = game.id;
+        let new_player = 'player_orange';
+
+        // Inviting a new player to the game
+        game_actions.invite_player(game_id, new_player);
+
+        // Retrieving the game and checking if the invited player has been added to the invited_players array
+        game = get!(world, game_id, Game);
+        assert(game.invited_players.contains(new_player.into()), 'Player was not invited');
+
+        // Checking if the same player can't be invited again
+        let result = testing::catch_panic(|| {
+            game_actions.invite_player(game_id, new_player);
+        });
+        assert(result.is_err(), 'Player was invited more than once');
+    }
+
 }
 
