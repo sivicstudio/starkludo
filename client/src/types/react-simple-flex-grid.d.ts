@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-declare module 'react-simple-flex-grid' {
-    export const Row: React.ComponentType<any>;
-    export const Col: React.ComponentType<any>;
-}
-=======
 declare module "react-simple-flex-grid" {
   import { HTMLProps, PureComponent } from "react";
 
@@ -46,4 +40,3 @@ declare module "react-simple-flex-grid" {
     IColProps & HTMLProps<HTMLDivElement>
   > {}
 }
->>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0

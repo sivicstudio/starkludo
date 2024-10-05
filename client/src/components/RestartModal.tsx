@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import "../styles/RestartGameModal.scss";
-
-interface ConfirmationModalProps {
-	message: string;
-	onConfirm: () => void;
-	onCancel: () => void;
-}
-
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({message, onConfirm, onCancel}) => {
-  return (
-	<div className="restartCon">
-		<div className="innerRestart">
-			<p>{message}</p>
-			<div className="chooseAns">
-				<button onClick={onConfirm}>Yes</button>
-				<button onClick={onCancel}>No</button>
-			</div>
-		</div>
-	</div>
-  )
-}
-
-=======
 import React from 'react';
 import "../styles/RestartGameModal.scss";
 
@@ -51,5 +26,4 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({message, onConfirm
   )
 }
 
->>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0
 export default ConfirmationModal;

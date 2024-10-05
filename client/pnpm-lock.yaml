@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-<<<<<<< HEAD
-importers:
-=======
 dependencies:
   '@apollo/client':
     specifier: ^3.11.8
@@ -101,7 +98,6 @@ dependencies:
   vite-plugin-wasm:
     specifier: ^3.2.2
     version: 3.3.0(vite@4.5.5)
->>>>>>> c43c6f1d481754a137db14df3d2d25dbafa13db0
 
   .:
     dependencies:
