@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useConnect,
@@ -6,14 +5,14 @@ import {
   useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDojo } from "../../dojo/useDojo";
 import "../../styles/GameAccount.scss";
 import {
   convertHexToText,
-  createGameProfile,
-  getGameProfilesFromAddress,
+  getGameProfilesFromAddress
 } from "../../utils/helpers";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
@@ -38,6 +37,7 @@ const ConnectWallet = () => {
   );
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const ProfilePage = () => {
   return <div style={{ color: "white" }}>Profile page</div>;
 };
@@ -63,6 +63,8 @@ const GameAccount = () => {
     disconnect();
   };
 
+  const { system } = useDojo();
+
   const addGameProfile = async () => {
     if (newProfileName === undefined || newProfileName?.length < 2) {
       alert("profile name must be greater than 2");
@@ -74,8 +76,9 @@ const GameAccount = () => {
       return;
     }
 
-    await createGameProfile(newProfileName, account);
-    setNewProfileName("");
+    // await createGameProfile(newProfileName, account);
+    await system.createUsername(account, newProfileName);
+    await setNewProfileName("");
 
     await getGameProfilesFromAddress(address, setGameProfiles);
   };
@@ -85,7 +88,7 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return () => {};
+    return () => undefined;
   }, [address]);
 
   const enum pagesName {
@@ -93,7 +96,7 @@ const GameAccount = () => {
     PROFILE_PAGE = "PROFILE_PAGE",
   }
 
-  let mainPage = {
+  const mainPage = {
     name: pagesName.MAIN_PAGE,
     content: (
       <div>
@@ -166,22 +169,62 @@ const GameAccount = () => {
               <button>DELETE</button>
               <button>SELL</button>
             </div>
+
+            <div className="game-profiles">
+              <div className="profile-heading">Game Profiles</div>
+              <div className="game-profiles-outer-list">
+                {gameProfiles !== undefined ? (
+                  <div className="game-profiles-inner-list">
+                    {gameProfiles?.length > 0 ? (
+                      <div className="games-profiles-core-list">
+                        {gameProfiles.map((gameProfile) => (
+                          <div className="list-profile">
+                            <span>{convertHexToText(gameProfile)}</span>
+
+                            <FaArrowAltCircleRight cursor={"pointer"} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ color: "gray" }}>--no profile found--</div>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ color: "gray" }} className="loading-txt">
+                    Loading...
+                  </div>
+                )}
+              </div>
+              <div className="add-profile">
+                <input
+                  placeholder="username"
+                  value={newProfileName}
+                  onChange={(e) => setNewProfileName(e.target.value)}
+                />
+                <button
+                  className="add-profile-btn"
+                  onClick={() => addGameProfile()}
+                >
+                  Add new profile
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
     ),
   };
 
-  let profilePage = {
+  const profilePage = {
     name: pagesName.PROFILE_PAGE,
     content: <div>Profile</div>,
   };
 
-  let pages = [mainPage, profilePage];
+  const pages = [mainPage, profilePage];
 
   const resolvePageToReturn = () => {
     // Get last page name
-    let lastPage =
+    const lastPage =
       pagesStack[pagesStack.length - 1 > 0 ? pagesStack.length - 1 : 0];
 
     let pageToReturn;

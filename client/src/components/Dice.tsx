@@ -1,4 +1,4 @@
-import React, { useState, useContext,useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useGame } from "../hooks/game-hook";
 import { Row, Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
@@ -53,13 +53,13 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
-    let rollAmount = Math.floor(Math.random() * 30 + 15);
-    return rollAmount;
+
+    return Math.floor(Math.random() * 30 + 15);
   };
 
   // The end result is simply a random number picked between 1 and 6
   const randomRollResult = async () => {
-    let rollResult: number = 6;
+    let rollResult = 6;
 
     rollResult = Math.floor(Math.random() * 6 + 1);
 
@@ -77,7 +77,7 @@ const Dice = () => {
       if (counter >= numberOfRolls) {
         clearInterval(rolling);
         // The result on die
-        let x = await randomRollResult();
+        const x = await randomRollResult();
         makeDots(x);
         stopDiceSound();
         moveValidator(x); // Validate move after rolling
