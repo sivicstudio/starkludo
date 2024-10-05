@@ -53,6 +53,7 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
+
     return Math.floor(Math.random() * 30 + 15);
   };
 

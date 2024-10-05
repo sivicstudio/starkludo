@@ -5,6 +5,7 @@ export default function OptionCard({
   active,
   onSelect,
   option,
+
 }: {
   active?: boolean;
   onSelect?: () => void;
