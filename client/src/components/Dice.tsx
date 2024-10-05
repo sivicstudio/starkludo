@@ -9,7 +9,6 @@ import RestartModal from "./RestartModal";
 import diceSound from "../assets/audio/shaking-dice-25620.mp3";
 
 const Dice = () => {
-  const { options } = useContext(GameContext);
   const [restart, setRestart] = useState(false);
   const { moveValidator, endGame: restartGame } = useGame();
   const { options, setGameOptions } = useContext(GameContext);
