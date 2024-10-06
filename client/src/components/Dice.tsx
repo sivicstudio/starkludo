@@ -55,7 +55,6 @@ const Dice = () => {
 
   // The is the argument for the rollDie function
   const randomRollAmount = () => {
-
     return Math.floor(Math.random() * 30 + 15);
   };
 
@@ -104,8 +103,12 @@ const Dice = () => {
   };
 
   const roller = async () => {
-    if (!options.hasThrownDice) {
-      setGameOptions({ hasThrownDice: true });
+    if (
+      !options.hasThrownDice &&
+      options.gameIsOngoing &&
+      !options.winners.includes(options.playerChance)
+    ) {
+      setGameOptions({ hasThrownDice: true, });
       await rollDie(randomRollAmount());
     }
   };
@@ -129,15 +132,17 @@ const Dice = () => {
               <img id="dice-img" className={`${diceClass}`} src={img} alt="dice" />
           </Col>
 
-          {!options.hasThrownDice && (
-            <Col xs={6}>
-              <div>
-                <button className="roll-btn" onClick={roller}>
-                  Roll
-                </button>
-              </div>
-            </Col>
-          )}
+          {!options.hasThrownDice &&
+            options.gameIsOngoing &&
+            !options.winners.includes(options.playerChance) && (
+              <Col xs={6}>
+                <div>
+                  <button className="roll-btn" onClick={roller}>
+                    Roll
+                  </button>
+                </div>
+              </Col>
+            )}
         </Row>
       )}
     </React.Fragment>
