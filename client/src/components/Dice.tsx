@@ -4,11 +4,13 @@ import { Row, Col } from "react-simple-flex-grid";
 import "../styles/Dice.scss";
 import { GameContext } from "../context/game-context";
 import diceSound from "../assets/audio/shaking-dice-25620.mp3";
+import { DiceContext } from "../context/dice-context";
 
 const Dice = () => {
   const { moveValidator } = useGame();
   const [diceClass, setDiceClass] = useState("");
   const { options, setGameOptions } = useContext(GameContext);
+  const { img} = useContext(DiceContext);
   const audioRef = useRef(new Audio(diceSound));
 
   // cc = center-center; tl = top-left; br = bottom-right; etc.
@@ -113,7 +115,7 @@ const Dice = () => {
       {options.gameIsOngoing && (
         <Row gutter={0} className="dice-container">
           <Col xs={options.hasThrownDice ? 12 : 6}>
-            <div id="dice-body" className={`${diceClass}`}>
+            {/* <div id="dice-body" className={`${diceClass}`}>
               <div id="tl" className="dot" />
               <div id="tc" className="dot" />
               <div id="tr" className="dot" />
@@ -123,7 +125,8 @@ const Dice = () => {
               <div id="bl" className="dot" />
               <div id="bc" className="dot" />
               <div id="br" className="dot" />
-            </div>
+            </div> */}
+              <img id="dice-img" className={`${diceClass}`} src={img} alt="dice" />
           </Col>
 
           {!options.hasThrownDice && (
