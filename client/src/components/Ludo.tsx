@@ -7,6 +7,10 @@ import { markers } from "../hooks/utils";
 import "../styles/Ludo.scss";
 import { BoardContext } from "../context/board-context";
 import CaretRight from "./CaretRight";
+import profile1 from "../assets/images/profile1.jpg";
+import profile2 from "../assets/images/profile2.jpg";
+import profile3 from "../assets/images/profile3.jpg";
+import profile4 from "../assets/images/profile4.jpg";
 
 const Ludo: React.FC = () => {
   const { size, tileMap } = useSize();
@@ -20,25 +24,25 @@ const Ludo: React.FC = () => {
       id: 0,
       name: "Player 1",
       color: "red",
-      image: "/assets/images/profile1.jpg",
+      image: profile1,
     },
     {
       id: 1,
       name: "Player 2",
       color: "green",
-      image: "/assets/images/profile2.jpg",
+      image: profile2,
     },
     {
       id: 2,
       name: "Player 3",
       color: "yellow",
-      image: "assets/images/profile3.jpg",
+      image: profile3,
     },
     {
       id: 3,
       name: "Player 4",
       color: "blue",
-      image: "assets/images/profile4.jpg",
+      image: profile4,
     },
   ].slice(0, options.playersLength);
 
@@ -60,7 +64,11 @@ const Ludo: React.FC = () => {
             <img src={player.image} alt={player.name} />
             <small className="username-player">{player.name}</small>
             {options.playerChance === player.id && (
-              <div className="turn-indicator">Your Turn</div>
+              <span
+                className={`${player.color === "red" || player.color === "green" ? "turn-indicator" : player.color === "yellow" || player.color === "blue" ? "turn-indicator-left" : ""}`}
+              >
+                YOUR TURN
+              </span>
             )}
           </div>
         ))}

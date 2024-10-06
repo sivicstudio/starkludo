@@ -28,29 +28,30 @@
   position: absolute;
   width: 60px;
   height: 60px;
+  z-index: 10;
 }
 
 .player-profile img {
   width: 100%;
   height: 100%;
-  border-radius: 48%;
+  border-radius: 30%;
   border: 2px solid white;
 }
 
 .player-red {
-  bottom: 10px;
+  bottom: -10px;
   left: 10px;
 }
 .player-green {
-  top: 10px;
+  top: -10px;
   left: 10px;
 }
 .player-yellow {
-  top: 10px;
+  top: -10px;
   right: 10px;
 }
 .player-blue {
-  bottom: 10px;
+  bottom: -10px;
   right: 10px;
 }
 
@@ -66,14 +67,27 @@
 
 .turn-indicator {
   position: absolute;
-  top: -20px;
-  left: 50%;
+  top: 25px;
+  left: 110px;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 2px 5px;
+  white-space: nowrap;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.turn-indicator-left {
+  position: absolute;
+  top: 25px;
+  left: -92px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 0px;
+  white-space: nowrap;
+  border-radius: 3px;
+  font-size: 13px;
 }
 
 .wooden-board {
