@@ -66,6 +66,8 @@ const Control = ({
 }: {
   toggleActiveWindow: (window: string) => void;
 }) => {
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [windows, setWindows] = useState(
     WINDOW_CONFIGS.map((config) => ({ ...config, show: false, zIndex: 0 }))
   );

@@ -1,0 +1,61 @@
+.burner-container {
+    background-color: #2d3748;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    .burner-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+
+    }
+
+    .signer-select {
+        margin-bottom: 0.75rem;
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #d1d5db;
+            margin-bottom: 0.25rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.25rem 0.5rem;
+
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            background-color: #4a5568;
+            border: 1px solid #4a5568;
+            border-radius: 0.375rem;
+            outline: none;
+            transition: ring 0.2s ease-in-out;
+
+            &:focus {
+                ring: 2px solid #3b82f6;
+            }
+        }
+    }
+
+    .clear-button {
+        width: 100%;
+        background-color: #e53e3e;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+
+        border-radius: 0.375rem;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+            background-color: #c53030;
+        }
+    }
+}

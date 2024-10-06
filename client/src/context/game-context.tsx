@@ -2,13 +2,16 @@ import { createContext } from "react";
 import { OptionsProps } from "../types";
 
 export const GameContext = createContext<{
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   gameState: { [key: string]: string | any };
   setGameData: (game: { [key: string]: string }) => void;
   options: OptionsProps;
-  setGameOptions: (newOption: {}) => void;
+  setGameOptions: (newOption: object) => void;
 }>({
   gameState: {},
-  setGameData: (game) => {},
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  setGameData: (game) => undefined,
   options: {
     gameIsOngoing: false,
     playersLength: 0,
@@ -18,5 +21,6 @@ export const GameContext = createContext<{
     winners: [],
     gameCondition: [],
   },
-  setGameOptions: (newOption) => {},
+
+  setGameOptions: (newOption) => undefined,
 });
