@@ -1,5 +1,6 @@
 #[cfg(test)]
 mod tests {
+    use super::Errors;
     // import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
     // import test utils
@@ -12,6 +13,13 @@ mod tests {
         models::player::{Player, player}
     };
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
+
+    pub mod Errors {
+        pub const INCORRECT_GAME_PLAYED = 'Incorrect games played';
+        pub const INCORRECT_GAME_WON = 'Incorrect games won';
+        pub const INCORRECT_TOTAL_POINTS = 'Incorrect total points';
+        pub const INCORRECT_LEADBOARD_POSITION = 'Incorrect leaderboard position';
+    }
 
     fn create_and_setup_player(
         username: felt252
@@ -99,11 +107,11 @@ mod tests {
         // Get the player's stats
         let (games_played, games_won, total_points, leaderboard_position) = player_actions
             .get_player_stats(username);
-
-        assert_eq!(games_played, 10, "Incorrect games played");
-        assert_eq!(games_won, 5, "Incorrect games won");
-        assert_eq!(total_points, 5, "Incorrect total points");
-        assert_eq!(leaderboard_position, 0, "Incorrect leaderboard position");
+   
+        assert_eq!(games_played, 10, Errors::INCORRECT_GAME_PLAYED);
+        assert_eq!(games_won, 5, Errors::INCORRECT_GAME_WON);
+        assert_eq!(total_points, 5, Errors::INCORRECT_TOTAL_POINTS);
+        assert_eq!(leaderboard_position, 0, Errors::INCORRECT_LEADBOARD_POSITION);
     }
 
 
