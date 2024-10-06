@@ -60,7 +60,6 @@ const Dice = () => {
         clearInterval(rolling);
         // The result on die
         const x = await randomRollResult();
-        console.log(x, "Fix");
         deterministicRoll(x);
         moveValidator(x); // Validate move after rolling
       } else {
