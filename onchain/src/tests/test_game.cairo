@@ -1,5 +1,11 @@
+pub mod Errors {
+    pub const WRONG_DICE_VALUE: felt252 = 'Wrong dice value';
+    pub const WRONG_DICE_NONCE: felt252 = 'Wrong dice nonce';
+}
+
 #[cfg(test)]
 mod tests {
+    use super::Errors;
     // Import world dispatcher
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
     // Import test utils
@@ -16,6 +22,7 @@ mod tests {
     };
     // Import Starknet utils
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
+
 
     fn create_and_setup_game(
         game_mode: GameMode,
@@ -122,12 +129,12 @@ mod tests {
     #[test]
     fn test_dice_new_roll() {
         let mut dice = DiceTrait::new(DICE_FACE_COUNT, DICE_SEED);
-        assert(dice.roll() == 1, 'Wrong dice value');
-        assert(dice.roll() == 6, 'Wrong dice value');
-        assert(dice.roll() == 3, 'Wrong dice value');
-        assert(dice.roll() == 1, 'Wrong dice value');
-        assert(dice.roll() == 4, 'Wrong dice value');
-        assert(dice.roll() == 3, 'Wrong dice value');
+        assert(dice.roll() == 1, Errors::WRONG_DICE_VALUE);
+        assert(dice.roll() == 6, Errors::WRONG_DICE_VALUE);
+        assert(dice.roll() == 3, Errors::WRONG_DICE_VALUE);
+        assert(dice.roll() == 1, Errors::WRONG_DICE_VALUE);
+        assert(dice.roll() == 4, Errors::WRONG_DICE_VALUE);
+        assert(dice.roll() == 3, Errors::WRONG_DICE_VALUE);
     }
 
     #[test]
@@ -135,7 +142,7 @@ mod tests {
         let mut dice = DiceTrait::new(DICE_FACE_COUNT, DICE_SEED);
         dice.nonce = 0x800000000000011000000000000000000000000000000000000000000000000;
         dice.roll();
-        assert(dice.nonce == 0, 'Wrong dice nonce');
+        assert(dice.nonce == 0, Errors::WRONG_DICE_NONCE);
     }
 
     #[test]

@@ -13,6 +13,18 @@
       border-radius: 12px 12px 0 0;
       background-color: #230056;
       cursor: pointer;
+
+      &:hover {
+        background-color: #e0e0e0; // Hover effect for all buttons
+      }
+
+      &.active {
+        background: linear-gradient(to bottom, #00bfff, #00008b);
+        border-radius: 12px 12px 0 0;
+        border: 2px solid #00bfff;
+        color: white; // Active text color (white)
+        font-weight: bold;
+      }
     }
   }
   .active-category {
@@ -39,5 +51,15 @@
     padding: 12px 0;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
+  }
+  .dice-options {
+    display: grid;
+    padding: 12px 0;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    img {
+      height: 70px;
+      width: 57px;
+    }
   }
 }
