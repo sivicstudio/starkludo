@@ -32,6 +32,7 @@ export async function setup({ ...config }: DojoConfig) {
 
   const eventSync = getSyncEvents(
     toriiClient,
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
     contractComponents as any,
     undefined,
     []

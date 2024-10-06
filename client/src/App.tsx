@@ -19,6 +19,7 @@ import Control from "./components/Control";
 import { StarknetProvider } from "./starknet-provider";
 import { FiAlertTriangle, FiZap } from "react-icons/fi";
 import { BoardContext, BoardType } from "./context/board-context";
+import { DiceProvider } from "./context/dice-context";
 import ControlWindowLayout from "./components/ControlWindows/ControlWindowLayout";
 import GameHelp from "./components/ControlWindows/GameHelp";
 import Toolbox from "./components/ControlWindows/Toolbox";
@@ -30,6 +31,7 @@ const App = () => {
   const [activeWindow, setActiveWindow] = useState("");
   const [board, setBoard] = useState<BoardType>("classic");
   const [gameState, setGameState] = useState({});
+  const [activeCategory, setActiveCategory] = useState("BOARD");
   const [options, setOptions] = useState<OptionsProps>({
     gameIsOngoing: false,
     playersLength: 0,
@@ -52,7 +54,11 @@ const App = () => {
     setBoard(newBoard);
   };
 
-  const setGameData = useCallback((game: any) => {
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
+  };
+
+  const setGameData = useCallback((game: object) => {
     setGameState(game);
   }, []);
 

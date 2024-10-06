@@ -99,7 +99,7 @@ export interface TileNode {
 export const useSize = () => {
   const [size, setSize] = useState<number>(() => {
     // if (window.innerWidth > 600) {
-      return 500;
+    return 500;
     // } else if (window.innerWidth > 460) {
     //   return 400;
     // } else {
@@ -109,7 +109,7 @@ export const useSize = () => {
 
   const [tileMap, setTileMap] = useState<TileNode>(() => {
     // if (window.innerWidth > 600) {
-      return TM500;
+    return TM500;
     // } else if (window.innerWidth > 460) {
     //   return TM400;
     // } else {
@@ -120,8 +120,8 @@ export const useSize = () => {
   useEffect(() => {
     function handleResize() {
       // if (window.innerWidth > 600) {
-        setSize(500);
-        setTileMap(TM500);
+      setSize(500);
+      setTileMap(TM500);
       // } else if (window.innerWidth > 460) {
       //   setSize(400);
       //   setTileMap(TM400);
@@ -141,6 +141,7 @@ export const useSize = () => {
   return { size, tileMap };
 };
 
+/* eslint-disable  react-refresh/only-export-components */
 const TM500 = {
   "1": [0.4, 0.82],
   "2": [0.4, 0.76],
@@ -236,6 +237,7 @@ const TM500 = {
   B04: [0.84, 0.8],
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const TM400 = {
   "1": [0.395, 0.81],
   "2": [0.395, 0.74],
@@ -331,6 +333,7 @@ const TM400 = {
   B04: [0.83, 0.79],
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const TM300 = {
   "1": [0.45, 0.92],
   "2": [0.45, 0.84],

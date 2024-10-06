@@ -1,15 +1,18 @@
-import boardImg from "../assets/images/ludo-board-img.svg";
 import "../styles/OptionCard.scss";
 
-export default function OptionCard({
+interface Option {
+  name: string;
+}
+export default function DiceCard({
+  img,
   active,
   onSelect,
   option,
-
 }: {
+  img?: string;
   active?: boolean;
   onSelect?: () => void;
-  option?: { name: string };
+  option?: Option;
 }) {
   return (
     <button
@@ -17,8 +20,9 @@ export default function OptionCard({
       onClick={onSelect}
     >
       <div className="option">
-        <img src={boardImg} alt="board" />
-        <div className="option-label">{option?.name}</div>
+        <div className="name-label">{option?.name}</div>
+        <img src={img} alt="board" />
+        <div className="option-label">5/6</div>
       </div>
     </button>
   );
