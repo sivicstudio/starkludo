@@ -109,10 +109,10 @@ mod tests {
         let (games_played, games_won, total_points, leaderboard_position) = player_actions
             .get_player_stats(username);
    
-        assert_eq!(games_played, 10, Errors::INCORRECT_GAME_PLAYED);
-        assert_eq!(games_won, 5, Errors::INCORRECT_GAME_WON);
-        assert_eq!(total_points, 5, Errors::INCORRECT_TOTAL_POINTS);
-        assert_eq!(leaderboard_position, 0, Errors::INCORRECT_LEADBOARD_POSITION);
+        assert_eq!(games_played, 10, "{}", Errors::INCORRECT_GAME_PLAYED);
+        assert_eq!(games_won, 5, "{}", Errors::INCORRECT_GAME_WON);
+        assert_eq!(total_points, 5, "{}", Errors::INCORRECT_TOTAL_POINTS);
+        assert_eq!(leaderboard_position, 0, "{}", Errors::INCORRECT_LEADBOARD_POSITION);
     }
 
 
