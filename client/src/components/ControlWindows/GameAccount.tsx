@@ -13,9 +13,16 @@ import {
   convertHexToText,
   getGameProfilesFromAddress
 } from "../../utils/helpers";
+import BurnerAccount from "./BurnerAccount";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
+  const { account } = useDojo()
+
+
+
+
+
 
   return (
     <div className="wallet">
@@ -32,7 +39,22 @@ const ConnectWallet = () => {
             </div>
           );
         })}
+
       </div>
+
+      <div
+        onClick={() => account.create()}
+        className="wallet-name-btn"
+      >
+        <p> {account?.isDeploying
+          ? "Deploying Burner..."
+          : "Create Burner"}</p>
+      </div>
+
+      {
+        account.count > 0 && <BurnerAccount />
+      }
+
     </div>
   );
 };

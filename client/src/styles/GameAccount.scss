@@ -86,6 +86,20 @@
   }
 }
 
+.wallet{
+  .burner-btn {
+    margin-top: 20px;
+
+  }
+
+  .wallet-name-btn{
+    padding-top: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+}
+
 .player-stats {
   padding: 16px 0;
   display: flex;
