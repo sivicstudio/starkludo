@@ -15,6 +15,67 @@
   /* border: 5px solid #fff; */
 }
 
+.player-profiles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.player-profile {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+}
+
+.player-profile img {
+  width: 100%;
+  height: 100%;
+  // border-radius: 50%;
+  border: 2px solid white;
+}
+
+.player-red {
+  bottom: 10px;
+  left: 10px;
+}
+.player-green {
+  top: 10px;
+  left: 10px;
+}
+.player-yellow {
+  top: 10px;
+  right: 10px;
+}
+.player-blue {
+  bottom: 10px;
+  right: 10px;
+}
+
+.username-player {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.turn-indicator {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
 .wooden-board {
   background-image: url("../assets/images/Grunge wood texture.svg");
   background-size: cover;
@@ -54,8 +115,8 @@
   width: 20%;
 }
 
-.row1-col2>div:hover,
-.row3-col2>div:hover {
+.row1-col2 > div:hover,
+.row3-col2 > div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
@@ -80,8 +141,8 @@
   height: 100%;
 }
 
-.row2-col1>div:hover,
-.row2-col3>div:hover {
+.row2-col1 > div:hover,
+.row2-col3 > div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
@@ -112,10 +173,10 @@
   border-radius: 50%;
 }
 
-.row1-col1-child>div,
-.row1-col3-child>div,
-.row3-col1-child>div,
-.row3-col3-child>div {
+.row1-col1-child > div,
+.row1-col3-child > div,
+.row3-col1-child > div,
+.row3-col3-child > div {
   width: 35%;
   height: 35%;
   float: left;
@@ -128,25 +189,25 @@
   border-radius: 50%;
 }
 
-.row1-col1-child>div:hover,
-.row1-col3-child>div:hover,
-.row3-col1-child>div:hover,
-.row3-col3-child>div:hover {
+.row1-col1-child > div:hover,
+.row1-col3-child > div:hover,
+.row3-col1-child > div:hover,
+.row3-col3-child > div:hover {
   box-shadow:
     -2px 14px 28px rgba(0, 0, 0, 0.25),
     -2px 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.row1-col2>div,
-.row3-col2>div {
+.row1-col2 > div,
+.row3-col2 > div {
   width: 33.333%;
   height: 16.667%;
   float: left;
   border: 1px solid #fff;
 }
 
-.row2-col1>div,
-.row2-col3>div {
+.row2-col1 > div,
+.row2-col3 > div {
   width: 16.667%;
   height: 33.333%;
   float: left;
@@ -240,8 +301,8 @@
     0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-.overlay{
-  background-color: rgba($color: #F5F5F5, $alpha: 0.3);
+.overlay {
+  background-color: rgba($color: #f5f5f5, $alpha: 0.3);
   backdrop-filter: blur(10px);
   width: 100%;
   height: 100%;
@@ -255,13 +316,13 @@
 }
 
 .text-white {
-  color: #F5F5F5;
+  color: #f5f5f5;
   font-size: 2rem;
   font-weight: 600;
   text-shadow: 1px 1px 1px black;
 }
 
-.vecstore{
+.vecstore {
   margin: 2rem;
   display: flex;
   justify-content: center;
@@ -277,7 +338,7 @@
   transform: rotate(90deg);
   opacity: 0;
   animation: fade 0.8s infinite ease-out;
-  
+
   @media only screen and (min-width: 992px) {
     transform: none;
   }
@@ -290,7 +351,7 @@
   }
   50% {
     opacity: 0.5;
-    fill: #2C0E4E;
+    fill: #2c0e4e;
   }
   100% {
     opacity: 0;
@@ -306,14 +367,15 @@
 }
 
 .rot-down:nth-child(3) {
-  animation-delay: .4s;
+  animation-delay: 0.4s;
 }
 
 .rot-down:nth-child(4) {
   animation-delay: 0.6s;
 }
 
-.rot-down:nth-child(3), .rot-down:nth-child(4) {
+.rot-down:nth-child(3),
+.rot-down:nth-child(4) {
   @media only screen and (max-width: 992px) {
     display: none;
   }
