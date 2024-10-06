@@ -63,7 +63,6 @@ mod PlayerActions {
             ref world: IWorldDispatcher, username: felt252
         ) -> (u256, u256, u256, u256) {
             let player: Player = get!(world, username, (Player));
-            // assert(player.owner != 0.try_into().unwrap(), 'player with username not found');
             assert(player.owner != 0.try_into().unwrap(), Errors::USERNAME_NOT_FOUND);
 
             let total_points = player.total_games_won;
