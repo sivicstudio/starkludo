@@ -100,7 +100,7 @@ const App = () => {
           <BoardContext.Provider value={{ board, toggleBoard }}>
             <DiceProvider>
               <div className="game-behaviour-warning">
-                <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+                <FiAlertTriangle size={20} />
                 StarkLudo is still in active development{" "}
                 <FiZap color="yellow" size={20} />
               </div>
