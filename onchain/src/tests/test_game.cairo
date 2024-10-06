@@ -19,8 +19,8 @@ mod tests {
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
 
     pub mod Errors {
-        pub const WRONG_DICE_VALUE = 'Wrong dice value';
-        pub const WRONG_DICE_NONCE = 'Wrong dice nonce';
+        pub const WRONG_DICE_VALUE: felt252 = 'Wrong dice value';
+        pub const WRONG_DICE_NONCE: felt252 = 'Wrong dice nonce';
     }
 
     fn create_and_setup_game(

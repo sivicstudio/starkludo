@@ -15,10 +15,10 @@ mod tests {
     use starknet::{testing, contract_address_const, get_caller_address, ContractAddress};
 
     pub mod Errors {
-        pub const INCORRECT_GAME_PLAYED = 'Incorrect games played';
-        pub const INCORRECT_GAME_WON = 'Incorrect games won';
-        pub const INCORRECT_TOTAL_POINTS = 'Incorrect total points';
-        pub const INCORRECT_LEADBOARD_POSITION = 'Incorrect leaderboard position';
+        pub const INCORRECT_GAME_PLAYED: felt252 = 'Incorrect games played';
+        pub const INCORRECT_GAME_WON: felt252 = 'Incorrect games won';
+        pub const INCORRECT_TOTAL_POINTS: felt252 = 'Incorrect total points';
+        pub const INCORRECT_LEADBOARD_POSITION: felt252 = 'Incorrect leaderboard position';
     }
 
     fn create_and_setup_player(
