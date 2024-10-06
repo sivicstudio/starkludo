@@ -98,7 +98,10 @@ const Dice = () => {
               visibility: options.hasThrownDice ? "hidden":"visible"
               }}>
               <div onClick={roller} className="button-container">
-                {options.gameIsOngoing && (<a className="start-over" onClick={handleRestartGame}>Start Over</a>)}
+                {options.gameIsOngoing && (<a className="start-over" onClick={(e) => {
+                  e.stopPropagation();
+                  handleRestartGame();
+                }}>Start Over</a>)}
                 <button className="roll-button">
                   <span className="roll-text">ROLL</span>
                 </button>
