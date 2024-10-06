@@ -142,12 +142,7 @@ mod GameActions {
                 game.player_green, game.player_yellow, game.player_blue, game.player_red
             ];
             
-            // let players_length: usize = players.len();
-
-            // for(let player_in_game = 0, player_in_game < players_length, player_in_game++){
-            //     assert(player_in_game != player_username, 'Player already in game');
-            // }
-
+            //iterating through the player array checking if the player is already part of the game
             for player_in_game in players.iter() {
                 assert(*player_in_game != player_username, 'Player already in game');
             }
