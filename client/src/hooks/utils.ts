@@ -101,7 +101,7 @@ export const animateCustomEase = (
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   property: any,
   currentValue: number,
-  toValue: number
+  toValue: number,
 ) => {
   const d = duration,
     ea = easing,
@@ -133,7 +133,7 @@ const Utils: {
     fromMin: number,
     fromMax: number,
     toMin: number,
-    toMax: number
+    toMax: number,
   ) => number;
 } = {
   modulate: (val, fromMin, fromMax, toMin, toMax) => {
@@ -146,7 +146,7 @@ export const flicker = (
   durationLow: number,
   durationHigh: number,
   valLow: number,
-  valHigh: number
+  valHigh: number,
 ) => {
   // get normalized progress value from 0 - 1
   const n = Utils.modulate(
@@ -154,14 +154,14 @@ export const flicker = (
     durationLow,
     durationHigh,
     valLow,
-    valHigh
+    valHigh,
   );
   const upperCap = (Math.random() * 7) / 10;
   if (Boolean(n) === !!n || n > upperCap) {
     return n;
   }
   const result: number = Math.abs(
-    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4))
+    n * Math.sin((n - 0.13) * ((0.2 * Math.PI) / 0.4)),
   );
   return result > 0 ? result : result * -1;
 };

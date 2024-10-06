@@ -243,7 +243,7 @@ export function defineContractComponents(world: World) {
             ],
             customTypes: ["U256", "U256"],
           },
-        }
+        },
       );
     })(),
 
@@ -264,7 +264,7 @@ export function defineContractComponents(world: World) {
             types: ["felt252", "ContractAddress"],
             customTypes: ["U256", "U256"],
           },
-        }
+        },
       );
     })(),
   };

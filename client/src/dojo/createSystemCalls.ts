@@ -9,7 +9,7 @@ export type SystemCalls = ReturnType<typeof createSystemCalls>;
 export function createSystemCalls(
   { client }: { client: IWorld },
   /* eslint-disable @typescript-eslint/no-unused-vars */
-  contractComponents: ClientComponents
+  contractComponents: ClientComponents,
 ) {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   const createUsername = async (account: AccountInterface, username: any) => {

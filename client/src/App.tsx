@@ -10,7 +10,7 @@ import Alert from "./components/Alert";
 import Footer from "./components/Footer";
 import { chance } from "./hooks/utils";
 import "react-simple-flex-grid/lib/main.css";
-import RestartGame from "./components/RestartGame";
+// import RestartGame from "./components/RestartGame";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OptionsProps } from "./types";
@@ -93,7 +93,7 @@ const App = () => {
         >
           <BoardContext.Provider value={{ board, toggleBoard }}>
             <div className="game-behaviour-warning">
-              <FiAlertTriangle size={40} style={{ marginRight: "10px" }} />
+              <FiAlertTriangle size={20} />
               StarkLudo is still in active development{" "}
               <FiZap color="yellow" size={20} />
             </div>
@@ -113,8 +113,8 @@ const App = () => {
                           <Header />
                         </div>
                         <Menu />
-                        <RestartGame />
                         <Alert />
+                        {/* <RestartGame /> */}
                         <Dice />
                         {activeWindow === "account" ? (
                           <ControlWindowLayout

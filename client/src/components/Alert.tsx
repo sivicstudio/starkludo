@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { chance } from "../hooks/utils";
-import { FaAward, FaPlay } from "react-icons/fa";
+import { FaAward } from "react-icons/fa";
 import "../styles/Alert.scss";
 import { GameContext } from "../context/game-context";
 
@@ -23,13 +23,11 @@ const Alert = () => {
           ))}
           <div className={`alert alert-${chance[options.playerChance]}`}>
             <div
-              className={`alert-container alert-${chance[options.playerChance]}`}
+              className={`breathing-box alert-${chance[options.playerChance]}`}
             >
-              <div className="alert-icon">
-                <FaPlay />
-              </div>
-              Now is your move player{" "}
-              {chance[options.playerChance].toUpperCase()}!
+              <p>
+              {chance[options.playerChance].toUpperCase()}, your move. <br />ROLL!
+              </p>
             </div>
           </div>
         </div>
