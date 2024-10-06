@@ -1,4 +1,4 @@
-/* Existing .game-behaviour-warning styles */
+/* Existing styles */
 .game-behaviour-warning {
   color: rgb(203, 129, 141);
   display: flex;
@@ -8,69 +8,73 @@
   border: solid 1px brown;
   text-align: center;
   font-size: 15px;
+  padding: 10px 0;
 }
 
-.game-behaviour-warning {
-  color: rgb(203, 129, 141);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border: solid 1px brown;
-  text-align: center;
-  font-size: 15px;
+/* New and updated styles */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .layout-container {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 99vh;
   background-color: #0e0121;
-  /* height: 100vh; */
 }
 
-.mobile-header {
-  display: none;
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
 
 .sidebar {
-  height: fit-content;
-  padding: 49px 34px;
-  overflow: hidden;
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: 85vh;
 }
 
 .sidebar > div {
+  height: 100%;
   padding: 1px;
   background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
-  overflow: hidden;
   border-radius: 16px;
-  max-height: 100%;
+  overflow: hidden;
 }
 
 .sidebar > div > div {
+  height: 100%;
   background-color: #0e0121;
-  padding: 52px 14px;
+  padding: 20px;
   border-radius: 16px;
   position: relative;
+  overflow-y: auto;
 }
 
-/* Mobile styles */
+/* Responsive styles */
 @media (max-width: 767px) {
   .mobile-header {
     display: block;
-    width: 100%;
-    margin-bottom: 20px;
   }
-
+  
   .desktop-header {
     display: none;
   }
+  
+  .main-content {
+    flex-direction: column;
+  }
 }
 
-/* Desktop styles */
 @media (min-width: 768px) {
   .mobile-header {
     display: none;
   }
-
+  
   .desktop-header {
     display: block;
   }
