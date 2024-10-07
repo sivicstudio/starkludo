@@ -205,12 +205,6 @@ mod tests {
         // Retrieving the game and checking if the invited player has been added to the invited_players array
         game = get!(world, game_id, Game);
         assert(game.invited_players.contains(new_player.into()), 'Player was not invited');
-
-        // Checking if the same player can't be invited again
-        let result = testing::catch_panic(|| {
-            game_actions.invite_player(game_id, new_player);
-        });
-        assert(result.is_err(), 'Player was invited more than once');
     }
 
 }

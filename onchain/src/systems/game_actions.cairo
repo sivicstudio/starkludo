@@ -142,9 +142,10 @@ mod GameActions {
                 game.player_green, game.player_yellow, game.player_blue, game.player_red
             ];
             
+            let player_lenght = players.len();
             //iterating through the player array checking if the player is already part of the game
-            for player_in_game in players.iter() {
-                assert(*player_in_game != player_username, 'Player already in game');
+            for(player_playing = 0, player_playing < player_lenght, player_playing++){
+                assert(player_playing != player_username, 'Player already in game');
             }
 
             //The player is added to the game invitations list when all checks are passed
