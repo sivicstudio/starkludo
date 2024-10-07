@@ -28,7 +28,7 @@ const RestartGame: React.FC = () => {
       {options.gameIsOngoing && (
         <div className="restart-game">
           <div className="restart-icon" onClick={handleRestartGame}>
-            <img src={RestartGamePNG} width="60px" />
+            <img src={RestartGamePNG} width="50px" />
           </div>
         </div>
       )}

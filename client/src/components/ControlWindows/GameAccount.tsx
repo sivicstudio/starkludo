@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useConnect,
@@ -5,24 +8,18 @@ import {
   useNetwork,
   useStarkProfile,
 } from "@starknet-react/core";
-import { useEffect, useMemo, useState } from "react";
-import { FaArrowAltCircleRight } from "react-icons/fa";
-import { useDojo } from "../../dojo/useDojo";
+import { useMemo } from "react";
 import "../../styles/GameAccount.scss";
 import {
   convertHexToText,
-  getGameProfilesFromAddress
+  createGameProfile,
+  getGameProfilesFromAddress,
 } from "../../utils/helpers";
-import BurnerAccount from "./BurnerAccount";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useDojo } from "../../dojo/useDojo";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
-  const { account } = useDojo()
-
-
-
-
-
 
   return (
     <div className="wallet">
@@ -39,27 +36,11 @@ const ConnectWallet = () => {
             </div>
           );
         })}
-
       </div>
-
-      <div
-        onClick={() => account.create()}
-        className="wallet-name-btn"
-      >
-        <p> {account?.isDeploying
-          ? "Deploying Burner..."
-          : "Create Burner"}</p>
-      </div>
-
-      {
-        account.count > 0 && <BurnerAccount />
-      }
-
     </div>
   );
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const ProfilePage = () => {
   return <div style={{ color: "white" }}>Profile page</div>;
 };
@@ -110,7 +91,7 @@ const GameAccount = () => {
       getGameProfilesFromAddress(address, setGameProfiles);
     }
 
-    return () => undefined;
+    return () => {};
   }, [address]);
 
   const enum pagesName {
