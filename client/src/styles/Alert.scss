@@ -14,7 +14,6 @@ $black: #000000;
 }
 
 .section {
-  margin: 20px;
   font: normal 16px/1.2 "Josefin Sans", sans-serif;
   padding: 10px 0;
 
@@ -37,33 +36,53 @@ $black: #000000;
   color: #cd7f32;
 }
 
+.breathing-box {
+  min-width: 180px;
+  width: fit-content;
+  text-align: center;
+  height: fit-content;
+  background-color: #F5F5F5;
+  margin: 50px auto;
+  font-size: large;
+  padding: 20px 10px;
+  font-weight: 400;
+  position: relative;
+  top: -25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 10px;
+  animation: breathing 2.8s ease-in-out infinite;
+}
+
+@keyframes breathing {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 // Alerts
 @mixin alert-variant($alert-vertical-padding,
   $alert-horizontal-padding,
   $background,
   $border-color,
   $text-color) {
-  // background-color: $background;
-  border: 1px solid $border-color;
   color: $border-color;
-  padding: $alert-vertical-padding $alert-horizontal-padding;
-
-  .alert-icon {
-    float: left;
-    margin-right: 15px;
-  }
 
   .alert-info {
     margin: 0 10px 0 0;
     text-transform: uppercase;
     font-weight: normal;
     font-size: 14px;
-  }
-
-  .alert-container {
-    position: relative;
-    max-width: 960px;
-    margin: 0 auto;
   }
 
   .close-icon {
@@ -81,26 +100,6 @@ $black: #000000;
     text-indent: -999px;
     overflow: hidden;
     white-space: nowrap;
-
-    &:before,
-    &:after {
-      content: "";
-      position: absolute;
-      top: 8px;
-      width: 15px;
-      height: 2px;
-      left: 0;
-    }
-
-    &:before {
-      background-color: #fff;
-      transform: rotate(-45deg);
-    }
-
-    &:after {
-      background-color: #fff;
-      transform: rotate(45deg);
-    }
   }
 }
 
