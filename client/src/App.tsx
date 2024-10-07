@@ -10,7 +10,7 @@ import Alert from "./components/Alert";
 import Footer from "./components/Footer";
 import { chance } from "./hooks/utils";
 import "react-simple-flex-grid/lib/main.css";
-import RestartGame from "./components/RestartGame";
+// import RestartGame from "./components/RestartGame";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OptionsProps } from "./types";
@@ -107,7 +107,66 @@ const App = () => {
                 <div>
                   <div>
                     <div className="desktop-header">
-                      <Header />
+                      <Header />                          </div>
+                          <Menu />
+                          {/* <RestartGame /> */}
+                          <Alert />
+                          <Dice />
+                          {activeWindow === "account" ? (
+                            <ControlWindowLayout
+                              toggle={() => setActiveWindow("")}
+                              title="PROFILE"
+                              subtitle="Your Profile Information"
+                            >
+                              <GameAccount />
+                            </ControlWindowLayout>
+                          ) : null}
+
+                          {activeWindow === "leaderboard" ? (
+                            <ControlWindowLayout
+                              toggle={() => setActiveWindow("")}
+                              title="LEADERBOARD"
+                              subtitle="Global Player Rankings"
+                            >
+                              <Leaderboard />
+                            </ControlWindowLayout>
+                          ) : null}
+
+                          {activeWindow === "multiplayer" ? (
+                            <ControlWindowLayout
+                              toggle={() => setActiveWindow("")}
+                              title="MULTIPLAYER"
+                              subtitle="Choose An Account To Play With"
+                            >
+                              <Multiplayer />
+                            </ControlWindowLayout>
+                          ) : null}
+
+                          {activeWindow === "toolbox" ? (
+                            <ControlWindowLayout
+                              toggle={() => setActiveWindow("")}
+                              title="TOOLBOX"
+                              subtitle="Get All Your Items And Settings Done"
+                            >
+                              <Toolbox
+                                activeCategory={activeCategory}
+                                onCategoryClick={handleCategoryClick}
+                              />
+                            </ControlWindowLayout>
+                          ) : null}
+
+                          {activeWindow === "help" ? (
+                            <ControlWindowLayout
+                              toggle={() => setActiveWindow("")}
+                              title="HELP"
+                              subtitle="Get Guides, Tips, And Tricks Needed For A Successful Game"
+                            >
+                              <GameHelp />
+                            </ControlWindowLayout>
+                          ) : null}
+                          <Control toggleActiveWindow={toggleActiveWindow} />
+                        </div>
+                      </div>
                     </div>
                     <Menu />
                     <RestartGame />
