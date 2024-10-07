@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState } from "react";
 import {
   useAccount,
@@ -97,7 +99,7 @@ const GameAccount = () => {
     PROFILE_PAGE = "PROFILE_PAGE",
   }
 
-  let mainPage = {
+  const mainPage = {
     name: pagesName.MAIN_PAGE,
     content: (
       <div>
@@ -216,16 +218,16 @@ const GameAccount = () => {
     ),
   };
 
-  let profilePage = {
+  const profilePage = {
     name: pagesName.PROFILE_PAGE,
     content: <div>Profile</div>,
   };
 
-  let pages = [mainPage, profilePage];
+  const pages = [mainPage, profilePage];
 
   const resolvePageToReturn = () => {
     // Get last page name
-    let lastPage =
+    const lastPage =
       pagesStack[pagesStack.length - 1 > 0 ? pagesStack.length - 1 : 0];
 
     let pageToReturn;
