@@ -1,9 +1,8 @@
-use starkludo::models::{game::{Game, GameTrait, GameStatus, GameMode}, player::{Player}};
+use starkludo::models::{game::{Game, GameTrait, GameMode }, player::{Player}};
 use starknet::{ContractAddress, get_block_timestamp};
 use core::poseidon::PoseidonTrait;
 use core::hash::HashStateTrait;
-use traits::Into;
-use option::OptionTrait;
+
 
 #[dojo::interface]
 trait IGameActions {
@@ -11,7 +10,6 @@ trait IGameActions {
         ref world: IWorldDispatcher,
         created_by: ContractAddress,
         game_mode: GameMode,
-        game_status: GameStatus,
         player_green: felt252,
         player_yellow: felt252,
         player_blue: felt252,
@@ -20,16 +18,16 @@ trait IGameActions {
     ) -> Game;
     fn restart(ref world: IWorldDispatcher, game_id: u64);
     fn terminate_game(ref world: IWorldDispatcher, game_id: u64);
-    fn join_game(ref world: IWorldDispatcher, game_id: u64, player_color: felt252, username: felt252) -> Game;
-    // fn join_game(ref world: IWorldDispatcher, game_id: u64, player_color: felt252) -> Game;
 }
+
+
 
 #[dojo::contract]
 mod GameActions {
     // use Zero;
     // use core::num::traits::Zero;
     use core::array::ArrayTrait;
-    use super::{IGameActions, Game, GameTrait, GameStatus, GameMode, Player};
+    use super::{IGameActions, Game, GameTrait, GameMode, Player};
     use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
 
     #[abi(embed_v0)]
@@ -38,12 +36,11 @@ mod GameActions {
             ref world: IWorldDispatcher,
             created_by: ContractAddress,
             game_mode: GameMode,
-            game_status: GameStatus,
             player_green: felt252,
             player_yellow: felt252,
             player_blue: felt252,
             player_red: felt252,
-            number_of_players: u8
+            number_of_players: u8,
         ) -> Game {
             // Get the current block timestamp
             let id = get_block_timestamp();
@@ -60,7 +57,7 @@ mod GameActions {
                 player_yellow,
                 player_green,
                 number_of_players
-            );
+                        );
 
             // Update the world state with the newly created game
             set!(world, (new_game));
@@ -127,48 +124,6 @@ mod GameActions {
             set!(world, (game));
         }
 
-
-        fn join_game(ref world: IWorldDispatcher, game_id: u64, player_color: felt252, username: felt252) -> Game {
-            // Get the current game state
-            let mut game: Game = get!(world, game_id, (Game));
-        
-            // Check if the game is in a pending state
-            assert(game.game_status == GameStatus::Waiting, 'Game is not waiting for players');
-        
-            // Add the player to the game based on the color
-            if player_color == 'green' {
-                assert(game.player_green.is_zero(), 'Green player already joined');
-                game.player_green = username.into();
-            } else if player_color == 'yellow' {
-                assert(game.player_yellow.is_zero(), 'Yellow player already joined');
-                game.player_yellow = username.into();
-            } else if player_color == 'blue' {
-                assert(game.player_blue.is_zero(), 'Blue player already joined');
-                game.player_blue = username.into();
-            } else if player_color == 'red' {
-                assert(game.player_red.is_zero(), 'Red player already joined');
-                game.player_red = username.into();
-            } else {
-                panic(array!['Invalid player color']);
-            }
-        
-            // Check if all players have joined
-            let green_joined: u8 = if !game.player_green.is_zero() { 1 } else { 0 };
-            let yellow_joined: u8 = if !game.player_yellow.is_zero() { 1 } else { 0 };
-            let blue_joined: u8 = if !game.player_blue.is_zero() { 1 } else { 0 };
-            let red_joined: u8 = if !game.player_red.is_zero() { 1 } else { 0 };
-        
-            let players_joined: u8 = green_joined + yellow_joined + blue_joined + red_joined;
-        
-            if players_joined == game.number_of_players {
-                game.game_status = GameStatus::Ongoing;
-            }
-        
-            // Update the game state and return the updated game
-            set!(world, (game));
-            get!(world, game_id, (Game))
-        }
-        
     }
 }
 
@@ -203,4 +158,3 @@ pub impl DiceImpl of DiceTrait {
         (random % self.face_count.into() + 1).try_into().unwrap()
     }
 }
-
