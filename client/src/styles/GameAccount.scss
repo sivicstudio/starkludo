@@ -103,10 +103,21 @@
 
   }
 
+
+  .wallet-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .wallet-name-btn {
-    padding-top: 10px;
     font-size: 15px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
     text-transform: capitalize;
   }
 }
