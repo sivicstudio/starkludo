@@ -11,18 +11,13 @@ import { useDojo } from "../../dojo/useDojo";
 import "../../styles/GameAccount.scss";
 import {
   convertHexToText,
-  getGameProfilesFromAddress
+  getGameProfilesFromAddress,
 } from "../../utils/helpers";
 import BurnerAccount from "./BurnerAccount";
 
 const ConnectWallet = () => {
   const { connectors, connect } = useConnect();
-  const { account } = useDojo()
-
-
-
-
-
+  const { account } = useDojo();
 
   return (
     <div className="wallet">
@@ -35,26 +30,18 @@ const ConnectWallet = () => {
               onClick={() => connect({ connector })}
               className="wallet-name-btn"
             >
-              {connector.id}
+              <img height={"25px"} src={connector.icon.dark} />
+              <div>{connector.name}</div>
             </div>
           );
         })}
-
       </div>
 
-      <div
-        onClick={() => account.create()}
-        className="wallet-name-btn"
-      >
-        <p> {account?.isDeploying
-          ? "Deploying Burner..."
-          : "Create Burner"}</p>
+      <div onClick={() => account.create()} className="wallet-name-burner">
+        <p> {account?.isDeploying ? "Deploying Burner..." : "Create Burner"}</p>
       </div>
 
-      {
-        account.count > 0 && <BurnerAccount />
-      }
-
+      {account.count > 0 && <BurnerAccount />}
     </div>
   );
 };
