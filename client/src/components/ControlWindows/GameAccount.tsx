@@ -45,12 +45,14 @@ const ConnectWallet = () => {
   );
 };
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const SellAccount = () => {
   const [step, setStep] = useState(1);
   const [buyerName, setBuyerName] = useState("");
   const [passkey, setPasskey] = useState("");
   const [confirmPasskey, setConfirmPasskey] = useState("");
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (passkey === confirmPasskey) {
