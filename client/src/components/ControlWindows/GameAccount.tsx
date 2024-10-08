@@ -36,12 +36,105 @@ const ConnectWallet = () => {
           );
         })}
       </div>
-
       <div onClick={() => account.create()} className="wallet-name-burner">
         <p> {account?.isDeploying ? "Deploying Burner..." : "Create Burner"}</p>
       </div>
 
       {account.count > 0 && <BurnerAccount />}
+    </div>
+  );
+};
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const SellAccount = () => {
+  const [step, setStep] = useState(1);
+  const [buyerName, setBuyerName] = useState("");
+  const [passkey, setPasskey] = useState("");
+  const [confirmPasskey, setConfirmPasskey] = useState("");
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (passkey === confirmPasskey) {
+      setStep(2);
+    } else {
+      alert("Passkey does not match");
+    }
+  };
+
+  const handleConfirm = () => {
+    // Logic to sell the account
+    alert(`Account sold to ${buyerName}`);
+  };
+
+  return (
+    <div className="sell-account">
+      {step === 1 ? (
+        <form className="sell-account-form" onSubmit={handleSubmit}>
+          <h2>Sell Account</h2>
+          <div className="form-group">
+            <label>Name Of Buyer</label>
+            <input
+              type="text"
+              value={buyerName}
+              onChange={(e) => setBuyerName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Passkey</label>
+            <input
+              type="password"
+              value={passkey}
+              onChange={(e) => setPasskey(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Confirm Passkey</label>
+            <input
+              type="password"
+              value={confirmPasskey}
+              onChange={(e) => setConfirmPasskey(e.target.value)}
+              required
+            />
+          </div>
+          <div className="buttons">
+            <button type="button" className="cancel-btn">
+              Cancel
+            </button>
+            <button type="submit" className="sell-btn">
+              Sell
+            </button>
+          </div>
+        </form>
+      ) : (
+        <div className="sell-account-confirmation">
+          <div className="alert-icon">⚠️</div>
+          <h2>Sell Account</h2>
+          <p>
+            After you sell this account, all rights and achievements will be
+            permanently transferred to the new owner.
+          </p>
+          <p>Are you sure you want to sell this account to {buyerName}?</p>
+          <div className="buttons">
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={() => setStep(1)}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="confirm-btn"
+              onClick={handleConfirm}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

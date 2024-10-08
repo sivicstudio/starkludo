@@ -103,6 +103,7 @@
 
   }
 
+
   .wallet-list {
     display: flex;
     flex-direction: column;
@@ -167,5 +168,85 @@
 
   & button:last-child {
     border: 1px solid #2dccfd;
+  }
+}
+
+.sell-account {
+  background-color: #201B32;
+  border-radius: 10px;
+  padding: 20px;
+  width: 320px;
+  margin: 0 auto;
+  color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #2E2542;
+      color: white;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    button {
+      width: 45%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background-color: #7C6A93;
+      color: white;
+    }
+
+    .sell-btn {
+      background-color: #4B32C3;
+      color: white;
+    }
+
+    .confirm-btn {
+      background-color: #21A453;
+      color: white;
+    }
+  }
+
+  .sell-account-confirmation {
+    text-align: center;
+    padding: 20px;
+
+    .alert-icon {
+      font-size: 3rem;
+      color: #21A453;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
   }
 }
