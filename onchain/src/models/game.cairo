@@ -38,6 +38,7 @@ pub struct Game {
     pub player_yellow: felt252, // Player contract address
     pub player_blue: felt252, // Player contract address
     pub player_red: felt252, // Player contract address
+    pub invited_players: Array<felt252>, // List of invited players
     pub winner_1: felt252, // First winner position 
     pub winner_2: felt252, // Second winner position
     pub winner_3: felt252, // Third winner position
@@ -115,6 +116,7 @@ impl GameImpl of GameTrait {
                 GameMode::SinglePlayer => zero_address.into(),
                 GameMode::MultiPlayer => player_red
             },
+            invited_players: ArrayTrait::new(), // Initializing invited_players
             next_player: zero_address.into(),
             winner_1: zero_address.into(),
             winner_2: zero_address.into(),
