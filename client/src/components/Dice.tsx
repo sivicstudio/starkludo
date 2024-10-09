@@ -79,8 +79,12 @@ const Dice = () => {
   };
 
   const roller = async () => {
-    if (!options.hasThrownDice) {
-      setGameOptions({ hasThrownDice: true });
+    if (
+      !options.hasThrownDice &&
+      options.gameIsOngoing &&
+      !options.winners.includes(options.playerChance)
+    ) {
+      setGameOptions({ hasThrownDice: true, winners: [] });
       await rollDie(randomRollAmount());
     }
   };
@@ -94,7 +98,7 @@ const Dice = () => {
           </Col>
             <Col xs={6}>
               <div style={{
-              visibility: options.hasThrownDice ? "hidden":"visible"
+              visibility: (options.hasThrownDice || options.winners.includes(options.playerChance)) ? "hidden":"visible"
               }}>
               <div onClick={roller} className="button-container">
                 {options.gameIsOngoing && (<a className="start-over" onClick={(e) => {
