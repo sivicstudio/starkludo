@@ -123,7 +123,6 @@ mod GameActions {
         }
 
         fn invite_player(ref world: IWorldDispatcher, game_id: u64, player_username: felt252) {
-            
             // get the caller's address
             let caller: ContractAddress = get_caller_address();
 
@@ -131,22 +130,25 @@ mod GameActions {
             let mut game: Game = get!(world, game_id, (Game));
 
             //ensure that caller is the game creator
-            assert(game.created_by == caller, 'Only the game creator can invite players');
+            assert(game.created_by == caller, 'Cannot invite players');
 
             let mut player: Player = get!(world, player_username, (Player));
-            
+
             assert(player.owner != 0.try_into().unwrap(), 'Player does not exist');
 
             // Check if the player is already part of the game
-            let players: Array<felt252> = array![
+            let players = array![
                 game.player_green, game.player_yellow, game.player_blue, game.player_red
             ];
-            
-            let player_lenght = players.len();
+
+            let players_span = players.span();
+
             //iterating through the player array checking if the player is already part of the game
-            for(player_playing = 0, player_playing < player_lenght, player_playing++){
-                assert(player_playing != player_username, 'Player already in game');
-            }
+            let mut i = 0;
+            while i < 4 {
+                assert(players_span[i] != @player_username, 'Player already in game');
+                i += i;
+            };
 
             //The player is added to the game invitations list when all checks are passed
             game.invited_players.append(player_username);
