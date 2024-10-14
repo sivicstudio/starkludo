@@ -1,24 +1,34 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import "../../styles/Toolbox.scss";
 import { BoardContext } from "../../context/board-context";
-import OptionCard from "../OptionCard";
 import { DiceContext } from "../../context/dice-context";
+import { ColorContext } from "../../context/color-context";
+import OptionCard from "../OptionCard";
+import DiceCard from "../DiceCard";
+import PieceDesignCard from "../PieceDesignCard";
 import dice10 from "../../assets/images/dice-10.svg";
 import dice9 from "../../assets/images/dice-9.svg";
 import dice8 from "../../assets/images/dice-8.svg";
 import dice7 from "../../assets/images/dice-7.svg";
 import dice6 from "../../assets/images/dice-6.svg";
 import dice5 from "../../assets/images/dice-5.svg";
-import DiceCard from "../DiceCard";
+import map from "../../assets/images/Eyedropper.svg";
+import king from "../../assets/images/Crown.svg";
+import square from "../../assets/images/Polygon.svg";
+import circle from "../../assets/images/Circle.svg";
 
 interface ToolboxProps {
   activeCategory: string;
   onCategoryClick: (category: string) => void;
 }
 
-const Toolbox = ({ activeCategory, onCategoryClick }: ToolboxProps) => {
+const Toolbox: React.FC<ToolboxProps> = ({
+  activeCategory,
+  onCategoryClick,
+}) => {
   const { board, toggleBoard } = useContext(BoardContext);
   const { dice, changeDice } = useContext(DiceContext);
+  const { design, changeDesign } = useContext(ColorContext);
 
   const boardOptions = [
     { name: "Classic", option: "classic" },
@@ -33,6 +43,13 @@ const Toolbox = ({ activeCategory, onCategoryClick }: ToolboxProps) => {
     { name: "Unique Dice", option: "unique", img: dice8 },
     { name: "Red Dice", option: "red", img: dice9 },
     { name: "Silver Dice", option: "silver", img: dice10 },
+  ];
+
+  const pieceDesigns = [
+    { name: "Default", option: "default", img: map },
+    { name: "King", option: "king", img: king },
+    { name: "Box", option: "box", img: square },
+    { name: "Circle", option: "circle", img: circle },
   ];
 
   return (
@@ -51,10 +68,10 @@ const Toolbox = ({ activeCategory, onCategoryClick }: ToolboxProps) => {
           DICE
         </button>
         <button
-          className={`category ${activeCategory === "AVATAR" ? "active" : ""}`}
-          onClick={() => onCategoryClick("AVATAR")}
+          className={`category ${activeCategory === "PIECE" ? "active" : ""}`}
+          onClick={() => onCategoryClick("AVATER")}
         >
-          AVATAR
+          AVATER
         </button>
         <button
           className={`category ${activeCategory === "COLOR" ? "active" : ""}`}
@@ -64,34 +81,49 @@ const Toolbox = ({ activeCategory, onCategoryClick }: ToolboxProps) => {
         </button>
       </div>
       <div className="active-category">
-        <h3>Active Dice</h3>
-        <h5>{dice.charAt(0).toUpperCase()+dice.slice(1).toLowerCase()} dice</h5>
+        <h3>Active Piece</h3>
+        <h5>
+          {/* {dice.charAt(0).toUpperCase() + dice.slice(1).toLowerCase()} */}
+          {design.charAt(0).toUpperCase() + design.slice(1)}
+        </h5>
       </div>
-      {activeCategory === "BOARD" && <div className="options">
-        {boardOptions.map((item) => (
-          <OptionCard
-            key={item.option}
-            option={item}
-            active={board === item.option}
-            onSelect={() => {
-              toggleBoard(item.option);
-            }}
-          />
-        ))}
-      </div>}
-      {activeCategory === "DICE" && <div className="dice-options">
-        {diceOptions.map((item) => (
-          <DiceCard
-            img={item.img}
-            key={item.option}
-            option={item}
-            active={board === item.option}
-            onSelect={() => {
-              changeDice(item.option, item.img);
-            }}
-          />
-        ))}
-      </div>}
+      {activeCategory === "BOARD" && (
+        <div className="options">
+          {boardOptions.map((item) => (
+            <OptionCard
+              key={item.option}
+              option={item}
+              active={board === item.option}
+              onSelect={() => toggleBoard(item.option)}
+            />
+          ))}
+        </div>
+      )}
+      {activeCategory === "DICE" && (
+        <div className="dice-options">
+          {diceOptions.map((item) => (
+            <DiceCard
+              img={item.img}
+              key={item.option}
+              option={item}
+              active={dice === item.option}
+              onSelect={() => changeDice(item.option, item.img)}
+            />
+          ))}
+        </div>
+      )}
+      {activeCategory === "COLOR" && (
+        <div className="piece-options">
+          {pieceDesigns.map((item) => (
+            <PieceDesignCard
+              key={item.option}
+              option={item}
+              active={design === item.option}
+              onSelect={() => changeDesign(item.option as any)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
