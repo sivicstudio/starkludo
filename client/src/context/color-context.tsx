@@ -13,6 +13,7 @@ const ColorContext = createContext<ColorContextType>({
   changeDesign: () => {},
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useColor = () => useContext(ColorContext);
 
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({

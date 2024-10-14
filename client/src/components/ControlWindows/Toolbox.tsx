@@ -119,6 +119,7 @@ const Toolbox: React.FC<ToolboxProps> = ({
               key={item.option}
               option={item}
               active={design === item.option}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelect={() => changeDesign(item.option as any)}
             />
           ))}
