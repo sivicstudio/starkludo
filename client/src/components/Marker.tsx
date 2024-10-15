@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { GameContext } from "../context/game-context";
 import { useGame } from "../hooks/game-hook";
 import { MarkerProps } from "../types";
+import { ColorContext } from "../context/color-context";
 import markerSound from "../assets/seed_click_sound.wav";
 
 import "../styles/Marker.scss";
@@ -11,6 +12,7 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
   const clickMap: Record<string, number> = { r: 0, g: 1, y: 2, b: 3 };
   const markerRef = useRef<HTMLDivElement>(null);
   const { gameState, options } = useContext(GameContext);
+  const { design } = useContext(ColorContext);
 
   useEffect(() => {
     const countInArray = (array: string[], val: string) => {
@@ -34,9 +36,7 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
     }
   }, [gameState, pos, size, tileMap]);
 
-  const move:
-    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
-    | undefined = () => {
+  const move = () => {
     const sound = new Audio(markerSound);
     sound.play();
     moveMarker(pos, clickMap[pos.charAt(0)]);
@@ -44,7 +44,7 @@ const Marker: React.FC<MarkerProps> = ({ pos, size, tileMap }) => {
 
   return (
     <div
-      className={`marker-${pos.charAt(0)}`}
+      className={`marker-${pos.charAt(0)} marker-${design}`}
       ref={markerRef}
       onClick={
         options.hasThrownDice &&
