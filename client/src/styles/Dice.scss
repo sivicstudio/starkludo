@@ -33,9 +33,9 @@
   font-size: 20px;
   text-transform: uppercase;
   border-radius: 50%; // Makes the button circular
-  width: 120px;
+  width: 80px;
   outline: #2DCCFD solid 1px;
-  height: 120px;
+  height: 80px;
   box-shadow:
     0 0 20px rgba(85, 102, 255, 0.733),
     /* Inner soft bluish glow */
@@ -60,7 +60,7 @@
 .roll-text {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   text-shadow:
     1px 1px 0px black,
     /* Right-down */
@@ -83,7 +83,7 @@
 .dice-container {
   align-items: center;
   display: flex;
-  gap: 80px;
+  gap: 20px;
   flex-direction: column;
   text-align: center;
 }

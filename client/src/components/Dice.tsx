@@ -94,7 +94,7 @@ const Dice = () => {
       {options.gameIsOngoing && (
         <div className="dice-container">
           <Col xs={options.hasThrownDice ? 12 : 6}>
-            <ThreeDice disabled={!options.hasThrownDice} ref={diceRef} sound={diceSound} rollingTime={1000} size={100} />
+            <ThreeDice disabled={!options.hasThrownDice} ref={diceRef} sound={diceSound} rollingTime={1000} size={70} />
           </Col>
             <Col xs={6}>
               <div style={{
