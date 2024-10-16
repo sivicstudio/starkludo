@@ -163,12 +163,7 @@ mod GameActions {
         }
 
 
-        fn join_game(
-            ref world: IWorldDispatcher,
-            game_id: u64,
-            player_username: felt252,
-            player_color: felt252
-        ) {
+        fn join_game( ref world: IWorldDispatcher, game_id: u64, player_username: felt252, player_color: felt252 ) {
             let mut game: Game = get!(world, game_id, (Game));
 
             // Check if the game is pending
@@ -176,8 +171,6 @@ mod GameActions {
 
             let mut player: Player = get!(world, player_username, (Player));
             assert(player.owner != 0.try_into().unwrap(), 'Player does not exist');
-
-            // Check if the player is already part of the game
             let players = array![
                 game.player_green, game.player_yellow, game.player_blue, game.player_red
             ];

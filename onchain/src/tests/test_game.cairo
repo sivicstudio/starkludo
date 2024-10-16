@@ -2,7 +2,6 @@ pub mod Errors {
     pub const WRONG_DICE_VALUE: felt252 = 'Wrong dice value';
     pub const WRONG_DICE_NONCE: felt252 = 'Wrong dice nonce';
     pub const INVALID_PLAYER: felt252 = 'Player was not invited';
-    // pub const CANNOT_JOIN_GAME: felt252 = 'Cannot join the game';
 }
 
 #[cfg(test)]
@@ -214,6 +213,46 @@ mod tests {
 
         // // Assert that the player was invited. if false then player was not invited
     // assert(is_player_invited, Errors::INVALID_PLAYER);
+    }
+
+
+    #[test]
+    #[ignore]
+    fn test_join_game() {
+        let caller = contract_address_const::<'Benjamin'>();
+        let player_red = 'player_red';
+        let player_blue = 'player_blue';
+        let player_yellow = 'player_yellow';
+        let player_green = 'player_green';
+        let number_of_players = 4;
+        let game_mode: GameMode = GameMode::MultiPlayer;
+        testing::set_account_contract_address(caller);
+        testing::set_contract_address(caller);
+
+        let (game, game_actions, world, _) = create_and_setup_game(
+            game_mode, number_of_players, player_red, player_blue, player_yellow, player_green
+        );
+
+        let game_id: u64 = game.id;
+        let new_player = 'player_red';
+        let player_color: felt252 = 0;
+
+        // Check game status before joining
+        let game_before_join = get!(world, game_id, Game);
+        assert_eq!(
+            game_before_join.game_status,
+            GameStatus::Waiting,
+            "Game should be in Waiting status before joining"
+        );
+
+        // Attempt to join the game
+        game_actions.join_game(game_id, new_player, player_color);
+
+        // Verify the game state after joining
+        let updated_game = get!(world, game_id, Game);
+        assert_eq!(
+            updated_game.player_green, new_player.into(), "Player should have joined the game"
+        );
     }
 }
 
