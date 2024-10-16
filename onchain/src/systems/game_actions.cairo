@@ -166,7 +166,6 @@ mod GameActions {
         fn join_game( ref world: IWorldDispatcher, game_id: u64, player_username: felt252, player_color: felt252 ) {
             let mut game: Game = get!(world, game_id, (Game));
 
-            // Check if the game is pending
             assert(game.game_status == GameStatus::Waiting, 'Game is not pending');
 
             let mut player: Player = get!(world, player_username, (Player));
