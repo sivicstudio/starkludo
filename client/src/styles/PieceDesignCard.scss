@@ -1,0 +1,47 @@
+.piece-design-card {
+    padding: 2.5px;
+    background: linear-gradient(180deg, #2dccfd 0%, #ff01ff 100%);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    margin: 10px;
+    &.active {
+      background: #2dccfd;
+      transform: scale(1.2);
+    }
+    &:hover {
+      background: #2dccfd;
+    }
+    .option {
+      padding: 5px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 12px;
+      height: 80px;
+      background: linear-gradient(180deg, #1b0043 0%, #0e0121 100%);
+      .option-label {
+        border-top: rgba(45, 204, 253, 0.48) 1px solid;
+        width: 100%f;
+        text-align: center;
+        color: #f5f5f5;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: bold;
+      }
+  
+      img {
+        padding: 5px 7px;
+      }
+  
+      .name-label {
+        // width: 70%f;
+        text-align: center;
+        color: #f5f5f5;
+        font-size: 14px;
+        line-height: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+  

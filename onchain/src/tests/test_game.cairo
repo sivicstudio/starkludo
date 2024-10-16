@@ -2,6 +2,7 @@ pub mod Errors {
     pub const WRONG_DICE_VALUE: felt252 = 'Wrong dice value';
     pub const WRONG_DICE_NONCE: felt252 = 'Wrong dice nonce';
     pub const INVALID_PLAYER: felt252 = 'Player was not invited';
+    // pub const CANNOT_JOIN_GAME: felt252 = 'Cannot join the game';
 }
 
 #[cfg(test)]
