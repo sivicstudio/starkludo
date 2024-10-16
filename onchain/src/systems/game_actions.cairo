@@ -1,4 +1,4 @@
-use starkludo::models::{game::{Game, GameTrait, GameMode }, player::{Player}};
+use starkludo::models::{game::{Game, GameTrait, GameMode, GameStatus}, player::{Player}};
 use starknet::{ContractAddress, get_block_timestamp};
 use core::poseidon::PoseidonTrait;
 use core::hash::HashStateTrait;
@@ -19,8 +19,10 @@ trait IGameActions {
     fn restart(ref world: IWorldDispatcher, game_id: u64);
     fn terminate_game(ref world: IWorldDispatcher, game_id: u64);
     fn invite_player(ref world: IWorldDispatcher, game_id: u64, player_username: felt252);
+    fn join_game(
+        ref world: IWorldDispatcher, game_id: u64, player_username: felt252, player_color: felt252
+    );
 }
-
 
 
 #[dojo::contract]
@@ -28,7 +30,7 @@ mod GameActions {
     // use Zero;
     // use core::num::traits::Zero;
     use core::array::ArrayTrait;
-    use super::{IGameActions, Game, GameTrait, GameMode, Player};
+    use super::{IGameActions, Game, GameTrait, GameMode, Player, GameStatus};
     use starknet::{ContractAddress, get_caller_address, get_block_timestamp};
 
     #[abi(embed_v0)]
@@ -58,7 +60,7 @@ mod GameActions {
                 player_yellow,
                 player_green,
                 number_of_players
-                        );
+            );
 
             // Update the world state with the newly created game
             set!(world, (new_game));
@@ -157,6 +159,50 @@ mod GameActions {
             game.invited_players.append(player_username);
 
             // Update the game state in the world
+            set!(world, (game));
+        }
+
+
+        fn join_game(
+            ref world: IWorldDispatcher,
+            game_id: u64,
+            player_username: felt252,
+            player_color: felt252
+        ) {
+            let mut game: Game = get!(world, game_id, (Game));
+
+            // Check if the game is pending
+            assert(game.game_status == GameStatus::Waiting, 'Game is not pending');
+
+            let mut player: Player = get!(world, player_username, (Player));
+            assert(player.owner != 0.try_into().unwrap(), 'Player does not exist');
+
+            // Check if the player is already part of the game
+            let players = array![
+                game.player_green, game.player_yellow, game.player_blue, game.player_red
+            ];
+            let players_span = players.span();
+            let mut i = 0;
+            while i < 4 {
+                assert(players_span[i] != @player_username, 'Player already in game');
+                i += i;
+            };
+            match player_color {
+                0 => game.player_green = player_username,
+                1 => game.player_yellow = player_username,
+                2 => game.player_blue = player_username,
+                3 => game.player_red = player_username,
+                _ => panic!("Invalid player color")
+            }
+
+            // Update game status if all players have joined
+            if game.player_green != 0
+                && game.player_yellow != 0
+                && game.player_blue != 0
+                && game.player_red != 0 {
+                game.game_status = GameStatus::Ongoing;
+            }
+
             set!(world, (game));
         }
     }
