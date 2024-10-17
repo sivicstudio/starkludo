@@ -350,6 +350,10 @@
             "type": "starkludo::models::game::GameMode"
           },
           {
+            "name": "game_status",
+            "type": "starkludo::models::game::GameStatus"
+          },
+          {
             "name": "player_green",
             "type": "core::felt252"
           },
@@ -399,6 +403,30 @@
           }
         ],
         "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "join_game",
+        "inputs": [
+          {
+            "name": "game_id",
+            "type": "core::integer::u64"
+          },
+          {
+            "name": "player_color",
+            "type": "core::felt252"
+          },
+          {
+            "name": "username",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "starkludo::models::game::Game"
+          }
+        ],
         "state_mutability": "external"
       }
     ]
