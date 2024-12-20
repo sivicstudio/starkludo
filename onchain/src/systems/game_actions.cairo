@@ -35,10 +35,19 @@ pub mod GameActions {
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
     use origami_random::dice::{Dice, DiceTrait};
+    use starkludo::errors::Errors;
 
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct GameCreated {
+        #[key]
+        pub game_id: usize,
+        pub timestamp: u64
+    }
+
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::event]
+    pub struct GameStarted{
         #[key]
         pub game_id: usize,
         pub timestamp: u64
@@ -96,10 +105,10 @@ pub mod GameActions {
              let mut game_id: usize = 999;
  
              //get the game state
-             let game: Game = world.read_model(game_id);
+             let mut game: Game = world.read_model(game_id);
  
              // get the caller's user name
-             let caller_username: felt252 = get_username_from_address(caller);
+             let caller_username: felt252 = self.get_username_from_address(caller);
  
              //assert that caller with the user_name is game creator
              assert(game.created_by == caller_username, Errors::ONLY_GAME_CREATOR);
