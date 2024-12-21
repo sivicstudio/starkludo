@@ -1,16 +1,16 @@
 [world]
 name = "StarkLudo"
 description = "Ludo game on Starknet"
-cover_uri = "file://assets/cover.png"
-icon_uri = "file://assets/icon.png"
-website = "https://github.com/sivicstudio/starkludo"
+cover_uri = "https://imgur.com/qF3Yv9D"
+icon_uri = "https://imgur.com/cZXTUbS"
+website = "https://starkludo.com"
 seed = "starkludo"
 
 [world.socials]
 x = "https://x.com/LudoOnStarknet"
 discord = ""
 github = "https://github.com/sivicstudio/starkludo"
-telegram = ""
+telegram = "https://t.me/+hnjQooODZOA2M2Rk"
 
 [namespace]
 default = "starkludo"
