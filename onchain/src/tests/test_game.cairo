@@ -22,11 +22,11 @@ mod tests {
             namespace: "starkludo", resources: [
                 TestResource::Model(m_Game::TEST_CLASS_HASH),
                 TestResource::Model(m_Player::TEST_CLASS_HASH),
-                TestResource::Model(m_AddressToUsername::TEST_CLASS_HASH),  // Add this
-                TestResource::Model(m_UsernameToAddress::TEST_CLASS_HASH),  // Add this
+                TestResource::Model(m_AddressToUsername::TEST_CLASS_HASH),
+                TestResource::Model(m_UsernameToAddress::TEST_CLASS_HASH),
                 TestResource::Contract(GameActions::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_GameCreated::TEST_CLASS_HASH),
-                TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),  // Add this
+                TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),
             ].span()
         };
 
