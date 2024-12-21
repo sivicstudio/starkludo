@@ -50,7 +50,7 @@ pub mod GameActions {
     pub struct GameStarted{
         #[key]
         pub game_id: usize,
-        pub timestamp: u64
+        pub time_stamp: u64
     }
 
     #[abi(embed_v0)]

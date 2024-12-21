@@ -72,4 +72,9 @@ mod tests {
 
         assert(unique_rolls.len() > 1, 'Not enough unique rolls');
     }
+
+    #[test]
+    fn test_start_fuc(){
+        
+    }
 }
