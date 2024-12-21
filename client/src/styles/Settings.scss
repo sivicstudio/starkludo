@@ -1,0 +1,292 @@
+.settings {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  background-image: url("../assets/images/settings/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  .settings-container {
+    position: absolute;
+    z-index: 9999;
+    padding: 124px 0;
+    margin: 0 auto;
+    width: 100%;
+    .settings-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+      margin: 0 auto;
+      gap: 48px;
+      width: 90%;
+      @media only screen and (min-width: 996px) {
+        width: 80%;
+      }
+      @media only screen and (min-width: 1378px) {
+        width: 72%;
+      }
+      .settings-menu__box {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 12px;
+        .settings-menu__box-left {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          gap: 12px;
+          .settings-menu__box-left-btn {
+            background-color: #dac29c;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #854d15;
+            box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 25px;
+            padding: 8px 14px;
+            color: #854d15;
+            @media only screen and (max-width: 992px) {
+              padding: 6px 8px;
+              font-size: 13px;
+              gap: 8px;
+            }
+            @media only screen and (max-width: 1200px) {
+              padding: 7px 12px;
+              font-size: 15px;
+              gap: 10px;
+            }
+          }
+        }
+        .settings-menu__box-right {
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          gap: 0;
+          .settings-menu__box-right-btn {
+            background-color: #854d15;
+            text-align: center;
+            border-radius: 48px;
+            border: 1px solid #d58f49;
+            box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 25px;
+            padding: 8px 14px;
+            color: #dac29c;
+            @media only screen and (max-width: 992px) {
+              padding: 6px 8px;
+              font-size: 13px;
+            }
+            @media only screen and (max-width: 1200px) {
+              padding: 7px 12px;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      .settings-game {
+        background-color: #dac29c;
+        border: 1px solid #d58f49;
+        box-shadow: 2px 2px 0px 0px #854d15;
+        padding: 24px 36px;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        flex-direction: column;
+        gap: 20px;
+        width: 64%;
+        max-width: 600px;
+        .settings-game-header {
+          padding: 12px 0 24px 0;
+          border-bottom: 1px solid #854d15;
+          justify-content: space-between;
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          .settings-game-header-title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #854d15;
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+          }
+          .settings-game-header-close {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+          }
+        }
+        .settings-game-body {
+          justify-content: start;
+          align-items: start;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          gap: 24px;
+          .settings-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 10px;
+            width: 100%;
+            .settings-select {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              width: fit-content;
+              .settings-select-img {
+                width: 24px;
+                height: 24px;
+              }
+              .settings-select-btn {
+                width: 11px;
+                height: 22px;
+                border: 0.1rem solid #854d15;
+                background-color: transparent;
+              }
+              .settings-select-btn-active {
+                width: 11px;
+                height: 22px;
+                border: 0.1rem solid #854d15;
+                background-color: #854d15;
+              }
+            }
+          }
+          .settings-difficulty {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 10px;
+            width: 100%;
+            .settings-difficulty-select {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              width: 100%;
+              .settings-difficulty-select-btn {
+                width: 100%;
+                background-color: transparent;
+                border: 1px solid #854d15;
+                color: #854d15;
+                text-align: center;
+                padding: 16px;
+                border-radius: 4px;
+                font-weight: 400;
+                font-size: 16px;
+              }
+              .settings-difficulty-select-btn-active {
+                background-color: #854d15;
+                border: 1px solid #854d15;
+                color: #dac29c;
+              }
+            }
+          }
+          .settings-change__game__background {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            .settings-change__game__background-play {
+              width: 18px;
+              height: 18px;
+            }
+          }
+          .settings-title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #854d15;
+            width: 100%;
+          }
+        }
+      }
+      .settings-footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        .settings-footer-left {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          gap: 12px;
+          .settings-footer-left-btn {
+            background-color: #854d15;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #d58f49;
+            backdrop-filter: blur(20px);
+            box-shadow: 2px 2px 0px 0px rgba(133, 77, 21, 1);
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 25px;
+            padding: 10px 20px;
+            color: #dac29c;
+            gap: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @media only screen and (max-width: 992px) {
+              padding: 8px 16px;
+              font-size: 14px;
+              gap: 8px;
+            }
+            @media only screen and (max-width: 1200px) {
+              padding: 9px 18px;
+              font-size: 16px;
+              gap: 10px;
+            }
+          }
+        }
+        .settings-footer-right {
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          gap: 12px;
+          .settings-footer-right-btn {
+            background-color: #dac29c;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #854d15;
+            box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 25px;
+            padding: 8px 14px;
+            color: #854d15;
+            @media only screen and (max-width: 992px) {
+              padding: 6px 8px;
+              font-size: 13px;
+            }
+            @media only screen and (max-width: 1200px) {
+              padding: 7px 12px;
+              font-size: 15px;
+            }
+          }
+          .settings-footer-right-btn-active {
+            background-color: #feefef;
+          }
+        }
+      }
+    }
+  }
+}
