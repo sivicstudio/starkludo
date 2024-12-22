@@ -1,0 +1,130 @@
+.player-corner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  padding: 8px;
+
+  &.red {
+    --player-color: #ef4444;
+  }
+  &.green {
+    --player-color: #22c55e;
+  }
+  &.yellow {
+    --player-color: #eab308;
+  }
+  &.blue {
+    --player-color: #3b82f6;
+  }
+
+  // Corner positioning
+  &-1 {
+    bottom: 16px;
+    left: 16px;
+  }
+  &-2 {
+    top: 16px;
+    left: 16px;
+  }
+  &-3 {
+    top: 16px;
+    right: 16px;
+  }
+  &-4 {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .corner-content {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 8px;
+    transition: all 0.3s ease;
+
+    &.active-turn {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  .avatar-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 4px;
+
+    .avatar-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--player-color);
+        opacity: 0.2;
+      }
+    }
+
+    .player-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .turn-indicator {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: black;
+      padding: 2px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+      .turn-icon {
+        color: var(--player-color);
+      }
+    }
+  }
+
+  .player-info {
+    .player-name {
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .score-dots-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      margin: 0 auto;
+
+      .score-dot {
+        width: 6px;
+        height: 6px;
+        min-width: 6px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+
+        &.filled {
+          background: white;
+          border-color: white;
+        }
+      }
+    }
+  }
+}
