@@ -191,15 +191,11 @@ const App = ({ sdk }: { sdk: SDK<StarkludoSchemaType> }) => {
                                     </ControlWindowLayout>
                                   ) : null}
 
-                                  {activeWindow === "help" ? (
-                                    <ControlWindowLayout
-                                      toggle={() => setActiveWindow("")}
-                                      title="HELP"
-                                      subtitle="Get Guides, Tips, And Tricks Needed For A Successful Game"
-                                    >
-                                      <GameHelp />
-                                    </ControlWindowLayout>
-                                  ) : null}
+                                  {activeWindow === "help" && (
+                                    <GameHelp
+                                      onClose={() => setActiveWindow("")}
+                                    />
+                                  )}
                                   <Control
                                     toggleActiveWindow={toggleActiveWindow}
                                   />

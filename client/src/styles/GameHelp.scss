@@ -1,31 +1,126 @@
-.game-help {
-  text-align: left;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #dac29c;
+  width: 90%;
+  max-width: 1250px;
+  border-radius: 8px;
+  border: 1px solid #d58f49;
+  position: relative;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  .game-help-heading {
-    text-decoration: underline;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
+  padding: 35px 45px;
+}
+
+.border_help {
+  border: 1px solid #854d15;
+  margin: 10px 0;
+}
+
+.modal-header {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+
+  h2 {
+    color: #8b4513;
+    font-size: 24px;
+    margin: 0;
+    font-weight: 600;
   }
+
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8b4513;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(139, 69, 19, 0.1);
+    }
+  }
+}
+
+.game-help {
+  padding: 30px 0px 20px;
+  overflow-y: auto;
+
   .game-rules-rules {
-    text-align: left;
-    margin-top: 10px;
-    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
+
     li {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 24px;
-      text-transform: capitalize;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #8b4513;
+      font-size: 24px;
+      line-height: 1.6;
+
       span {
-        color: #2dccfd;
-        font-size: 12px;
-        line-height: 22px;
+        color: #854d15;
+        font-size: 24px;
+        font-weight: bold;
+        white-space: nowrap;
+        margin-right: 30px;
+      }
+
+      div {
+        flex: 1;
       }
     }
+  }
+}
+
+// Custom scrollbar
+.game-help::-webkit-scrollbar {
+  width: 8px;
+}
+
+.game-help::-webkit-scrollbar-track {
+  background: rgba(139, 69, 19, 0.1);
+}
+
+.game-help::-webkit-scrollbar-thumb {
+  background: rgba(139, 69, 19, 0.2);
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+  }
+
+  .modal-header h2 {
+    font-size: 16px;
+  }
+
+  .game-help .game-rules-rules li {
+    font-size: 13px;
   }
 }
