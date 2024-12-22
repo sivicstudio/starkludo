@@ -78,12 +78,15 @@ export default defineConfig({
   socials: [
     {
       icon: "github",
-
       link: "https://github.com/sivicstudio/starkludo",
     },
     {
       icon: "x",
       link: "https://x.com/LudoOnStarknet",
+    },
+    {
+      icon:"telegram",
+      link:" https://t.me/+hnjQooODZOA2M2Rk",
     },
   ],
 

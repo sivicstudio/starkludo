@@ -17,27 +17,50 @@ mod tests {
     use starkludo::models::player::{AddressToUsername, UsernameToAddress, m_AddressToUsername, m_UsernameToAddress};
     use starkludo::errors::Errors;
 
+    /// Defines the namespace configuration for the Starkludo game system
+    /// Returns a NamespaceDef struct containing namespace name and associated resources
     fn namespace_def() -> NamespaceDef {
+
+        // Creates a new NamespaceDef struct with:
+        // Namespace name "starkludo"
+        // Array of TestResource enums for models, contracts and events
         let ndef = NamespaceDef {
             namespace: "starkludo", resources: [
+
+                // Register the Game model's class hash
                 TestResource::Model(m_Game::TEST_CLASS_HASH),
+
+                // Register the Player model's class hash
                 TestResource::Model(m_Player::TEST_CLASS_HASH),
                 TestResource::Model(m_AddressToUsername::TEST_CLASS_HASH),
                 TestResource::Model(m_UsernameToAddress::TEST_CLASS_HASH),
+
+                // Register the main contract containing game actions
                 TestResource::Contract(GameActions::TEST_CLASS_HASH),
+
+                // Register the GameCreated event's class hash
                 TestResource::Event(GameActions::e_GameCreated::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),
-            ].span()
+            ].span() // Convert array to a Span type
         };
 
+        // Return the namespace definition
         ndef
     }
 
+    /// Creates a single contract definition for the "GameActions" contract
+    /// Sets up write permissions for the contract using a specific hash
+    /// Returns the configuration wrapped in a Span container
     fn contract_defs() -> Span<ContractDef> {
         [
+            // Create a new contract definition for the StarKLudo game's actions
+            // using the ContractDefTrait builder pattern
             ContractDefTrait::new(@"starkludo", @"GameActions")
-                .with_writer_of([dojo::utils::bytearray_hash(@"starkludo")].span())
-        ].span()
+
+            // Configure write permissions by specifying which addresses can modify the contract
+            // Here, only the address derived from hashing "starkludo" has write access
+            .with_writer_of([dojo::utils::bytearray_hash(@"starkludo")].span())
+        ].span() // Convert the array to a Span container for return
     }
 
     #[test]
