@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useState, useContext } from "react";
 
-type PieceDesign = "default" | "king" | "box" | "circle";
+export type PieceDesign = "default" | "king" | "box" | "circle" | 'red' | 'green' | 'orange' | 'blue';
 
 interface ColorContextType {
   design: PieceDesign;
