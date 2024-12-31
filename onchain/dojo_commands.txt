@@ -1,0 +1,15 @@
+[BUILD CONTRACTS]
+sozo build
+
+[MIGRATE WORLD (Build and deploy contracts)]
+scarb run migrate
+
+[RUN KATANA]
+katana --dev --dev.no-fee --http.cors_origins "*"
+
+[RUN TORII]
+torii --http.cors_origins "*" --world 0x0114263853155c7f3c4209d140a05b106d9ce7f64f75058e2b3ab81fc72cc372
+
+
+[GENERATE TYPESCRIPT BINDINGS FOR CLIENT]
+sozo build --typescript  --bindings-output ./src/dojo

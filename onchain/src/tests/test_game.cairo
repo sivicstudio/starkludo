@@ -1,16 +1,20 @@
 #[cfg(test)]
 mod tests {
+    use starknet::{testing, contract_address_const};
     use dojo_cairo_test::WorldStorageTestTrait;
     use dojo::model::{ModelStorage, ModelValueStorage, ModelStorageTest};
-    use dojo::world::WorldStorageTrait;
+    use dojo::world::{WorldStorageTrait, WorldStorage};
     use dojo_cairo_test::{
         spawn_test_world, NamespaceDef, TestResource, ContractDefTrait, ContractDef
     };
 
+    // Systems import
     use starkludo::systems::game_actions::{
         GameActions, IGameActionsDispatcher, IGameActionsDispatcherTrait
     };
-    use starkludo::models::game::{Game, m_Game};
+
+    // Models import
+    use starkludo::models::game::{Game, m_Game, GameCounter, m_GameCounter};
     use starkludo::models::player::{
         Player, m_Player, AddressToUsername, UsernameToAddress, m_AddressToUsername,
         m_UsernameToAddress
@@ -29,6 +33,7 @@ mod tests {
             namespace: "starkludo", resources: [
                 // Register the Game model's class hash
                 TestResource::Model(m_Game::TEST_CLASS_HASH),
+                TestResource::Model(m_GameCounter::TEST_CLASS_HASH),
                 // Register the Player model's class hash
                 TestResource::Model(m_Player::TEST_CLASS_HASH),
                 TestResource::Model(m_AddressToUsername::TEST_CLASS_HASH),
@@ -39,6 +44,7 @@ mod tests {
                 // Register the GameCreated event's class hash
                 TestResource::Event(GameActions::e_GameCreated::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),
+                TestResource::Event(GameActions::e_PlayerCreated::TEST_CLASS_HASH),
             ].span() // Convert array to a Span type
         };
 
@@ -60,16 +66,15 @@ mod tests {
         ].span() // Convert the array to a Span container for return
     }
 
-    #[test]
-    fn test_world() {
-        let caller = starknet::contract_address_const::<'caller'>();
-
+    fn setup_world() -> (WorldStorage, IGameActionsDispatcher) {
         let ndef = namespace_def();
         let mut world = spawn_test_world([ndef].span());
         world.sync_perms_and_inits(contract_defs());
 
         let (contract_address, _) = world.dns(@"GameActions").unwrap();
         let game_action_system = IGameActionsDispatcher { contract_address };
+
+        (world, game_action_system)
     }
 
     #[test]
@@ -98,6 +103,88 @@ mod tests {
         };
 
         assert(unique_rolls.len() > 1, 'Not enough unique rolls');
+    }
+
+    #[test]
+    fn test_create_new_game_id() {
+        let (world, game_action_system) = setup_world();
+        let game_counter: GameCounter = world.read_model('v0');
+
+        let new_game_id = game_action_system.create_new_game_id();
+        let expected_new_game_id = game_counter.current_val + 1;
+
+        assert_eq!(new_game_id, expected_new_game_id);
+    }
+
+    #[test]
+    fn test_get_current_game_id() {
+        let (world, game_action_system) = setup_world();
+        let game_counter: GameCounter = world.read_model('v0');
+        let game_counter_current_val = game_counter.current_val;
+
+        let mut i: u64 = 0;
+        let GAME_SAMPLE_SIZE: u64 = 8;
+        // Create 8 game IDs
+        while i < GAME_SAMPLE_SIZE {
+            game_action_system.create_new_game_id();
+            i += 1;
+        };
+
+        let current_game_id = game_action_system.get_current_game_id();
+        let expected_game_counter_id = game_counter_current_val + GAME_SAMPLE_SIZE;
+
+        assert_eq!(current_game_id, expected_game_counter_id);
+    }
+
+    #[test]
+    #[ignore]
+    #[should_panic(expected: ('USERNAME ALREADY TAKEN', 'ENTRYPOINT_FAILED',))]
+    fn test_create_new_player_should_panic_if_username_already_exist() {
+        let (world, game_action_system) = setup_world();
+        let caller_1 = contract_address_const::<'ibs'>();
+        let caller_2 = contract_address_const::<'dreamer'>();
+        let username = 'ibs';
+
+        testing::set_caller_address(caller_1);
+        game_action_system.create_new_player(username, false);
+
+        testing::set_caller_address(caller_2);
+        game_action_system.create_new_player(username, false);
+    }
+
+    #[test]
+    #[ignore]
+    #[should_panic(expected: ('USERNAME ALREADY CREATED', 'ENTRYPOINT_FAILED',))]
+    fn test_create_new_player_should_fail_panic_username_already_created() {
+        let (world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'ibs'>();
+        let username = 'ibs';
+
+        testing::set_caller_address(caller);
+        // Player create username for the first time
+        game_action_system.create_new_player(username, false);
+        // Player attempts to create username for the second time
+        game_action_system.create_new_player(username, false);
+    }
+
+    #[test]
+    #[ignore]
+    fn test_create_new_player_is_successful() {
+        let (world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'ibs'>();
+        let username = 'ibs';
+
+        testing::set_caller_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let created_player: Player = world.read_model(username);
+        assert_eq!(created_player.owner, caller);
+
+        let username_to_address: UsernameToAddress = world.read_model(username);
+        assert_eq!(username_to_address.address, caller);
+
+        let address_to_username: AddressToUsername = world.read_model(caller);
+        assert_eq!(address_to_username.username, username);
     }
 
     #[test]
@@ -134,43 +221,6 @@ mod tests {
         let retrieved_username3 = game_action_system
             .get_username_from_address(non_existent_address);
         assert(retrieved_username3 == 0, 'Non-existent should return 0');
-    }
-
-    fn test_start_game_success() {
-        // Setup world and contract
-        let caller = starknet::contract_address_const::<'Mr_T'>();
-        let ndef = namespace_def();
-        let mut world = spawn_test_world([ndef].span());
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"GameActions").unwrap();
-        let game_action_system = IGameActionsDispatcher { contract_address };
-
-        // Setup caller's username mapping
-        let username: felt252 = 'test_player';
-        let address_username = AddressToUsername { address: caller, username };
-        let username_address = UsernameToAddress { username, address: caller };
-        world.write_model(@address_username);
-        world.write_model(@username_address);
-
-        // Create new game
-        let game_id = game_action_system
-            .create(
-                GameMode::MultiPlayer,
-                username, // green player (creator)
-                'player2',
-                'player3',
-                'player4',
-                4
-            );
-
-        // Start game
-        game_action_system.start();
-
-        // Verify game state
-        let game: Game = world.read_model(game_id);
-        assert(game.game_status == GameStatus::Ongoing, 'Game should be ongoing');
-        assert(game.next_player == game.player_green, 'Green should be next player');
     }
 
     #[test]

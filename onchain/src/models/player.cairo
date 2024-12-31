@@ -12,6 +12,16 @@ pub struct Player {
     pub total_games_won: u256, // Count of total games won by this player
 }
 
+// Represents the game mode
+// Can either be SinglePlayer or Multiplayer
+#[derive(Serde, Copy, Drop, Introspect, PartialEq)]
+pub enum PlayerColor {
+    Green,
+    Yellow,
+    Blue,
+    Red
+}
+
 #[derive(Drop, Copy, Serde)]
 #[dojo::model]
 pub struct UsernameToAddress {

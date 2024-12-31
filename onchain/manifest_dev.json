@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x1fadb4983842c567c473e49695bbb4faec47c36472bb151c71f8d5fa26b96d3",
-      "class_hash": "0x689cceee0dc7a0dfda4f32873aaba41293dc785cb36bef032af726a10f1ad8c",
+      "address": "0x10971207fc86ba2f051f3319b953e2c23a7c9b1974b78682641783e318c22df",
+      "class_hash": "0x583ac557c3d1e546061da93c942209ff38e52823a2c2b6bd6acf94ad798cbbc",
       "abi": [
         {
           "type": "impl",
@@ -1325,6 +1325,20 @@
           ]
         },
         {
+          "type": "enum",
+          "name": "core::bool",
+          "variants": [
+            {
+              "name": "False",
+              "type": "()"
+            },
+            {
+              "name": "True",
+              "type": "()"
+            }
+          ]
+        },
+        {
           "type": "interface",
           "name": "starkludo::systems::game_actions::IGameActions",
           "items": [
@@ -1359,7 +1373,7 @@
               ],
               "outputs": [
                 {
-                  "type": "core::integer::u32"
+                  "type": "core::integer::u64"
                 }
               ],
               "state_mutability": "external"
@@ -1374,7 +1388,20 @@
             {
               "type": "function",
               "name": "join",
-              "inputs": [],
+              "inputs": [
+                {
+                  "name": "username",
+                  "type": "core::felt252"
+                },
+                {
+                  "name": "selected_color",
+                  "type": "core::felt252"
+                },
+                {
+                  "name": "game_id",
+                  "type": "core::integer::u64"
+                }
+              ],
               "outputs": [],
               "state_mutability": "external"
             },
@@ -1398,6 +1425,44 @@
             },
             {
               "type": "function",
+              "name": "get_current_game_id",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::integer::u64"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "create_new_game_id",
+              "inputs": [],
+              "outputs": [
+                {
+                  "type": "core::integer::u64"
+                }
+              ],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
+              "name": "create_new_player",
+              "inputs": [
+                {
+                  "name": "username",
+                  "type": "core::felt252"
+                },
+                {
+                  "name": "is_bot",
+                  "type": "core::bool"
+                }
+              ],
+              "outputs": [],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
               "name": "get_username_from_address",
               "inputs": [
                 {
@@ -1410,7 +1475,7 @@
                   "type": "core::felt252"
                 }
               ],
-              "state_mutability": "external"
+              "state_mutability": "view"
             },
             {
               "type": "function",
@@ -1426,7 +1491,7 @@
                   "type": "core::starknet::contract_address::ContractAddress"
                 }
               ],
-              "state_mutability": "external"
+              "state_mutability": "view"
             }
           ]
         },
@@ -1554,8 +1619,8 @@
         "join",
         "move",
         "roll",
-        "get_username_from_address",
-        "get_address_from_username",
+        "create_new_game_id",
+        "create_new_player",
         "upgrade"
       ]
     }
@@ -1569,9 +1634,15 @@
     },
     {
       "members": [],
-      "class_hash": "0xb7e83456a187e72d20536c0b2f72fd0b5a0c08e4f8ccd3ca1e267187b9b1b1",
+      "class_hash": "0x7bb28c5064aa98068e44b898cbf8240379a3ef66a35ca9e30ddbc8ff8ad1872",
       "tag": "starkludo-Game",
       "selector": "0x5286f583d42be5bcce55789312382404da27ac52bdd960a67ba99b63a68ef52"
+    },
+    {
+      "members": [],
+      "class_hash": "0x24bc49c8fba3fe6eeace64487a7e47da3e5f5cce24215928b472c25030c98e5",
+      "tag": "starkludo-GameCounter",
+      "selector": "0xb947119f3874a86ea24222d610882989d0e0b9813c1fad573046f580551e6c"
     },
     {
       "members": [],
@@ -1589,9 +1660,21 @@
   "events": [
     {
       "members": [],
-      "class_hash": "0x6d705b2c253b3e74269741a328216b321513606cac8d0f5714cf9f34d5cbb0",
+      "class_hash": "0x68c62f45a52a3122df66ffb6585d6ca4685d4a59e717780246e3b72ab4633bf",
       "tag": "starkludo-GameCreated",
       "selector": "0x608bbdb5cff4488bdecf97722e62554652e73bd7507fabddbaf98f7a94c2686"
+    },
+    {
+      "members": [],
+      "class_hash": "0x584745587e23fa595f2c2606a3ae094a7717bc5d8b43cf205056d7ce5003293",
+      "tag": "starkludo-GameStarted",
+      "selector": "0x20ebc46b8fec846da75979ce734aff0dd29cc4fc01cb735fffeaf10db9d6859"
+    },
+    {
+      "members": [],
+      "class_hash": "0x12a87858cd67977c4eb10ddafc3f6889dd25b4bf3c843404e97e9bcfdafe837",
+      "tag": "starkludo-PlayerCreated",
+      "selector": "0x6be7d5c86fd45e42561a986e90762495b1ce2baa9a33b7cc604cdbad9c962ca"
     }
   ]
 }

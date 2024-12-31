@@ -5,10 +5,16 @@ import "../styles/Menu.scss";
 import DiceTwo from "../svg/DiceTwo";
 import DiceThree from "../svg/DiceThree";
 import DiceFour from "../svg/DiceFour";
+import { useDojo } from "../dojo/hooks/useDojo";
+import * as models from "../dojo/typescript/models.gen.ts";
 
 const Menu = () => {
   const { options } = useContext(GameContext);
   const { startGame } = useGame();
+  const {
+    account,
+    setup: { client },
+  } = useDojo();
   const [selected, setSelected] = useState<number | undefined>(undefined);
 
   function handleSelect(num: number) {
@@ -17,6 +23,18 @@ const Menu = () => {
       return;
     }
     setSelected(num);
+  }
+
+  async function start() {
+    await client.GameActions.create(
+      account.account,
+      models.GameMode.MultiPlayer,
+      "ibs",
+      0,
+      0,
+      0,
+      2
+    );
   }
 
   return (
@@ -53,10 +71,7 @@ const Menu = () => {
           </div>
           {selected && (
             <div className="start">
-              <button
-                onClick={async () => startGame(selected)}
-                className="start-button"
-              >
+              <button onClick={async () => start()} className="start-button">
                 GO
               </button>
             </div>

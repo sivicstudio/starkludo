@@ -6,8 +6,8 @@ import {
 } from "@dojoengine/create-burner";
 import { Account } from "starknet";
 import { DojoProvider } from "@dojoengine/core";
-import { setupWorld } from "../gen/contracts.gen";
-import { dojoConfig } from "../../../dojoConfig";
+import { setupWorld } from "./typescript/contracts.gen";
+import { dojoConfig } from "../../dojoConfig";
 
 /**
  * Interface defining the shape of the Dojo context.

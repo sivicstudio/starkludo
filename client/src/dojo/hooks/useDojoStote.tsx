@@ -1,7 +1,7 @@
 import { createDojoStore } from "@dojoengine/sdk";
-import { StarkludoSchemaType } from "../gen/models.gen";
+import { SchemaType } from "../typescript/models.gen";
 
 /**
  * Global store for managing Dojo game state.
  */
-export const useDojoStore = createDojoStore<StarkludoSchemaType>();
+export const useDojoStore = createDojoStore<SchemaType>();

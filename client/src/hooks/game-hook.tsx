@@ -25,7 +25,7 @@ export const useGame = () => {
           newGame[entry[0]] = entry[1];
           return true;
         });
-      // ("START GAME STATE: ", newGame);
+      console.log("START GAME STATE: ", newGame);
       setGameData(newGame);
       setGameOptions({
         gameIsOngoing: true,

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DojoContext } from "../gen/DojoContext";
+import { DojoContext } from "../DojoContext";
 
 /**
  * Custom hook to access the Dojo context and account information.

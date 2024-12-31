@@ -3,10 +3,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { dojoConfig } from "../dojoConfig";
-import { DojoContextProvider } from "./dojo/gen/DojoContext";
+import { DojoContextProvider } from "./dojo/DojoContext";
 import { setupBurnerManager } from "@dojoengine/create-burner";
 import { init } from "@dojoengine/sdk";
-import { schema, StarkludoSchemaType } from "./dojo/gen/models.gen";
+import { schema, SchemaType } from "./dojo/typescript/models.gen";
 
 /**
  * Initializes and bootstraps the Dojo application.
@@ -15,7 +15,7 @@ import { schema, StarkludoSchemaType } from "./dojo/gen/models.gen";
  * @throws {Error} If initialization fails
  */
 async function main() {
-  const sdk = await init<StarkludoSchemaType>(
+  const sdk = await init<SchemaType>(
     {
       client: {
         rpcUrl: dojoConfig.rpcUrl,
@@ -24,7 +24,7 @@ async function main() {
         worldAddress: dojoConfig.manifest.world.address,
       },
       domain: {
-        name: "WORLD_NAME",
+        name: "STARKLUDO",
         version: "1.0",
         chainId: "KATANA",
         revision: "1",

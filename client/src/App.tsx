@@ -28,14 +28,13 @@ import Multiplayer from "./components/ControlWindows/Multiplayer";
 import Leaderboard from "./components/ControlWindows/Leaderboard";
 import GameAccount from "./components/ControlWindows/GameAccount";
 import MobileResponsiveWarning from "./components/MobileResponsiveWarning";
-import { StarkludoSchemaType } from "./dojo/gen/models.gen";
-import { SDK } from "@dojoengine/sdk";
+import { SchemaType } from "./dojo/typescript/models.gen";
+import { createDojoStore, SDK } from "@dojoengine/sdk";
 import Settings from "./components/Settings";
 import ToolboxPage from "./components/Toolbox";
 import { AvatarProvider } from "./context/avatar-context";
 
-const App = ({ sdk }: { sdk: SDK<StarkludoSchemaType> }) => {
-
+const App = ({ sdk }: { sdk: SDK<SchemaType> }) => {
   const [activeWindow, setActiveWindow] = useState("");
   const [showMobileResponsiveWarning, setShowMobileResponsiveWarning] =
     useState(false);
@@ -127,123 +126,125 @@ const App = ({ sdk }: { sdk: SDK<StarkludoSchemaType> }) => {
                 <BoardContext.Provider value={{ board, toggleBoard }}>
                   <ColorProvider>
                     <DiceProvider>
-                    <AvatarProvider>
-                      <Routes>
-                        <Route
-                          path="/color-settings"
-                          element={<ColorSettings />}
-                        />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/toolbox" element={<ToolboxPage />} />
-                        <Route
-                          path="/"
-                          element={
-                            <>
-                              <div className="game-behaviour-warning">
-                                <FiAlertTriangle size={20} />
-                                StarkLudo is still in active development{" "}
-                                <FiZap color="yellow" size={20} />
-                              </div>
-                              <div className="layout-container">
-                                <div className="layout-stretch-lock">
-                                  <div className="mobile-header">
-                                    <Header />
-                                  </div>
-                                  <Row gutter={0}>
-                                    <Col xs={12} sm={12} md={7} lg={7}>
-                                      <Ludo />
-                                    </Col>
-                                    <Col xs={12} sm={12} md={5} lg={5}>
-                                      <div className="sidebar">
-                                        <div>
+                      <AvatarProvider>
+                        <Routes>
+                          <Route
+                            path="/color-settings"
+                            element={<ColorSettings />}
+                          />
+                          <Route path="/settings" element={<Settings />} />
+                          <Route path="/toolbox" element={<ToolboxPage />} />
+                          <Route
+                            path="/"
+                            element={
+                              <>
+                                <div className="game-behaviour-warning">
+                                  <FiAlertTriangle size={20} />
+                                  StarkLudo is still in active development{" "}
+                                  <FiZap color="yellow" size={20} />
+                                </div>
+                                <div className="layout-container">
+                                  <div className="layout-stretch-lock">
+                                    <div className="mobile-header">
+                                      <Header />
+                                    </div>
+                                    <Row gutter={0}>
+                                      <Col xs={12} sm={12} md={7} lg={7}>
+                                        <Ludo />
+                                      </Col>
+                                      <Col xs={12} sm={12} md={5} lg={5}>
+                                        <div className="sidebar">
                                           <div>
-                                            <div className="desktop-header">
-                                              <Header />
-                                            </div>
-                                            <Menu />
-                                            {/* <RestartGame /> */}
-                                            <Alert />
-                                            <Dice />
-                                            {activeWindow === "account" ? (
-                                              <ControlWindowLayout
-                                                toggle={() =>
-                                                  setActiveWindow("")
-                                                }
-                                                title="PROFILE"
-                                                subtitle="Your Profile Information"
-                                              >
-                                                <GameAccount />
-                                              </ControlWindowLayout>
-                                            ) : null}
-
-                                            {activeWindow === "leaderboard" ? (
-                                              <ControlWindowLayout
-                                                toggle={() =>
-                                                  setActiveWindow("")
-                                                }
-                                                title="LEADERBOARD"
-                                                subtitle="Global Player Rankings"
-                                              >
-                                                <Leaderboard />
-                                              </ControlWindowLayout>
-                                            ) : null}
-
-                                            {activeWindow === "multiplayer" ? (
-                                              <ControlWindowLayout
-                                                toggle={() =>
-                                                  setActiveWindow("")
-                                                }
-                                                title="MULTIPLAYER"
-                                                subtitle="Choose An Account To Play With"
-                                              >
-                                                <Multiplayer />
-                                              </ControlWindowLayout>
-                                            ) : null}
-
-                                            {activeWindow === "toolbox" ? (
-                                              <ControlWindowLayout
-                                                toggle={() =>
-                                                  setActiveWindow("")
-                                                }
-                                                title="TOOLBOX"
-                                                subtitle="Get All Your Items And Settings Done"
-                                              >
-                                                <Toolbox
-                                                  activeCategory={
-                                                    activeCategory
+                                            <div>
+                                              <div className="desktop-header">
+                                                <Header />
+                                              </div>
+                                              <Menu />
+                                              {/* <RestartGame /> */}
+                                              <Alert />
+                                              <Dice />
+                                              {activeWindow === "account" ? (
+                                                <ControlWindowLayout
+                                                  toggle={() =>
+                                                    setActiveWindow("")
                                                   }
-                                                  onCategoryClick={
-                                                    handleCategoryClick
+                                                  title="PROFILE"
+                                                  subtitle="Your Profile Information"
+                                                >
+                                                  <GameAccount sdk={sdk} />
+                                                </ControlWindowLayout>
+                                              ) : null}
+
+                                              {activeWindow ===
+                                              "leaderboard" ? (
+                                                <ControlWindowLayout
+                                                  toggle={() =>
+                                                    setActiveWindow("")
+                                                  }
+                                                  title="LEADERBOARD"
+                                                  subtitle="Global Player Rankings"
+                                                >
+                                                  <Leaderboard />
+                                                </ControlWindowLayout>
+                                              ) : null}
+
+                                              {activeWindow ===
+                                              "multiplayer" ? (
+                                                <ControlWindowLayout
+                                                  toggle={() =>
+                                                    setActiveWindow("")
+                                                  }
+                                                  title="MULTIPLAYER"
+                                                  subtitle="Choose An Account To Play With"
+                                                >
+                                                  <Multiplayer />
+                                                </ControlWindowLayout>
+                                              ) : null}
+
+                                              {activeWindow === "toolbox" ? (
+                                                <ControlWindowLayout
+                                                  toggle={() =>
+                                                    setActiveWindow("")
+                                                  }
+                                                  title="TOOLBOX"
+                                                  subtitle="Get All Your Items And Settings Done"
+                                                >
+                                                  <Toolbox
+                                                    activeCategory={
+                                                      activeCategory
+                                                    }
+                                                    onCategoryClick={
+                                                      handleCategoryClick
+                                                    }
+                                                  />
+                                                </ControlWindowLayout>
+                                              ) : null}
+
+                                              {activeWindow === "help" && (
+                                                <GameHelp
+                                                  onClose={() =>
+                                                    setActiveWindow("")
                                                   }
                                                 />
-                                              </ControlWindowLayout>
-                                            ) : null}
-
-                                            {activeWindow === "help" && (
-                                              <GameHelp
-                                                onClose={() =>
-                                                  setActiveWindow("")
+                                              )}
+                                              <Control
+                                                toggleActiveWindow={
+                                                  toggleActiveWindow
                                                 }
                                               />
-                                            )}
-                                            <Control
-                                              toggleActiveWindow={
-                                                toggleActiveWindow
-                                              }
-                                            />
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    </Col>
-                                  </Row>
+                                      </Col>
+                                    </Row>
+                                  </div>
                                 </div>
-                              </div>
-                              <Footer />
-                            </>
-                          }
-                        />
-                      </Routes>
-                     </AvatarProvider> 
+                                <Footer />
+                              </>
+                            }
+                          />
+                        </Routes>
+                      </AvatarProvider>
                     </DiceProvider>
                   </ColorProvider>
                 </BoardContext.Provider>

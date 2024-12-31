@@ -16,6 +16,9 @@ telegram = "https://t.me/+hnjQooODZOA2M2Rk"
 [namespace]
 default = "starkludo"
 
+[writers]
+"starkludo" = ["starkludo-GameActions"]
+
 [env]
 rpc_url = "http://localhost:5050/"
 # Default account for katana with seed = 0

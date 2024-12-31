@@ -1,4 +1,4 @@
-import { StarkludoSchemaType } from "../gen/models.gen";
+import { SchemaType } from "../typescript/models.gen";
 import { useDojoStore } from "./useDojoStote";
 
 /**
@@ -9,16 +9,16 @@ import { useDojoStore } from "./useDojoStote";
  * @returns The model structure if found, otherwise undefined.
  */
 function useModel<
-  N extends keyof StarkludoSchemaType,
-  M extends keyof StarkludoSchemaType[N] & string,
->(entityId: string, model: `${N}-${M}`): StarkludoSchemaType[N][M] | undefined {
+  N extends keyof SchemaType,
+  M extends keyof SchemaType[N] & string,
+>(entityId: string, model: `${N}-${M}`): SchemaType[N][M] | undefined {
   const [namespace, modelName] = model.split("-") as [N, M];
 
   // Select only the specific model data for the given entityId
   const modelData = useDojoStore(
     (state) =>
       state.entities[entityId]?.models?.[namespace]?.[modelName] as
-        | StarkludoSchemaType[N][M]
+        | SchemaType[N][M]
         | undefined
   );
 

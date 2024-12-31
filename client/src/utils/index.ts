@@ -1,29 +1,18 @@
-export enum Direction {
-  Left = 1,
-  Right = 2,
-  Up = 3,
-  Down = 4,
-}
+/**
+ * Converts an hex value to ASCII text
+ * @param hexValue Hexadecimal value
+ * @returns ASCII text equivalent of `hexValue`
+ */
+export const convertHexToText = (hexValue: string) => {
+  const stripHex = hexValue[0].slice(2);
 
-export function updatePositionWithDirection(
-  direction: Direction,
-  value: { vec: { x: number; y: number } },
-) {
-  switch (direction) {
-    case Direction.Left:
-      value.vec.x--;
-      break;
-    case Direction.Right:
-      value.vec.x++;
-      break;
-    case Direction.Up:
-      value.vec.y--;
-      break;
-    case Direction.Down:
-      value.vec.y++;
-      break;
-    default:
-      throw new Error("Invalid direction provided");
+  if (!stripHex) {
+    return "--Error--";
   }
-  return value;
-}
+
+  const stringValue = stripHex
+    .toString()
+    .match(/.{1,2}/g)
+    ?.reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), "");
+  return stringValue;
+};

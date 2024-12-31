@@ -9,7 +9,6 @@ export const GameContext = createContext<{
   setGameOptions: (newOption: object) => void;
 }>({
   gameState: {},
-
   /* eslint-disable @typescript-eslint/no-unused-vars */
   setGameData: (game) => undefined,
   options: {

@@ -12,11 +12,11 @@ spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
 move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
 
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.5" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.9" }
 origami_random = { git = "https://github.com/dojoengine/origami" }
 
 [[target.starknet-contract]]
 build-external-contracts = ["dojo::world::world_contract::world"]
 
 [dev-dependencies]
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.5" }
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.9" }
