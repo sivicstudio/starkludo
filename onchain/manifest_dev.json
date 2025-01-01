@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x10971207fc86ba2f051f3319b953e2c23a7c9b1974b78682641783e318c22df",
-      "class_hash": "0x583ac557c3d1e546061da93c942209ff38e52823a2c2b6bd6acf94ad798cbbc",
+      "address": "0x71297c396a9a88c784a22bf64e2aafcfd9a45a9fd31fdb139e41bf10278a198",
+      "class_hash": "0x2f7f208ce6a733f9660a40e0ae278db93ea943622e4f1358cac708e30b7991c",
       "abi": [
         {
           "type": "impl",
@@ -1326,6 +1326,28 @@
         },
         {
           "type": "enum",
+          "name": "starkludo::models::game::PlayerColor",
+          "variants": [
+            {
+              "name": "Green",
+              "type": "()"
+            },
+            {
+              "name": "Yellow",
+              "type": "()"
+            },
+            {
+              "name": "Blue",
+              "type": "()"
+            },
+            {
+              "name": "Red",
+              "type": "()"
+            }
+          ]
+        },
+        {
+          "type": "enum",
           "name": "core::bool",
           "variants": [
             {
@@ -1339,32 +1361,60 @@
           ]
         },
         {
+          "type": "struct",
+          "name": "core::integer::u256",
+          "members": [
+            {
+              "name": "low",
+              "type": "core::integer::u128"
+            },
+            {
+              "name": "high",
+              "type": "core::integer::u128"
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "starkludo::models::player::Player",
+          "members": [
+            {
+              "name": "username",
+              "type": "core::felt252"
+            },
+            {
+              "name": "owner",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "is_bot",
+              "type": "core::bool"
+            },
+            {
+              "name": "total_games_played",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "total_games_won",
+              "type": "core::integer::u256"
+            }
+          ]
+        },
+        {
           "type": "interface",
           "name": "starkludo::systems::game_actions::IGameActions",
           "items": [
             {
               "type": "function",
-              "name": "create",
+              "name": "create_new_game",
               "inputs": [
                 {
                   "name": "game_mode",
                   "type": "starkludo::models::game::GameMode"
                 },
                 {
-                  "name": "player_green",
-                  "type": "core::felt252"
-                },
-                {
-                  "name": "player_yellow",
-                  "type": "core::felt252"
-                },
-                {
-                  "name": "player_blue",
-                  "type": "core::felt252"
-                },
-                {
-                  "name": "player_red",
-                  "type": "core::felt252"
+                  "name": "player_color",
+                  "type": "starkludo::models::game::PlayerColor"
                 },
                 {
                   "name": "number_of_players",
@@ -1380,8 +1430,13 @@
             },
             {
               "type": "function",
-              "name": "start",
-              "inputs": [],
+              "name": "start_game",
+              "inputs": [
+                {
+                  "name": "game_id",
+                  "type": "core::integer::u64"
+                }
+              ],
               "outputs": [],
               "state_mutability": "external"
             },
@@ -1459,6 +1514,22 @@
                 }
               ],
               "outputs": [],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
+              "name": "create_bot_player",
+              "inputs": [
+                {
+                  "name": "bot_color",
+                  "type": "starkludo::models::game::PlayerColor"
+                }
+              ],
+              "outputs": [
+                {
+                  "type": "starkludo::models::player::Player"
+                }
+              ],
               "state_mutability": "external"
             },
             {
@@ -1614,13 +1685,14 @@
       "tag": "starkludo-GameActions",
       "selector": "0x72b46dc4acc981e6d5c080d57c5dbf80f68d03d30e7e313dbefb0dc7dfda57",
       "systems": [
-        "create",
-        "start",
+        "create_new_game",
+        "start_game",
         "join",
         "move",
         "roll",
         "create_new_game_id",
         "create_new_player",
+        "create_bot_player",
         "upgrade"
       ]
     }
@@ -1634,7 +1706,7 @@
     },
     {
       "members": [],
-      "class_hash": "0x7bb28c5064aa98068e44b898cbf8240379a3ef66a35ca9e30ddbc8ff8ad1872",
+      "class_hash": "0xdcd80b3d864987735787bf561c46663b21dcb00b2dd80ee60133f0703c5170",
       "tag": "starkludo-Game",
       "selector": "0x5286f583d42be5bcce55789312382404da27ac52bdd960a67ba99b63a68ef52"
     },

@@ -6,7 +6,7 @@ import DiceTwo from "../svg/DiceTwo";
 import DiceThree from "../svg/DiceThree";
 import DiceFour from "../svg/DiceFour";
 import { useDojo } from "../dojo/hooks/useDojo";
-import * as models from "../dojo/typescript/models.gen.ts";
+import * as models from "../dojo/typescript/models.gen";
 
 const Menu = () => {
   const { options } = useContext(GameContext);
@@ -26,13 +26,10 @@ const Menu = () => {
   }
 
   async function start() {
-    await client.GameActions.create(
+    await client.GameActions.createNewGame(
       account.account,
-      models.GameMode.MultiPlayer,
-      "ibs",
-      0,
-      0,
-      0,
+      models.GameMode.SinglePlayer,
+      models.PlayerColor.Green,
       2
     );
   }

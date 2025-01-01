@@ -140,7 +140,7 @@ mod tests {
     #[ignore]
     #[should_panic(expected: ('USERNAME ALREADY TAKEN', 'ENTRYPOINT_FAILED',))]
     fn test_create_new_player_should_panic_if_username_already_exist() {
-        let (world, game_action_system) = setup_world();
+        let (_, game_action_system) = setup_world();
         let caller_1 = contract_address_const::<'ibs'>();
         let caller_2 = contract_address_const::<'dreamer'>();
         let username = 'ibs';
@@ -156,7 +156,7 @@ mod tests {
     #[ignore]
     #[should_panic(expected: ('USERNAME ALREADY CREATED', 'ENTRYPOINT_FAILED',))]
     fn test_create_new_player_should_fail_panic_username_already_created() {
-        let (world, game_action_system) = setup_world();
+        let (_, game_action_system) = setup_world();
         let caller = contract_address_const::<'ibs'>();
         let username = 'ibs';
 

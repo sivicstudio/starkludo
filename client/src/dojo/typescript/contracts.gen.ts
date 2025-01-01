@@ -4,14 +4,14 @@ import * as models from "./models.gen";
 
 export function setupWorld(provider: DojoProvider) {
 
-	const GameActions_create = async (snAccount: Account | AccountInterface, gameMode: models.GameMode, playerGreen: BigNumberish, playerYellow: BigNumberish, playerBlue: BigNumberish, playerRed: BigNumberish, numberOfPlayers: BigNumberish) => {
+	const GameActions_createNewGame = async (snAccount: Account | AccountInterface, gameMode: models.GameMode, playerColor: models.PlayerColor, numberOfPlayers: BigNumberish) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "GameActions",
-					entrypoint: "create",
-					calldata: [gameMode, playerGreen, playerYellow, playerBlue, playerRed, numberOfPlayers],
+					entrypoint: "create_new_game",
+					calldata: [gameMode, playerColor, numberOfPlayers],
 				},
 				"starkludo",
 			);
@@ -20,14 +20,14 @@ export function setupWorld(provider: DojoProvider) {
 		}
 	};
 
-	const GameActions_start = async (snAccount: Account | AccountInterface) => {
+	const GameActions_startGame = async (snAccount: Account | AccountInterface, gameId: BigNumberish) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "GameActions",
-					entrypoint: "start",
-					calldata: [],
+					entrypoint: "start_game",
+					calldata: [gameId],
 				},
 				"starkludo",
 			);
@@ -128,6 +128,22 @@ export function setupWorld(provider: DojoProvider) {
 		}
 	};
 
+	const GameActions_createBotPlayer = async (snAccount: Account | AccountInterface, botColor: models.PlayerColor) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "GameActions",
+					entrypoint: "create_bot_player",
+					calldata: [botColor],
+				},
+				"starkludo",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const GameActions_getUsernameFromAddress = async (address: string) => {
 		try {
 			return await provider.call("starkludo", {
@@ -154,14 +170,15 @@ export function setupWorld(provider: DojoProvider) {
 
 	return {
 		GameActions: {
-			create: GameActions_create,
-			start: GameActions_start,
+			createNewGame: GameActions_createNewGame,
+			startGame: GameActions_startGame,
 			join: GameActions_join,
 			move: GameActions_move,
 			roll: GameActions_roll,
 			getCurrentGameId: GameActions_getCurrentGameId,
 			createNewGameId: GameActions_createNewGameId,
 			createNewPlayer: GameActions_createNewPlayer,
+			createBotPlayer: GameActions_createBotPlayer,
 			getUsernameFromAddress: GameActions_getUsernameFromAddress,
 			getAddressFromUsername: GameActions_getAddressFromUsername,
 		},

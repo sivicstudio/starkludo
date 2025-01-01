@@ -1,6 +1,6 @@
 use starkludo::models::{
-    game::{Game, GameCounter, GameTrait, GameMode, GameStatus},
-    player::{Player, PlayerTrait, PlayerColor, AddressToUsername, UsernameToAddress}
+    game::{Game, GameCounter, GameTrait, GameMode, GameStatus, PlayerColor},
+    player::{Player, PlayerTrait, AddressToUsername, UsernameToAddress}
 };
 use starknet::{ContractAddress, get_block_timestamp};
 

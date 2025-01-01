@@ -1,4 +1,4 @@
-import { QueryBuilder } from "@dojoengine/sdk";
+import { QueryBuilder, SDK } from "@dojoengine/sdk";
 import { useAccount, useConnect } from "@starknet-react/core";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
 import BigNumber from "bignumber.js";
@@ -11,7 +11,7 @@ import "../../styles/GameAccount.scss";
 import useModel from "../../dojo/hooks/useModel";
 import { getUsernameFromAddress } from "../../utils/helpers";
 
-const ConnectWallet = ({ sdk }) => {
+const ConnectWallet = ({ sdk }: { sdk: SDK<SchemaType> }) => {
   const {
     account,
     setup: { client },
@@ -106,7 +106,7 @@ const ConnectWallet = ({ sdk }) => {
   );
 };
 
-const GameAccount = ({ sdk }) => {
+const GameAccount = ({ sdk }: { sdk: SDK<SchemaType> }) => {
   const { address } = useAccount();
   const [pagesStack, setPagesStack] = useState<string[]>(["MAIN_PAGE"]);
 

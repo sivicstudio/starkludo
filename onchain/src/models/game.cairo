@@ -20,6 +20,14 @@ pub enum GameMode {
     MultiPlayer, // Play online with friends
 }
 
+#[derive(Serde, Copy, Drop, Introspect, PartialEq)]
+pub enum PlayerColor {
+    Green,
+    Yellow,
+    Blue,
+    Red
+}
+
 // Game model
 // Keeps track of the state of the game
 #[derive(Drop, Serde)]
