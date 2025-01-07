@@ -26,11 +26,16 @@ const Menu = () => {
   }
 
   async function start() {
+    if (!selected) {
+      alert("Number of players not set");
+      return;
+    }
+
     await client.GameActions.createNewGame(
       account.account,
       models.GameMode.SinglePlayer,
       models.PlayerColor.Green,
-      2
+      selected
     );
   }
 
@@ -68,7 +73,10 @@ const Menu = () => {
           </div>
           {selected && (
             <div className="start">
-              <button onClick={async () => start()} className="start-button">
+              <button
+                onClick={async () => startGame(selected)}
+                className="start-button"
+              >
                 GO
               </button>
             </div>

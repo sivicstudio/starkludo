@@ -29,10 +29,13 @@ import Leaderboard from "./components/ControlWindows/Leaderboard";
 import GameAccount from "./components/ControlWindows/GameAccount";
 import MobileResponsiveWarning from "./components/MobileResponsiveWarning";
 import { SchemaType } from "./dojo/typescript/models.gen";
-import { createDojoStore, SDK } from "@dojoengine/sdk";
+import { createDojoStore, QueryBuilder, SDK } from "@dojoengine/sdk";
 import Settings from "./components/Settings";
 import ToolboxPage from "./components/Toolbox";
 import { AvatarProvider } from "./context/avatar-context";
+import { addAddressPadding } from "starknet";
+import { useDojo } from "./dojo/hooks/useDojo";
+import { useDojoStore } from "./dojo/hooks/useDojoStote";
 
 const App = ({ sdk }: { sdk: SDK<SchemaType> }) => {
   const [activeWindow, setActiveWindow] = useState("");
@@ -50,6 +53,14 @@ const App = ({ sdk }: { sdk: SDK<SchemaType> }) => {
     winners: [],
     gameCondition: [],
   });
+
+  const {
+    account,
+    setup: { client },
+  } = useDojo();
+
+  const state = useDojoStore((state) => state);
+  const entities = useDojoStore((state) => state.entities);
 
   const toggleActiveWindow = (window: string) => {
     if (window === activeWindow) {
@@ -79,6 +90,38 @@ const App = ({ sdk }: { sdk: SDK<SchemaType> }) => {
       };
     });
   }, []);
+
+  useEffect(() => {
+    let unsubscribe: (() => void) | undefined;
+
+    const subscribe = async () => {
+      const subscription = await sdk.subscribeEntityQuery({
+        query: new QueryBuilder<SchemaType>()
+          .namespace("starkludo", (n) =>
+            n.entity("Game", (e) => {}).entity("GameCounter", (e) => {})
+          )
+          .build(),
+        callback: (response) => {
+          if (response.error) {
+            console.error("Error setting up entity sync:", response.error);
+          } else if (response.data && response.data[0].entityId !== "0x0") {
+            state.updateEntity(response.data[0]);
+            console.log("STATE: ", state);
+          }
+        },
+      });
+
+      unsubscribe = () => subscription.cancel();
+    };
+
+    subscribe();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [sdk, account?.account.address]);
 
   useEffect(() => {
     if (options.gameIsOngoing) {

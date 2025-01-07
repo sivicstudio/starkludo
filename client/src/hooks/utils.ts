@@ -32,6 +32,8 @@ export const BoardToPos = (arr: number[]) => {
         : val - startPoints[color];
     }
   });
+
+  console.log("BOARD TO POS: ", newArr);
   return newArr;
 };
 
