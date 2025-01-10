@@ -159,12 +159,13 @@ mod tests {
         let (_, game_action_system) = setup_world();
         let caller = contract_address_const::<'ibs'>();
         let username = 'ibs';
+        let username1 = 'dreamer';
 
-        testing::set_caller_address(caller);
+        testing::set_contract_address(caller);
         // Player create username for the first time
         game_action_system.create_new_player(username, false);
-        // Player attempts to create username for the second time
-        game_action_system.create_new_player(username, false);
+        // Player attempts to create another username for the second time
+        game_action_system.create_new_player(username1, false);
     }
 
     #[test]
