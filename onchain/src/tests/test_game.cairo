@@ -145,10 +145,10 @@ mod tests {
         let caller_2 = contract_address_const::<'dreamer'>();
         let username = 'ibs';
 
-        testing::set_caller_address(caller_1);
+        testing::set_contract_address(caller_1);
         game_action_system.create_new_player(username, false);
 
-        testing::set_caller_address(caller_2);
+        testing::set_contract_address(caller_2);
         game_action_system.create_new_player(username, false);
     }
 
@@ -174,7 +174,7 @@ mod tests {
         let caller = contract_address_const::<'ibs'>();
         let username = 'ibs';
 
-        testing::set_caller_address(caller);
+        testing::set_contract_address(caller);
         game_action_system.create_new_player(username, false);
 
         let created_player: Player = world.read_model(username);
