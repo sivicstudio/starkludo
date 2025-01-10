@@ -313,7 +313,7 @@ pub mod GameActions {
                     player_address = contract_address_const::<'blue_bot'>();
                 },
                 PlayerColor::Red => {
-                    username = 'red_bot ';
+                    username = 'red_bot';
                     player_address = contract_address_const::<'red_bot'>();
                 }
             };
