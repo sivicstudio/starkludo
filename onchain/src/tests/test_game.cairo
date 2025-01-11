@@ -5,19 +5,19 @@ mod tests {
     use dojo::model::{ModelStorage, ModelValueStorage, ModelStorageTest};
     use dojo::world::{WorldStorageTrait, WorldStorage};
     use dojo_cairo_test::{
-        spawn_test_world, NamespaceDef, TestResource, ContractDefTrait, ContractDef
+        spawn_test_world, NamespaceDef, TestResource, ContractDefTrait, ContractDef,
     };
 
     // Systems import
     use starkludo::systems::game_actions::{
-        GameActions, IGameActionsDispatcher, IGameActionsDispatcherTrait
+        GameActions, IGameActionsDispatcher, IGameActionsDispatcherTrait,
     };
 
     // Models import
     use starkludo::models::game::{Game, m_Game, GameCounter, m_GameCounter, PlayerColor};
     use starkludo::models::player::{
         Player, m_Player, AddressToUsername, UsernameToAddress, m_AddressToUsername,
-        m_UsernameToAddress
+        m_UsernameToAddress,
     };
 
     use starkludo::models::game::{GameMode, GameStatus};
@@ -30,7 +30,8 @@ mod tests {
         // Namespace name "starkludo"
         // Array of TestResource enums for models, contracts and events
         let ndef = NamespaceDef {
-            namespace: "starkludo", resources: [
+            namespace: "starkludo",
+            resources: [
                 // Register the Game model's class hash
                 TestResource::Model(m_Game::TEST_CLASS_HASH),
                 TestResource::Model(m_GameCounter::TEST_CLASS_HASH),
@@ -45,7 +46,8 @@ mod tests {
                 TestResource::Event(GameActions::e_GameCreated::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_PlayerCreated::TEST_CLASS_HASH),
-            ].span() // Convert array to a Span type
+            ]
+                .span() // Convert array to a Span type
         };
 
         // Return the namespace definition
@@ -63,7 +65,8 @@ mod tests {
                 // Configure write permissions by specifying which addresses can modify the contract
                 // Here, only the address derived from hashing "starkludo" has write access
                 .with_writer_of([dojo::utils::bytearray_hash(@"starkludo")].span())
-        ].span() // Convert the array to a Span container for return
+        ]
+            .span() // Convert the array to a Span container for return
     }
 
     fn setup_world() -> (WorldStorage, IGameActionsDispatcher) {
@@ -137,7 +140,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected: ('USERNAME ALREADY TAKEN', 'ENTRYPOINT_FAILED',))]
+    #[should_panic(expected: ('USERNAME ALREADY TAKEN', 'ENTRYPOINT_FAILED'))]
     fn test_create_new_player_should_panic_if_username_already_exist() {
         let (_, game_action_system) = setup_world();
         let caller_1 = contract_address_const::<'ibs'>();
@@ -152,7 +155,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected: ('USERNAME ALREADY CREATED', 'ENTRYPOINT_FAILED',))]
+    #[should_panic(expected: ('USERNAME ALREADY CREATED', 'ENTRYPOINT_FAILED'))]
     fn test_create_new_player_should_fail_panic_username_already_created() {
         let (_, game_action_system) = setup_world();
         let caller = contract_address_const::<'ibs'>();
@@ -259,10 +262,10 @@ mod tests {
         let username2: felt252 = 'bob';
 
         let address_to_username1 = AddressToUsername {
-            address: test_address1, username: username1
+            address: test_address1, username: username1,
         };
         let address_to_username2 = AddressToUsername {
-            address: test_address2, username: username2
+            address: test_address2, username: username2,
         };
 
         world.write_model(@address_to_username1);
@@ -314,5 +317,74 @@ mod tests {
         let retrieved_username3 = game_action_system
             .get_username_from_address(non_existent_address);
         assert(retrieved_username3 == 0, 'Non-existent should return 0');
+    }
+
+    #[test]
+    #[should_panic(expected: ('PLAYERS CAN ONLY BE 2, 3, OR 4', 'ENTRYPOINT_FAILED'))]
+    fn test_create_new_game_invalid_player_count() {
+        let (_, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+        let no_of_players: u8 = 1;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Blue, no_of_players);
+    }
+
+    #[test]
+    #[should_panic(expected: ('PLAYER NOT REGISTERED', 'ENTRYPOINT_FAILED'))]
+    fn test_create_new_game_unregistered_player() {
+        let (_, game_action_system) = setup_world();
+        let unregistered_caller = contract_address_const::<'unregistered'>();
+        let no_of_players: u8 = 2;
+
+        testing::set_contract_address(unregistered_caller);
+        // Try to create game without registering first
+        game_action_system
+            .create_new_game(GameMode::SinglePlayer, PlayerColor::Blue, no_of_players);
+    }
+
+    #[test]
+    fn test_create_new_game_successful() {
+        let (world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+        let no_of_players: u8 = 3;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::SinglePlayer, PlayerColor::Blue, no_of_players);
+
+        let created_game: Game = world.read_model(game_id);
+
+        assert(created_game.is_initialised == true, 'Game should be initialized');
+        assert(created_game.created_by == username, 'Wrong game creator');
+        assert(created_game.mode == GameMode::SinglePlayer, 'Wrong game mode');
+        assert(created_game.number_of_players == 3, 'Wrong number of players');
+        assert(created_game.player_blue == username, 'Wrong player color assignment');
+        assert(created_game.player_red == 0, 'Red should not be assigned');
+        assert(created_game.status == GameStatus::Initialised, 'Wrong game status');
+    }
+
+    #[test]
+    fn test_create_new_game_increments_id() {
+        let (_, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let first_game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Blue, 2);
+
+        let second_game_id = game_action_system
+            .create_new_game(GameMode::SinglePlayer, PlayerColor::Green, 4);
+
+        assert(second_game_id == first_game_id + 1, 'Game ID should increment');
     }
 }
