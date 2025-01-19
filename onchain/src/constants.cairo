@@ -160,3 +160,36 @@ fn contains(array: Array<u32>, value: u32) -> bool {
     return found;
 
 }
+
+fn get_cap_colors() -> Array<felt252> {
+    array!['R', 'G', 'Y', 'B']
+}
+
+fn pos_reducer(data: Array<u32>, players_length: u32) -> Array<felt252> {
+    let mut game: Array<felt252> = ArrayTrait::new();
+    let cap_colors = get_cap_colors(); // Assume this function exists and returns an array of felt252
+
+    let mut i: u32 = 0;
+    loop {
+        if i >= data.len() {
+            break;
+        }
+        if i < players_length * 4 {
+            let d = *data.at(i);
+            let color = *cap_colors.at((i / 4).try_into().unwrap());
+
+            let value = if d == 0 {
+                color * 1000 + (i % 4 + 1).into()
+            } else if d > 1000 {
+                color * 1000 + (d % 1000).into()
+            } else {
+                d.into()
+            };
+
+            game.append(value);
+        }
+        i += 1;
+    };
+
+    game
+}

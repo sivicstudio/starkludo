@@ -39,7 +39,7 @@ pub mod GameActions {
     use dojo::event::EventStorage;
     use origami_random::dice::{Dice, DiceTrait};
     use starkludo::errors::Errors;
-    use starkludo::constants::{get_markers, find_index, pos_to_board, board_to_pos, get_safe_positions, contains};
+    use starkludo::constants::{get_markers, find_index, pos_to_board, board_to_pos, get_safe_positions, contains, pos_reducer, get_cap_colors};
 
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
@@ -235,61 +235,229 @@ pub mod GameActions {
 
             let mut game: Game = world.read_model(game_id);
 
-            let game_condition = array![game.r0, game.r1, game.r2, game.r3, game.g0, game.g1, game.g2, game.g3, game.y0, game.y1, game.y2, game.y3, game.b0, game.b1, game.b2, game.b3];
-
-            let diceThrow = game.dice_face;
+            let diceThrow: u32 = game.dice_face.into();
 
             let markers = get_markers();
 
             let j = find_index(pos, markers);   // current_val
 
-            let isChance = false;
-            let isThrown = false;
+            let mut isChance = false;
+            let mut isThrown = false;
 
-            let current_condition = pos_to_board(game_condition);
+            let current_condition = pos_to_board(game.game_condition.clone());
 
-            let val = current_condition[j];
+            let mut val = current_condition[j];
 
-            let ( newVal, ischance, isthrown ) = self.move_deducer(val, diceThrow);
+            let ( newVal, ischance, isthrown ) = self.move_deducer(*val, diceThrow);
 
             isChance = ischance;
             isThrown = isthrown;
-            current_condition[j] = newVal;
-            current_condition = board_to_pos(current_condition);
-            val = current_condition[j];
+
+            let mut condition = ArrayTrait::new();
+            let mut i: usize = 0;
+            loop {
+                if i == current_condition.len() {
+                    break;
+                }
+                if i == j {
+                    condition.append(newVal);
+                } else {
+                    condition.append(*current_condition.at(i));
+                }
+                i += 1;
+            };
+
+            condition = board_to_pos(condition);
+
+            val = condition[j];
 
             let safe_pos = get_safe_positions();
 
-            if !contains(safe_pos, val) {
+            let players_length = game.number_of_players.try_into().unwrap();
+
+            if !contains(safe_pos, *val) {
                 let mut i: u32 = 0;
                 loop {
-                    if i >= game.number_of_players * 4 {
+                    if i >= (players_length * 4){
                         break;
                     }
-                    if color != (i / 4).into() && *current_condition.at(i) == val {
+                    if color != (i / 4).try_into().unwrap() && *condition.at(i) == *val{
                         isChance = true;
                         let mut new_condition = ArrayTrait::new();
                         let mut j: u32 = 0;
                         loop {
-                            if j >= current_condition.len() {
+                            if j >= condition.len() {
                                 break;
                             }
                             if j == i {
                                 new_condition.append(0);
                             } else {
-                                new_condition.append(*current_condition.at(j));
+                                new_condition.append(*condition.at(j));
                             }
                             j += 1;
                         };
-                        current_condition = new_condition;
+                        condition = new_condition;
                     }
                     i += 1;
                 };
             }
 
-            if (diceThrow === 6) {
+
+            if (diceThrow == 6) {
                 isChance = true;
-              }
+            }
+
+            game.game_condition = condition.clone();
+
+            let current_condition = condition;
+
+            let deref = pos_reducer(current_condition, players_length);
+
+            let output = deref.clone();
+
+            match players_length {
+                0 => {},
+                1 => {},
+                2 => {
+                    game.r0 = *output.get(0).unwrap().unbox();
+                    game.r1 = *output.get(1).unwrap().unbox();
+                    game.r2 = *output.get(2).unwrap().unbox();
+                    game.r3 = *output.get(3).unwrap().unbox();
+                    game.g0 = *output.get(4).unwrap().unbox();
+                    game.g1 = *output.get(5).unwrap().unbox();
+                    game.g2 = *output.get(6).unwrap().unbox();
+                    game.g3 = *output.get(7).unwrap().unbox();
+                },
+                3 => {
+                    game.r0 = *output.get(0).unwrap().unbox();
+                    game.r1 = *output.get(1).unwrap().unbox();
+                    game.r2 = *output.get(2).unwrap().unbox();
+                    game.r3 = *output.get(3).unwrap().unbox();
+                    game.g0 = *output.get(4).unwrap().unbox();
+                    game.g1 = *output.get(5).unwrap().unbox();
+                    game.g2 = *output.get(6).unwrap().unbox();
+                    game.g3 = *output.get(7).unwrap().unbox();
+                    game.y0 = *output.get(8).unwrap().unbox();
+                    game.y1 = *output.get(9).unwrap().unbox();
+                    game.y2 = *output.get(10).unwrap().unbox();
+                    game.y3 = *output.get(11).unwrap().unbox();
+                },
+                4 => {
+                    game.r0 = *output.get(0).unwrap().unbox();
+                    game.r1 = *output.get(1).unwrap().unbox();
+                    game.r2 = *output.get(2).unwrap().unbox();
+                    game.r3 = *output.get(3).unwrap().unbox();
+                    game.g0 = *output.get(4).unwrap().unbox();
+                    game.g1 = *output.get(5).unwrap().unbox();
+                    game.g2 = *output.get(6).unwrap().unbox();
+                    game.g3 = *output.get(7).unwrap().unbox();
+                    game.y0 = *output.get(8).unwrap().unbox();
+                    game.y1 = *output.get(9).unwrap().unbox();
+                    game.y2 = *output.get(10).unwrap().unbox();
+                    game.y3 = *output.get(11).unwrap().unbox();
+                    game.b0 = *output.get(12).unwrap().unbox();
+                    game.b1 = *output.get(13).unwrap().unbox();
+                    game.b2 = *output.get(14).unwrap().unbox();
+                    game.b3 = *output.get(15).unwrap().unbox();
+                },
+                _ => {}
+            }
+
+            let mut color_state = ArrayTrait::new();
+            let start = color * 4;
+            let end = start + 4;
+
+            let mut i:u32 = start.into();
+            loop {
+                if i >= end.into() || i >= output.len().into() {
+                    break;
+                }
+                color_state.append(*output.at(i));
+                i += 1;
+            };
+
+            let cap_colors = get_cap_colors();
+            let mut f: u32 = 0;
+            let mut k: u32 = 0;
+            loop {
+                if k >= color_state.len() {
+                    break;
+                }
+
+                let c: felt252 = *color_state.at(k);
+
+                let cap_color: felt252 = *cap_colors.at(color.try_into().unwrap());
+                let comparison_value: felt252 = (cap_color * 256 + '6').into();
+
+                if c == comparison_value {
+                    f += 1;
+                }
+                k += 1;
+            };
+
+            let mut new_color = if isChance {
+                color
+            } else {
+                (color + 1) % players_length.try_into().unwrap()
+            };
+
+            let red_address = game.player_red;
+            let green_address = game.player_green;
+            let yellow_address = game.player_yellow;
+            let blue_address = game.player_blue;
+
+
+            let mut next_player_address = match new_color {
+                0 => red_address,
+                1 => green_address,
+                2 => yellow_address,
+                3 => blue_address,
+                _ => 0,
+            };
+
+            let mut new_chance = new_color;
+
+            let winner_1 = game.winner_1;
+            let winner_2 = game.winner_2;
+            let winner_3 = game.winner_3;
+
+            // Check if the next player is already a winner
+            while next_player_address == winner_1 || next_player_address == winner_2 || next_player_address == winner_3 {
+                new_chance = (new_chance + 1) % players_length.try_into().unwrap();
+                next_player_address = match new_chance {
+                    0 => red_address,
+                    1 => green_address,
+                    2 => yellow_address,
+                    3 => blue_address,
+                    _ => 0,
+                };
+            };
+
+            new_color = new_chance;
+
+
+            let current_player_address = match color {
+                0 => game.player_green,
+                1 => game.player_yellow,
+                2 => game.player_blue,
+                3 => game.player_red,
+                _ => 0,
+            };
+
+            let zero_address: felt252 = 0.into();
+
+            if f == 4 {
+                if game.winner_1 == zero_address {
+                    game.winner_1 = current_player_address;
+                } else if game.winner_2 == zero_address {
+                    game.winner_2 = current_player_address;
+                } else {
+                    game.winner_3 = current_player_address;
+                }
+            }
+
+            // Update the game state in the world
+            world.write_model(@game);
 
         }
 
@@ -347,7 +515,6 @@ pub mod GameActions {
             let game_counter: GameCounter = world.read_model('v0');
             game_counter.current_val
         }
-
 
         fn create_new_player(ref self: ContractState, username: felt252, is_bot: bool) {
             let mut world = self.world_default();

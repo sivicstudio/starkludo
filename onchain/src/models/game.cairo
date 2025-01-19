@@ -54,22 +54,23 @@ pub struct Game {
     pub dice_face: u8, // Last value of dice thrown
     pub player_chance: ContractAddress, // Next player to make move
     pub has_thrown_dice: bool, // Whether the dice has been thrown or not
-    pub b0: felt252, // blue piece position on board
-    pub b1: felt252, // blue piece position on board
-    pub b2: felt252, // blue piece position on board
-    pub b3: felt252, // blue piece position on board
-    pub g0: felt252, // green piece position on board
-    pub g1: felt252, // green piece position on board
-    pub g2: felt252, // green piece position on board
-    pub g3: felt252, // green piece position on board
+    pub game_condition: Array<u32>,
     pub r0: felt252, // red piece position on board
     pub r1: felt252, // red piece position on board
     pub r2: felt252, // red piece position on board
     pub r3: felt252, // red piece position on board
+    pub g0: felt252, // green piece position on board
+    pub g1: felt252, // green piece position on board
+    pub g2: felt252, // green piece position on board
+    pub g3: felt252, // green piece position on board
     pub y0: felt252, // yellow piece position on board
     pub y1: felt252, // yellow piece position on board
     pub y2: felt252, // yellow piece position on board
     pub y3: felt252, // yellow piece position on board
+    pub b0: felt252, // blue piece position on board
+    pub b1: felt252, // blue piece position on board
+    pub b2: felt252, // blue piece position on board
+    pub b3: felt252, // blue piece position on board
 }
 
 pub trait GameTrait {
@@ -121,36 +122,37 @@ impl GameImpl of GameTrait {
             dice_face: 0,
             player_chance: zero_address.into(),
             has_thrown_dice: false,
-            b0: match number_of_players {
+            game_condition: array![0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32, 0_u32],
+            r0: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
-                2 => 'B01',
-                3 => 'B01',
-                4 => 'B01',
+                2 => 'R01',
+                3 => 'R01',
+                4 => 'R01',
                 _ => panic!("invalid number of players")
             },
-            b1: match number_of_players {
+            r1: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
-                2 => 'B02',
-                3 => 'B02',
-                4 => 'B02',
+                2 => 'R02',
+                3 => 'R02',
+                4 => 'R02',
                 _ => panic!("invalid number of players")
             },
-            b2: match number_of_players {
+            r2: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
-                2 => 'B03',
-                3 => 'B03',
-                4 => 'B03',
+                2 => 'R03',
+                3 => 'R03',
+                4 => 'R03',
                 _ => panic!("invalid number of players")
             },
-            b3: match number_of_players {
+            r3: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
-                2 => 'B04',
-                3 => 'B04',
-                4 => 'B04',
+                2 => 'R04',
+                3 => 'R04',
+                4 => 'R04',
                 _ => panic!("invalid number of players")
             },
             g0: match number_of_players {
@@ -185,43 +187,11 @@ impl GameImpl of GameTrait {
                 4 => 'GO4',
                 _ => panic!("invalid number of players")
             },
-            r0: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'R01',
-                4 => 'R01',
-                _ => panic!("invalid number of players")
-            },
-            r1: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'R02',
-                4 => 'R02',
-                _ => panic!("invalid number of players")
-            },
-            r2: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'R03',
-                4 => 'R03',
-                _ => panic!("invalid number of players")
-            },
-            r3: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'R04',
-                4 => 'R04',
-                _ => panic!("invalid number of players")
-            },
             y0: match number_of_players {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
                 2 => 0,
-                3 => 0,
+                3 => 'Y01',
                 4 => 'Y01',
                 _ => panic!("invalid number of players")
             },
@@ -229,7 +199,7 @@ impl GameImpl of GameTrait {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
                 2 => 0,
-                3 => 0,
+                3 => 'Y02',
                 4 => 'Y02',
                 _ => panic!("invalid number of players")
             },
@@ -237,7 +207,7 @@ impl GameImpl of GameTrait {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
                 2 => 0,
-                3 => 0,
+                3 => 'Y03',
                 4 => 'Y03',
                 _ => panic!("invalid number of players")
             },
@@ -245,8 +215,40 @@ impl GameImpl of GameTrait {
                 0 => panic!("number of players cannot be 0"),
                 1 => panic!("number of players cannot be 1"),
                 2 => 0,
-                3 => 0,
+                3 => 'Y04',
                 4 => 'Y04',
+                _ => panic!("invalid number of players")
+            },
+            b0: match number_of_players {
+                0 => panic!("number of players cannot be 0"),
+                1 => panic!("number of players cannot be 1"),
+                2 => 0,
+                3 => 0,
+                4 => 'B01',
+                _ => panic!("invalid number of players")
+            },
+            b1: match number_of_players {
+                0 => panic!("number of players cannot be 0"),
+                1 => panic!("number of players cannot be 1"),
+                2 => 0,
+                3 => 0,
+                4 => 'B02',
+                _ => panic!("invalid number of players")
+            },
+            b2: match number_of_players {
+                0 => panic!("number of players cannot be 0"),
+                1 => panic!("number of players cannot be 1"),
+                2 => 0,
+                3 => 0,
+                4 => 'B03',
+                _ => panic!("invalid number of players")
+            },
+            b3: match number_of_players {
+                0 => panic!("number of players cannot be 0"),
+                1 => panic!("number of players cannot be 1"),
+                2 => 0,
+                3 => 0,
+                4 => 'B04',
                 _ => panic!("invalid number of players")
             },
         }
