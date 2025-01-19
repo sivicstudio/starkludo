@@ -11,7 +11,7 @@ trait IGameActions<T> {
     ) -> u64;
     fn start_game(ref self: T, game_id: u64);
     fn join(ref self: T, username: felt252, selected_color: felt252, game_id: u64);
-    fn move(ref self: T);
+    fn move(ref self: T,  pos: felt252, color: u8);
     fn roll(ref self: T) -> (u8, u8);
 
     fn get_current_game_id(self: @T) -> u64;
@@ -21,6 +21,7 @@ trait IGameActions<T> {
     fn create_bot_player(ref self: T, bot_color: PlayerColor) -> Player;
     fn get_username_from_address(self: @T, address: ContractAddress) -> felt252;
     fn get_address_from_username(self: @T, username: felt252) -> ContractAddress;
+    fn move_deducer(ref self: T, val: u32, dice_throw: u32) -> (u32, bool, bool);
 }
 
 #[dojo::contract]
@@ -38,6 +39,7 @@ pub mod GameActions {
     use dojo::event::EventStorage;
     use origami_random::dice::{Dice, DiceTrait};
     use starkludo::errors::Errors;
+    use starkludo::constants::{get_markers, find_index, pos_to_board, board_to_pos, get_safe_positions, contains};
 
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
@@ -225,7 +227,98 @@ pub mod GameActions {
             };
         }
 
-        fn move(ref self: ContractState) {}
+        fn move(ref self: ContractState, pos: felt252, color: u8) {
+            // Get world state
+            let mut world = self.world_default();
+            //get the game state
+            let game_id = self.get_current_game_id();
+
+            let mut game: Game = world.read_model(game_id);
+
+            let game_condition = array![game.r0, game.r1, game.r2, game.r3, game.g0, game.g1, game.g2, game.g3, game.y0, game.y1, game.y2, game.y3, game.b0, game.b1, game.b2, game.b3];
+
+            let diceThrow = game.dice_face;
+
+            let markers = get_markers();
+
+            let j = find_index(pos, markers);   // current_val
+
+            let isChance = false;
+            let isThrown = false;
+
+            let current_condition = pos_to_board(game_condition);
+
+            let val = current_condition[j];
+
+            let ( newVal, ischance, isthrown ) = self.move_deducer(val, diceThrow);
+
+            isChance = ischance;
+            isThrown = isthrown;
+            current_condition[j] = newVal;
+            current_condition = board_to_pos(current_condition);
+            val = current_condition[j];
+
+            let safe_pos = get_safe_positions();
+
+            if !contains(safe_pos, val) {
+                let mut i: u32 = 0;
+                loop {
+                    if i >= game.number_of_players * 4 {
+                        break;
+                    }
+                    if color != (i / 4).into() && *current_condition.at(i) == val {
+                        isChance = true;
+                        let mut new_condition = ArrayTrait::new();
+                        let mut j: u32 = 0;
+                        loop {
+                            if j >= current_condition.len() {
+                                break;
+                            }
+                            if j == i {
+                                new_condition.append(0);
+                            } else {
+                                new_condition.append(*current_condition.at(j));
+                            }
+                            j += 1;
+                        };
+                        current_condition = new_condition;
+                    }
+                    i += 1;
+                };
+            }
+
+            if (diceThrow === 6) {
+                isChance = true;
+              }
+
+        }
+
+        fn move_deducer(ref self: ContractState, val: u32, dice_throw: u32) -> (u32, bool, bool) {
+            let mut new_val: u32 = 0;
+            let mut is_thrown: bool = false;
+            let mut is_chance: bool = false;
+
+            if val == 0 && dice_throw == 6 {
+                new_val = 1;
+            } else if val == 0 {
+                new_val = 0;
+                is_chance = true;
+                is_thrown = true;
+            } else {
+                let test_val = val + dice_throw;
+                if test_val > 57 {
+                    new_val = val;
+                    is_chance = true;
+                } else if test_val == 57 {
+                    new_val = test_val;
+                    is_chance = true;
+                } else {
+                    new_val = test_val;
+                }
+            }
+
+            (new_val, is_chance, is_thrown)
+        }
 
         fn roll(ref self: ContractState) -> (u8, u8) {
             let seed = get_block_timestamp();
