@@ -230,29 +230,38 @@ pub mod GameActions {
         fn move(ref self: ContractState, pos: felt252, color: u8) {
             // Get world state
             let mut world = self.world_default();
-            //get the game state
+
+            // Get the current game ID
             let game_id = self.get_current_game_id();
 
+            // Retrieve the game state
             let mut game: Game = world.read_model(game_id);
 
+            // Get the dice throw value
             let diceThrow: u32 = game.dice_face.into();
 
+            // Get the markers array
             let markers = get_markers();
 
-            let j = find_index(pos, markers);   // current_val
+            // Find the index of the current position in the markers array
+            let j = find_index(pos, markers); // current_val
 
+            // Initialize flags for chance and thrown status
             let mut isChance = false;
             let mut isThrown = false;
 
-            let current_condition = pos_to_board(game.game_condition.clone());
+            // Convert the game condition from board positions to array positions
+            let current_condition = board_to_pos(game.game_condition.clone());
 
+            // Get the current value at the position
             let mut val = current_condition[j];
 
-            let ( newVal, ischance, isthrown ) = self.move_deducer(*val, diceThrow);
-
+            // Determine the new value and update chance and thrown status
+            let (newVal, ischance, isthrown) = self.move_deducer(*val, diceThrow);
             isChance = ischance;
             isThrown = isthrown;
 
+            // Update the condition array with the new value
             let mut condition = ArrayTrait::new();
             let mut i: usize = 0;
             loop {
@@ -266,22 +275,26 @@ pub mod GameActions {
                 }
                 i += 1;
             };
+            condition = pos_to_board(condition);
 
-            condition = board_to_pos(condition);
-
+            // Update the value at the position
             val = condition[j];
 
+            // Get the safe positions array
             let safe_pos = get_safe_positions();
 
+            // Get the number of players
             let players_length = game.number_of_players.try_into().unwrap();
 
+            // Check if the new position is not a safe position
             if !contains(safe_pos, *val) {
                 let mut i: u32 = 0;
                 loop {
-                    if i >= (players_length * 4){
+                    if i >= (players_length * 4) {
                         break;
                     }
-                    if color != (i / 4).try_into().unwrap() && *condition.at(i) == *val{
+                    // Check if the position is occupied by an opponent's piece
+                    if color != (i / 4).try_into().unwrap() && *condition.at(i) == *val {
                         isChance = true;
                         let mut new_condition = ArrayTrait::new();
                         let mut j: u32 = 0;
@@ -290,7 +303,7 @@ pub mod GameActions {
                                 break;
                             }
                             if j == i {
-                                new_condition.append(0);
+                                new_condition.append(0); // Capture the opponent's piece
                             } else {
                                 new_condition.append(*condition.at(j));
                             }
@@ -302,19 +315,20 @@ pub mod GameActions {
                 };
             }
 
-
-            if (diceThrow == 6) {
+            // Check if the dice throw is 6
+            if diceThrow == 6 {
                 isChance = true;
             }
 
+            // Update the game condition
             game.game_condition = condition.clone();
 
+            // Convert the condition back to array positions
             let current_condition = condition;
-
             let deref = pos_reducer(current_condition, players_length);
-
             let output = deref.clone();
 
+            // Update the game state with the new positions
             match players_length {
                 0 => {},
                 1 => {},
@@ -363,11 +377,11 @@ pub mod GameActions {
                 _ => {}
             }
 
+            // Get the current player's pieces
             let mut color_state = ArrayTrait::new();
             let start = color * 4;
             let end = start + 4;
-
-            let mut i:u32 = start.into();
+            let mut i: u32 = start.into();
             loop {
                 if i >= end.into() || i >= output.len().into() {
                     break;
@@ -376,6 +390,7 @@ pub mod GameActions {
                 i += 1;
             };
 
+            // Get the capture colors array
             let cap_colors = get_cap_colors();
             let mut f: u32 = 0;
             let mut k: u32 = 0;
@@ -383,30 +398,30 @@ pub mod GameActions {
                 if k >= color_state.len() {
                     break;
                 }
-
+                // Check if the piece is in the winning position
                 let c: felt252 = *color_state.at(k);
-
                 let cap_color: felt252 = *cap_colors.at(color.try_into().unwrap());
-                let comparison_value: felt252 = (cap_color * 256 + '6').into();
-
+                let comparison_value: felt252 = (cap_color * 1000 + 6).into();
                 if c == comparison_value {
                     f += 1;
                 }
                 k += 1;
             };
 
+            // Determine the next player
             let mut new_color = if isChance {
                 color
             } else {
                 (color + 1) % players_length.try_into().unwrap()
             };
 
+            // Get the player addresses
             let red_address = game.player_red;
             let green_address = game.player_green;
             let yellow_address = game.player_yellow;
             let blue_address = game.player_blue;
 
-
+            // Determine the next player's address
             let mut next_player_address = match new_color {
                 0 => red_address,
                 1 => green_address,
@@ -417,6 +432,7 @@ pub mod GameActions {
 
             let mut new_chance = new_color;
 
+            // Get the winner addresses
             let winner_1 = game.winner_1;
             let winner_2 = game.winner_2;
             let winner_3 = game.winner_3;
@@ -435,30 +451,35 @@ pub mod GameActions {
 
             new_color = new_chance;
 
-
+            // Get the current player's address
             let current_player_address = match color {
-                0 => game.player_green,
-                1 => game.player_yellow,
-                2 => game.player_blue,
-                3 => game.player_red,
+                0 => red_address,
+                1 => green_address,
+                2 => yellow_address,
+                3 => blue_address,
                 _ => 0,
             };
 
-            let zero_address: felt252 = 0.into();
+            // Get the zero address
+            let zero_address = contract_address_const::<0x0>();
 
+            // Check if the player has won
             if f == 4 {
-                if game.winner_1 == zero_address {
+                if game.winner_1 == zero_address.into() {
                     game.winner_1 = current_player_address;
-                } else if game.winner_2 == zero_address {
+                } else if game.winner_2 == zero_address.into() {
                     game.winner_2 = current_player_address;
                 } else {
                     game.winner_3 = current_player_address;
                 }
             }
 
+            // Update the next player and dice thrown status
+            game.next_player = next_player_address;
+            game.has_thrown_dice = isThrown;
+
             // Update the game state in the world
             world.write_model(@game);
-
         }
 
         fn move_deducer(ref self: ContractState, val: u32, dice_throw: u32) -> (u32, bool, bool) {

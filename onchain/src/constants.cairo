@@ -93,12 +93,14 @@ fn board_to_pos(arr: Array<u32>) -> Array<u32> {
             51 + (val % 1000)
         } else if val == 0 {
             0
+
         } else {
             let diff = if val >= *get_start_points().at(color) {
                 val - *get_start_points().at(color)
             } else {
-                0
+                val + 52 - *get_start_points().at(color)
             };
+
             if diff < 1 {
                 diff + 52
             } else {
@@ -167,7 +169,7 @@ fn get_cap_colors() -> Array<felt252> {
 
 fn pos_reducer(data: Array<u32>, players_length: u32) -> Array<felt252> {
     let mut game: Array<felt252> = ArrayTrait::new();
-    let cap_colors = get_cap_colors(); // Assume this function exists and returns an array of felt252
+    let cap_colors = get_cap_colors();
 
     let mut i: u32 = 0;
     loop {
@@ -179,8 +181,10 @@ fn pos_reducer(data: Array<u32>, players_length: u32) -> Array<felt252> {
             let color = *cap_colors.at((i / 4).try_into().unwrap());
 
             let value = if d == 0 {
-                color * 1000 + (i % 4 + 1).into()
+                // Format: color + "0" + (i % 4 + 1)
+                color * 100 + (i % 4 + 1).into()
             } else if d > 1000 {
+                 // Format: color + (d % 1000)
                 color * 1000 + (d % 1000).into()
             } else {
                 d.into()

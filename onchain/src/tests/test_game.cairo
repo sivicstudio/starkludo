@@ -22,6 +22,7 @@ mod tests {
 
     use starkludo::models::game::{GameMode, GameStatus};
     use starkludo::errors::Errors;
+    use starkludo::constants::{find_index, board_to_pos, pos_to_board, contains, pos_reducer};
 
     /// Defines the namespace configuration for the Starkludo game system
     /// Returns a NamespaceDef struct containing namespace name and associated resources
@@ -386,5 +387,409 @@ mod tests {
             .create_new_game(GameMode::SinglePlayer, PlayerColor::Green, 4);
 
         assert(second_game_id == first_game_id + 1, 'Game ID should increment');
+    }
+
+    #[test]
+    fn test_find_index() {
+        let array = array!['a', 'b', 'c', 'd'];
+        let index = find_index('c', array.clone());
+        assert(index == 2, 'Index should be 2');
+
+        let index = find_index('e', array.clone());
+        assert(index == 0, 'Index should be 0');
+    }
+
+    #[test]
+    fn test_board_to_pos1() {
+        let board_positions = array![0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004];
+        let expected_positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
+        let positions = board_to_pos(board_positions);
+        assert(positions == expected_positions, 'Board to pos failed');
+    }
+
+    #[test]
+    fn test_pos_to_board() {
+        let positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
+        let expected_board_positions = array![0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004];
+        let board_positions = pos_to_board(positions);
+        assert(board_positions == expected_board_positions, 'Pos to board failed');
+    }
+
+    #[test]
+    fn test_contains() {
+        let array = array![1, 2, 3, 4, 5];
+        assert(contains(array.clone(), 3), 'Array should contain 3');
+        assert(!contains(array.clone(), 6), 'Array should not contain 6');
+    }
+
+    #[test]
+    fn test_pos_reducer() {
+        let data = array![0, 1001, 23, 32, 2001, 2006, 23, 43, 12, 3006];
+        let players_length = 2;
+        let expected_output = array![8201, 82001, 23, 32, 71001, 71006, 23, 43];
+        let output = pos_reducer(data, players_length);
+        assert(output == expected_output, 'Pos reducer failed');
+    }
+
+    #[test]
+    fn test_move_deducer() {
+        let (_, game_action_system) = setup_world();
+
+        // Test case 1: val == 0 and dice_throw == 6
+        let (new_val, is_chance, is_thrown) = game_action_system.move_deducer(0, 6);
+        assert(new_val == 1, 'New value should be 1');
+        assert(!is_chance, 'is_chance should be false');
+        assert(!is_thrown, 'is_thrown should be false');
+
+        // Test case 2: val == 0 and dice_throw != 6
+        let (new_val, is_chance, is_thrown) = game_action_system.move_deducer(0, 5);
+        assert(new_val == 0, 'New value should be 0');
+        assert(is_chance, 'is_chance should be true');
+        assert(is_thrown, 'is_thrown should be true');
+
+        // Test case 3: val != 0 and val + dice_throw <= 57
+        let (new_val, is_chance, is_thrown) = game_action_system.move_deducer(10, 5);
+        assert(new_val == 15, 'New value should be 15');
+        assert(!is_chance, 'is_chance should be false');
+        assert(!is_thrown, 'is_thrown should be false');
+
+        // Test case 4: val != 0 and val + dice_throw > 57
+        let (new_val, is_chance, is_thrown) = game_action_system.move_deducer(55, 5);
+        assert(new_val == 55, 'New value should be 55');
+        assert(is_chance, 'is_chance should be true');
+        assert(!is_thrown, 'is_thrown should be false');
+
+        // Test case 5: val != 0 and val + dice_throw == 57
+        let (new_val, is_chance, is_thrown) = game_action_system.move_deducer(52, 5);
+        assert(new_val == 57, 'New value should be 57');
+        assert(is_chance, 'is_chance should be true');
+        assert(!is_thrown, 'is_thrown should be false');
+    }
+
+    #[test]
+    fn test_move_initial_position_with_six() {
+
+        // This test case verifies that a piece can move from its initial position when the dice roll is 6.
+
+        let (mut world, game_action_system) = setup_world();
+
+        let caller = contract_address_const::<'test_alice'>();
+        let username = 'alice';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+
+        game.dice_face = 6;
+
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+
+        // Move piece from initial position with dice throw 6
+        game_action_system.move('r0', 0);
+
+        let game: Game = world.read_model(game_id);
+
+        let game_condition = array![1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        assert(game.r0 == 1, 'Piece should move to 1');
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_move_initial_position_without_six() {
+
+        // This test case verifies that a piece cannot move from its initial position if the dice roll is not 6.
+
+        let (mut world, game_action_system) = setup_world();
+
+        let caller = contract_address_const::<'test_alice'>();
+        let username = 'alice';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+
+        game.dice_face = 5;
+
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('r0', 0);
+
+        // Verify the new position
+        let game: Game = world.read_model(game_id);
+
+        let game_condition = array![0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        assert(game.r0 == 8201, 'Piece should not move');
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_move_normal_position() {
+
+        // This test case verifies that a piece can move from a normal position based on the dice roll.
+
+        let (mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_alice'>();
+        let username = 'alice';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 6;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('r1', 0);  // move from its initial position to 1.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 5;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('r1', 0);  // move from 1 to 6.
+
+        // Verify the new position
+        let game: Game = world.read_model(game_id);
+
+        let game_condition = array![0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        assert(game.r1 == 6, 'Piece should move to 6');
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_move_to_safe_position() {
+
+        // This test case verifies that a piece can move to a safe position on the board.
+
+        let (mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_alice'>();
+        let username = 'alice';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Green, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 6;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g1', 1);  // move from its initial position to 14.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 5;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g1', 1);  // move from 14 to 19.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 3;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g1', 1);  // move from 19 to 22.
+
+        // Verify the new position
+        let game: Game = world.read_model(game_id);
+        let game_condition = array![0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        assert(game.g1 == 22, 'Piece should move to 22');
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_move_to_occupied_position() {
+
+        //  This test case verifies that a piece can move to an occupied position on the board.
+
+        let (mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_alice'>();
+        let username = 'alice';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Green, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 6;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g1', 1);  // move g1 from its initial position to 14.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 6;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g2', 1);  // move g2 from its initial position to 14.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 5;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g1', 1);  // move from 14 to 19.
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 5;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('g2', 1);  // move from 14 to 19.
+
+        // Verify the new position
+        let game: Game = world.read_model(game_id);
+        let game_condition = array![0, 0, 0, 0, 0, 19, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        assert(game.g1 == game.g2, 'Both pieces must align');
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_capture_opponent_piece() {
+
+        // This test case verifies the capturing mechanism in the game
+
+        let (mut world, game_action_system) = setup_world();
+
+        let caller_red = contract_address_const::<'test_red'>();
+        let username_red = 'red';
+
+        testing::set_contract_address(caller_red);
+        game_action_system.create_new_player(username_red, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.game_condition = array![13, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        game.r0 = 13;
+        game.g0 = 15;
+        game.dice_face = 2;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+
+        game = world.read_model(game_id);
+
+        assert(game.r0 == 13, 'Red piece should be at 13');
+        assert(game.g0 == 15, 'Green piece should be at 15');
+
+        // Verify the game condition
+        let game_condition = array![13, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+
+        // Move red piece to position 15
+        game_action_system.move('r0', 0);
+
+        // Verify the new positions
+        game = world.read_model(game_id);
+
+        assert(game.r0 == 15, 'Red piece should move to 15');
+        assert(game.g0 == 7101, 'Green piece should be captured');
+
+        // Verify the game condition
+        let game_condition = array![15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_capture_opponent_piece_in_safe_zone() {
+
+         // This test case verifies that a player cannot capture an opponent's piece in the safe zone
+
+        let (mut world, game_action_system) = setup_world();
+
+        let caller_red = contract_address_const::<'test_red'>();
+        let username_red = 'red';
+
+        testing::set_contract_address(caller_red);
+        game_action_system.create_new_player(username_red, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.game_condition = array![13, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        game.r0 = 13;
+        game.g0 = 14;
+        game.dice_face = 1;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+
+        game = world.read_model(game_id);
+
+        assert(game.r0 == 13, 'Red piece should be at 13');
+        assert(game.g0 == 14, 'Green piece should be at 14');
+
+        // Verify the game condition
+        let game_condition = array![13, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+
+        game_action_system.move('r0', 0);
+
+        // Verify the new positions
+        game = world.read_model(game_id);
+
+        assert(game.r0 == 14, 'Red piece should remain at 14');
+        assert(game.g0 == 14, 'Green piece should remain at 14');
+
+        // Verify the game condition
+        let game_condition = array![14, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_red_player_wins() {
+
+        // This test case verifies the winning condition in the game.
+
+        let (mut world, game_action_system) = setup_world();
+
+        let caller_red = contract_address_const::<'test_red'>();
+        let username_red = 'red';
+
+        testing::set_contract_address(caller_red);
+        game_action_system.create_new_player(username_red, false);
+
+        // Setup initial game state
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        game_action_system.start_game(game_id);
+
+        // Move red piece to position 56 (one step away from winning)
+        let mut game: Game = world.read_model(game_id);
+        game.game_condition = array![1006, 1006, 1006, 1003, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        game.dice_face = 3;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        game_action_system.move('r3', 0);
+
+        // Verify the new positions and winning state
+        game = world.read_model(game_id);
+
+        assert(game.r3 == 82006, 'piece should move to win pos');
+        assert(game.winner_1 == game.player_red, 'Red should be the winner');
+
+        // Verify the game condition
+        let game_condition = array![1006, 1006, 1006, 1006, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert(game.game_condition == game_condition, 'Game Condition should match');
     }
 }
