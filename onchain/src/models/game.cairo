@@ -21,10 +21,10 @@ pub enum GameMode {
 
 #[derive(Serde, Copy, Drop, Introspect, PartialEq)]
 pub enum PlayerColor {
-    Green,
-    Yellow,
-    Blue,
-    Red,
+    Green, // Player on green house
+    Yellow, // Player on Yellow house
+    Blue, // Player on Blue house
+    Red // Player on Red house
 }
 
 // Game model
