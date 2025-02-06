@@ -260,6 +260,9 @@ pub mod GameActions {
                 },
                 _ => panic!("Invalid number of players"),
             };
+
+            // Update the game state in the world
+            world.write_model(@game);
         }
 
         fn move(ref self: ContractState, pos: felt252, color: u8) {
