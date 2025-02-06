@@ -24,8 +24,8 @@ source = "git+https://github.com/dojoengine/dojo?tag=v1.1.2#4f3373ed4f98e1778022
 
 [[package]]
 name = "origami_random"
-version = "1.0.0-rc.2"
-source = "git+https://github.com/dojoengine/origami#8e9a2bd3a3c0624102243d3956b31809aa532581"
+version = "1.1.2"
+source = "git+https://github.com/dojoengine/origami#4d6a98e4fee4c71c885a1669660a545b979283c7"
 
 [[package]]
 name = "starkludo"

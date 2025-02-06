@@ -69,7 +69,7 @@ pub struct Game {
     pub b0: felt252, // blue piece position on board
     pub b1: felt252, // blue piece position on board
     pub b2: felt252, // blue piece position on board
-    pub b3: felt252 // blue piece position on board
+    pub b3: felt252, // blue piece position on board
 }
 
 pub trait GameTrait {
