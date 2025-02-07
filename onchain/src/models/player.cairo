@@ -9,7 +9,8 @@ pub struct Player {
     pub owner: ContractAddress, // Account owner of player. An account can own multiple players
     pub is_bot: bool,
     pub total_games_played: u256, // Count of total games played by this player
-    pub total_games_won: u256, // Count of total games won by this player
+    pub total_games_completed: u256, // Count of total games completed by this player
+    pub total_games_won: u256 // Count of total games won by this player
 }
 
 
@@ -18,7 +19,7 @@ pub struct Player {
 pub struct UsernameToAddress {
     #[key]
     pub username: felt252,
-    pub address: ContractAddress
+    pub address: ContractAddress,
 }
 
 #[derive(Drop, Copy, Serde)]

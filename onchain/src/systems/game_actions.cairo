@@ -151,6 +151,12 @@ pub mod GameActions {
 
             assert(caller_username != 0, 'PLAYER NOT REGISTERED');
 
+            // Verify that player has not already joined the game
+            assert(game.player_red != caller_username, 'ALREADY SELECTED RED');
+            assert(game.player_blue != caller_username, 'ALREADY SELECTED BLUE');
+            assert(game.player_green != caller_username, 'ALREADY SELECTED GREEN');
+            assert(game.player_yellow != caller_username, 'ALREADY SELECTED YELLOW');
+
             /// Game starts automatically once the last player joins
 
             // Verify that color is available
