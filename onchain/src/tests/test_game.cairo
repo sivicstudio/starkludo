@@ -772,44 +772,44 @@ mod tests {
     fn test_skip_winner_turn() {
         // Setup world & game_action_system.
         let (mut world, game_action_system) = setup_world();
-    
+
         // addresses for red, yellow, and blue players.
         let caller_red = contract_address_const::<'red'>();
         let caller_yellow = contract_address_const::<'yellow'>();
         let caller_blue = contract_address_const::<'blue'>();
-    
+
         // Create players.
         testing::set_contract_address(caller_red);
         game_action_system.create_new_player('red', false);
-    
+
         testing::set_contract_address(caller_yellow);
         game_action_system.create_new_player('yellow', false);
-    
+
         testing::set_contract_address(caller_blue);
         game_action_system.create_new_player('blue', false);
-    
+
         // Red creates a new 3-player multiplayer game picking Red.
         testing::set_contract_address(caller_red);
         let game_id = game_action_system
             .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 4);
-    
+
         // Yellow joins with Yellow color.
         testing::set_contract_address(caller_yellow);
         game_action_system.join(PlayerColor::Yellow, game_id);
-    
+
         // Blue joins with Blue color.
         testing::set_contract_address(caller_blue);
         game_action_system.join(PlayerColor::Blue, game_id);
 
         let mut game: Game = world.read_model(game_id);
-    
+
         testing::set_contract_address(game_action_system.contract_address);
         game.winner_1 = game.player_red;
         game.dice_face = 6;
         world.write_model(@game);
 
         game = world.read_model(game_id);
-    
+
         // Assume it is blue's turn; blue makes a move.
         testing::set_contract_address(caller_blue);
         // Using 'b0' token to simulate blue's move.
@@ -823,14 +823,11 @@ mod tests {
         game_action_system.move('b0'); // move from 1 to 6.
 
         let mut game: Game = world.read_model(game_id);
-    
+
         // After blue's move, the game logic should skip red (the winner)
         // and assign next turn to yellow.
-        assert(
-            game.next_player == game.player_yellow,
-            'Next player should be yellow'
-        );
-}
+        assert(game.next_player == game.player_yellow, 'Next player should be yellow');
+    }
 
     #[test]
     fn test_extra_move_on_dice_six() {
@@ -840,23 +837,24 @@ mod tests {
         let caller_red = contract_address_const::<'red'>();
         let caller_yellow = contract_address_const::<'yellow'>();
         let caller_blue = contract_address_const::<'blue'>();
-    
+
         testing::set_contract_address(caller_red);
         game_action_system.create_new_player('red', false);
-    
+
         testing::set_contract_address(caller_yellow);
         game_action_system.create_new_player('yellow', false);
-    
+
         testing::set_contract_address(caller_blue);
         game_action_system.create_new_player('blue', false);
-    
+
         // Red creates a 3-player game and yellow, blue join.
         testing::set_contract_address(caller_red);
-        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 3);
-    
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 3);
+
         testing::set_contract_address(caller_yellow);
         game_action_system.join(PlayerColor::Yellow, game_id);
-    
+
         testing::set_contract_address(caller_blue);
         game_action_system.join(PlayerColor::Blue, game_id);
 

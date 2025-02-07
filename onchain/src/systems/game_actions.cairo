@@ -184,7 +184,6 @@ pub mod GameActions {
                 PlayerColor::Green => {
                     if (game.player_green == 0) {
                         game.player_green = caller_username
-
                     } else {
                         panic!("GREEN already selected");
                     }
@@ -348,7 +347,6 @@ pub mod GameActions {
             // Get the safe positions array
             let safe_pos = get_safe_positions();
 
-
             let active_colors = self.get_active_colors();
 
             // Check if the new position is not a safe position
@@ -369,8 +367,10 @@ pub mod GameActions {
                         }
                         let global_index = current_active_color.into() * 4 + piece;
 
-                        // Check if this piece does not belong to the caller and if its position equals *val.
-                        if (current_active_color != color) && (*condition.at(global_index) == *val) {
+                        // Check if this piece does not belong to the caller and if its position
+                        // equals *val.
+                        if (current_active_color != color)
+                            && (*condition.at(global_index) == *val) {
                             isChance = true;
                             // Rebuild condition array with captured piece replaced with 0.
                             let mut new_condition = ArrayTrait::new();
@@ -409,7 +409,7 @@ pub mod GameActions {
             let current_condition = condition;
             let deref = pos_reducer(current_condition, active_colors.clone());
             let output = deref.clone();
-        
+
             let mut offset: usize = 0;
 
             for c_i in 0..active_colors.len() {
@@ -439,7 +439,7 @@ pub mod GameActions {
                         game.b2 = *output.get(offset + 2).unwrap().unbox();
                         game.b3 = *output.get(offset + 3).unwrap().unbox();
                     },
-                    _ => {}
+                    _ => {},
                 };
                 offset += 4;
             };
@@ -448,7 +448,7 @@ pub mod GameActions {
 
             // Retrieve the game state
             let mut game: Game = world.read_model(game_id);
-    
+
             // Get the current player's pieces
             let mut color_state = ArrayTrait::new();
             let start = color * 4;
@@ -657,50 +657,50 @@ pub mod GameActions {
             username_map.address
         }
 
-    fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool) -> u8 {
-        // Gather only active colors
-        let mut active_colors: Array<u8> = self.get_active_colors();
-    
-        // Find the index of current_color
-        let mut idx = 0_usize;
-        loop {
-            if idx >= active_colors.len() {
-                panic!("Current color not found in active colors");
+        fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool) -> u8 {
+            // Gather only active colors
+            let mut active_colors: Array<u8> = self.get_active_colors();
+
+            // Find the index of current_color
+            let mut idx = 0_usize;
+            loop {
+                if idx >= active_colors.len() {
+                    panic!("Current color not found in active colors");
+                }
+                if *active_colors.at(idx) == current_color {
+                    break;
+                }
+                idx += 1;
+            };
+
+            // move to the next color
+            if !isChance {
+                idx = (idx + 1) % active_colors.len();
             }
-            if *active_colors.at(idx) == current_color {
-                break;
-            }
-            idx += 1;
-        };
-    
-        // move to the next color
-        if !isChance {
-            idx = (idx + 1) % active_colors.len();
+
+            let mut new_color = *active_colors.at(idx);
+            new_color
         }
 
-        let mut new_color = *active_colors.at(idx);
-        new_color
-    }
-
-    fn get_active_colors(self: @ContractState) -> Array<u8> {
-        let mut world = self.world_default();
-        let game_id = self.get_current_game_id();
-        let game: Game = world.read_model(game_id);
-        let mut colors: Array<u8> = ArrayTrait::new();
-        if game.player_red != 0 {
-            colors.append(0);
+        fn get_active_colors(self: @ContractState) -> Array<u8> {
+            let mut world = self.world_default();
+            let game_id = self.get_current_game_id();
+            let game: Game = world.read_model(game_id);
+            let mut colors: Array<u8> = ArrayTrait::new();
+            if game.player_red != 0 {
+                colors.append(0);
+            }
+            if game.player_green != 0 {
+                colors.append(1);
+            }
+            if game.player_yellow != 0 {
+                colors.append(2);
+            }
+            if game.player_blue != 0 {
+                colors.append(3);
+            }
+            colors
         }
-        if game.player_green != 0 {
-            colors.append(1);
-        }
-        if game.player_yellow != 0 {
-            colors.append(2);
-        }
-        if game.player_blue != 0 {
-            colors.append(3);
-        }
-        colors
-    }
     }
 
     #[generate_trait]
