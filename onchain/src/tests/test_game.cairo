@@ -309,7 +309,7 @@ mod tests {
         assert(created_game.number_of_players == 3, 'Wrong number of players');
         assert(created_game.player_blue == username, 'Wrong player color assignment');
         assert(created_game.player_red == 0, 'Red should not be assigned');
-        assert(created_game.status == GameStatus::Initialised, 'Wrong game status');
+        assert(created_game.status == GameStatus::Ongoing, 'Wrong game status');
     }
 
     #[test]
@@ -368,9 +368,9 @@ mod tests {
     #[test]
     fn test_pos_reducer() {
         let data = array![0, 1001, 23, 32, 2001, 2006, 23, 43, 12, 3006];
-        let players_length = 2;
+        let active_colors = array![0, 1];
         let expected_output = array![8201, 82001, 23, 32, 71001, 71006, 23, 43];
-        let output = pos_reducer(data, players_length);
+        let output = pos_reducer(data, active_colors);
         assert(output == expected_output, 'Pos reducer failed');
     }
 
@@ -487,36 +487,46 @@ mod tests {
         // roll.
 
         let (mut world, game_action_system) = setup_world();
-        let caller = contract_address_const::<'test_alice'>();
-        let username = 'alice';
+        let caller_blue = contract_address_const::<'test_blue'>();
+        let username_blue = 'blue';
 
-        testing::set_contract_address(caller);
-        game_action_system.create_new_player(username, false);
+        let caller_yellow = contract_address_const::<'test_bob'>();
+        let username_yellow = 'yellow';
 
+        testing::set_contract_address(caller_blue);
+        game_action_system.create_new_player(username_blue, false);
+
+        testing::set_contract_address(caller_yellow);
+        game_action_system.create_new_player(username_yellow, false);
+
+        testing::set_contract_address(caller_blue);
         // Setup initial game state
         let game_id = game_action_system
-            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Blue, 2);
+
+        testing::set_contract_address(caller_yellow);
+        game_action_system.join(PlayerColor::Yellow, game_id);
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 6;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
-        testing::set_contract_address(caller);
-        game_action_system.move('r1'); // move from its initial position to 1.
+        testing::set_contract_address(caller_blue);
+        game_action_system.move('b1'); // move from its initial position to 1.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
-        testing::set_contract_address(caller);
-        game_action_system.move('r1'); // move from 1 to 6.
+        testing::set_contract_address(caller_blue);
+        game_action_system.move('b1'); // move from 1 to 6.
 
         // Verify the new position
         let game: Game = world.read_model(game_id);
 
-        let game_condition = array![0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let game_condition = array![0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0];
 
-        assert(game.r1 == 6, 'Piece should move to 6');
+        assert(game.b1 == 45, 'Piece should move to 6');
         assert(game.game_condition == game_condition, 'Game Condition should match');
     }
 
@@ -624,28 +634,38 @@ mod tests {
         let caller_red = contract_address_const::<'test_red'>();
         let username_red = 'red';
 
+        let caller_blue = contract_address_const::<'test_blue'>();
+        let username_blue = 'blue';
+
         testing::set_contract_address(caller_red);
         game_action_system.create_new_player(username_red, false);
 
+        testing::set_contract_address(caller_blue);
+        game_action_system.create_new_player(username_blue, false);
+
+        testing::set_contract_address(caller_red);
         // Setup initial game state
         let game_id = game_action_system
             .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
 
+        testing::set_contract_address(caller_blue);
+        game_action_system.join(PlayerColor::Blue, game_id);
+
         let mut game: Game = world.read_model(game_id);
-        game.game_condition = array![13, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        game.r0 = 13;
-        game.g0 = 15;
+        game.game_condition = array![43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0, 0];
+        game.r0 = 43;
+        game.b0 = 45;
         game.dice_face = 2;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
 
         game = world.read_model(game_id);
 
-        assert(game.r0 == 13, 'Red piece should be at 13');
-        assert(game.g0 == 15, 'Green piece should be at 15');
+        assert(game.r0 == 43, 'Red piece should be at 43');
+        assert(game.b0 == 45, 'Blue piece should be at 45');
 
         // Verify the game condition
-        let game_condition = array![13, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let game_condition = array![43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0, 0];
         assert(game.game_condition == game_condition, 'Game Condition should match');
 
         testing::set_contract_address(caller_red);
@@ -656,11 +676,11 @@ mod tests {
         // Verify the new positions
         game = world.read_model(game_id);
 
-        assert(game.r0 == 15, 'Red piece should move to 15');
-        assert(game.g0 == 7101, 'Green piece should be captured');
+        assert(game.r0 == 45, 'Red piece should move to 45');
+        assert(game.b0 == 6601, 'Blue piece should be captured');
 
         // Verify the game condition
-        let game_condition = array![15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let game_condition = array![45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         assert(game.game_condition == game_condition, 'Game Condition should match');
     }
 
@@ -746,5 +766,108 @@ mod tests {
         // Verify the game condition
         let game_condition = array![1006, 1006, 1006, 1006, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         assert(game.game_condition == game_condition, 'Game Condition should match');
+    }
+
+    #[test]
+    fn test_skip_winner_turn() {
+        // Setup world & game_action_system.
+        let (mut world, game_action_system) = setup_world();
+    
+        // addresses for red, yellow, and blue players.
+        let caller_red = contract_address_const::<'red'>();
+        let caller_yellow = contract_address_const::<'yellow'>();
+        let caller_blue = contract_address_const::<'blue'>();
+    
+        // Create players.
+        testing::set_contract_address(caller_red);
+        game_action_system.create_new_player('red', false);
+    
+        testing::set_contract_address(caller_yellow);
+        game_action_system.create_new_player('yellow', false);
+    
+        testing::set_contract_address(caller_blue);
+        game_action_system.create_new_player('blue', false);
+    
+        // Red creates a new 3-player multiplayer game picking Red.
+        testing::set_contract_address(caller_red);
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 4);
+    
+        // Yellow joins with Yellow color.
+        testing::set_contract_address(caller_yellow);
+        game_action_system.join(PlayerColor::Yellow, game_id);
+    
+        // Blue joins with Blue color.
+        testing::set_contract_address(caller_blue);
+        game_action_system.join(PlayerColor::Blue, game_id);
+
+        let mut game: Game = world.read_model(game_id);
+    
+        testing::set_contract_address(game_action_system.contract_address);
+        game.winner_1 = game.player_red;
+        game.dice_face = 6;
+        world.write_model(@game);
+
+        game = world.read_model(game_id);
+    
+        // Assume it is blue's turn; blue makes a move.
+        testing::set_contract_address(caller_blue);
+        // Using 'b0' token to simulate blue's move.
+        game_action_system.move('b0');
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 5;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        testing::set_contract_address(caller_blue);
+        game_action_system.move('b0'); // move from 1 to 6.
+
+        let mut game: Game = world.read_model(game_id);
+    
+        // After blue's move, the game logic should skip red (the winner)
+        // and assign next turn to yellow.
+        assert(
+            game.next_player == game.player_yellow,
+            'Next player should be yellow'
+        );
+}
+
+    #[test]
+    fn test_extra_move_on_dice_six() {
+        // Setup world and system.
+        let (mut world, game_action_system) = setup_world();
+        // Create three players.
+        let caller_red = contract_address_const::<'red'>();
+        let caller_yellow = contract_address_const::<'yellow'>();
+        let caller_blue = contract_address_const::<'blue'>();
+    
+        testing::set_contract_address(caller_red);
+        game_action_system.create_new_player('red', false);
+    
+        testing::set_contract_address(caller_yellow);
+        game_action_system.create_new_player('yellow', false);
+    
+        testing::set_contract_address(caller_blue);
+        game_action_system.create_new_player('blue', false);
+    
+        // Red creates a 3-player game and yellow, blue join.
+        testing::set_contract_address(caller_red);
+        let game_id = game_action_system.create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 3);
+    
+        testing::set_contract_address(caller_yellow);
+        game_action_system.join(PlayerColor::Yellow, game_id);
+    
+        testing::set_contract_address(caller_blue);
+        game_action_system.join(PlayerColor::Blue, game_id);
+
+        let mut game: Game = world.read_model(game_id);
+        game.dice_face = 6;
+        testing::set_contract_address(game_action_system.contract_address);
+        world.write_model(@game);
+        testing::set_contract_address(caller_red);
+        game_action_system.move('r0');
+
+        game = world.read_model(game_id);
+        assert(game.next_player == game.player_red, 'Red should get an extra turn');
     }
 }
