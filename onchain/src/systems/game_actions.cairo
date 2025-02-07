@@ -10,7 +10,7 @@ trait IGameActions<T> {
         ref self: T, game_mode: GameMode, player_color: PlayerColor, number_of_players: u8,
     ) -> u64;
     fn join(ref self: T, player_color: PlayerColor, game_id: u64);
-    fn move(ref self: T, pos: felt252, color: u8);
+    fn move(ref self: T, pos: felt252);
     fn roll(ref self: T) -> (u8, u8);
 
     fn get_current_game_id(self: @T) -> u64;
@@ -265,7 +265,7 @@ pub mod GameActions {
             world.write_model(@game);
         }
 
-        fn move(ref self: ContractState, pos: felt252, color: u8) {
+        fn move(ref self: ContractState, pos: felt252) {
             // Get world state
             let mut world = self.world_default();
 
@@ -274,6 +274,21 @@ pub mod GameActions {
 
             // Retrieve the game state
             let mut game: Game = world.read_model(game_id);
+
+            let caller_address = get_caller_address();
+            let caller_username = self.get_username_from_address(caller_address);
+
+            let color: u8 = if caller_username == game.player_red.try_into().unwrap() {
+                0_u8
+            } else if caller_username == game.player_green.try_into().unwrap() {
+                1_u8
+            } else if caller_username == game.player_yellow.try_into().unwrap() {
+                2_u8
+            } else if caller_username == game.player_blue.try_into().unwrap() {
+                3_u8
+            } else {
+                panic!("CALLER NOT REGISTERED AS A PLAYER")
+            };
 
             // Get the dice throw value
             let diceThrow: u32 = game.dice_face.into();
