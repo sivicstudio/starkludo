@@ -202,30 +202,47 @@ fn get_cap_colors() -> Array<felt252> {
     array!['R', 'G', 'Y', 'B']
 }
 
-fn pos_reducer(data: Array<u32>, players_length: u32) -> Array<felt252> {
+fn pos_reducer(data: Array<u32>, active_colors: Array<u8>) -> Array<felt252> {
     let mut game: Array<felt252> = ArrayTrait::new();
     let cap_colors = get_cap_colors();
 
+    let mut active_piece_count: u32 = 0;
     let mut i: u32 = 0;
     loop {
         if i >= data.len() {
             break;
         }
-        if i < players_length * 4 {
-            let d = *data.at(i);
-            let color = *cap_colors.at((i / 4).try_into().unwrap());
+
+        let d = *data.at(i);
+
+        // Determine the color index based on the current index
+        let color_index = i / 4;
+        let piece_index = i % 4;
+
+        let mut active_colors_u32: Array<u32> = ArrayTrait::new();
+        for color in active_colors.clone() {
+            active_colors_u32.append((color).into());
+        };
+
+        // Check if the current color is in the active colors
+        if contains(active_colors_u32, color_index) {
+            let color_id = color_index;
+
+            let color_char = *cap_colors.at(color_id.into());
 
             let value = if d == 0 {
-                // Format: color + "0" + (i % 4 + 1)
-                color * 100 + (i % 4 + 1).into()
+                let piece_offset = piece_index + 1;
+                color_char * 100 + piece_offset.into()
             } else if d > 1000 {
-                // Format: color + (d % 1000)
-                color * 1000 + (d % 1000).into()
+                let remainder = d % 1000;
+                color_char * 1000 + remainder.into()
             } else {
                 d.into()
             };
 
             game.append(value);
+
+            active_piece_count += 1;
         }
         i += 1;
     };
