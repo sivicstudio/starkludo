@@ -734,7 +734,7 @@ mod tests {
     #[test]
     #[should_panic(expected: ('GAME NOT INITIALISED', 'ENTRYPOINT_FAILED'))]
     fn test_join_game_not_initialized() {
-        let ( mut world, game_action_system) = setup_world();
+        let (mut world, game_action_system) = setup_world();
         let caller = contract_address_const::<'test_gamer'>();
         let username = 'gamer';
         let no_of_players: u8 = 3;
@@ -783,7 +783,7 @@ mod tests {
 
         let game_id = game_action_system
             .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
-        
+
         game_action_system.join(PlayerColor::Red, game_id);
     }
 
@@ -806,7 +806,12 @@ mod tests {
         let (mut world, game_action_system) = setup_world();
         let caller = contract_address_const::<'first_gamer'>();
         let username = 'gamer';
+        let second_player_address = contract_address_const::<'second_player'>();
+        let second_player_username = 'second_player';
         let no_of_players: u8 = 3;
+
+        testing::set_contract_address(second_player_address);
+        game_action_system.create_new_player(second_player_username, false);
 
         testing::set_contract_address(caller);
         game_action_system.create_new_player(username, false);
@@ -821,12 +826,12 @@ mod tests {
         world.write_model(@game);
 
         // Join game with a different color than used in creating game
-        testing::set_contract_address(caller);
+        testing::set_contract_address(second_player_address);
         game_action_system.join(PlayerColor::Blue, game_id);
 
         // Verify join was successful
         let joined_game: Game = world.read_model(game_id);
-        assert(joined_game.player_blue == username, 'Player should be blue');
+        assert(joined_game.player_blue == second_player_username, 'Player should be blue');
     }
 
     #[test]
@@ -894,7 +899,12 @@ mod tests {
         let (mut world, game_action_system) = setup_world();
         let caller = contract_address_const::<'test_gamer'>();
         let username = 'gamer';
+        let second_player_address = contract_address_const::<'second_player'>();
+        let second_player_username = 'second_player';
         let given_players: u8 = 3;
+
+        testing::set_contract_address(second_player_address);
+        game_action_system.create_new_player(second_player_username, false);
 
         testing::set_contract_address(caller);
         game_action_system.create_new_player(username, false);
@@ -902,31 +912,31 @@ mod tests {
         let game_id = game_action_system
             .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, given_players);
 
-        // Set number of players to unaccepted value 
+        // Set number of players to unaccepted value
         testing::set_contract_address(game_action_system.contract_address);
         let mut game: Game = world.read_model(game_id);
         game.status = GameStatus::Pending;
         game.number_of_players = 1;
         world.write_model(@game);
 
-        testing::set_contract_address(caller);
+        testing::set_contract_address(second_player_address);
         game_action_system.join(PlayerColor::Yellow, game_id);
     }
 
     #[test]
     fn test_three_player_game_incomplete() {
         let (mut world, game_action_system) = setup_world();
-        
+
         let caller1 = contract_address_const::<'test_gamer1'>();
         let username1 = 'gamer1';
         let caller2 = contract_address_const::<'test_gamer2'>();
         let username2 = 'gamer2';
-        
+
         testing::set_contract_address(caller1);
         game_action_system.create_new_player(username1, false);
         testing::set_contract_address(caller2);
         game_action_system.create_new_player(username2, false);
-        
+
         // Create 3-player game
         testing::set_contract_address(caller1);
         let game_id = game_action_system
@@ -937,12 +947,12 @@ mod tests {
         let mut game: Game = world.read_model(game_id);
         game.status = GameStatus::Pending;
         world.write_model(@game);
-        
+
         testing::set_contract_address(caller2);
         game_action_system.join(PlayerColor::Blue, game_id);
-        
+
         let game: Game = world.read_model(game_id);
-        
+
         // Assert game is still pending with only two players
         assert(game.status == GameStatus::Pending, 'Game should be pending');
         assert(game.player_red == username1, 'Red player should be set');
