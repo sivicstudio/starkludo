@@ -730,4 +730,224 @@ mod tests {
         let game_condition = array![1006, 1006, 1006, 1006, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         assert(game.game_condition == game_condition, 'Game Condition should match');
     }
+
+    #[test]
+    #[should_panic(expected: ('GAME NOT INITIALISED', 'ENTRYPOINT_FAILED'))]
+    fn test_join_game_not_initialized() {
+        let ( mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+        let no_of_players: u8 = 3;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, no_of_players);
+
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.is_initialised = false;
+        world.write_model(@game);
+
+        testing::set_contract_address(caller);
+        game_action_system.join(PlayerColor::Red, game_id);
+    }
+
+    #[test]
+    #[should_panic(expected: ('GAME NOT MULTIPLAYER', 'ENTRYPOINT_FAILED'))]
+    fn test_join_game_not_multiplayer() {
+        let (_, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_player'>();
+        let username = 'player';
+        let no_of_players: u8 = 2;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::SinglePlayer, PlayerColor::Red, no_of_players);
+
+        game_action_system.join(PlayerColor::Red, game_id);
+    }
+
+    #[test]
+    #[should_panic(expected: ('GAME NOT PENDING', 'ENTRYPOINT_FAILED'))]
+    fn test_join_game_not_pending() {
+        let (_, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+        
+        game_action_system.join(PlayerColor::Red, game_id);
+    }
+
+    #[test]
+    #[should_panic(expected: ('PLAYER NOT REGISTERED', 'ENTRYPOINT_FAILED'))]
+    fn test_join_game_unregistered_player() {
+        let (_, game_action_system) = setup_world();
+        let caller = contract_address_const::<'unregistered_player'>();
+
+        testing::set_contract_address(caller);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+
+        game_action_system.join(PlayerColor::Red, game_id);
+    }
+
+    #[test]
+    fn test_join_game_successful() {
+        let (mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'first_gamer'>();
+        let username = 'gamer';
+        let no_of_players: u8 = 3;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, no_of_players);
+
+        // Set game status to pending
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.status = GameStatus::Pending;
+        world.write_model(@game);
+
+        // Join game with a different color than used in creating game
+        testing::set_contract_address(caller);
+        game_action_system.join(PlayerColor::Blue, game_id);
+
+        // Verify join was successful
+        let joined_game: Game = world.read_model(game_id);
+        assert(joined_game.player_blue == username, 'Player should be blue');
+    }
+
+    #[test]
+    #[should_panic(expected: ("RED already selected", 'ENTRYPOINT_FAILED'))]
+    fn test_join_game_color_taken() {
+        let (mut world, game_action_system) = setup_world();
+        let caller1 = contract_address_const::<'test_gamer1'>();
+        let username1 = 'gamer1';
+        let caller2 = contract_address_const::<'test_gamer2'>();
+        let username2 = 'gamer2';
+
+        testing::set_contract_address(caller1);
+        game_action_system.create_new_player(username1, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
+
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.status = GameStatus::Pending;
+        world.write_model(@game);
+
+        testing::set_contract_address(caller2);
+        game_action_system.create_new_player(username2, false);
+
+        game_action_system.join(PlayerColor::Red, game_id);
+    }
+
+    #[test]
+    fn test_join_game_auto_start_when_complete() {
+        let (mut world, game_action_system) = setup_world();
+        let caller1 = contract_address_const::<'test_gamer1'>();
+        let username1 = 'gamer1';
+        let caller2 = contract_address_const::<'test_gamer2'>();
+        let username2 = 'gamer2';
+        let no_of_players: u8 = 2;
+
+        testing::set_contract_address(caller1);
+        game_action_system.create_new_player(username1, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Green, no_of_players);
+
+        // Set game to pending state
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.status = GameStatus::Pending;
+        world.write_model(@game);
+
+        testing::set_contract_address(caller2);
+        game_action_system.create_new_player(username2, false);
+
+        game_action_system.join(PlayerColor::Blue, game_id);
+
+        let joined_game: Game = world.read_model(game_id);
+
+        assert(joined_game.status == GameStatus::Ongoing, 'Game should be ongoing');
+        assert(joined_game.player_green == username1, 'First player should be green');
+        assert(joined_game.player_blue == username2, 'Second player should be blue');
+    }
+
+    #[should_panic(expected: ("Number of players cannot be 1", 'ENTRYPOINT_FAILED'))]
+    #[test]
+    fn test_join_game_invalid_number_of_players_one() {
+        let (mut world, game_action_system) = setup_world();
+        let caller = contract_address_const::<'test_gamer'>();
+        let username = 'gamer';
+        let given_players: u8 = 3;
+
+        testing::set_contract_address(caller);
+        game_action_system.create_new_player(username, false);
+
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, given_players);
+
+        // Set number of players to unaccepted value 
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.status = GameStatus::Pending;
+        game.number_of_players = 1;
+        world.write_model(@game);
+
+        testing::set_contract_address(caller);
+        game_action_system.join(PlayerColor::Yellow, game_id);
+    }
+
+    #[test]
+    fn test_three_player_game_incomplete() {
+        let (mut world, game_action_system) = setup_world();
+        
+        let caller1 = contract_address_const::<'test_gamer1'>();
+        let username1 = 'gamer1';
+        let caller2 = contract_address_const::<'test_gamer2'>();
+        let username2 = 'gamer2';
+        
+        testing::set_contract_address(caller1);
+        game_action_system.create_new_player(username1, false);
+        testing::set_contract_address(caller2);
+        game_action_system.create_new_player(username2, false);
+        
+        // Create 3-player game
+        testing::set_contract_address(caller1);
+        let game_id = game_action_system
+            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 3);
+
+        // Set game to pending state
+        testing::set_contract_address(game_action_system.contract_address);
+        let mut game: Game = world.read_model(game_id);
+        game.status = GameStatus::Pending;
+        world.write_model(@game);
+        
+        testing::set_contract_address(caller2);
+        game_action_system.join(PlayerColor::Blue, game_id);
+        
+        let game: Game = world.read_model(game_id);
+        
+        // Assert game is still pending with only two players
+        assert(game.status == GameStatus::Pending, 'Game should be pending');
+        assert(game.player_red == username1, 'Red player should be set');
+        assert(game.player_blue == username2, 'Blue player should be set');
+        assert(game.player_green == 0, 'Green player should be empty');
+        assert(game.player_yellow == 0, 'Yellow player should be empty');
+    }
 }
