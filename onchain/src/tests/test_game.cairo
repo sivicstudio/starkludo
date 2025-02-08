@@ -309,7 +309,7 @@ mod tests {
         assert(created_game.number_of_players == 3, 'Wrong number of players');
         assert(created_game.player_blue == username, 'Wrong player color assignment');
         assert(created_game.player_red == 0, 'Red should not be assigned');
-        assert(created_game.status == GameStatus::Initialised, 'Wrong game status');
+        assert(created_game.status == GameStatus::Pending, 'Wrong game status');
     }
 
     #[test]
@@ -767,22 +767,6 @@ mod tests {
 
         let game_id = game_action_system
             .create_new_game(GameMode::SinglePlayer, PlayerColor::Red, no_of_players);
-
-        game_action_system.join(PlayerColor::Red, game_id);
-    }
-
-    #[test]
-    #[should_panic(expected: ('GAME NOT PENDING', 'ENTRYPOINT_FAILED'))]
-    fn test_join_game_not_pending() {
-        let (_, game_action_system) = setup_world();
-        let caller = contract_address_const::<'test_gamer'>();
-        let username = 'gamer';
-
-        testing::set_contract_address(caller);
-        game_action_system.create_new_player(username, false);
-
-        let game_id = game_action_system
-            .create_new_game(GameMode::MultiPlayer, PlayerColor::Red, 2);
 
         game_action_system.join(PlayerColor::Red, game_id);
     }
