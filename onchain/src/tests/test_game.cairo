@@ -81,6 +81,10 @@ mod tests {
         (world, game_action_system)
     }
 
+    // *******************************************
+    //          roll
+    // *******************************************
+
     #[test]
     fn test_roll() {
         let ndef = namespace_def();
@@ -109,6 +113,10 @@ mod tests {
         assert(unique_rolls.len() > 1, 'Not enough unique rolls');
     }
 
+    // *******************************************
+    //          create_new_game_id
+    // *******************************************
+
     #[test]
     fn test_create_new_game_id() {
         let (world, game_action_system) = setup_world();
@@ -119,6 +127,10 @@ mod tests {
 
         assert_eq!(new_game_id, expected_new_game_id);
     }
+
+    // *******************************************
+    //          get_current_game_id
+    // *******************************************
 
     #[test]
     fn test_get_current_game_id() {
@@ -139,6 +151,10 @@ mod tests {
 
         assert_eq!(current_game_id, expected_game_counter_id);
     }
+
+    // *******************************************
+    //          create_new_player
+    // *******************************************
 
     #[test]
     #[should_panic(expected: ('USERNAME ALREADY TAKEN', 'ENTRYPOINT_FAILED'))]
@@ -189,6 +205,10 @@ mod tests {
         assert_eq!(address_to_username.username, username);
     }
 
+    // *******************************************
+    //          get_username_from_address
+    // *******************************************
+
     #[test]
     fn test_get_username_from_address() {
         let ndef = namespace_def();
@@ -225,6 +245,10 @@ mod tests {
         assert(retrieved_username3 == 0, 'Non-existent should return 0');
     }
 
+    // *******************************************
+    //          get_address_from_username
+    // *******************************************
+
     #[test]
     fn test_get_address_from_username() {
         let ndef = namespace_def();
@@ -260,6 +284,10 @@ mod tests {
             .get_username_from_address(non_existent_address);
         assert(retrieved_username3 == 0, 'Non-existent should return 0');
     }
+
+    // *******************************************
+    //          create_new_game
+    // *******************************************
 
     #[test]
     #[should_panic(expected: ('PLAYERS CAN ONLY BE 2, 3, OR 4', 'ENTRYPOINT_FAILED'))]
@@ -330,49 +358,9 @@ mod tests {
         assert(second_game_id == first_game_id + 1, 'Game ID should increment');
     }
 
-    #[test]
-    fn test_find_index() {
-        let array = array!['a', 'b', 'c', 'd'];
-        let index = find_index('c', array.clone());
-        assert(index == 2, 'Index should be 2');
-
-        let index = find_index('e', array.clone());
-        assert(index == 0, 'Index should be 0');
-    }
-
-    #[test]
-    fn test_board_to_pos1() {
-        let board_positions = array![0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004];
-        let expected_positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
-        let positions = board_to_pos(board_positions);
-        assert(positions == expected_positions, 'Board to pos failed');
-    }
-
-    #[test]
-    fn test_pos_to_board() {
-        let positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
-        let expected_board_positions = array![
-            0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004,
-        ];
-        let board_positions = pos_to_board(positions);
-        assert(board_positions == expected_board_positions, 'Pos to board failed');
-    }
-
-    #[test]
-    fn test_contains() {
-        let array = array![1, 2, 3, 4, 5];
-        assert(contains(array.clone(), 3), 'Array should contain 3');
-        assert(!contains(array.clone(), 6), 'Array should not contain 6');
-    }
-
-    #[test]
-    fn test_pos_reducer() {
-        let data = array![0, 1001, 23, 32, 2001, 2006, 23, 43, 12, 3006];
-        let active_colors = array![0, 1];
-        let expected_output = array![8201, 82001, 23, 32, 71001, 71006, 23, 43];
-        let output = pos_reducer(data, active_colors);
-        assert(output == expected_output, 'Pos reducer failed');
-    }
+    // *******************************************
+    //          move_deducer
+    // *******************************************
 
     #[test]
     fn test_move_deducer() {
@@ -408,6 +396,11 @@ mod tests {
         assert(is_chance, 'is_chance should be true');
         assert(!is_thrown, 'is_thrown should be false');
     }
+
+
+    // *******************************************
+    //          move
+    // *******************************************
 
     #[test]
     fn test_move_initial_position_with_six() {
@@ -869,6 +862,10 @@ mod tests {
         assert(game.next_player == game.player_red, 'Red should get an extra turn');
     }
 
+    // *******************************************
+    //          join
+    // *******************************************
+
     #[test]
     #[should_panic(expected: ('GAME NOT INITIALISED', 'ENTRYPOINT_FAILED'))]
     fn test_join_game_not_initialized() {
@@ -1081,5 +1078,54 @@ mod tests {
         assert(game.player_blue == username2, 'Blue player should be set');
         assert(game.player_green == 0, 'Green player should be empty');
         assert(game.player_yellow == 0, 'Yellow player should be empty');
+    }
+
+
+    // *******************************************
+    //          Helper functions
+    // *******************************************
+
+    #[test]
+    fn test_find_index() {
+        let array = array!['a', 'b', 'c', 'd'];
+        let index = find_index('c', array.clone());
+        assert(index == 2, 'Index should be 2');
+
+        let index = find_index('e', array.clone());
+        assert(index == 0, 'Index should be 0');
+    }
+
+    #[test]
+    fn test_board_to_pos1() {
+        let board_positions = array![0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004];
+        let expected_positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
+        let positions = board_to_pos(board_positions);
+        assert(positions == expected_positions, 'Board to pos failed');
+    }
+
+    #[test]
+    fn test_pos_to_board() {
+        let positions = array![0, 13, 26, 52, 39, 27, 52, 53, 54, 8, 28, 38, 55];
+        let expected_board_positions = array![
+            0, 13, 26, 1001, 52, 40, 2001, 2002, 3003, 34, 2, 12, 4004,
+        ];
+        let board_positions = pos_to_board(positions);
+        assert(board_positions == expected_board_positions, 'Pos to board failed');
+    }
+
+    #[test]
+    fn test_contains() {
+        let array = array![1, 2, 3, 4, 5];
+        assert(contains(array.clone(), 3), 'Array should contain 3');
+        assert(!contains(array.clone(), 6), 'Array should not contain 6');
+    }
+
+    #[test]
+    fn test_pos_reducer() {
+        let data = array![0, 1001, 23, 32, 2001, 2006, 23, 43, 12, 3006];
+        let active_colors = array![0, 1];
+        let expected_output = array![8201, 82001, 23, 32, 71001, 71006, 23, 43];
+        let output = pos_reducer(data, active_colors);
+        assert(output == expected_output, 'Pos reducer failed');
     }
 }
