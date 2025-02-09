@@ -39,7 +39,7 @@ pub mod GameActions {
     use dojo::event::EventStorage;
     use origami_random::dice::{Dice, DiceTrait};
     use starkludo::errors::Errors;
-    use starkludo::constants::{
+    use starkludo::helpers::{
         get_markers, find_index, pos_to_board, board_to_pos, get_safe_positions, contains,
         pos_reducer, get_cap_colors,
     };
@@ -660,7 +660,9 @@ pub mod GameActions {
             username_map.address
         }
 
-        fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool, game_id: u64) -> u8 {
+        fn get_next_color(
+            ref self: ContractState, current_color: u8, isChance: bool, game_id: u64,
+        ) -> u8 {
             // Gather only active colors
             let mut active_colors: Array<u8> = self.get_active_colors(game_id);
 

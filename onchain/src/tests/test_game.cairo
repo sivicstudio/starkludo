@@ -22,7 +22,7 @@ mod tests {
 
     use starkludo::models::game::{GameMode, GameStatus};
     use starkludo::errors::Errors;
-    use starkludo::constants::{find_index, board_to_pos, pos_to_board, contains, pos_reducer};
+    use starkludo::helpers::{find_index, board_to_pos, pos_to_board, contains, pos_reducer};
 
     /// Defines the namespace configuration for the Starkludo game system
     /// Returns a NamespaceDef struct containing namespace name and associated resources

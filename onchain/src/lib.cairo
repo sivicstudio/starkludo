@@ -9,7 +9,9 @@ mod models {
 
 mod constants;
 mod errors;
+mod helpers;
 
 mod tests {
     mod test_game;
+    mod test_helpers;
 }
