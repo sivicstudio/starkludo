@@ -435,7 +435,7 @@ mod tests {
 
         testing::set_contract_address(caller);
         // Move piece from initial position with dice throw 6
-        game_action_system.move('r0');
+        game_action_system.move('r0', game_id);
 
         let game: Game = world.read_model(game_id);
 
@@ -470,7 +470,7 @@ mod tests {
         world.write_model(@game);
 
         testing::set_contract_address(caller);
-        game_action_system.move('r0');
+        game_action_system.move('r0', game_id);
 
         // Verify the new position
         let game: Game = world.read_model(game_id);
@@ -512,14 +512,14 @@ mod tests {
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller_blue);
-        game_action_system.move('b1'); // move from its initial position to 1.
+        game_action_system.move('b1', game_id); // move from its initial position to 1.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller_blue);
-        game_action_system.move('b1'); // move from 1 to 6.
+        game_action_system.move('b1', game_id); // move from 1 to 6.
 
         // Verify the new position
         let game: Game = world.read_model(game_id);
@@ -550,21 +550,21 @@ mod tests {
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g1'); // move from its initial position to 14.
+        game_action_system.move('g1', game_id); // move from its initial position to 14.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g1'); // move from 14 to 19.
+        game_action_system.move('g1', game_id); // move from 14 to 19.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 3;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g1'); // move from 19 to 22.
+        game_action_system.move('g1', game_id); // move from 19 to 22.
 
         // Verify the new position
         let game: Game = world.read_model(game_id);
@@ -594,28 +594,28 @@ mod tests {
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g1'); // move g1 from its initial position to 14.
+        game_action_system.move('g1', game_id); // move g1 from its initial position to 14.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 6;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g2'); // move g2 from its initial position to 14.
+        game_action_system.move('g2', game_id); // move g2 from its initial position to 14.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g1'); // move from 14 to 19.
+        game_action_system.move('g1', game_id); // move from 14 to 19.
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller);
-        game_action_system.move('g2'); // move from 14 to 19.
+        game_action_system.move('g2', game_id); // move from 14 to 19.
 
         // Verify the new position
         let game: Game = world.read_model(game_id);
@@ -671,7 +671,7 @@ mod tests {
         testing::set_contract_address(caller_red);
 
         // Move red piece to position 15
-        game_action_system.move('r0');
+        game_action_system.move('r0', game_id);
 
         // Verify the new positions
         game = world.read_model(game_id);
@@ -718,7 +718,7 @@ mod tests {
         assert(game.game_condition == game_condition, 'Game Condition should match');
 
         testing::set_contract_address(caller_red);
-        game_action_system.move('r0');
+        game_action_system.move('r0', game_id);
 
         // Verify the new positions
         game = world.read_model(game_id);
@@ -755,7 +755,7 @@ mod tests {
         world.write_model(@game);
 
         testing::set_contract_address(caller_red);
-        game_action_system.move('r3');
+        game_action_system.move('r3', game_id);
 
         // Verify the new positions and winning state
         game = world.read_model(game_id);
@@ -813,14 +813,14 @@ mod tests {
         // Assume it is blue's turn; blue makes a move.
         testing::set_contract_address(caller_blue);
         // Using 'b0' token to simulate blue's move.
-        game_action_system.move('b0');
+        game_action_system.move('b0', game_id);
 
         let mut game: Game = world.read_model(game_id);
         game.dice_face = 5;
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller_blue);
-        game_action_system.move('b0'); // move from 1 to 6.
+        game_action_system.move('b0', game_id); // move from 1 to 6.
 
         let mut game: Game = world.read_model(game_id);
 
@@ -863,7 +863,7 @@ mod tests {
         testing::set_contract_address(game_action_system.contract_address);
         world.write_model(@game);
         testing::set_contract_address(caller_red);
-        game_action_system.move('r0');
+        game_action_system.move('r0', game_id);
 
         game = world.read_model(game_id);
         assert(game.next_player == game.player_red, 'Red should get an extra turn');

@@ -10,7 +10,7 @@ trait IGameActions<T> {
         ref self: T, game_mode: GameMode, player_color: PlayerColor, number_of_players: u8,
     ) -> u64;
     fn join(ref self: T, player_color: PlayerColor, game_id: u64);
-    fn move(ref self: T, pos: felt252);
+    fn move(ref self: T, pos: felt252, game_id: u64);
     fn roll(ref self: T) -> (u8, u8);
 
     fn get_current_game_id(self: @T) -> u64;
@@ -20,8 +20,8 @@ trait IGameActions<T> {
     fn get_username_from_address(self: @T, address: ContractAddress) -> felt252;
     fn get_address_from_username(self: @T, username: felt252) -> ContractAddress;
     fn move_deducer(ref self: T, val: u32, dice_throw: u32) -> (u32, bool, bool);
-    fn get_next_color(ref self: T, current_color: u8, isChance: bool) -> u8;
-    fn get_active_colors(self: @T) -> Array<u8>;
+    fn get_next_color(ref self: T, current_color: u8, isChance: bool, game_id: u64) -> u8;
+    fn get_active_colors(self: @T, game_id: u64) -> Array<u8>;
 }
 
 #[dojo::contract]
@@ -276,12 +276,9 @@ pub mod GameActions {
             world.write_model(@game);
         }
 
-        fn move(ref self: ContractState, pos: felt252) {
+        fn move(ref self: ContractState, pos: felt252, game_id: u64) {
             // Get world state
             let mut world = self.world_default();
-
-            // Get the current game ID
-            let game_id = self.get_current_game_id();
 
             // Retrieve the game state
             let mut game: Game = world.read_model(game_id);
@@ -347,7 +344,7 @@ pub mod GameActions {
             // Get the safe positions array
             let safe_pos = get_safe_positions();
 
-            let active_colors = self.get_active_colors();
+            let active_colors = self.get_active_colors(game_id);
 
             // Check if the new position is not a safe position
             if !contains(safe_pos, *val) {
@@ -403,7 +400,7 @@ pub mod GameActions {
             // Update the game condition
             game.game_condition = condition.clone();
 
-            let active_colors = self.get_active_colors();
+            let active_colors = self.get_active_colors(game_id);
 
             // Convert the condition back to array positions
             let current_condition = condition;
@@ -480,7 +477,7 @@ pub mod GameActions {
                 k += 1;
             };
 
-            let mut new_color = self.get_next_color(color, isChance);
+            let mut new_color = self.get_next_color(color, isChance, game_id);
 
             // Get the player addresses
             let red_address = game.player_red;
@@ -657,9 +654,9 @@ pub mod GameActions {
             username_map.address
         }
 
-        fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool) -> u8 {
+        fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool, game_id: u64) -> u8 {
             // Gather only active colors
-            let mut active_colors: Array<u8> = self.get_active_colors();
+            let mut active_colors: Array<u8> = self.get_active_colors(game_id);
 
             // Find the index of current_color
             let mut idx = 0_usize;
@@ -682,7 +679,7 @@ pub mod GameActions {
             new_color
         }
 
-        fn get_active_colors(self: @ContractState) -> Array<u8> {
+        fn get_active_colors(self: @ContractState, game_id: u64) -> Array<u8> {
             let mut world = self.world_default();
             let game_id = self.get_current_game_id();
             let game: Game = world.read_model(game_id);
