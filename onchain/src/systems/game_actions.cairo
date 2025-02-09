@@ -10,7 +10,7 @@ trait IGameActions<T> {
         ref self: T, game_mode: GameMode, player_color: PlayerColor, number_of_players: u8,
     ) -> u64;
     fn join(ref self: T, player_color: PlayerColor, game_id: u64);
-    fn move(ref self: T, pos: felt252, color: u8);
+    fn move(ref self: T, pos: felt252, game_id: u64);
     fn roll(ref self: T) -> (u8, u8);
 
     fn get_current_game_id(self: @T) -> u64;
@@ -20,6 +20,8 @@ trait IGameActions<T> {
     fn get_username_from_address(self: @T, address: ContractAddress) -> felt252;
     fn get_address_from_username(self: @T, username: felt252) -> ContractAddress;
     fn move_deducer(ref self: T, val: u32, dice_throw: u32) -> (u32, bool, bool);
+    fn get_next_color(ref self: T, current_color: u8, isChance: bool, game_id: u64) -> u8;
+    fn get_active_colors(self: @T, game_id: u64) -> Array<u8>;
 }
 
 #[dojo::contract]
@@ -110,7 +112,7 @@ pub mod GameActions {
             };
 
             // Create a new game
-            let new_game: Game = GameTrait::new(
+            let mut new_game: Game = GameTrait::new(
                 game_id,
                 caller_username,
                 game_mode,
@@ -120,6 +122,14 @@ pub mod GameActions {
                 player_green,
                 number_of_players,
             );
+
+            // If it's a multiplayer game, set status to Pending,
+            // else mark it as Ongoing (for single-player).
+            if game_mode == GameMode::MultiPlayer {
+                new_game.status = GameStatus::Pending;
+            } else {
+                new_game.status = GameStatus::Ongoing;
+            }
 
             world.write_model(@new_game);
 
@@ -161,6 +171,7 @@ pub mod GameActions {
 
             // Verify that color is available
             // Assign color to player if available
+
             match player_color {
                 PlayerColor::Red => {
                     if (game.player_red == 0) {
@@ -185,7 +196,7 @@ pub mod GameActions {
                 },
                 PlayerColor::Yellow => {
                     if (game.player_yellow == 0) {
-                        game.player_yellow = caller_username
+                        game.player_yellow = caller_username;
                     } else {
                         panic!("YELLOW already selected");
                     }
@@ -271,15 +282,27 @@ pub mod GameActions {
             world.write_model(@game);
         }
 
-        fn move(ref self: ContractState, pos: felt252, color: u8) {
+        fn move(ref self: ContractState, pos: felt252, game_id: u64) {
             // Get world state
             let mut world = self.world_default();
 
-            // Get the current game ID
-            let game_id = self.get_current_game_id();
-
             // Retrieve the game state
             let mut game: Game = world.read_model(game_id);
+
+            let caller_address = get_caller_address();
+            let caller_username = self.get_username_from_address(caller_address);
+
+            let color: u8 = if caller_username == game.player_red.try_into().unwrap() {
+                0_u8
+            } else if caller_username == game.player_green.try_into().unwrap() {
+                1_u8
+            } else if caller_username == game.player_yellow.try_into().unwrap() {
+                2_u8
+            } else if caller_username == game.player_blue.try_into().unwrap() {
+                3_u8
+            } else {
+                panic!("CALLER NOT REGISTERED AS A PLAYER")
+            };
 
             // Get the dice throw value
             let diceThrow: u32 = game.dice_face.into();
@@ -327,35 +350,51 @@ pub mod GameActions {
             // Get the safe positions array
             let safe_pos = get_safe_positions();
 
-            // Get the number of players
-            let players_length = game.number_of_players.try_into().unwrap();
+            let active_colors = self.get_active_colors(game_id);
 
             // Check if the new position is not a safe position
             if !contains(safe_pos, *val) {
-                let mut i: u32 = 0;
+                // Loop over each active color block (active_colors holds the colors in use)
+                let active_colors_len = active_colors.len();
+                let mut block_idx: u32 = 0;
                 loop {
-                    if i >= (players_length * 4) {
+                    if block_idx >= active_colors_len {
                         break;
                     }
-                    // Check if the position is occupied by an opponent's piece
-                    if color != (i / 4).try_into().unwrap() && *condition.at(i) == *val {
-                        isChance = true;
-                        let mut new_condition = ArrayTrait::new();
-                        let mut j: u32 = 0;
-                        loop {
-                            if j >= condition.len() {
-                                break;
-                            }
-                            if j == i {
-                                new_condition.append(0); // Capture the opponent's piece
-                            } else {
-                                new_condition.append(*condition.at(j));
-                            }
-                            j += 1;
-                        };
-                        condition = new_condition;
-                    }
-                    i += 1;
+                    // Get the color id from active_colors for the current block
+                    let current_active_color = *active_colors.at(block_idx);
+                    let mut piece: u32 = 0;
+                    loop {
+                        if piece >= 4 {
+                            break;
+                        }
+                        let global_index = current_active_color.into() * 4 + piece;
+
+                        // Check if this piece does not belong to the caller and if its position
+                        // equals *val.
+                        if (current_active_color != color)
+                            && (*condition.at(global_index) == *val) {
+                            isChance = true;
+                            // Rebuild condition array with captured piece replaced with 0.
+                            let mut new_condition = ArrayTrait::new();
+                            let mut k: u32 = 0;
+                            loop {
+                                if k >= condition.len() {
+                                    break;
+                                }
+                                if k == global_index {
+                                    new_condition.append(0); // Capture opponent's piece.
+                                } else {
+                                    new_condition.append(*condition.at(k));
+                                }
+                                k += 1;
+                            };
+                            condition = new_condition;
+                            break;
+                        }
+                        piece += 1;
+                    };
+                    block_idx += 1;
                 };
             }
 
@@ -367,59 +406,51 @@ pub mod GameActions {
             // Update the game condition
             game.game_condition = condition.clone();
 
+            let active_colors = self.get_active_colors(game_id);
+
             // Convert the condition back to array positions
             let current_condition = condition;
-            let deref = pos_reducer(current_condition, players_length);
+            let deref = pos_reducer(current_condition, active_colors.clone());
             let output = deref.clone();
 
-            // Update the game state with the new positions
-            match players_length {
-                0 => {},
-                1 => {},
-                2 => {
-                    game.r0 = *output.get(0).unwrap().unbox();
-                    game.r1 = *output.get(1).unwrap().unbox();
-                    game.r2 = *output.get(2).unwrap().unbox();
-                    game.r3 = *output.get(3).unwrap().unbox();
-                    game.g0 = *output.get(4).unwrap().unbox();
-                    game.g1 = *output.get(5).unwrap().unbox();
-                    game.g2 = *output.get(6).unwrap().unbox();
-                    game.g3 = *output.get(7).unwrap().unbox();
-                },
-                3 => {
-                    game.r0 = *output.get(0).unwrap().unbox();
-                    game.r1 = *output.get(1).unwrap().unbox();
-                    game.r2 = *output.get(2).unwrap().unbox();
-                    game.r3 = *output.get(3).unwrap().unbox();
-                    game.g0 = *output.get(4).unwrap().unbox();
-                    game.g1 = *output.get(5).unwrap().unbox();
-                    game.g2 = *output.get(6).unwrap().unbox();
-                    game.g3 = *output.get(7).unwrap().unbox();
-                    game.y0 = *output.get(8).unwrap().unbox();
-                    game.y1 = *output.get(9).unwrap().unbox();
-                    game.y2 = *output.get(10).unwrap().unbox();
-                    game.y3 = *output.get(11).unwrap().unbox();
-                },
-                4 => {
-                    game.r0 = *output.get(0).unwrap().unbox();
-                    game.r1 = *output.get(1).unwrap().unbox();
-                    game.r2 = *output.get(2).unwrap().unbox();
-                    game.r3 = *output.get(3).unwrap().unbox();
-                    game.g0 = *output.get(4).unwrap().unbox();
-                    game.g1 = *output.get(5).unwrap().unbox();
-                    game.g2 = *output.get(6).unwrap().unbox();
-                    game.g3 = *output.get(7).unwrap().unbox();
-                    game.y0 = *output.get(8).unwrap().unbox();
-                    game.y1 = *output.get(9).unwrap().unbox();
-                    game.y2 = *output.get(10).unwrap().unbox();
-                    game.y3 = *output.get(11).unwrap().unbox();
-                    game.b0 = *output.get(12).unwrap().unbox();
-                    game.b1 = *output.get(13).unwrap().unbox();
-                    game.b2 = *output.get(14).unwrap().unbox();
-                    game.b3 = *output.get(15).unwrap().unbox();
-                },
-                _ => {},
-            }
+            let mut offset: usize = 0;
+
+            for c_i in 0..active_colors.len() {
+                let c = *active_colors.at(c_i);
+                match c {
+                    0 => {
+                        game.r0 = *output.get(offset).unwrap().unbox();
+                        game.r1 = *output.get(offset + 1).unwrap().unbox();
+                        game.r2 = *output.get(offset + 2).unwrap().unbox();
+                        game.r3 = *output.get(offset + 3).unwrap().unbox();
+                    },
+                    1 => {
+                        game.g0 = *output.get(offset).unwrap().unbox();
+                        game.g1 = *output.get(offset + 1).unwrap().unbox();
+                        game.g2 = *output.get(offset + 2).unwrap().unbox();
+                        game.g3 = *output.get(offset + 3).unwrap().unbox();
+                    },
+                    2 => {
+                        game.y0 = *output.get(offset).unwrap().unbox();
+                        game.y1 = *output.get(offset + 1).unwrap().unbox();
+                        game.y2 = *output.get(offset + 2).unwrap().unbox();
+                        game.y3 = *output.get(offset + 3).unwrap().unbox();
+                    },
+                    3 => {
+                        game.b0 = *output.get(offset).unwrap().unbox();
+                        game.b1 = *output.get(offset + 1).unwrap().unbox();
+                        game.b2 = *output.get(offset + 2).unwrap().unbox();
+                        game.b3 = *output.get(offset + 3).unwrap().unbox();
+                    },
+                    _ => {},
+                };
+                offset += 4;
+            };
+
+            world.write_model(@game);
+
+            // Retrieve the game state
+            let mut game: Game = world.read_model(game_id);
 
             // Get the current player's pieces
             let mut color_state = ArrayTrait::new();
@@ -452,12 +483,7 @@ pub mod GameActions {
                 k += 1;
             };
 
-            // Determine the next player
-            let mut new_color = if isChance {
-                color
-            } else {
-                (color + 1) % players_length.try_into().unwrap()
-            };
+            let mut new_color = self.get_next_color(color, isChance, game_id);
 
             // Get the player addresses
             let red_address = game.player_red;
@@ -485,7 +511,7 @@ pub mod GameActions {
             while next_player_address == winner_1
                 || next_player_address == winner_2
                 || next_player_address == winner_3 {
-                new_chance = (new_chance + 1) % players_length.try_into().unwrap();
+                new_chance = (new_chance + 1) % active_colors.len().try_into().unwrap();
                 next_player_address = match new_chance {
                     0 => red_address,
                     1 => green_address,
@@ -632,6 +658,51 @@ pub mod GameActions {
             let username_map: UsernameToAddress = world.read_model(username);
 
             username_map.address
+        }
+
+        fn get_next_color(ref self: ContractState, current_color: u8, isChance: bool, game_id: u64) -> u8 {
+            // Gather only active colors
+            let mut active_colors: Array<u8> = self.get_active_colors(game_id);
+
+            // Find the index of current_color
+            let mut idx = 0_usize;
+            loop {
+                if idx >= active_colors.len() {
+                    panic!("Current color not found in active colors");
+                }
+                if *active_colors.at(idx) == current_color {
+                    break;
+                }
+                idx += 1;
+            };
+
+            // move to the next color
+            if !isChance {
+                idx = (idx + 1) % active_colors.len();
+            }
+
+            let mut new_color = *active_colors.at(idx);
+            new_color
+        }
+
+        fn get_active_colors(self: @ContractState, game_id: u64) -> Array<u8> {
+            let mut world = self.world_default();
+            let game_id = self.get_current_game_id();
+            let game: Game = world.read_model(game_id);
+            let mut colors: Array<u8> = ArrayTrait::new();
+            if game.player_red != 0 {
+                colors.append(0);
+            }
+            if game.player_green != 0 {
+                colors.append(1);
+            }
+            if game.player_yellow != 0 {
+                colors.append(2);
+            }
+            if game.player_blue != 0 {
+                colors.append(3);
+            }
+            colors
         }
     }
 

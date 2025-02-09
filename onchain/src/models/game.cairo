@@ -68,7 +68,7 @@ pub struct Game {
     pub b0: felt252, // blue piece position on board
     pub b1: felt252, // blue piece position on board
     pub b2: felt252, // blue piece position on board
-    pub b3: felt252,
+    pub b3: felt252, // blue piece position on board
 }
 
 pub trait GameTrait {
@@ -138,134 +138,26 @@ impl GameImpl of GameTrait {
                 0_u32,
                 0_u32,
             ],
-            r0: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'R01',
-                3 => 'R01',
-                4 => 'R01',
-                _ => panic!("invalid number of players"),
-            },
-            r1: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'R02',
-                3 => 'R02',
-                4 => 'R02',
-                _ => panic!("invalid number of players"),
-            },
-            r2: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'R03',
-                3 => 'R03',
-                4 => 'R03',
-                _ => panic!("invalid number of players"),
-            },
-            r3: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'R04',
-                3 => 'R04',
-                4 => 'R04',
-                _ => panic!("invalid number of players"),
-            },
-            g0: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'G01',
-                3 => 'G01',
-                4 => 'G01',
-                _ => panic!("invalid number of players"),
-            },
-            g1: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'G02',
-                3 => 'G02',
-                4 => 'G02',
-                _ => panic!("invalid number of players"),
-            },
-            g2: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'G03',
-                3 => 'G03',
-                4 => 'G03',
-                _ => panic!("invalid number of players"),
-            },
-            g3: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 'GO4',
-                3 => 'GO4',
-                4 => 'GO4',
-                _ => panic!("invalid number of players"),
-            },
-            y0: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'Y01',
-                4 => 'Y01',
-                _ => panic!("invalid number of players"),
-            },
-            y1: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'Y02',
-                4 => 'Y02',
-                _ => panic!("invalid number of players"),
-            },
-            y2: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'Y03',
-                4 => 'Y03',
-                _ => panic!("invalid number of players"),
-            },
-            y3: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 'Y04',
-                4 => 'Y04',
-                _ => panic!("invalid number of players"),
-            },
-            b0: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 0,
-                4 => 'B01',
-                _ => panic!("invalid number of players"),
-            },
-            b1: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 0,
-                4 => 'B02',
-                _ => panic!("invalid number of players"),
-            },
-            b2: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 0,
-                4 => 'B03',
-                _ => panic!("invalid number of players"),
-            },
-            b3: match number_of_players {
-                0 => panic!("number of players cannot be 0"),
-                1 => panic!("number of players cannot be 1"),
-                2 => 0,
-                3 => 0,
-                4 => 'B04',
-                _ => panic!("invalid number of players"),
-            },
+            // default tokens for red pieces
+            r0: 'R01',
+            r1: 'R02',
+            r2: 'R03',
+            r3: 'R04',
+            // Default tokens for green pieces
+            g0: 'G01',
+            g1: 'G02',
+            g2: 'G03',
+            g3: 'G04',
+            // Default tokens for yellow pieces
+            y0: 'Y01',
+            y1: 'Y02',
+            y2: 'Y03',
+            y3: 'Y04',
+            // Default tokens for blue pieces
+            b0: 'B01',
+            b1: 'B02',
+            b2: 'B03',
+            b3: 'B04',
         }
     }
 
