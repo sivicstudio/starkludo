@@ -5,7 +5,6 @@ use starkludo::models::player::{Player};
 // Can either be Ongoing or Ended
 #[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
 pub enum GameStatus {
-    Initialised, // Game has been created
     Pending, // Waiting for players to join (in multiplayer mode)
     Ongoing, // Game is ongoing
     Ended // Game has ended
@@ -104,7 +103,7 @@ impl GameImpl of GameTrait {
             id,
             created_by,
             is_initialised: true,
-            status: GameStatus::Initialised,
+            status: GameStatus::Pending,
             mode: game_mode,
             ready_to_start: false,
             player_green,
