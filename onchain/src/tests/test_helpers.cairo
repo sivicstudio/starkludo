@@ -437,9 +437,9 @@ mod test_helpers {
         // For 16 pieces, first 4 use active_colors[0] (color 0) and next 4 use active_colors[1] (color 1) 
         let data: Array<u32> = array![
             0, 0, 0, 0,  // Group 1 -> color 0 (Red)
-            0, 0, 0, 0,   // Group 2 -> color 1 (Green)
-            0, 0, 0, 0,   // Group 3 -> color 2 (Yellow)
-            0, 0, 0, 0,   // Group 4 -> color 3 (Blue)
+            0, 0, 0, 0,  // Group 2 -> color 1 (Green)
+            0, 0, 0, 0,  // Group 3 -> color 2 (Yellow)
+            0, 0, 0, 0,  // Group 4 -> color 3 (Blue)
         ];
         let active_colors: Array<u8> = array![0, 3];
         let expected: Array<felt252> = array![
@@ -447,7 +447,7 @@ mod test_helpers {
             default_token(3, 0), default_token(3, 1), default_token(3, 2), default_token(3, 3)
         ];
         let result = pos_reducer(data, active_colors);
-        assert_eq!(result, expected, "pos_reducer should assign tokens for active colors [0,3] for 8 pieces");
+        assert_eq!(result, expected, "pos_reducer should assign tokens for active colors [0,3] for 16 pieces");
     }
 
     // *******************************************
