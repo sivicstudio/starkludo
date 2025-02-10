@@ -689,7 +689,6 @@ pub mod GameActions {
 
         fn get_active_colors(self: @ContractState, game_id: u64) -> Array<u8> {
             let mut world = self.world_default();
-            let game_id = self.get_current_game_id();
             let game: Game = world.read_model(game_id);
             let mut colors: Array<u8> = ArrayTrait::new();
             if game.player_red != 0 {
