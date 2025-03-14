@@ -1,5 +1,5 @@
 use starknet::{ContractAddress, get_block_timestamp, contract_address_const};
-use starkludo::models::player::{Player};
+use starludo::models::player::{Player};
 
 // Represents the status of the game
 // Can either be Ongoing or Ended

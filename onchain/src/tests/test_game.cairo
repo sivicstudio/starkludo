@@ -9,29 +9,29 @@ mod tests {
     };
 
     // Systems import
-    use starkludo::systems::game_actions::{
+    use starludo::systems::game_actions::{
         GameActions, IGameActionsDispatcher, IGameActionsDispatcherTrait,
     };
 
     // Models import
-    use starkludo::models::game::{Game, m_Game, GameCounter, m_GameCounter, PlayerColor};
-    use starkludo::models::player::{
+    use starludo::models::game::{Game, m_Game, GameCounter, m_GameCounter, PlayerColor};
+    use starludo::models::player::{
         Player, m_Player, AddressToUsername, UsernameToAddress, m_AddressToUsername,
         m_UsernameToAddress,
     };
 
-    use starkludo::models::game::{GameMode, GameStatus};
-    use starkludo::errors::Errors;
-    use starkludo::helpers::{find_index, board_to_pos, pos_to_board, contains, pos_reducer};
+    use starludo::models::game::{GameMode, GameStatus};
+    use starludo::errors::Errors;
+    use starludo::helpers::{find_index, board_to_pos, pos_to_board, contains, pos_reducer};
 
-    /// Defines the namespace configuration for the Starkludo game system
+    /// Defines the namespace configuration for the Starludo game system
     /// Returns a NamespaceDef struct containing namespace name and associated resources
     fn namespace_def() -> NamespaceDef {
         // Creates a new NamespaceDef struct with:
-        // Namespace name "starkludo"
+        // Namespace name "starludo"
         // Array of TestResource enums for models, contracts and events
         let ndef = NamespaceDef {
-            namespace: "starkludo",
+            namespace: "starludo",
             resources: [
                 // Register the Game model's class hash
                 TestResource::Model(m_Game::TEST_CLASS_HASH),
@@ -60,12 +60,12 @@ mod tests {
     /// Returns the configuration wrapped in a Span container
     fn contract_defs() -> Span<ContractDef> {
         [
-            // Create a new contract definition for the StarKLudo game's actions
+            // Create a new contract definition for the StarLudo game's actions
             // using the ContractDefTrait builder pattern
-            ContractDefTrait::new(@"starkludo", @"GameActions")
+            ContractDefTrait::new(@"starludo", @"GameActions")
                 // Configure write permissions by specifying which addresses can modify the contract
-                // Here, only the address derived from hashing "starkludo" has write access
-                .with_writer_of([dojo::utils::bytearray_hash(@"starkludo")].span())
+                // Here, only the address derived from hashing "starludo" has write access
+                .with_writer_of([dojo::utils::bytearray_hash(@"starludo")].span())
         ]
             .span() // Convert the array to a Span container for return
     }

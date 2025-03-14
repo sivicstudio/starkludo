@@ -1,0 +1,58 @@
+# The World address to index.
+world_address = "0x043c124f866b8a1867fd3756c6288a7ceff3abb7f1eb24c361f2e8685bef80cd"
+
+# Default RPC URL configuration
+rpc = "https://api.cartridge.gg/x/starknet/sepolia"
+
+# # Database configuration
+# # Optional: If not specified, uses in-memory database
+# db_dir = "/tmp/torii"
+
+# # External URL for GraphQL Playground
+# # Optional: Used in hosted environments
+# # external_url = ""
+
+# Whether to open World Explorer in browser
+# Optional: Defaults to false
+explorer = true
+
+# Server Options
+[server]
+http_addr = "127.0.0.1"
+http_port = 8080
+http_cors_origins = ["*"]
+
+# # Relay Options
+# [relay]
+# port = 9090                   # TCP & UDP Quic transport
+# webrtc_port = 9091            # WebRTC transport
+# websocket_port = 9092         # WebSocket transport
+# # relay.local_key_path = ""   # Optional: Path to identity key file, generated if none.
+# # relay.cert_path = ""        # Optional: Path to certificate file for WebRTC
+
+# # Indexing Options
+# [indexing]
+# events_chunk_size = 1024     # Size of events page to fetch
+# blocks_chunk_size = 10240    # Blocks to process before DB commit
+# index_pending = true         # Enable indexing pending blocks
+# polling_interval = 500       # Polling interval in milliseconds
+# max_concurrent_tasks = 100   # Maximum concurrent indexing tasks
+# index_transactions = false   # Whether to index world transactions
+# contracts = [                # ERC contracts to index
+#     "erc20:0x1234",
+#     "erc721:0x5678"
+# ]
+
+# # Events Options
+# [events]
+# raw = true                  # Whether to index raw events
+# historical = [              # Historical event message tags
+#     "ns-E",
+#     "ns-EH"
+# ]
+
+# Metrics Options
+[metrics]
+metrics = true     # Enable metrics server
+addr = "127.0.0.1" # Metrics server address
+port = 9200        # Metrics server port

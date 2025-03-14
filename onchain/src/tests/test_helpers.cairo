@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test_helpers {
-    use starkludo::helpers::{
+    use starludo::helpers::{
         get_safe_positions, get_markers, get_start_points, find_index, board_to_pos,
         pos_to_board, contains, get_cap_colors, pos_reducer,
     };

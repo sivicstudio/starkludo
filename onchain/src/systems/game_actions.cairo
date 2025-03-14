@@ -1,11 +1,11 @@
-use starkludo::models::{
+use starludo::models::{
     game::{Game, GameCounter, GameTrait, GameMode, GameStatus, PlayerColor},
     player::{Player, PlayerTrait, AddressToUsername, UsernameToAddress},
 };
 use starknet::{ContractAddress, get_block_timestamp};
 
 #[starknet::interface]
-trait IGameActions<T> {
+pub trait IGameActions<T> {
     fn create_new_game(
         ref self: T, game_mode: GameMode, player_color: PlayerColor, number_of_players: u8,
     ) -> u64;
@@ -38,8 +38,8 @@ pub mod GameActions {
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
     use origami_random::dice::{Dice, DiceTrait};
-    use starkludo::errors::Errors;
-    use starkludo::helpers::{
+    use starludo::errors::Errors;
+    use starludo::helpers::{
         get_markers, find_index, pos_to_board, board_to_pos, get_safe_positions, contains,
         pos_reducer, get_cap_colors,
     };
@@ -709,10 +709,10 @@ pub mod GameActions {
 
     #[generate_trait]
     impl InternalImpl of InternalTrait {
-        /// Use the default namespace "starkludo". This function is handy since the ByteArray
+        /// Use the default namespace "starludo". This function is handy since the ByteArray
         /// can't be const.
         fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
-            self.world(@"starkludo")
+            self.world(@"starludo")
         }
     }
 }

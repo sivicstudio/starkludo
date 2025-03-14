@@ -1,8 +1,8 @@
 [package]
 cairo-version = "=2.9.2"
-name = "starkludo"
-version = "0.1.0"
-# edition = "2024_07"
+name = "starludo"
+version = "1.0.0"
+edition = "2024_07"
 
 [cairo]
 sierra-replace-ids = true
@@ -12,12 +12,8 @@ migrate = "sozo build && sozo migrate"                      # scarb run migrate
 spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
 move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
 
-[profile.sepolia]
-
-[profile.mainnet]
-
 [dependencies]
-dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.1.2" }
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.2.1" }
 origami_random = { git = "https://github.com/dojoengine/origami" }
 
 [[target.starknet-contract]]
@@ -26,4 +22,8 @@ build-external-contracts = ["dojo::world::world_contract::world"]
 [dev-dependencies]
 assert_macros = "=2.9.2"
 cairo_test = "=2.9.2"
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.1.2" }
+dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.2.1" }
+
+[profile.sepolia]
+
+[profile.mainnet]

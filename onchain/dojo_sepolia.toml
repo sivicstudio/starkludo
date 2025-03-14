@@ -1,23 +1,22 @@
 
 [world]
-name = "StarkLudo"
+name = "StarLudo"
 description = "Ludo game on Starknet"
-cover_uri = "https://imgur.com/inrCls0"
-icon_uri = "https://imgur.com/qJINYOd"
-website = "https://starkludo.com/"
-seed = "starkludo"
+cover_uri = "https://starludo.gg"
+icon_uri = "https://starludo.gg"
+website = "https://starludo.gg"
+seed = "starludo"
 
 [world.socials]
 x = "https://x.com/LudoOnStarknet"
-discord = ""
-github = "https://github.com/sivicstudio/starkludo"
-telegram = "https://t.me/+hnjQooODZOA2M2Rk"
+discord = "https://starludo.gg"
+github = "https://github.com/sivicstudios/starkludo"
 
 [namespace]
-default = "starkludo"
+default = "starludo"
 
 [writers]
-"starkludo" = ["starkludo-GameActions"]
+"starludo" = ["starludo-GameActions"]
 
 [env]
 # world_address = "0x4e4a8cb96198772361acc30c71d81768bccc6c29501f211b0f0ca7045b194a4"

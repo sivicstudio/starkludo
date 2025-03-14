@@ -1,17 +1,17 @@
-mod systems {
-    mod game_actions;
+pub mod systems {
+    pub mod game_actions;
 }
 
-mod models {
-    mod game;
-    mod player;
+pub mod models {
+    pub mod game;
+    pub mod player;
 }
 
-mod constants;
-mod errors;
-mod helpers;
+pub mod constants;
+pub mod errors;
+pub mod helpers;
 
-mod tests {
-    mod test_game;
-    mod test_helpers;
+pub mod tests {
+    pub mod test_game;
+    pub mod test_helpers;
 }

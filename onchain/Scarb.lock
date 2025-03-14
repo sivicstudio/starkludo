@@ -3,8 +3,8 @@ version = 1
 
 [[package]]
 name = "dojo"
-version = "1.1.2"
-source = "git+https://github.com/dojoengine/dojo?tag=v1.1.2#4f3373ed4f98e1778022ed6f6502ce89f9d29b58"
+version = "1.2.1"
+source = "git+https://github.com/dojoengine/dojo?tag=v1.2.1#3d4b1a3e662f70679813f9fb65c0b5c7fa5d6f0a"
 dependencies = [
  "dojo_plugin",
 ]
@@ -12,7 +12,7 @@ dependencies = [
 [[package]]
 name = "dojo_cairo_test"
 version = "1.0.12"
-source = "git+https://github.com/dojoengine/dojo?tag=v1.1.2#4f3373ed4f98e1778022ed6f6502ce89f9d29b58"
+source = "git+https://github.com/dojoengine/dojo?tag=v1.2.1#3d4b1a3e662f70679813f9fb65c0b5c7fa5d6f0a"
 dependencies = [
  "dojo",
 ]
@@ -20,7 +20,7 @@ dependencies = [
 [[package]]
 name = "dojo_plugin"
 version = "2.9.2"
-source = "git+https://github.com/dojoengine/dojo?tag=v1.1.2#4f3373ed4f98e1778022ed6f6502ce89f9d29b58"
+source = "git+https://github.com/dojoengine/dojo?tag=v1.2.1#3d4b1a3e662f70679813f9fb65c0b5c7fa5d6f0a"
 
 [[package]]
 name = "origami_random"
@@ -28,8 +28,8 @@ version = "1.1.2"
 source = "git+https://github.com/dojoengine/origami#4d6a98e4fee4c71c885a1669660a545b979283c7"
 
 [[package]]
-name = "starkludo"
-version = "0.1.0"
+name = "starludo"
+version = "1.0.0"
 dependencies = [
  "dojo",
  "dojo_cairo_test",
