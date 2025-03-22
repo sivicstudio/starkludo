@@ -283,9 +283,7 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == TWO_PLAYERS) {
                         game.status = GameStatus::Ongoing;
-                        // Update the game state in the world
-                        world.write_model(@game);
-                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() });
                     }
                 },
                 3 => {
@@ -307,9 +305,7 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == THREE_PLAYERS) {
                         game.status = GameStatus::Ongoing;
-                        // Update the game state in the world
-                        world.write_model(@game);
-                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() });
                     }
                 },
                 4 => {
@@ -331,9 +327,7 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == FOUR_PLAYERS) {
                         game.status = GameStatus::Ongoing;
-                        // Update the game state in the world
-                        world.write_model(@game);
-                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() });
                     }
                 },
                 _ => panic!("Invalid number of players"),
