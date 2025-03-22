@@ -57,7 +57,9 @@ pub mod GameActions {
     pub struct PlayerCreated {
         #[key]
         pub username: felt252,
+        #[key]
         pub owner: ContractAddress,
+        pub timestamp: u64,
     }
 
     #[derive(Copy, Drop, Serde)]
@@ -65,7 +67,25 @@ pub mod GameActions {
     pub struct GameStarted {
         #[key]
         pub game_id: u64,
-        pub time_stamp: u64,
+        pub timestamp: u64,
+    }
+
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::event]
+    pub struct PlayerJoined {
+        #[key]
+        pub game_id: u64,
+        #[key]
+        pub username: felt252,
+        pub timestamp: u64,
+    }
+
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::event]
+    pub struct Moved {
+        #[key]
+        pub game_id: u64,
+        pub timestamp: u64,
     }
 
     #[abi(embed_v0)]
@@ -175,21 +195,45 @@ pub mod GameActions {
             match player_color {
                 PlayerColor::Red => {
                     if (game.player_red == 0) {
-                        game.player_red = caller_username
+                        game.player_red = caller_username;
+                        world
+                            .emit_event(
+                                @PlayerJoined {
+                                    game_id,
+                                    username: caller_username,
+                                    timestamp: get_block_timestamp(),
+                                },
+                            )
                     } else {
                         panic!("RED already selected");
                     }
                 },
                 PlayerColor::Blue => {
                     if (game.player_blue == 0) {
-                        game.player_blue = caller_username
+                        game.player_blue = caller_username;
+                        world
+                            .emit_event(
+                                @PlayerJoined {
+                                    game_id,
+                                    username: caller_username,
+                                    timestamp: get_block_timestamp(),
+                                },
+                            )
                     } else {
                         panic!("BLUE already selected");
                     }
                 },
                 PlayerColor::Green => {
                     if (game.player_green == 0) {
-                        game.player_green = caller_username
+                        game.player_green = caller_username;
+                        world
+                            .emit_event(
+                                @PlayerJoined {
+                                    game_id,
+                                    username: caller_username,
+                                    timestamp: get_block_timestamp(),
+                                },
+                            )
                     } else {
                         panic!("GREEN already selected");
                     }
@@ -197,6 +241,14 @@ pub mod GameActions {
                 PlayerColor::Yellow => {
                     if (game.player_yellow == 0) {
                         game.player_yellow = caller_username;
+                        world
+                            .emit_event(
+                                @PlayerJoined {
+                                    game_id,
+                                    username: caller_username,
+                                    timestamp: get_block_timestamp(),
+                                },
+                            )
                     } else {
                         panic!("YELLOW already selected");
                     }
@@ -231,6 +283,9 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == TWO_PLAYERS) {
                         game.status = GameStatus::Ongoing;
+                        // Update the game state in the world
+                        world.write_model(@game);
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
                     }
                 },
                 3 => {
@@ -252,6 +307,9 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == THREE_PLAYERS) {
                         game.status = GameStatus::Ongoing;
+                        // Update the game state in the world
+                        world.write_model(@game);
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
                     }
                 },
                 4 => {
@@ -273,6 +331,9 @@ pub mod GameActions {
                     // Start game once all players have joined
                     if (players_joined_count == FOUR_PLAYERS) {
                         game.status = GameStatus::Ongoing;
+                        // Update the game state in the world
+                        world.write_model(@game);
+                        world.emit_event(@GameStarted { game_id, timestamp: get_block_timestamp() })
                     }
                 },
                 _ => panic!("Invalid number of players"),
@@ -641,7 +702,10 @@ pub mod GameActions {
             world.write_model(@username_to_address);
             world.write_model(@address_to_username);
 
-            world.emit_event(@PlayerCreated { username, owner: caller });
+            world
+                .emit_event(
+                    @PlayerCreated { username, owner: caller, timestamp: get_block_timestamp() },
+                );
         }
 
         fn get_username_from_address(self: @ContractState, address: ContractAddress) -> felt252 {

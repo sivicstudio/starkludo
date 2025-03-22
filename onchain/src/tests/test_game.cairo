@@ -47,6 +47,8 @@ mod tests {
                 TestResource::Event(GameActions::e_GameCreated::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_GameStarted::TEST_CLASS_HASH),
                 TestResource::Event(GameActions::e_PlayerCreated::TEST_CLASS_HASH),
+                TestResource::Event(GameActions::e_PlayerJoined::TEST_CLASS_HASH),
+                TestResource::Event(GameActions::e_Moved::TEST_CLASS_HASH),
             ]
                 .span() // Convert array to a Span type
         };
