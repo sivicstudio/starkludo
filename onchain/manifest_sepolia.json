@@ -1,8 +1,8 @@
 {
   "world": {
     "class_hash": "0x7c9469d45a9cdbab775035afb48e1fa73fb35ab059fcb9dfb0a301aa973e783",
-    "address": "0x43c124f866b8a1867fd3756c6288a7ceff3abb7f1eb24c361f2e8685bef80cd",
-    "seed": "starludo",
+    "address": "0x169ca09cc5b7b4077057d95ef4138ec93b71bfea77ac62b65a9f3717b25343a",
+    "seed": "starludosepolia1",
     "name": "StarLudo",
     "entrypoints": [
       "uuid",
@@ -1312,8 +1312,8 @@
   },
   "contracts": [
     {
-      "address": "0x51603557fdb6b557bcae376c67882008c69a320d58466c35a6226f89afe5030",
-      "class_hash": "0x265a12470b029cecb5e63de6c698ca02ee5abe4d8e28caf98fcc9c502a69f8b",
+      "address": "0x618efc11dd58b97aabe9cd3c272fc64841241480bfa08414dfb069a59faf03c",
+      "class_hash": "0x591171c16903fd3bd7c8bdaefc3fd8b9baccd8f34001992cb2dc3e63809d723",
       "abi": [
         {
           "type": "impl",
@@ -1796,15 +1796,27 @@
     },
     {
       "members": [],
-      "class_hash": "0x5ab815620c6623f2285dfb2908d9d5c1e5300276281b93ae7951f4a25c6df6b",
+      "class_hash": "0x1857b94db937648f32e5fdb1adeb1a7b6f8ad63d66f1a4c01fa5b51fffacabd",
       "tag": "starludo-GameStarted",
       "selector": "0xc6bf7713eef314e5d6c07f652c3d7da2591bd49b11bf5c1ad65ffb414902f9"
     },
     {
       "members": [],
-      "class_hash": "0x28c2d110e9213ef8d3def034f7918fb2cb100987ad9dc7de767b2d0054d1efa",
+      "class_hash": "0x44379c0a2a6db06ebeaac5f6b8e0e97b3c2cf74d09adae78adc3a15f33ad043",
+      "tag": "starludo-Moved",
+      "selector": "0x41e40b4191c02469b1c9680f28282654311b732b27b5beda5fc8d00f9e9aa9c"
+    },
+    {
+      "members": [],
+      "class_hash": "0x42f871684acc526448d07166086f7ca0133e55ae89c2881f0254755416e366c",
       "tag": "starludo-PlayerCreated",
       "selector": "0x4637d8bf0fe3be23a5b1fccd28ceb69f139b8643c29024aa4ce2f53f9f64793"
+    },
+    {
+      "members": [],
+      "class_hash": "0x555a93ba50d19483671fa123ffe9f7891805756c818fa620440a0b92a37951e",
+      "tag": "starludo-PlayerJoined",
+      "selector": "0x4ea00d923d69bd96ec7012ed4e2ff8b3ae3d5ae5db7ab013a8ecc3c1069aa45"
     }
   ],
   "external_contracts": []

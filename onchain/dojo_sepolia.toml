@@ -5,7 +5,7 @@ description = "Ludo game on Starknet"
 cover_uri = "https://starludo.gg"
 icon_uri = "https://starludo.gg"
 website = "https://starludo.gg"
-seed = "starludo"
+seed = "starludosepolia1"
 
 [world.socials]
 x = "https://x.com/LudoOnStarknet"
